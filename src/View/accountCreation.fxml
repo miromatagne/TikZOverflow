@@ -35,7 +35,7 @@
                      <Pane prefHeight="72.0" prefWidth="161.0">
                         <children>
                            <Text layoutX="6.0" layoutY="27.0" text="Email" />
-                           <TextField fx:id="passwordField11" layoutX="6.0" layoutY="36.0" />
+                           <TextField fx:id="emailField" layoutX="6.0" layoutY="36.0" />
                         </children>
                      </Pane>
                      <Pane prefHeight="72.0" prefWidth="161.0">
@@ -47,17 +47,18 @@
                      <Pane prefHeight="72.0" prefWidth="161.0">
                         <children>
                            <Text layoutX="6.0" layoutY="27.0" text="Password confirmation" />
-                           <TextField fx:id="passwordField1" layoutX="6.0" layoutY="36.0" />
+                           <TextField fx:id="passwordConfirmationField" layoutX="6.0" layoutY="36.0" />
                         </children>
                      </Pane>
                </children>
             </VBox>
          </children>
       </HBox>
-         <HBox alignment="CENTER" layoutX="-1.0" layoutY="381.0" prefHeight="72.0" prefWidth="600.0" spacing="20.0">
+         <HBox alignment="CENTER" layoutX="-1.0" layoutY="381.0" prefHeight="72.0" prefWidth="600.0" spacing="5.0">
             <children>
-               <CheckBox fx:id="termsCheckBox" layoutX="90.0" layoutY="4.0" mnemonicParsing="false" text="I accept terms and conditions of use" />
-               <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Create account" />
+               <CheckBox fx:id="termsCheckBox" layoutX="90.0" layoutY="4.0" mnemonicParsing="false" />
+            <Text fx:id="termsAndConditionsText" fill="#0077cc" strokeType="OUTSIDE" strokeWidth="0.0" text="I accept terms and conditions of use." />
+               <Button fx:id="createAccountButton" alignment="CENTER_RIGHT" mnemonicParsing="false" text="Create account" />
             </children>
          </HBox>
       </children>
