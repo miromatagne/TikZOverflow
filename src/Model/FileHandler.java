@@ -1,12 +1,10 @@
 package Model;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.*;
 
 public class FileHandler {
-    String saveUserDirectory = "";
-    String saveUserFormat = ".txt";
+    private String saveUserDirectory = "";
+    private String saveUserFormat = ".txt";
 
     public boolean setupSaveUserDirectory(String saveUserDirectory){
         /*
@@ -103,8 +101,7 @@ public class FileHandler {
          *  Return value : User object (null object if the save file does not exist)
          *  ---------------------------------
          */
-        User user = null;
-        String temp;
+        User user;
         if (saveUserDirectory.equals("")) {
             return null;
         }
