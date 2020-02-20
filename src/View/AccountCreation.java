@@ -31,7 +31,6 @@ public class AccountCreation extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("accountCreation.fxml"));
         stage.setTitle("Account Creation");
         stage.setScene(new Scene(root));
-        //stage.setMaximized(true);
         Text tcu = (Text) root.lookup("#termsAndConditionsText");
         tcu.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override

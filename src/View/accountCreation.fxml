@@ -41,13 +41,13 @@
                      <Pane prefHeight="72.0" prefWidth="161.0">
                         <children>
                            <Text layoutX="6.0" layoutY="27.0" text="Password" />
-                           <TextField fx:id="passwordField" layoutX="6.0" layoutY="36.0" />
+                           <PasswordField fx:id="passwordField" accessibleRole="PASSWORD_FIELD" layoutX="6.0" layoutY="36.0" />
                         </children>
                      </Pane>
                      <Pane prefHeight="72.0" prefWidth="161.0">
                         <children>
                            <Text layoutX="6.0" layoutY="27.0" text="Password confirmation" />
-                           <TextField fx:id="passwordConfirmationField" layoutX="6.0" layoutY="36.0" />
+                           <PasswordField fx:id="passwordConfirmationField" accessibleRole="PASSWORD_FIELD" layoutX="6.0" layoutY="36.0" />
                         </children>
                      </Pane>
                </children>
