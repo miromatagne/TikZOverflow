@@ -6,15 +6,14 @@ public class FileHandler {
     private String saveUserDirectory = "";
     private String saveUserFormat = ".txt";
 
+    /**
+     *  Setups the directory for users' saves.
+     *
+     *  @param  saveUserDirectory   Path to the directory users' saves
+     *  @return                     TRUE if the setup is made successfully
+     *                              FALSE otherwise
+     */
     public boolean setupSaveUserDirectory(String saveUserDirectory){
-        /*
-         *  ------------------------------------------------------
-         *  Parameter : Path to the directory users' saves
-         *  Function : Setup the directory for users' saves
-         *  Return value : - TRUE if the setup is made successfully
-         *                 - FALSE otherwise
-         *  ------------------------------------------------------
-         */
         if (saveUserDirectory == null || saveUserDirectory.equals("")){
             return false;
         }
@@ -23,16 +22,15 @@ public class FileHandler {
         return checkAndCreateSaveDirectory(file);
     }
 
+    /**
+     *  Checks if the directory exists. Otherwise, creates it.
+     *
+     *  @param  file                File created with path to the save_user directory
+     *  @return                     TRUE if the directory already exists OR if the
+     *                              creation of the directory is successful
+     *                              FALSE if the creation of the directory failed
+     */
     private boolean checkAndCreateSaveDirectory(File file){
-        /*
-         *  ------------------------------------------------
-         *  Parameter : File created with path to the save_user directory
-         *  Function : Check if the directory exists. Otherwise, create it.
-         *  Return value : - TRUE if the directory already exists OR if the
-         *                   creation of the directory is successful
-         *                 - FALSE if the creation of the directory failed
-         *  -----------------------------------------------
-         */
         if (file == null){
             return false;
         }
@@ -42,15 +40,14 @@ public class FileHandler {
         return file.mkdir();
     }
 
+    /**
+     *  Creates a save corresponding to given user.
+     *
+     *  @param  user                User to be saved in a text file
+     *  @return                     TRUE if writing successful
+     *                              FALSE otherwise
+     */
     public boolean createUserSave(User user){
-        /*
-         * --------------------------------------------
-         * Parameters : user to be saved in a text file
-         * Function : Create a save corresponding to the user
-         * Return value : TRUE if writing successfully
-         *                FALSE otherwise
-         * --------------------------------------------
-         */
         if (saveUserDirectory.equals("")) {
             return false;
         }
@@ -69,16 +66,15 @@ public class FileHandler {
         return writeInFile(file, text);
     }
 
+    /**
+     *  Writes text into file.
+     *
+     *  @param  file                File written
+     *  @param  text                Content to write
+     *  @return                     TRUE if writing successful
+     *                              FALSE otherwise
+     */
     public boolean writeInFile(File file, String text) {
-        /*
-         * --------------------------------------------
-         * Parameters : file : in which we will write
-         *              text : content to be writed
-         * Function : Write text in a file
-         * Return value : TRUE if writing successfully
-         *                FALSE otherwise
-         * --------------------------------------------
-         */
         try {
             FileWriter fw = new FileWriter(file);
             BufferedWriter bw = new BufferedWriter(fw);
@@ -92,15 +88,13 @@ public class FileHandler {
         return false;
     }
 
+    /**
+     * Creates an user from its username and its save in the save_user directory.
+     *
+     * @param username              Username (identifying users)
+     * @return                      User created. Null if save file does not exist.
+     */
     public User getUserFromSave(String username) {
-        /*
-         *  ---------------------------------
-         *  Parameter : Username, identifying users
-         *  Function : Create a user from its username,
-         *             and indeed, its save in the save_user directory
-         *  Return value : User object (null object if the save file does not exist)
-         *  ---------------------------------
-         */
         if (saveUserDirectory.equals("")) {
             return null;
         }
@@ -118,18 +112,14 @@ public class FileHandler {
         return user;
     }
 
+    /**
+     * Searches the information needed with the given save file flag.
+     *
+     * @param file                  File corresponding to user save file
+     * @param flag                  Flag to extract the information from
+     * @return                      Information needed, or empty string if empty file/flag
+     */
     private String getInformation(File file, String flag){
-        /*
-         * ----------------------------------------------
-         * Parameters : - file, corresponding to the user's save file
-         *              - flag, which give the information needed
-         * Function : Search the information needed with the flag in
-         *            the save file
-         * Return value : - Information needed
-         *                - "" if : empty file;
-         *                          empty field
-         * ----------------------------------------------
-         */
         if (file == null || flag.equals("")){
             return "";
         }
@@ -157,60 +147,51 @@ public class FileHandler {
         return "";
     }
 
+    /**
+     * Fills user last name from file.
+     *
+     * @param file                  File corresponding to user save file
+     * @param user                  User whose last name is set
+     */
     private void setUserLastName(File file, User user) {
-        /*
-         * --------------------------------
-         * Parameters : file, corresponding to the user's save file
-         *              user, object made from the save
-         * Function : Fill the user's last name
-         * Return value : void
-         * --------------------------------
-         */
         String temp;
         if (!(temp = getInformation(file, "last")).equals("")) {
             user.setLastName(temp);
         }
     }
 
+    /**
+     * Fills user first name from file.
+     *
+     * @param file                  File corresponding to user save file
+     * @param user                  User whose first name is set
+     */
     private void setUserFirstName(File file, User user) {
-        /*
-         * --------------------------------
-         * Parameters : file, corresponding to the user's save file
-         *              user, object made from the save
-         * Function : Fill the user's first name
-         * Return value : void
-         * --------------------------------
-         */
         String temp;
         if (!(temp = getInformation(file, "first")).equals("")) {
             user.setFirstName(temp);
         }
     }
 
+    /**
+     * Fills user mail from file.
+     *
+     * @param file                  File corresponding to user save file
+     * @param user                  User whose mail is set
+     */
     private void setUserMail(File file, User user) {
-        /*
-         * --------------------------------
-         * Parameters : file, corresponding to the user's save file
-         *              user, object made from the save
-         * Function : Fill the user's mail
-         * Return value : void
-         * --------------------------------
-         */
         String temp;
         if (!(temp = getInformation(file, "mail")).equals("")) {
             user.setMail(temp);
         }
     }
 
+    /**
+     * Fills user password from file.
+     * @param file                  File corresponding to user save file
+     * @param user                  User whose password is set
+     */
     private void setUserPassword(File file, User user) {
-        /*
-         * --------------------------------
-         * Parameters : file, corresponding to the user's save file
-         *              user, object made from the save
-         * Function : Fill the user's password
-         * Return value : void
-         * --------------------------------
-         */
         String temp;
         if (!(temp = getInformation(file, "password")).equals("")) {
             user.setPassword(temp);
