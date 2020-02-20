@@ -1,12 +1,10 @@
 package Model;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.*;
 
 public class FileHandler {
-    String saveUserDirectory = "";
-    String saveUserFormat = ".txt";
+    private String saveUserDirectory = "";
+    private String saveUserFormat = ".txt";
 
     public boolean setupSaveUserDirectory(String saveUserDirectory){
         /*
@@ -17,7 +15,7 @@ public class FileHandler {
          *                 - FALSE otherwise
          *  ------------------------------------------------------
          */
-        if (saveUserDirectory.equals("")){
+        if (saveUserDirectory == null || saveUserDirectory.equals("")){
             return false;
         }
         this.saveUserDirectory = saveUserDirectory;
@@ -67,7 +65,7 @@ public class FileHandler {
         text+="username:"+user.getUsername()+"\n";
         text+="mail:"+user.getMail()+"\n";
         text+="password:"+user.getPassword()+"\n";
-        //result+="projects:"+user.getLastName()+"\n";
+
         return writeInFile(file, text);
     }
 
@@ -103,8 +101,6 @@ public class FileHandler {
          *  Return value : User object (null object if the save file does not exist)
          *  ---------------------------------
          */
-        User user = null;
-        String temp;
         if (saveUserDirectory.equals("")) {
             return null;
         }
@@ -113,7 +109,7 @@ public class FileHandler {
             //Error, the file does not exist
             return null;
         }
-        user = new User();
+        User user = new User();
         user.setUsername(username);
         setUserLastName(file, user);
         setUserFirstName(file, user);
@@ -122,7 +118,7 @@ public class FileHandler {
         return user;
     }
 
-    public String getInformation(File file, String flag){
+    private String getInformation(File file, String flag){
         /*
          * ----------------------------------------------
          * Parameters : - file, corresponding to the user's save file
@@ -137,16 +133,15 @@ public class FileHandler {
         if (file == null || flag.equals("")){
             return "";
         }
-        String line = "";
-        String[] lineArray;
         if (file.length() == 0){
             System.out.println("File "+file.getPath()+" is empty");
             return "";
         }
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
             while ((line = br.readLine()) != null){
-                lineArray = line.split(":");
+                String[] lineArray = line.split(":");
                 if(lineArray[0].equals(flag)){
                     if (!lineArray[1].equals("")){
                         return lineArray[1];

@@ -9,7 +9,12 @@ class FileHandlerTest {
     @Test
     public void setupSaveUserDirectory(){
         FileHandler fh = new FileHandler();
-        fh.setupSaveUserDirectory("save user");
+        if (fh.setupSaveUserDirectory("save user")){
+            System.out.println("OK");
+        }
+        else {
+            System.out.println("KO");
+        }
         //Check if the directory is made (if not already made)
     }
 
