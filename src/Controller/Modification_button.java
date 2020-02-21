@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Modification_controller implements Initializable {
+public class Modification_button implements Initializable {
 
     //Attribut
     @FXML
