@@ -32,25 +32,6 @@ public class AccountCreation extends Application {
         stage.setTitle("Account Creation");
         stage.setScene(new Scene(root));
         Text tcu = (Text) root.lookup("#termsAndConditionsText");
-
-        /*
-        tcu.setOnMouseClicked(mouseEvent ->  {
-            try {
-                Parent tcuRoot = FXMLLoader.load(getClass().getResource("termsAndConditions.fxml"));
-                stage.setScene(new Scene(tcuRoot));
-                File f = new File("src/View/tcu.txt");
-                BufferedReader br = new BufferedReader(new FileReader(f));
-                String tmp, text = "";
-                while((tmp = br.readLine()) != null) {
-                    text = text.concat(tmp+'\n');
-                }
-                Text tcuFullText = (Text) tcuRoot.lookup("#tcuFullText");
-                tcuFullText.setText(text);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        */
         tcu.setOnMouseClicked(mouseEvent -> {
             try {
                 Parent tcuRoot = FXMLLoader.load(getClass().getResource("termsAndConditions.fxml"));
