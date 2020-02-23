@@ -4,9 +4,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-   <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="393.0" prefWidth="600.0" AnchorPane.bottomAnchor="32.0" VBox.vgrow="ALWAYS" >
-      <Text fx:id="tcuFullText" strokeType="OUTSIDE" strokeWidth="0.0" />
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+   <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="600" prefWidth="600">
+      <Text fx:id="tcuFullText" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="JUSTIFY" wrappingWidth="580" />
    </ScrollPane>
-   <Button layoutX="179.0" layoutY="365.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="600.0" text="Quit" fx:id="quitTcuButton"/>
-</VBox>
+</AnchorPane>
