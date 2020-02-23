@@ -35,7 +35,7 @@
                      <Pane prefHeight="72.0" prefWidth="161.0">
                         <children>
                            <Text layoutX="6.0" layoutY="27.0" text="Email" />
-                           <TextField fx:id="passwordField11" layoutX="6.0" layoutY="36.0" />
+                           <TextField fx:id="emailField" layoutX="6.0" layoutY="36.0" />
                         </children>
                      </Pane>
                      <Pane prefHeight="72.0" prefWidth="161.0">
@@ -56,7 +56,8 @@
       </HBox>
          <HBox alignment="CENTER" layoutX="-1.0" layoutY="381.0" prefHeight="72.0" prefWidth="600.0" spacing="20.0">
             <children>
-               <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#validate_button_action" text="Validate" />
+            <Button fx:id="return_button" mnemonicParsing="false" text="Return" onAction="#return_button_action"  />
+               <Button fx:id="validate_button" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#validate_button_action" text="Validate" />
             </children>
          </HBox>
       </children>
