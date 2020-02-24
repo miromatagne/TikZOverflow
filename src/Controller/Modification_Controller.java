@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.User;
 import View.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,25 +22,39 @@ public class Modification_Controller implements Initializable
 {
 
     //Attribut
-    @FXML
-    private Button validate_button ;
+    @FXML TextField usernameField ;
+    @FXML TextField firstNameField ;
+    @FXML TextField lastNameField ;
+    @FXML TextField emailField ;
+    @FXML TextField passwordField ;
+    @FXML TextField passwordField1 ;
+
+    User user_temp ; //A remplir avec l utilisateur actuel de la session
 
     //Method
-
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
+        //Creation arbitraire d un user afin de tests
+        user_temp = new User();
+        user_temp.setUsername("amissena");
+        user_temp.setFirstName("Alex");
+        user_temp.setLastName("Miss");
+        user_temp.setPassword("Voila");
+        user_temp.setMail("amissena@ulb.ac.be");
 
+        usernameField.setText(user_temp.getUsername());
+        firstNameField.setText(user_temp.getFirstName());
+        lastNameField.setText(user_temp.getLastName());
+        emailField.setText(user_temp.getMail());
+        passwordField.setText(user_temp.getPassword());
+        passwordField1.setText(user_temp.getPassword());
+        emailField.setText(user_temp.getMail());
     }
 
     @FXML
     public void validate_button_action(ActionEvent actionEvent)
     {
-        TextField usernameField =  (TextField)ScreenHandler.get_current_scene().lookup("#usernameField") ;
-        TextField firstNameField = (TextField)ScreenHandler.get_current_scene().lookup("#firstNameField") ;
-        TextField lastNameField = (TextField)ScreenHandler.get_current_scene().lookup("#lastNameField") ;
-        TextField emailField = (TextField)ScreenHandler.get_current_scene().lookup("#emailField") ;
-        TextField passwordField = (TextField)ScreenHandler.get_current_scene().lookup("#passwordField") ;
-        TextField passwordField1 = (TextField)ScreenHandler.get_current_scene().lookup("#passwordField1") ;
 
         System.out.println("Validate button clicked");
 
