@@ -10,6 +10,10 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
 public class MainPage extends Application {
+    /*
+        Handles the visual aspect of the main page, which contains the canvas, the code interface, the configuration
+        panel, as well as several buttons (e.g. profile modification, list of projects).
+     */
 
     public static void main(String[] args){
         Application.launch(MainPage.class, args);
@@ -25,6 +29,5 @@ public class MainPage extends Application {
         primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
 }
