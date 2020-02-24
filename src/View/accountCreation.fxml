@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" minHeight="200" minWidth="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" minHeight="200" minWidth="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AccountCreationController">
       <children>
       <HBox alignment="TOP_CENTER" prefHeight="370.0" prefWidth="600.0">
          <children>
@@ -41,13 +41,13 @@
                      <Pane prefHeight="72.0" prefWidth="161.0">
                         <children>
                            <Text layoutX="6.0" layoutY="27.0" text="Password" />
-                           <PasswordField fx:id="passwordField" accessibleRole="PASSWORD_FIELD" layoutX="6.0" layoutY="36.0" />
+                           <PasswordField fx:id="passwordField" layoutX="6.0" layoutY="36.0" />
                         </children>
                      </Pane>
                      <Pane prefHeight="72.0" prefWidth="161.0">
                         <children>
                            <Text layoutX="6.0" layoutY="27.0" text="Password confirmation" />
-                           <PasswordField fx:id="passwordConfirmationField" accessibleRole="PASSWORD_FIELD" layoutX="6.0" layoutY="36.0" />
+                           <PasswordField fx:id="passwordConfirmationField" layoutX="6.0" layoutY="36.0" />
                         </children>
                      </Pane>
                </children>
@@ -58,7 +58,7 @@
             <children>
                <CheckBox fx:id="termsCheckBox" layoutX="90.0" layoutY="4.0" mnemonicParsing="false" />
             <Text fx:id="termsAndConditionsText" fill="#0077cc" strokeType="OUTSIDE" strokeWidth="0.0" text="I accept terms and conditions of use." />
-               <Button fx:id="createAccountButton" alignment="CENTER_RIGHT" mnemonicParsing="false" text="Create account" />
+               <Button fx:id="createAccountButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#createAccount" text="Create account" />
             </children>
          </HBox>
       </children>

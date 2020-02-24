@@ -7,6 +7,10 @@ public class FieldChecker {
     HashSet<Character> alphaCharCollection = new HashSet<>();
     HashSet<Character> numericCharCollection = new HashSet<>();
 
+    public FieldChecker() {
+        setupFieldChecker();
+    }
+
     /**
      * Setup the FieldChecker object by initializing char collections
      */

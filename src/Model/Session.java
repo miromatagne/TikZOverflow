@@ -7,11 +7,16 @@ public class Session {
     private User currentUser = null;
     private FieldChecker fc = null;
     private FileHandler fh = null;
+    private static Session session = new Session();
 
-
-    public void setup(){
+    /* Singleton class */
+    private Session(){
         fc = new FieldChecker();
         fh = new FileHandler();
+    }
+
+    public static Session getInstance() {
+        return session;
     }
 
     public int openSession(String username, String password){
@@ -48,7 +53,7 @@ public class Session {
                               String mail, String password, String passwordConfirmation){
         if (!fc.isValidAccount(username,firstName, lastName, mail, password, passwordConfirmation))
             return false;
-        if(fh.getUserFromSave(username) != null) //User already exists
+        if(fh.getUserFromSave(username) != null)//User already exists
             return false;
         User newUser = new User();
         newUser.setUsername(username);
@@ -56,7 +61,6 @@ public class Session {
         newUser.setLastName(lastName);
         newUser.setPassword(password);
         newUser.setMail(mail);
-        fh.createUserSave(newUser);
-        return true;
+        return fh.createUserSave(newUser);
     }
 }

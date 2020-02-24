@@ -23,24 +23,21 @@ class SessionTest {
     @Test
     public void userNotRegisteredTest(){
         testSetup();
-        Session session = new Session();
-        int res1 = session.openSession("ftrouuuuil", "123456789");
+        int res1 = Session.getInstance().openSession("ftrouuuuil", "123456789");
         assertEquals(res1, Session.USER_NOT_REGISTERED);
     }
 
     @Test
     public void wrongPasswordTest(){
         testSetup();
-        Session session = new Session();
-        int res2 = session.openSession("ftrouill", "oups");
+        int res2 = Session.getInstance().openSession("ftrouill", "oups");
         assertEquals(res2, Session.INVALID_PASSWORD);
     }
 
     @Test
     public void successfulConnectionTest(){
         testSetup();
-        Session session = new Session();
-        int res3 = session.openSession("ftrouill", "123456789");
+        int res3 = Session.getInstance().openSession("ftrouill", "123456789");
         assertEquals(res3, Session.CONNECTION_ESTABLISHED);
     }
 }
