@@ -50,6 +50,15 @@ public class AccountCreationController implements Initializable {
         if(termsCheckBox.isSelected()) { // account information check is made into session
             Session.getInstance().createAccount(usernameField.getText(), firstNameField.getText(), lastNameField.getText(), emailField.getText(), passwordField.getText(),
                     passwordConfirmationField.getText());
+            //Change Screen to login screen
         }
+    }
+
+    public void termsAndConditionsWindow(){
+        //Create window for tcu
+    }
+
+    public void termsAndConditionsHand(){
+        //Change the cursor to HAND
     }
 }
