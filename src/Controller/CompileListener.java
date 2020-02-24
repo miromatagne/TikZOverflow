@@ -1,23 +1,32 @@
 package Controller;
 
+import Model.FileHandler;
+
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
+import javafx.scene.control.TextArea;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-import java.awt.*;
-import java.io.IOException;
 
 public class CompileListener {
-    //Parent root = FXMLLoader.load(getClass().getResource("MainPage.fxml"));
-    //@FXML private TextArea textArea;
 
-    public CompileListener() throws IOException {
-    }
+    @FXML private TextArea codeInterface;
 
     @FXML
     public void compile(ActionEvent event) {
-        //System.out.println(textArea.getText());
+        /*
+         *  ---------------------------------
+         *  Parameter : mouse event
+         *  Function : compile when user click on the button "compile"
+         *  ---------------------------------
+         */
+        FileHandler fh = new FileHandler();
+        fh.setupSaveProjectDirectory("project");
+        boolean res = fh.createProject(codeInterface.getText());
+
     }
+
 }

@@ -4,6 +4,7 @@ import java.io.*;
 
 public class FileHandler {
     private String saveUserDirectory = "";
+    private String saveProjectDirectory = "";
     private String saveUserFormat = ".txt";
 
     public boolean setupSaveUserDirectory(String saveUserDirectory){
@@ -20,6 +21,23 @@ public class FileHandler {
         }
         this.saveUserDirectory = saveUserDirectory;
         File file = new File(saveUserDirectory);
+        return checkAndCreateSaveDirectory(file);
+    }
+
+    public boolean setupSaveProjectDirectory(String saveProjectDirectory){
+        /*
+         *  ------------------------------------------------------
+         *  Parameter : Path to the directory projects' saves
+         *  Function : Setup the directory for projects' saves
+         *  Return value : - TRUE if the setup is made successfully
+         *                 - FALSE otherwise
+         *  ------------------------------------------------------
+         */
+        if (saveProjectDirectory.equals("")){
+            return false;
+        }
+        this.saveProjectDirectory = saveProjectDirectory;
+        File file = new File(saveProjectDirectory);
         return checkAndCreateSaveDirectory(file);
     }
 
@@ -55,10 +73,6 @@ public class FileHandler {
             return false;
         }
         File file = new File(saveUserDirectory+"/"+user.getUsername()+saveUserFormat);
-        if (file.exists()){
-            //Error, the file does already exist
-            return false;
-        }
         String text="";
         text+="last:"+user.getLastName()+"\n";
         text+="first:"+user.getFirstName()+"\n";
@@ -66,6 +80,22 @@ public class FileHandler {
         text+="mail:"+user.getMail()+"\n";
         text+="password:"+user.getPassword()+"\n";
         //result+="projects:"+user.getLastName()+"\n";
+        return writeInFile(file, text);
+    }
+
+    public boolean createProject(String text){
+        /*
+         * --------------------------------------------
+         * Parameters : code to be saved in a project file
+         * Function : Create or update a save corresponding to the project
+         * Return value : TRUE if writing successfully
+         *                FALSE otherwise
+         * --------------------------------------------
+         */
+        if (saveProjectDirectory.equals("")) {
+            return false;
+        }
+        File file = new File(saveProjectDirectory+"/project1"+saveUserFormat);
         return writeInFile(file, text);
     }
 
