@@ -21,5 +21,8 @@
           <Font name="Consolas" size="18.0" />
         </font>
     </TextArea>
-   <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#compile" text="Compile" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+   <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#compile" style="-fx-focus-traversable: false; -fx-background-color: white; -fx-background-insets: 0;" text="Compile" GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Button>
 </GridPane>
