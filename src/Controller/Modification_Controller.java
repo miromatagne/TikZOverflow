@@ -4,7 +4,6 @@ import Model.User;
 import View.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 
@@ -22,20 +21,20 @@ public class Modification_Controller implements Initializable
 {
 
     //Attribut
-    @FXML TextField usernameField ;
-    @FXML TextField firstNameField ;
-    @FXML TextField lastNameField ;
-    @FXML TextField emailField ;
-    @FXML TextField passwordField ;
-    @FXML TextField passwordField1 ;
+    @FXML private TextField usernameField ; // Attribut @FXML link directly to the .fxml corresponding to this controller class
+    @FXML private TextField firstNameField ;
+    @FXML private TextField lastNameField ;
+    @FXML private TextField emailField ;
+    @FXML private TextField passwordField ;
+    @FXML private TextField passwordField1 ;
 
-    User user_temp ; //A remplir avec l utilisateur actuel de la session
+    private User user_temp ; //Temp user needed to test
 
     //Method
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        //Creation arbitraire d un user afin de tests
+        //Uer created here to test the class but will be the user of the session
         user_temp = new User();
         user_temp.setUsername("amissena");
         user_temp.setFirstName("Alex");

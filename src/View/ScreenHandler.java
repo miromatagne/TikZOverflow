@@ -21,16 +21,15 @@ import java.util.ArrayList;
 public class ScreenHandler extends Application {
     //Attribut
     static ArrayList<Pane> all_scene = new ArrayList<Pane>() ;
-    static AnchorPane root ; //AnchorPane is the basic settings for all Pane
+    static AnchorPane root ;
     static int id_current = 0 ; // Allow to see at which screen/scene number we are
 
-    //Methode
+    //Method
     public static void change_scene(int id_scene)
     {
         if(id_scene != id_current){root.getChildren().remove(get_current_scene());}
         id_current = id_scene ;
         root.getChildren().add(all_scene.get(id_scene));
-        System.out.println(id_current);
     }
 
     public static Pane get_current_scene(){return all_scene.get(id_current);}
@@ -46,7 +45,7 @@ public class ScreenHandler extends Application {
     public void start(Stage stage) throws Exception {
         try
         {
-            root = (AnchorPane) FXMLLoader.load(getClass().getResource("starting_screen.fxml"));
+            root = FXMLLoader.load(getClass().getResource("starting_screen.fxml"));
 
             all_scene.add(FXMLLoader.load(getClass().getResource("principaleScreen.fxml"))) ;
             all_scene.add(FXMLLoader.load(getClass().getResource("accountModification.fxml"))) ;
