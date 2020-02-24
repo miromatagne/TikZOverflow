@@ -5,9 +5,13 @@ public class Session {
     public static final int USER_NOT_REGISTERED = -1;
     public static final int INVALID_PASSWORD = -2;
     private User currentUser = null;
+    private FieldChecker fc = null;
+    private FileHandler fh = null;
 
-    public Session(){
-        this.currentUser = null;
+
+    public void setup(){
+        fc = new FieldChecker();
+        fh = new FileHandler();
     }
 
     public int openSession(String username, String password){
@@ -26,5 +30,33 @@ public class Session {
                 return INVALID_PASSWORD;
             }
         }
+    }
+
+    /**
+     * Create an account (a user save) if all the fields are ok
+     *
+     * @param username                  username
+     * @param firstName                 first name
+     * @param lastName                  last name
+     * @param mail                      mail
+     * @param password                  password
+     * @param passwordConfirmation      passwordConfirmation
+     * @return                          TRUE if creation successful
+     *                                  FALSE otherwise
+     */
+    public boolean createAccount(String username, String firstName, String lastName,
+                              String mail, String password, String passwordConfirmation){
+        if (!fc.isValidAccount(username,firstName, lastName, mail, password, passwordConfirmation))
+            return false;
+        if(fh.getUserFromSave(username) != null) //User already exists
+            return false;
+        User newUser = new User();
+        newUser.setUsername(username);
+        newUser.setFirstName(firstName);
+        newUser.setLastName(lastName);
+        newUser.setPassword(password);
+        newUser.setMail(mail);
+        fh.createUserSave(newUser);
+        return true;
     }
 }

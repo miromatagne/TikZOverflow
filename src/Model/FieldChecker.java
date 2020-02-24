@@ -81,4 +81,22 @@ public class FieldChecker {
         }
         return arobaseCounter == 1;
     }
+    /**
+     * Check if all the fields are ok to create a new account
+     *
+     * @param username                  username
+     * @param firstName                 first name
+     * @param lastName                  last name
+     * @param mail                      mail
+     * @param password                  password
+     * @param passwordConfirmation      passwordConfirmation
+     * @return                          TRUE if creation successful
+     *                                  FALSE otherwise
+     */
+    public boolean isValidAccount(String username, String firstName, String lastName,
+                                   String mail, String password, String passwordConfirmation){
+        if (isValidUsername(username) && isValidName(firstName) && isValidName(lastName) && isValidMail(mail))
+            return password.equals(passwordConfirmation);
+        return false;
+    }
 }

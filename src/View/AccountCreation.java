@@ -16,7 +16,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /*
- This class is for testing interface only and is not meant
+This class is for testing interface only and is not meant
 to be used to load fxml interface
  */
 public class AccountCreation extends Application {
