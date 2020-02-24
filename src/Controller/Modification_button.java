@@ -9,11 +9,9 @@ import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Modification_button implements Initializable {
+public class Modification_button extends Controller_superclass implements Initializable {
 
     //Attribut
-    @FXML
-    private Button modif_button ;
 
    //Method
 
@@ -27,4 +25,8 @@ public class Modification_button implements Initializable {
     {
         ScreenHandler.change_scene(1);
     }
+
+    @Override
+    public void update()
+    {}
 }

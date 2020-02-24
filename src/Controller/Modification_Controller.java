@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
     - Return button : if clicked the user return to the main screen and we notify him if he want to save the new data
       before quitting.
  */
-public class Modification_Controller implements Initializable
+public class Modification_Controller extends Controller_superclass implements Initializable
 {
 
     //Attribut
@@ -42,14 +42,25 @@ public class Modification_Controller implements Initializable
         user_temp.setPassword("Voila");
         user_temp.setMail("amissena@ulb.ac.be");
 
+        update() ;
+    }
+
+    @Override
+    public void update()
+    {
+        update_text_field();
+    }
+
+    public void update_text_field()
+    {
         usernameField.setText(user_temp.getUsername());
         firstNameField.setText(user_temp.getFirstName());
         lastNameField.setText(user_temp.getLastName());
         emailField.setText(user_temp.getMail());
         passwordField.setText(user_temp.getPassword());
-        passwordField1.setText(user_temp.getPassword());
         emailField.setText(user_temp.getMail());
     }
+
 
     @FXML
     public void validate_button_action(ActionEvent actionEvent)
