@@ -3,6 +3,7 @@ package View;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
@@ -25,11 +26,5 @@ public class LoginScreen extends Application {
         primaryStage.show();
     }
 
-    public void login(ActionEvent actionEvent) {
 
-    }
-
-    public void newAccount(MouseEvent mouseEvent) {
-        System.out.println("test");
-    }
 }
