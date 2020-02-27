@@ -16,7 +16,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /*
- This class is for testing interface only and is not meant
+This class is for testing interface only and is not meant
 to be used to load fxml interface
  */
 public class AccountCreation extends Application {
@@ -33,7 +33,8 @@ public class AccountCreation extends Application {
         stage.setTitle("Account Creation");
         stage.setScene(scene_root);
 
-        Text tcu = (Text) root.lookup("#termsAndConditionsText");
+        //New Window for tcu
+       /* Text tcu = (Text) root.lookup("#termsAndConditionsText");
         tcu.setOnMouseClicked(mouseEvent -> {
             try {
                 Parent tcuRoot = FXMLLoader.load(getClass().getResource("termsAndConditions.fxml"));
@@ -58,13 +59,14 @@ public class AccountCreation extends Application {
             }
 
         });
+        //New cursor when mouse is on tcuText
         tcu.setOnMouseMoved(mouseEvent -> {
             try {
                 tcu.setCursor(Cursor.HAND);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        });
+        });*/
         stage.show();
     }
 }

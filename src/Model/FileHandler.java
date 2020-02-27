@@ -5,6 +5,15 @@ import java.io.*;
 public class FileHandler {
     private String saveUserDirectory = "";
     private String saveUserFormat = ".txt";
+    public static String DEFAULT_DIRECTORY  = "save user";
+
+    public FileHandler() {
+        setupSaveUserDirectory(DEFAULT_DIRECTORY);
+    }
+
+    public FileHandler(String saveUserDirectory){
+        setupSaveUserDirectory(saveUserDirectory);
+    }
 
     /**
      *  Setups the directory for users' saves.
