@@ -52,7 +52,7 @@ public class ScreenHandler extends Application {
         {
             root = new AnchorPane();
 
-            FXMLLoader loader_principal = new FXMLLoader(getClass().getResource("principaleScreen.fxml")) ;
+            FXMLLoader loader_principal = new FXMLLoader(getClass().getResource("MainPage.fxml")) ;
             all_scene.add(loader_principal.load()) ;
             all_controller.add(loader_principal.getController());
 
@@ -64,7 +64,8 @@ public class ScreenHandler extends Application {
             change_scene(0);
         }
         catch(Exception expc){ System.out.println("Error loading all screen"); expc.printStackTrace();}
-        stage.setTitle("Home");
+        stage.setTitle("TikZOverflow");
+        stage.setMaximized(true);
         stage.setScene(new Scene(root));
         stage.show();
     }

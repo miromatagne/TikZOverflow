@@ -25,7 +25,7 @@
       <font>
          <Font name="System Bold" size="12.0" />
       </font></Button>
-   <Button mnemonicParsing="false" style="-fx-background-color: white; -fx-border-insets: 0; -fx-focus-traversable: false;" text="Modification">
+   <Button mnemonicParsing="false" onAction="#modif_button_action" style="-fx-background-color: white; -fx-border-insets: 0; -fx-focus-traversable: false;" text="Modification">
       <font>
          <Font name="System Bold" size="12.0" />
       </font>
