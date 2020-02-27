@@ -1,24 +1,51 @@
 package Controller;
 
 
+import Model.Session;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginScreenController implements Initializable {
+    @FXML
+    TextField username;
+    @FXML
+    PasswordField password;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
-    public void login(ActionEvent actionEvent) {
+    public void login(ActionEvent actionEvent) throws IOException {
+        Session session = Session.getInstance();
+        int valid = session.openSession(username.getText(),password.getText());
+        final String redTextFieldStyle = "-fx-text-inner-color: red; -fx-text-box-border: red;";
+        final String defaultTextFieldStyle = "-fx-text-inner-color: black;";
+        if (valid == Session.CONNECTION_ESTABLISHED){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/MainPage.fxml"));
+            Parent root = loader.load();
+            ((Node) actionEvent.getSource()).getScene().setRoot(root);
+        }
+        else if (valid == Session.USER_NOT_REGISTERED){
+            username.setStyle(redTextFieldStyle);
+            System.out.println("ok");
+        }
+        else if(valid == Session.INVALID_PASSWORD){
+            password.setStyle(redTextFieldStyle);
+            username.setStyle(defaultTextFieldStyle);
+
+        }
 
     }
 

@@ -24,8 +24,8 @@ public class CompileListener {
          *  ---------------------------------
          */
         FileHandler fh = new FileHandler();
-        fh.setupSaveProjectDirectory("project");
-        boolean res = fh.createProject(codeInterface.getText());
+       // fh.setupSaveProjectDirectory("project");
+       // boolean res = fh.createProject(codeInterface.getText());
 
     }
 
