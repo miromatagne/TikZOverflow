@@ -41,6 +41,9 @@ public class AccountCreationController implements Initializable {
 
     }
 
+    /**
+     * Checks every input and highlights wrong ones in red when user clicks on "Create".
+     */
     public void createAccount() {
         final String redTextFieldStyle = "-fx-text-inner-color: red; -fx-text-box-border: red;";
         final String defaultTextFieldStyle = "-fx-text-inner-color: black;";
@@ -64,6 +67,10 @@ public class AccountCreationController implements Initializable {
         }
     }
 
+    /**
+     * Creates a pop-up window when user clicks on "I accept terms and conditions".
+     * @throws IOException when terms and conditions file doesn't exist.
+     */
     public void termsAndConditionsWindow() throws IOException {
         //Create window for tcu
         Parent tcuRoot = FXMLLoader.load(getClass().getResource("/View/termsAndConditions.fxml"));
@@ -85,6 +92,9 @@ public class AccountCreationController implements Initializable {
         tcuFullText.wrappingWidthProperty().bind(tcuScene.widthProperty().subtract(20));
     }
 
+    /**
+     * Changes cursor to a hand when users hovers over it.
+     */
     public void termsAndConditionsHand(){
         //Change the cursor to HAND
         termsAndConditionsText.setCursor(Cursor.HAND);
