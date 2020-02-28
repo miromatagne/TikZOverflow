@@ -4,6 +4,7 @@ import Controller.Controller_superclass;
 import Controller.Modification_Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
 import javafx.scene.layout.AnchorPane;
@@ -23,21 +24,20 @@ import java.util.ArrayList;
 
 public class ScreenHandler extends Application {
     //Attribut
-    static ArrayList<Pane> all_scene = new ArrayList<Pane>() ;
+    static ArrayList<Parent> all_scene = new ArrayList<Parent>() ;
     static ArrayList<Controller_superclass> all_controller = new ArrayList<Controller_superclass>() ;
-    static AnchorPane root ;
+    static Scene scene ;
     static int id_current = 0 ; // Allow to see at which screen/scene number we are
 
     //Method
     public static void change_scene(int id_scene)
     {
-        if(id_scene != id_current){root.getChildren().remove(get_current_scene());}
+        scene.setRoot(all_scene.get(id_scene));
         id_current = id_scene ;
-        root.getChildren().add(all_scene.get(id_scene));
         all_controller.get(id_scene).update();
     }
 
-    public static Pane get_current_scene(){return all_scene.get(id_current);}
+    public static Parent get_current_scene(){return all_scene.get(id_current);}
     public static int get_id_current(){return id_current;}
 
 
@@ -50,8 +50,6 @@ public class ScreenHandler extends Application {
     public void start(Stage stage) throws Exception {
         try
         {
-            root = new AnchorPane();
-
             FXMLLoader loader_principal = new FXMLLoader(getClass().getResource("MainPage.fxml")) ;
             all_scene.add(loader_principal.load()) ;
             all_controller.add(loader_principal.getController());
@@ -60,13 +58,12 @@ public class ScreenHandler extends Application {
             all_scene.add(loader_modification.load()) ;
             all_controller.add(loader_modification.getController());
 
-
-            change_scene(0);
+            scene = new Scene(all_scene.get(0));
         }
         catch(Exception expc){ System.out.println("Error loading all screen"); expc.printStackTrace();}
         stage.setTitle("TikZOverflow");
         stage.setMaximized(true);
-        stage.setScene(new Scene(root));
+        stage.setScene(scene);
         stage.show();
     }
 }
