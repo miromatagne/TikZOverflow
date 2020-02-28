@@ -39,7 +39,6 @@ public class LoginScreenController implements Initializable {
         }
         else if (valid == Session.USER_NOT_REGISTERED){
             username.setStyle(redTextFieldStyle);
-            System.out.println("ok");
         }
         else if(valid == Session.INVALID_PASSWORD){
             password.setStyle(redTextFieldStyle);
