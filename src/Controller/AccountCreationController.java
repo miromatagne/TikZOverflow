@@ -3,14 +3,24 @@ package Controller;
 import Model.FieldChecker;
 import Model.Session;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
+import javafx.scene.Cursor;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -54,11 +64,29 @@ public class AccountCreationController implements Initializable {
         }
     }
 
-    public void termsAndConditionsWindow(){
+    public void termsAndConditionsWindow() throws IOException {
         //Create window for tcu
+        Parent tcuRoot = FXMLLoader.load(getClass().getResource("/View/termsAndConditions.fxml"));
+        Scene tcuScene = new Scene(tcuRoot);
+        Stage tcuStage = new Stage();
+        tcuStage.initModality(Modality.APPLICATION_MODAL);
+        tcuStage.setTitle("Terms and conditions");
+
+        File f = new File("src/View/tcu.txt");
+        BufferedReader br = new BufferedReader(new FileReader(f));
+        String tmp, text = "";
+        while ((tmp = br.readLine()) != null) {
+            text = text.concat(tmp + '\n');
+        }
+        tcuStage.setScene(tcuScene);
+        tcuStage.show();
+        Text tcuFullText = (Text) tcuRoot.lookup("#tcuFullText");
+        tcuFullText.setText(text);
+        tcuFullText.wrappingWidthProperty().bind(tcuScene.widthProperty().subtract(20));
     }
 
     public void termsAndConditionsHand(){
         //Change the cursor to HAND
+        termsAndConditionsText.setCursor(Cursor.HAND);
     }
 }
