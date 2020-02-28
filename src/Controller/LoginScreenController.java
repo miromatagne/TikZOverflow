@@ -34,9 +34,6 @@ public class LoginScreenController extends Controller_superclass implements Init
         final String redTextFieldStyle = "-fx-text-inner-color: red; -fx-text-box-border: red;";
         final String defaultTextFieldStyle = "-fx-text-inner-color: black;";
         if (valid == Session.CONNECTION_ESTABLISHED){
-            /*FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/MainPage.fxml"));
-            Parent root = loader.load();
-            ((Node) actionEvent.getSource()).getScene().setRoot(root);*/
             ScreenHandler.change_scene(ScreenHandler.MAINPAGE);
         }
         else if (valid == Session.USER_NOT_REGISTERED){
@@ -51,9 +48,7 @@ public class LoginScreenController extends Controller_superclass implements Init
     }
 
     public void newAccount(MouseEvent mouseEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/accountCreation.fxml"));
-        Parent root = loader.load();
-        ((Node) mouseEvent.getSource()).getScene().setRoot(root);
+        ScreenHandler.change_scene(ScreenHandler.ACCOUNTCREATION);
     }
 
     @Override
