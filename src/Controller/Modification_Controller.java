@@ -59,6 +59,7 @@ public class Modification_Controller extends Controller_superclass implements In
         emailField.setText(user_temp.getMail());
         passwordField.setText(user_temp.getPassword());
         emailField.setText(user_temp.getMail());
+        passwordField1.setText("");
     }
 
 
@@ -74,6 +75,6 @@ public class Modification_Controller extends Controller_superclass implements In
     @FXML
     public void return_button_action(ActionEvent actionEvent)
     {
-        ScreenHandler.change_scene(0);
+        ScreenHandler.change_scene(ScreenHandler.MAINPAGE);
     }
 }

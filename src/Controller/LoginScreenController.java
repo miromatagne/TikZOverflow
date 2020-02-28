@@ -2,6 +2,7 @@ package Controller;
 
 
 import Model.Session;
+import View.ScreenHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoginScreenController implements Initializable {
+public class LoginScreenController extends Controller_superclass implements Initializable {
     @FXML
     TextField username;
     @FXML
@@ -33,9 +34,10 @@ public class LoginScreenController implements Initializable {
         final String redTextFieldStyle = "-fx-text-inner-color: red; -fx-text-box-border: red;";
         final String defaultTextFieldStyle = "-fx-text-inner-color: black;";
         if (valid == Session.CONNECTION_ESTABLISHED){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/MainPage.fxml"));
+            /*FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/MainPage.fxml"));
             Parent root = loader.load();
-            ((Node) actionEvent.getSource()).getScene().setRoot(root);
+            ((Node) actionEvent.getSource()).getScene().setRoot(root);*/
+            ScreenHandler.change_scene(ScreenHandler.MAINPAGE);
         }
         else if (valid == Session.USER_NOT_REGISTERED){
             username.setStyle(redTextFieldStyle);
@@ -52,5 +54,10 @@ public class LoginScreenController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/accountCreation.fxml"));
         Parent root = loader.load();
         ((Node) mouseEvent.getSource()).getScene().setRoot(root);
+    }
+
+    @Override
+    public void update() {
+        //No need to update login Screen
     }
 }

@@ -22,9 +22,16 @@ import java.util.ArrayList;
     -int get_current_id() return the current id of the actual loaded view
  */
 
-public class ScreenHandler extends Application {
+public class ScreenHandler extends Application
+{
+    //Id scene :
+    public static int LOGINSCREEN = 0 ;
+    public static int MAINPAGE = 1 ;
+    public static int ACCOUNTCREATION = 2 ;
+    public static int MODIFICATIONSCREEN = 3 ;
+
     //Attribut
-    static ArrayList<Parent> all_scene = new ArrayList<Parent>() ;
+    private static ArrayList<Parent> all_scene = new ArrayList<Parent>() ;
     static ArrayList<Controller_superclass> all_controller = new ArrayList<Controller_superclass>() ;
     static Scene scene ;
     static int id_current = 0 ; // Allow to see at which screen/scene number we are
@@ -50,15 +57,23 @@ public class ScreenHandler extends Application {
     public void start(Stage stage) throws Exception {
         try
         {
-            FXMLLoader loader_principal = new FXMLLoader(getClass().getResource("MainPage.fxml")) ;
-            all_scene.add(loader_principal.load()) ;
-            all_controller.add(loader_principal.getController());
+            FXMLLoader loader_login_screen = new FXMLLoader(getClass().getResource("LoginScreen.fxml")) ;
+            all_scene.add(loader_login_screen.load()) ;
+            all_controller.add(loader_login_screen.getController());
+
+            FXMLLoader loader_main_page = new FXMLLoader(getClass().getResource("MainPage.fxml")) ;
+            all_scene.add(loader_main_page.load()) ;
+            all_controller.add(loader_main_page.getController());
+
+            FXMLLoader loader_account_creation = new FXMLLoader(getClass().getResource("accountCreation.fxml")) ;
+            all_scene.add(loader_account_creation.load()) ;
+            all_controller.add(loader_account_creation.getController());
 
             FXMLLoader loader_modification = new FXMLLoader(getClass().getResource("accountModification.fxml"));
             all_scene.add(loader_modification.load()) ;
             all_controller.add(loader_modification.getController());
 
-            scene = new Scene(all_scene.get(0));
+            scene = new Scene(all_scene.get(LOGINSCREEN));
         }
         catch(Exception expc){ System.out.println("Error loading all screen"); expc.printStackTrace();}
         stage.setTitle("TikZOverflow");

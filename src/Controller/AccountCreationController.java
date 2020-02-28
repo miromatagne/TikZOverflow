@@ -14,7 +14,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AccountCreationController implements Initializable {
+public class AccountCreationController extends Controller_superclass implements Initializable {
     @FXML
     TextField usernameField, firstNameField, lastNameField, emailField;
     @FXML
@@ -60,5 +60,10 @@ public class AccountCreationController implements Initializable {
 
     public void termsAndConditionsHand(){
         //Change the cursor to HAND
+    }
+
+    @Override
+    public void update() {
+        //No need to update
     }
 }

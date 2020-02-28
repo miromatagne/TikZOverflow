@@ -33,7 +33,7 @@ public class CompileListener extends Controller_superclass {
     @FXML
     public void modif_button_action(javafx.event.ActionEvent actionEvent)
     {
-        ScreenHandler.change_scene(1);
+        ScreenHandler.change_scene(ScreenHandler.MODIFICATIONSCREEN);
     }
 
     @Override
