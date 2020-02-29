@@ -2,6 +2,7 @@ package Controller;
 
 import Model.FieldChecker;
 import Model.Session;
+import View.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -63,7 +64,7 @@ public class AccountCreationController extends Controller_superclass implements 
         if(termsCheckBox.isSelected()) { // account information check is made into session
             Session.getInstance().createAccount(usernameField.getText(), firstNameField.getText(), lastNameField.getText(), emailField.getText(), passwordField.getText(),
                     passwordConfirmationField.getText());
-            //Change Screen to login screen
+            ScreenHandler.change_scene(ScreenHandler.LOGINSCREEN);
         }
     }
 
