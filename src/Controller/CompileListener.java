@@ -16,17 +16,16 @@ public class CompileListener extends Controller_superclass {
 
     @FXML private TextArea codeInterface;
 
+    /**
+     * when we click on "compile" button it send the text to a save file
+     *
+     * @param event catch mouse event
+     */
     @FXML
     public void compile(ActionEvent event) {
-        /*
-         *  ---------------------------------
-         *  Parameter : mouse event
-         *  Function : compile when user click on the button "compile"
-         *  ---------------------------------
-         */
         FileHandler fh = new FileHandler();
-       // fh.setupSaveProjectDirectory("project");
-       // boolean res = fh.createProject(codeInterface.getText());
+        fh.setupSaveProjectDirectory("project");
+        boolean res = fh.createProject(codeInterface.getText());
 
     }
 
