@@ -77,7 +77,10 @@ public class AccountCreationController extends Controller_superclass implements 
         Button button = new Button("OK");
         button.setOnMouseClicked(e -> {
             popupStage.close();
-            if(success) ScreenHandler.change_scene(ScreenHandler.LOGINSCREEN); // We go back to login only if account was created
+            if(success) ScreenHandler.change_scene(ScreenHandler.LOGINSCREEN);
+        });
+        popupStage.setOnCloseRequest(e ->{
+            if(success) ScreenHandler.change_scene(ScreenHandler.LOGINSCREEN);
         });
         vBox.getChildren().add(button);
         Scene scene = new Scene(vBox, width,75);
