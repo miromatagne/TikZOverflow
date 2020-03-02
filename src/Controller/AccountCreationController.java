@@ -3,11 +3,9 @@ package Controller;
 import Model.FieldChecker;
 import Model.Session;
 import View.ScreenHandler;
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
@@ -16,18 +14,17 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Handles account creation interface elements.
+ */
 public class AccountCreationController extends Controller_superclass implements Initializable {
     @FXML
     TextField usernameField, firstNameField, lastNameField, emailField;
@@ -36,12 +33,17 @@ public class AccountCreationController extends Controller_superclass implements 
     @FXML
     CheckBox termsCheckBox;
     @FXML
-    Text termsAndConditionsText;
+    Text termsAndConditionsText, backToLoginText;
     @FXML
     Button createAccountButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
+    @Override
+    public void update() {
 
     }
 
@@ -94,7 +96,6 @@ public class AccountCreationController extends Controller_superclass implements 
         Stage tcuStage = new Stage();
         tcuStage.initModality(Modality.APPLICATION_MODAL);
         tcuStage.setTitle("Terms and conditions");
-
         File f = new File("src/View/tcu.txt");
         BufferedReader br = new BufferedReader(new FileReader(f));
         String tmp, text = "";
@@ -109,17 +110,16 @@ public class AccountCreationController extends Controller_superclass implements 
     }
 
     /**
-     * Changes cursor to a hand when users hovers over it.
+     * Changes cursor to hand when users hovers over terms and conditions text.
      */
     public void termsAndConditionsHand(){
-        termsAndConditionsText.setCursor(Cursor.HAND);
+        changeCursorToHand(termsAndConditionsText);
     }
 
-    @Override
-    public void update() {
-        //No need to update
-    }
-
+    /**
+     * Checks if fields and checkbox are well filled.
+     * @return true if everything is ok, false otherwise
+     */
     private boolean checkFieldsAndCheckbox(){
         FieldChecker fieldChecker = new FieldChecker();
         String defaultTextFieldStyle = "-fx-text-inner-color: black;";
@@ -137,5 +137,27 @@ public class AccountCreationController extends Controller_superclass implements 
         }
         if(!termsCheckBox.isSelected()) termsAndConditionsText.setStyle("-fx-fill: red;"); else termsAndConditionsText.setStyle("-fx-fill: #0077cc");
         return termsCheckBox.isSelected() && fieldChecker.isValidAccount(usernameField.getText(), firstNameField.getText(), lastNameField.getText(), emailField.getText(), passwordField.getText(), passwordConfirmationField.getText());
+    }
+
+    /**
+     * Brings the user back to login screen.
+     */
+    public void backToLoginScreen(){
+        ScreenHandler.change_scene(ScreenHandler.LOGINSCREEN);
+    }
+
+    /**
+     * Changes cursor to hand when user hovers over back to login text.
+     */
+    public void backToLoginTextHand(){
+        changeCursorToHand(backToLoginText);
+    }
+
+    /**
+     * Changes cursor to hand.
+     * @param text when given text is hovered, cursor changes to hand.
+     */
+    private void changeCursorToHand(Text text){
+        text.setCursor(Cursor.HAND);
     }
 }
