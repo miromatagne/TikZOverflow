@@ -5,7 +5,6 @@ import View.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
-import javafx.event.ActionEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -64,7 +63,7 @@ public class Modification_Controller extends Controller_superclass implements In
 
 
     @FXML
-    public void validate_button_action(ActionEvent actionEvent)
+    public void validate_button_action()
     {
 
         System.out.println("Validate button clicked");
@@ -73,7 +72,7 @@ public class Modification_Controller extends Controller_superclass implements In
     }
 
     @FXML
-    public void return_button_action(ActionEvent actionEvent)
+    public void return_button_action()
     {
         ScreenHandler.change_scene(ScreenHandler.MAINPAGE);
     }

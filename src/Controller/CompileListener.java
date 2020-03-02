@@ -3,13 +3,10 @@ package Controller;
 import Model.FileHandler;
 
 
+import Model.Session;
 import View.ScreenHandler;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 
 public class CompileListener extends Controller_superclass {
@@ -19,10 +16,9 @@ public class CompileListener extends Controller_superclass {
     /**
      * when we click on "compile" button it send the text to a save file
      *
-     * @param event catch mouse event
      */
     @FXML
-    public void compile(ActionEvent event) {
+    public void compile() {
         FileHandler fh = new FileHandler();
         fh.setupSaveProjectDirectory("project");
         boolean res = fh.createProject(codeInterface.getText());
@@ -30,7 +26,7 @@ public class CompileListener extends Controller_superclass {
     }
 
     @FXML
-    public void modif_button_action(javafx.event.ActionEvent actionEvent)
+    public void modif_button_action()
     {
         ScreenHandler.change_scene(ScreenHandler.MODIFICATIONSCREEN);
     }
@@ -38,5 +34,13 @@ public class CompileListener extends Controller_superclass {
     @Override
     public void update() {
         //Nothing to update for now but the project it will needs to display will probably be updated
+    }
+
+    /**
+     * Action of "Log Out" button. Logs current user out and goes back to LoginScreen.
+     */
+    public void logout() {
+        Session.getInstance().logOut();
+        ScreenHandler.change_scene(ScreenHandler.LOGINSCREEN);
     }
 }

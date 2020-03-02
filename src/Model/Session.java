@@ -38,6 +38,13 @@ public class Session {
     }
 
     /**
+     * Logs the user out of the session.
+     */
+    public void logOut(){
+        currentUser = null;
+    }
+
+    /**
      * Create an account (a user save) if all the fields are ok
      *
      * @param username                  username
