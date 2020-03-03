@@ -5,6 +5,7 @@ import java.io.*;
 
 public class FileHandler {
     private String saveUserDirectory = "";
+    private String saveProjectDirectory = "";
     private String saveUserFormat = ".txt";
     public static String DEFAULT_DIRECTORY  = "save user";
 
@@ -29,6 +30,23 @@ public class FileHandler {
         }
         this.saveUserDirectory = saveUserDirectory;
         File file = new File(saveUserDirectory);
+        return checkAndCreateSaveDirectory(file);
+    }
+
+    /**
+     *  Setups the directory for projects' saves
+     *
+     * @param saveProjectDirectory  Path to the directory projects's saves
+     * @return                      TRUE if the setup is made successfully
+     *                              FALSE otherwise
+     */
+
+    public boolean setupSaveProjectDirectory(String saveProjectDirectory){
+        if (saveProjectDirectory.equals("")){
+            return false;
+        }
+        this.saveProjectDirectory = saveProjectDirectory;
+        File file = new File(saveProjectDirectory);
         return checkAndCreateSaveDirectory(file);
     }
 
@@ -73,6 +91,22 @@ public class FileHandler {
         text+="mail:"+user.getMail()+"\n";
         text+="password:"+user.getPassword()+"\n";
 
+        return writeInFile(file, text);
+    }
+
+    /**
+     * Create a project save with the code that we compiled
+     *
+     * @param text  text to be saved in a text file
+     * @return      TRUE if writing successfully
+     *              FALSE otherwise
+     */
+
+    public boolean createProject(String text){
+        if (saveProjectDirectory.equals("")) {
+            return false;
+        }
+        File file = new File(saveProjectDirectory+"/project1"+saveUserFormat);
         return writeInFile(file, text);
     }
 

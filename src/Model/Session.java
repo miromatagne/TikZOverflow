@@ -5,8 +5,8 @@ public class Session {
     public static final int USER_NOT_REGISTERED = -1;
     public static final int INVALID_PASSWORD = -2;
     private User currentUser = null;
-    private FieldChecker fc = null;
-    private FileHandler fh = null;
+    private FieldChecker fc;
+    private FileHandler fh;
     private static Session session = new Session();
 
     /* Singleton class */
@@ -40,6 +40,13 @@ public class Session {
     }
 
     /**
+     * Logs the user out of the session.
+     */
+    public void logOut(){
+        currentUser = null;
+    }
+
+    /**
      * Create an account (a user save) if all the fields are ok
      *
      * @param username                  username
@@ -47,14 +54,11 @@ public class Session {
      * @param lastName                  last name
      * @param mail                      mail
      * @param password                  password
-     * @param passwordConfirmation      passwordConfirmation
      * @return                          TRUE if creation successful
      *                                  FALSE otherwise
      */
     public boolean createAccount(String username, String firstName, String lastName,
-                              String mail, String password, String passwordConfirmation){
-        if (!fc.isValidAccount(username,firstName, lastName, mail, password, passwordConfirmation))
-            return false;
+                                 String mail, String password){
         if(fh.getUserFromSave(username) != null)//User already exists
             return false;
         User newUser = new User();
