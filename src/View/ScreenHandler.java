@@ -1,6 +1,6 @@
 package View;
 
-import Controller.controllerSuperclass;
+import Controller.ControllerSuperclass;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,7 +28,7 @@ public class ScreenHandler extends Application
 
     //Attribut
     private static ArrayList<Parent> screens = new ArrayList<>() ;
-    static ArrayList<controllerSuperclass> controllers = new ArrayList<>() ;
+    static ArrayList<ControllerSuperclass> controllers = new ArrayList<>() ;
     static Scene scene ;
     static int idCurrent = 0 ; // Allow to see at which screen/scene number we are
 

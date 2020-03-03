@@ -1,6 +1,6 @@
 package Controller;
 
-abstract public class Controller_superclass {
+abstract public class ControllerSuperclass {
 
     abstract public void update();
 }

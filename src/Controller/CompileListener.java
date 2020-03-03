@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
 
-public class CompileListener extends controllerSuperclass {
+public class CompileListener extends ControllerSuperclass {
 
     @FXML private TextArea codeInterface;
 
@@ -41,6 +41,6 @@ public class CompileListener extends controllerSuperclass {
      */
     public void logout() {
         Session.getInstance().logOut();
-        ScreenHandler.change_scene(ScreenHandler.LOGINSCREEN);
+        ScreenHandler.changeScene(ScreenHandler.LOGINSCREEN);
     }
 }

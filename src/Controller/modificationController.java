@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
     - Return button : if clicked the user return to the main screen and we notify him if he want to save the new data
       before quitting.
  */
-public class modificationController extends controllerSuperclass implements Initializable
+public class modificationController extends ControllerSuperclass implements Initializable
 {
 
     //Attribut

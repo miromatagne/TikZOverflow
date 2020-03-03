@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 /**
  * Handles account creation interface elements.
  */
-public class AccountCreationController extends Controller_superclass implements Initializable {
+public class AccountCreationController extends ControllerSuperclass implements Initializable {
     @FXML
     TextField usernameField, firstNameField, lastNameField, emailField;
     @FXML
@@ -77,10 +77,10 @@ public class AccountCreationController extends Controller_superclass implements 
         Button button = new Button("OK");
         button.setOnMouseClicked(e -> {
             popupStage.close();
-            if(success) ScreenHandler.change_scene(ScreenHandler.LOGINSCREEN);
+            if(success) ScreenHandler.changeScene(ScreenHandler.LOGINSCREEN);
         });
         popupStage.setOnCloseRequest(e ->{
-            if(success) ScreenHandler.change_scene(ScreenHandler.LOGINSCREEN);
+            if(success) ScreenHandler.changeScene(ScreenHandler.LOGINSCREEN);
         });
         vBox.getChildren().add(button);
         Scene scene = new Scene(vBox, width,75);
@@ -146,7 +146,7 @@ public class AccountCreationController extends Controller_superclass implements 
      * Brings the user back to login screen.
      */
     public void backToLoginScreen(){
-        ScreenHandler.change_scene(ScreenHandler.LOGINSCREEN);
+        ScreenHandler.changeScene(ScreenHandler.LOGINSCREEN);
     }
 
     /**
