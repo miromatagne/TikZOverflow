@@ -19,6 +19,8 @@ public class Session {
         return session;
     }
 
+    public User getUser(){return currentUser;}
+
     public int openSession(String username, String password){
         FileHandler fh = new FileHandler();
         fh.setupSaveUserDirectory("save user");

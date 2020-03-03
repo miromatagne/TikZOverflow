@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AccountCreationController extends Controller_superclass implements Initializable {
+public class AccountCreationController extends controllerSuperclass implements Initializable {
     @FXML
     TextField usernameField, firstNameField, lastNameField, emailField;
     @FXML

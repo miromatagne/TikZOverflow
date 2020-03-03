@@ -6,13 +6,10 @@ import Model.FileHandler;
 import View.ScreenHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 
-public class CompileListener extends Controller_superclass {
+public class CompileListener extends controllerSuperclass {
 
     @FXML private TextArea codeInterface;
 
@@ -33,7 +30,7 @@ public class CompileListener extends Controller_superclass {
     @FXML
     public void modif_button_action(javafx.event.ActionEvent actionEvent)
     {
-        ScreenHandler.change_scene(ScreenHandler.MODIFICATIONSCREEN);
+        ScreenHandler.changeScene(ScreenHandler.MODIFICATIONSCREEN);
     }
 
     @Override

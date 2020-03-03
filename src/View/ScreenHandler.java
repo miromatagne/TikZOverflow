@@ -1,14 +1,10 @@
 package View;
 
-import Controller.Controller_superclass;
-import Controller.Modification_Controller;
+import Controller.controllerSuperclass;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Control;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -31,22 +27,18 @@ public class ScreenHandler extends Application
     public static int MODIFICATIONSCREEN = 3 ;
 
     //Attribut
-    private static ArrayList<Parent> all_scene = new ArrayList<Parent>() ;
-    static ArrayList<Controller_superclass> all_controller = new ArrayList<Controller_superclass>() ;
+    private static ArrayList<Parent> screens = new ArrayList<>() ;
+    static ArrayList<controllerSuperclass> controllers = new ArrayList<>() ;
     static Scene scene ;
-    static int id_current = 0 ; // Allow to see at which screen/scene number we are
+    static int idCurrent = 0 ; // Allow to see at which screen/scene number we are
 
     //Method
-    public static void change_scene(int id_scene)
+    public static void changeScene(int id_scene)
     {
-        scene.setRoot(all_scene.get(id_scene));
-        id_current = id_scene ;
-        all_controller.get(id_scene).update();
+        scene.setRoot(screens.get(id_scene));
+        idCurrent = id_scene ;
+        controllers.get(id_scene).update();
     }
-
-    public static Parent get_current_scene(){return all_scene.get(id_current);}
-    public static int get_id_current(){return id_current;}
-
 
     public static void main(String[] args) {
         try{ launch(args);}
@@ -58,22 +50,22 @@ public class ScreenHandler extends Application
         try
         {
             FXMLLoader loader_login_screen = new FXMLLoader(getClass().getResource("LoginScreen.fxml")) ;
-            all_scene.add(loader_login_screen.load()) ;
-            all_controller.add(loader_login_screen.getController());
+            screens.add(loader_login_screen.load()) ;
+            controllers.add(loader_login_screen.getController());
 
             FXMLLoader loader_main_page = new FXMLLoader(getClass().getResource("MainPage.fxml")) ;
-            all_scene.add(loader_main_page.load()) ;
-            all_controller.add(loader_main_page.getController());
+            screens.add(loader_main_page.load()) ;
+            controllers.add(loader_main_page.getController());
 
             FXMLLoader loader_account_creation = new FXMLLoader(getClass().getResource("accountCreation.fxml")) ;
-            all_scene.add(loader_account_creation.load()) ;
-            all_controller.add(loader_account_creation.getController());
+            screens.add(loader_account_creation.load()) ;
+            controllers.add(loader_account_creation.getController());
 
             FXMLLoader loader_modification = new FXMLLoader(getClass().getResource("accountModification.fxml"));
-            all_scene.add(loader_modification.load()) ;
-            all_controller.add(loader_modification.getController());
+            screens.add(loader_modification.load()) ;
+            controllers.add(loader_modification.getController());
 
-            scene = new Scene(all_scene.get(LOGINSCREEN));
+            scene = new Scene(screens.get(LOGINSCREEN));
         }
         catch(Exception expc){ System.out.println("Error loading all screen"); expc.printStackTrace();}
         stage.setTitle("TikZOverflow");

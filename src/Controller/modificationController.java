@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Session;
 import Model.User;
 import View.ScreenHandler;
 import javafx.fxml.FXML;
@@ -17,7 +18,7 @@ import java.util.ResourceBundle;
     - Return button : if clicked the user return to the main screen and we notify him if he want to save the new data
       before quitting.
  */
-public class Modification_Controller extends Controller_superclass implements Initializable
+public class modificationController extends controllerSuperclass implements Initializable
 {
 
     //Attribut
@@ -28,37 +29,25 @@ public class Modification_Controller extends Controller_superclass implements In
     @FXML private TextField passwordField ;
     @FXML private TextField passwordField1 ;
 
-    private User user_temp ; //Temp user needed to test
+    private User userCurrent ;
 
     //Method
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        //Uer created here to test the class but will be the user of the session
-        user_temp = new User();
-        user_temp.setUsername("amissena");
-        user_temp.setFirstName("Alex");
-        user_temp.setLastName("Miss");
-        user_temp.setPassword("Voila");
-        user_temp.setMail("amissena@ulb.ac.be");
-
-        update() ;
+        userCurrent = new User() ;
     }
 
     @Override
     public void update()
     {
-        update_text_field();
-    }
-
-    public void update_text_field()
-    {
-        usernameField.setText(user_temp.getUsername());
-        firstNameField.setText(user_temp.getFirstName());
-        lastNameField.setText(user_temp.getLastName());
-        emailField.setText(user_temp.getMail());
-        passwordField.setText(user_temp.getPassword());
-        emailField.setText(user_temp.getMail());
+        userCurrent = Session.getInstance().getUser();
+        usernameField.setText(userCurrent.getUsername());
+        firstNameField.setText(userCurrent.getFirstName());
+        lastNameField.setText(userCurrent.getLastName());
+        emailField.setText(userCurrent.getMail());
+        passwordField.setText(userCurrent.getPassword());
+        emailField.setText(userCurrent.getMail());
         passwordField1.setText("");
     }
 
@@ -75,6 +64,6 @@ public class Modification_Controller extends Controller_superclass implements In
     @FXML
     public void return_button_action(ActionEvent actionEvent)
     {
-        ScreenHandler.change_scene(ScreenHandler.MAINPAGE);
+        ScreenHandler.changeScene(ScreenHandler.MAINPAGE);
     }
 }
