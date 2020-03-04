@@ -79,8 +79,12 @@ public class ModificationController extends ControllerSuperclass implements Init
         userCurrent.setPassword(passwordField.getText());
         Session.getInstance().setUser(userCurrent);
 
-        FileHandler handler = new FileHandler();
-        if( !handler.saveUser(userCurrent)){System.out.println("Error in saving the user");}
+        if(validateInformation) {
+            FileHandler handler = new FileHandler();
+            if (!handler.saveUser(userCurrent)) {
+                System.out.println("Error in saving the user");
+            }
+        }
     }
 
     @FXML
