@@ -9,13 +9,10 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-/*Class used to contain all the FXML in an ArrayList in order to switch between screen using a static method.
-    -void main() for the application that launch the start method
-    -void start(Stage stage) will initialize all the object from the class and fill the ArrayList of FXML view
-    -void change_scene(int) static method that takes an int which will be the id of the new screen loaded. Static because
-     it will be called by other objects such as button controller
-    -Pane get_current_scene() return the actual scene which is a Pane object
-    -int get_current_id() return the current id of the actual loaded view
+/*
+Class used to contain all the FXML in an ArrayList in order to switch between screen using a static method.
+All the Controller linked to the screens will be contain in a Array of Controller and their update method will be
+called whenever we change screen.
  */
 
 public class ScreenHandler extends Application
@@ -32,12 +29,35 @@ public class ScreenHandler extends Application
     static Scene scene ;
     static int idCurrent = 0 ; // Allow to see at which screen/scene number we are
 
+    /**
+     * changeScene is a static function and will be used by other object such as Controller in order to change the root
+     * the active scene.
+     *
+     * @param idScene  this is an int and it is used to choose which screen will be displayed.(Refer to the list above)
+     */
     //Method
-    public static void changeScene(int id_scene)
+    public static void changeScene(int idScene)
     {
-        scene.setRoot(screens.get(id_scene));
-        idCurrent = id_scene ;
-        controllers.get(id_scene).update();
+        scene.setRoot(screens.get(idScene));
+        idCurrent = idScene ;
+        controllers.get(idScene).update();
+    }
+
+    /**
+     *Method used to add a fxml file to the ArrayList and add the Controller link to that fxml in the ArrayList of
+     * Controller.
+     *
+     * @param scenePath  String containing the path of the fxml file that will be loaded.
+     */
+
+    private void add_scene(String scenePath)
+    {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(scenePath));
+            screens.add(loader.load());
+            controllers.add(loader.getController());
+        }
+        catch(Exception expc){System.out.println("Error loading all screen" + scenePath); expc.printStackTrace();}
     }
 
     public static void main(String[] args) {
@@ -49,21 +69,10 @@ public class ScreenHandler extends Application
     public void start(Stage stage) throws Exception {
         try
         {
-            FXMLLoader loader_login_screen = new FXMLLoader(getClass().getResource("LoginScreen.fxml")) ;
-            screens.add(loader_login_screen.load()) ;
-            controllers.add(loader_login_screen.getController());
-
-            FXMLLoader loader_main_page = new FXMLLoader(getClass().getResource("MainPage.fxml")) ;
-            screens.add(loader_main_page.load()) ;
-            controllers.add(loader_main_page.getController());
-
-            FXMLLoader loader_account_creation = new FXMLLoader(getClass().getResource("accountCreation.fxml")) ;
-            screens.add(loader_account_creation.load()) ;
-            controllers.add(loader_account_creation.getController());
-
-            FXMLLoader loader_modification = new FXMLLoader(getClass().getResource("accountModification.fxml"));
-            screens.add(loader_modification.load()) ;
-            controllers.add(loader_modification.getController());
+            add_scene("LoginScreen.fxml");
+            add_scene("MainPage.fxml");
+            add_scene("accountCreation.fxml");
+            add_scene("accountModification.fxml");
 
             scene = new Scene(screens.get(LOGINSCREEN));
         }

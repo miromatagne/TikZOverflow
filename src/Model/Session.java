@@ -20,6 +20,7 @@ public class Session {
     }
 
     public User getUser(){return currentUser;}
+    public void setUser(User newUser){ currentUser = newUser;}
 
     public int openSession(String username, String password){
         FileHandler fh = new FileHandler();

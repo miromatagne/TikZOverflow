@@ -95,6 +95,31 @@ public class FileHandler {
     }
 
     /**
+     * @param user  user contain all the new data to be saved
+     * @return      TRUE if the save was successfull
+     *              FALSE otherwise
+     */
+    public boolean saveUser(User user)
+    {
+        if (saveUserDirectory.equals("")) {
+            return false;
+        }
+
+        File file = new File(saveUserDirectory+"/"+user.getUsername()+saveUserFormat);
+        if (file.exists()) {
+            String text = "";
+            text += "last:" + user.getLastName() + "\n";
+            text += "first:" + user.getFirstName() + "\n";
+            text += "username:" + user.getUsername() + "\n";
+            text += "mail:" + user.getMail() + "\n";
+            text += "password:" + user.getPassword() + "\n";
+
+            return writeInFile(file, text);
+        }
+        return false ;
+    }
+
+    /**
      * Create a project save with the code that we compiled
      *
      * @param text  text to be saved in a text file
