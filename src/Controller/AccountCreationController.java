@@ -99,7 +99,7 @@ public class AccountCreationController extends ControllerSuperclass implements I
         Stage tcuStage = new Stage();
         tcuStage.initModality(Modality.APPLICATION_MODAL);
         tcuStage.setTitle("Terms and conditions");
-        File f = new File("src/View/tcu.txt");
+        File f = new File("tcu.txt");
         BufferedReader br = new BufferedReader(new FileReader(f));
         String tmp, text = "";
         while ((tmp = br.readLine()) != null) {
