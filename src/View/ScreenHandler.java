@@ -1,14 +1,10 @@
 package View;
 
 import Controller.Controller_superclass;
-import Controller.Modification_Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Control;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -31,8 +27,8 @@ public class ScreenHandler extends Application
     public static int MODIFICATIONSCREEN = 3 ;
 
     //Attribut
-    private static ArrayList<Parent> all_scene = new ArrayList<Parent>() ;
-    static ArrayList<Controller_superclass> all_controller = new ArrayList<Controller_superclass>() ;
+    private static ArrayList<Parent> all_scene = new ArrayList<>() ;
+    static ArrayList<Controller_superclass> all_controller = new ArrayList<>() ;
     static Scene scene ;
     static int id_current = 0 ; // Allow to see at which screen/scene number we are
 
@@ -54,7 +50,7 @@ public class ScreenHandler extends Application
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         try
         {
             FXMLLoader loader_login_screen = new FXMLLoader(getClass().getResource("LoginScreen.fxml")) ;
