@@ -10,29 +10,29 @@
     <HBox alignment="TOP_CENTER" prefHeight="370.0" prefWidth="600.0">
         <VBox alignment="CENTER_LEFT" prefHeight="239.0" prefWidth="170.0">
             <Pane prefHeight="72.0" prefWidth="161.0">
-                <Text layoutX="6.0" layoutY="27.0" text="Username"/>
+                <Text layoutX="6.0" layoutY="27.0" text="Username" fill="WHITE"/>
                 <TextField fx:id="usernameField" editable="false" layoutX="6.0" layoutY="36.0"/>
             </Pane>
             <Pane prefHeight="72.0" prefWidth="147.0">
-                <Text layoutX="6.0" layoutY="27.0" text="First name"/>
+                <Text layoutX="6.0" layoutY="27.0" text="First name" fill="WHITE"/>
                 <TextField fx:id="firstNameField" layoutX="6.0" layoutY="36.0"/>
             </Pane>
             <Pane prefHeight="72.0" prefWidth="161.0">
-                <Text layoutX="6.0" layoutY="27.0" text="Last name"/>
+                <Text layoutX="6.0" layoutY="27.0" text="Last name" fill="WHITE"/>
                 <TextField fx:id="lastNameField" layoutX="6.0" layoutY="36.0"/>
             </Pane>
         </VBox>
         <VBox alignment="CENTER_RIGHT" prefHeight="370.0" prefWidth="180.0">
             <Pane prefHeight="72.0" prefWidth="161.0">
-                <Text layoutX="6.0" layoutY="27.0" text="Email"/>
+                <Text layoutX="6.0" layoutY="27.0" text="Email" fill="WHITE"/>
                 <TextField fx:id="emailField" layoutX="6.0" layoutY="36.0"/>
             </Pane>
             <Pane prefHeight="72.0" prefWidth="161.0">
-                <Text layoutX="6.0" layoutY="27.0" text="New Password"/>
+                <Text layoutX="6.0" layoutY="27.0" text="New Password" fill="WHITE"/>
                 <TextField fx:id="passwordField" layoutX="6.0" layoutY="36.0"/>
             </Pane>
             <Pane prefHeight="72.0" prefWidth="161.0">
-                <Text layoutX="6.0" layoutY="27.0" text="Password confirmation"/>
+                <Text layoutX="6.0" layoutY="27.0" text="Password confirmation" fill="WHITE"/>
                 <TextField fx:id="passwordConfirmationField" layoutX="6.0" layoutY="36.0"/>
             </Pane>
         </VBox>
