@@ -4,61 +4,42 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" minHeight="200" minWidth="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ModificationController">
-      <children>
-      <HBox alignment="TOP_CENTER" prefHeight="370.0" prefWidth="600.0">
-         <children>
-            <VBox alignment="CENTER_LEFT" prefHeight="239.0" prefWidth="170.0">
-               <children>
-                     <Pane prefHeight="72.0" prefWidth="161.0">
-                        <children>
-                           <Text layoutX="6.0" layoutY="27.0" text="Username" />
-                           <TextField fx:id="usernameField" editable="false" layoutX="6.0" layoutY="36.0" />
-                        </children>
-                     </Pane>
-                     <Pane prefHeight="72.0" prefWidth="147.0">
-                        <children>
-                           <Text layoutX="6.0" layoutY="27.0" text="First name" />
-                           <TextField fx:id="firstNameField" layoutX="6.0" layoutY="36.0" />
-                        </children>
-                     </Pane>
-                     <Pane prefHeight="72.0" prefWidth="161.0">
-                        <children>
-                           <Text layoutX="6.0" layoutY="27.0" text="Last name" />
-                           <TextField fx:id="lastNameField" layoutX="6.0" layoutY="36.0" />
-                        </children>
-                     </Pane>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER_RIGHT" prefHeight="370.0" prefWidth="180.0">
-               <children>
-                     <Pane prefHeight="72.0" prefWidth="161.0">
-                        <children>
-                           <Text layoutX="6.0" layoutY="27.0" text="Email" />
-                           <TextField fx:id="emailField" layoutX="6.0" layoutY="36.0" />
-                        </children>
-                     </Pane>
-                     <Pane prefHeight="72.0" prefWidth="161.0">
-                        <children>
-                           <Text layoutX="6.0" layoutY="27.0" text="New Password" />
-                           <TextField fx:id="passwordField" layoutX="6.0" layoutY="36.0" />
-                        </children>
-                     </Pane>
-                     <Pane prefHeight="72.0" prefWidth="161.0">
-                        <children>
-                           <Text layoutX="6.0" layoutY="27.0" text="Password confirmation" />
-                           <TextField fx:id="passwordConfirmationField" layoutX="6.0" layoutY="36.0" />
-                        </children>
-                     </Pane>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-         <HBox alignment="CENTER" layoutX="-1.0" layoutY="381.0" prefHeight="72.0" prefWidth="600.0" spacing="20.0">
-            <children>
-            <Button fx:id="return_button" mnemonicParsing="false" text="Return" onAction="#return_button_action"  />
-               <Button fx:id="validate_button" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#validate_button_action" text="Validate" />
-            </children>
-         </HBox>
-      </children>
+<VBox alignment="CENTER" style="-fx-background-color: #4D4D4D;" minHeight="200" minWidth="500.0" prefWidth="600.0"
+      xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Controller.ModificationController">
+    <HBox alignment="TOP_CENTER" prefHeight="370.0" prefWidth="600.0">
+        <VBox alignment="CENTER_LEFT" prefHeight="239.0" prefWidth="170.0">
+            <Pane prefHeight="72.0" prefWidth="161.0">
+                <Text layoutX="6.0" layoutY="27.0" text="Username"/>
+                <TextField fx:id="usernameField" editable="false" layoutX="6.0" layoutY="36.0"/>
+            </Pane>
+            <Pane prefHeight="72.0" prefWidth="147.0">
+                <Text layoutX="6.0" layoutY="27.0" text="First name"/>
+                <TextField fx:id="firstNameField" layoutX="6.0" layoutY="36.0"/>
+            </Pane>
+            <Pane prefHeight="72.0" prefWidth="161.0">
+                <Text layoutX="6.0" layoutY="27.0" text="Last name"/>
+                <TextField fx:id="lastNameField" layoutX="6.0" layoutY="36.0"/>
+            </Pane>
+        </VBox>
+        <VBox alignment="CENTER_RIGHT" prefHeight="370.0" prefWidth="180.0">
+            <Pane prefHeight="72.0" prefWidth="161.0">
+                <Text layoutX="6.0" layoutY="27.0" text="Email"/>
+                <TextField fx:id="emailField" layoutX="6.0" layoutY="36.0"/>
+            </Pane>
+            <Pane prefHeight="72.0" prefWidth="161.0">
+                <Text layoutX="6.0" layoutY="27.0" text="New Password"/>
+                <TextField fx:id="passwordField" layoutX="6.0" layoutY="36.0"/>
+            </Pane>
+            <Pane prefHeight="72.0" prefWidth="161.0">
+                <Text layoutX="6.0" layoutY="27.0" text="Password confirmation"/>
+                <TextField fx:id="passwordConfirmationField" layoutX="6.0" layoutY="36.0"/>
+            </Pane>
+        </VBox>
+    </HBox>
+    <HBox alignment="CENTER" layoutX="-1.0" layoutY="381.0" prefHeight="72.0" prefWidth="600.0" spacing="20.0">
+        <Button fx:id="return_button" mnemonicParsing="false" text="Return" onAction="#return_button_action"/>
+        <Button fx:id="validate_button" alignment="CENTER_RIGHT" mnemonicParsing="false"
+                onAction="#validate_button_action" text="Validate"/>
+    </HBox>
 </VBox>
