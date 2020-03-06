@@ -8,7 +8,7 @@ public class Session {
 
 
     /**
-     *  Allows a user to log in
+     *  Allows a user to log in to the application
      *
      *  @param  username         Name of the user
      *  @param  password         Password of the user
