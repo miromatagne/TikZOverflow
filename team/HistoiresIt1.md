@@ -1,5 +1,5 @@
 # Histoires pour l'itération 1
-Pour l'itération 1, le groupe 8 devra réaliser l'histoire 1 complètement et une partie de l'histoire 4, ce qui correspond à un total de 28 points pour tout le groupe.
+Pour l'itération 1, le groupe 08 devra réaliser l'histoire 1 et une partie de l'histoire 4. L'histoire 4 a donc été scindée en les histoires 16 et 17 et l'histoire 16 sera réalisée pour l'itération 1. Ces deux histoires correspond à un total de 28 points pour tout le groupe.
 
 ## Histoire 1
 
@@ -17,20 +17,22 @@ Un seul utilisateur peut être connecté à tout moment.
 
 ### Introduit dans l'itération : 1
 
-### Etat : 
+### Etat : Complétée
 
 ### Points :
 Afin de déterminer le nombre de points de cette histoire, le groupe l'a scindée en les tâches suivantes :
 
 - Interface : 5 points
-- Interface login : 7 points
+- Interface de connexion : 7 points
 - Connexion (vérification des données) : 3 points
 - Sauvegarde des informations : 2 points
 - Modification du profil : 2 points
-- Team work : 2 points
+- Travail d'équipe : 2 points
 - Documentation : 3 points
 
 TOTAL : 24 points
+
+En réalité, cette histoire a été réalisée au terme de 24.5 points.
 
 ### Notes :
 Le client a répondu aux questions suivantes du groupe : 
@@ -39,12 +41,12 @@ Devons-nous rédiger nous-mêmes les conditions de service ? Oui, il faut rédig
 
 ----------------------
 
-## Histoire 4
+## Histoire 16
 
-### Titre : Création de diagrammes
+### Titre : Création de diagrammes - Partie 1
 
 ### Description
-Il a été décidé avec le client que le groupe ne réaliserait que l'interface du cadre de texte, que l'utilisateur pourra utiliser ultérieurement pour décrire son diagramme en langage TikZ.
+Un cadre de texte sera généré, que l'utilisateur pourra ultérieurement utiliser pour décrire son diagramme en langage TikZ.
 
 ### Priorité Client : 1
 
@@ -52,12 +54,14 @@ Il a été décidé avec le client que le groupe ne réaliserait que l'interface
 
 ### Introduit dans l'itération : 1
 
-### Etat : 
+### Etat : Complétée 
 
 ### Points :
-La tâche à réaliser décrite dans le sous-point "Description" a été évaluée à 4 points.
+Interface cadre de texte : 4 points
 
 TOTAL : 4 points
+
+En réalité, cette histoire a été réalisée au terme de 3 points.
 
 ### Notes :
 
