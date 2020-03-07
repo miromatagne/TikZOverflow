@@ -1,4 +1,4 @@
-#Histoires - GROUPE 08
+#Histoires GROUPE 08
 Informations récapitulatives concernant les différentes histoires.
 
 ## Quelques précisions
@@ -61,6 +61,7 @@ TOTAL : 24 points
 
 ### Notes :
 Le client a répondu aux questions suivantes du groupe : Y a-t-il un format imposé pour la sauvegarde des informations ou pouvons-nous utiliser un fichier texte ? Un fichier texte est suffisant. Devons-nous rédiger nous-mêmes les conditions de service ? Oui, il faut rédiger des conditions de service mais assez simples et courtes.
+
 ----------------------
 
 ## Histoire 2
