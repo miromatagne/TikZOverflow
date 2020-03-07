@@ -1,4 +1,4 @@
-#Histoires GROUPE 08
+# Histoires GROUPE 08
 Informations récapitulatives concernant les différentes histoires.
 
 ## Quelques précisions
@@ -9,7 +9,7 @@ Un point correspond à une heure de travail par binôme (approximatif).  Par it�
 ## Pondération
 
 | Priorité/3 | N° | Description | Risque/3 | Heures/? | Points |
-| ------ | ------ | ------ | ------ | ------ | ------ | ------ |
+| ------ | ------ | ------ | ------ | ------ | ------ |
 | 1 | [1](#Histoire-A) | Histoire 1| 2 | 24.5 | 24 |
 |   | 4 | Histoires 16 et 17 | 1 |  | 47 |
 | 2 | 2 | Histoire 2 | 1 | | 30 |
@@ -95,6 +95,7 @@ Afin de déterminer le nombre de points de cette histoire, le groupe l'a scindé
 - Travail d'équipe : 1 point
 
 TOTAL : 30 points
+
 ----------------------
 
 ## Histoire 3
@@ -122,6 +123,7 @@ Afin de déterminer le nombre de points de cette histoire, le groupe l'a scindé
 - Travail d'équipe : 2 points
 
 TOTAL : 15 points
+
 ----------------------
 
 ## Histoire 16
@@ -143,6 +145,7 @@ Un cadre de texte sera généré, que l'utilisateur pourra ultérieurement utili
 Inteface de code : 4 points
 
 TOTAL : 4 points
+
 ----------------------
 
 ## Histoire 17
@@ -173,6 +176,7 @@ Dans le deuxième cas, l’utilisateur peut utiliser le cadre de texte pour déc
 - Travail d'équipe : 3 points
 
 TOTAL : 47 points
+
 ----------------------
 
 
@@ -194,6 +198,7 @@ Le langage TikZ permet de décrire le placement des noeuds de manière relative.
 ### Points :
 
 TOTAL : 10 points
+
 ----------------------
 
 ## Histoire 6
@@ -217,6 +222,7 @@ Le système offre une fonctionnalité d’aperçu dans laquelle il est possible 
 - Travail d'équipe : 1 point
 
 TOTAL : 8 points
+
 ----------------------
 
 ## Histoire 7
@@ -237,6 +243,7 @@ L’utilisateur peut construire un diagramme TikZ de façon modulaire, en utilis
 ### Points :
 
 TOTAL : 10 points
+
 ----------------------
 
 ## Histoire 8
@@ -261,6 +268,7 @@ Chaque utilisateur dispose d’une quantité d’espace disque définie par l’
 - Documentation : 6 points
 
 TOTAL : 19 points
+
 ----------------------
 
 ## Histoire 9
@@ -292,6 +300,7 @@ Les commits seront liées à l’utilisateur qui a effectué le commit. L’util
 - Diff : 5 points
 
 TOTAL : 17 points
+
 ----------------------
 
 ## Histoire 10
@@ -320,6 +329,7 @@ En plus de la fontionnalité traditionnelle de dessin d’un diagramme (c.-à-d.
 - Travail d'équipe : 3 points
 
 TOTAL : 32 points
+
 ----------------------
 
 ## Histoire 11
@@ -343,6 +353,7 @@ Les utilisateurs peuvent profiter d’une fonctionnalité de coloration syntaxiq
 - Travail d'équipe : 2 points
 
 TOTAL : 20 points
+
 ----------------------
 
 ## Histoire 12
@@ -363,6 +374,7 @@ Les utilisateurs peuvent accéder à une section d’aide dans le programme. Ave
 ### Points :
 
 TOTAL : 9 points
+
 ----------------------
 
 ## Histoire 13
@@ -383,6 +395,7 @@ Le logiciel doit répondre à des besoins spécifiques concernant la sécurité 
 ### Points :
 
 TOTAL : 15 points
+
 ----------------------
 
 ## Histoire 14
@@ -403,6 +416,7 @@ Le logiciel doit garantir que les données stockées à l’intérieur de l’ap
 ### Points :
 
 TOTAL : 7 points
+
 ----------------------
 
 ## Histoire 15
@@ -423,4 +437,5 @@ L’utilisateur peut sélectionner une section du diagramme, la copier, et par l
 ### Points :
 
 TOTAL : 12 points
+
 ----------------------
