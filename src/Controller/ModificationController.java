@@ -7,6 +7,7 @@ import Model.User;
 import View.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -23,8 +24,8 @@ public class ModificationController extends ControllerSuperclass implements Init
     @FXML private TextField firstNameField ;
     @FXML private TextField lastNameField ;
     @FXML private TextField emailField ;
-    @FXML private TextField passwordField ;
-    @FXML private TextField passwordConfirmationField;
+    @FXML private PasswordField passwordField ;
+    @FXML private PasswordField passwordConfirmationField;
 
     private User userCurrent ;
 
@@ -35,6 +36,10 @@ public class ModificationController extends ControllerSuperclass implements Init
         userCurrent = new User() ;
     }
 
+    /**
+     * Function update override the one from ControllerSuperClass
+     * Used to update all the TextField with the information of the CurrentUser from Session
+     */
     @Override
     public void update()
     {
@@ -54,7 +59,7 @@ public class ModificationController extends ControllerSuperclass implements Init
      *                                  - Save the information of the user in the file username.txt
      */
     @FXML
-    public void validate_button_action()
+    public void validateButtonAction()
     {
         boolean validateInformation = true ;
         // Need to check if a fct can be made to generalize this check with the creationAccount screen/controller
@@ -87,8 +92,12 @@ public class ModificationController extends ControllerSuperclass implements Init
         }
     }
 
+
+    /**
+     * Action of the return Button : Change screen to the main page
+     */
     @FXML
-    public void return_button_action()
+    public void returnButtonAction()
     {
         ScreenHandler.changeScene(ScreenHandler.MAINPAGE);
     }

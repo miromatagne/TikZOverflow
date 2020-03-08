@@ -26,7 +26,7 @@ public class CompileListener extends ControllerSuperclass {
     }
 
     @FXML
-    public void modif_button_action()
+    public void modifButtonAction()
     {
         ScreenHandler.changeScene(ScreenHandler.MODIFICATIONSCREEN);
     }

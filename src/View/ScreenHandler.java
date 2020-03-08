@@ -50,7 +50,7 @@ public class ScreenHandler extends Application
      * @param scenePath  String containing the path of the fxml file that will be loaded.
      */
 
-    private void add_scene(String scenePath)
+    private void addScene(String scenePath)
     {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(scenePath));
@@ -69,10 +69,10 @@ public class ScreenHandler extends Application
     public void start(Stage stage) throws Exception {
         try
         {
-            add_scene("LoginScreen.fxml");
-            add_scene("MainPage.fxml");
-            add_scene("accountCreation.fxml");
-            add_scene("accountModification.fxml");
+            addScene("LoginScreen.fxml");
+            addScene("MainPage.fxml");
+            addScene("accountCreation.fxml");
+            addScene("accountModification.fxml");
 
             scene = new Scene(screens.get(LOGINSCREEN));
         }
