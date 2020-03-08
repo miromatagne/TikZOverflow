@@ -5,17 +5,23 @@ public class Session {
     public static final int USER_NOT_REGISTERED = -1;
     public static final int INVALID_PASSWORD = -2;
     private User currentUser = null;
+    private FieldChecker fc;
+    private FileHandler fh;
+    private static Session session = new Session();
 
+    /* Singleton class */
+    private Session(){
+        fc = new FieldChecker();
+        fh = new FileHandler();
+    }
 
-    /**
-     *  Allows a user to log in to the application
-     *
-     *  @param  username         Name of the user
-     *  @param  password         Password of the user
-     *  @return                  CONNECTION_ESTABLISHED if the connection is successful
-     *                           USER_NOT_REGISTERED if the user does not yet have an account
-     *                           INVALID_PASSWORD if the password does not match the username
-     */
+    public static Session getInstance() {
+        return session;
+    }
+
+    public User getUser(){return currentUser;}
+    public void setUser(User newUser){ currentUser = newUser;}
+
     public int openSession(String username, String password){
         FileHandler fh = new FileHandler();
         fh.setupSaveUserDirectory("save user");
@@ -32,5 +38,36 @@ public class Session {
                 return INVALID_PASSWORD;
             }
         }
+    }
+
+    /**
+     * Logs the user out of the session.
+     */
+    public void logOut(){
+        currentUser = null;
+    }
+
+    /**
+     * Create an account (a user save) if all the fields are ok
+     *
+     * @param username                  username
+     * @param firstName                 first name
+     * @param lastName                  last name
+     * @param mail                      mail
+     * @param password                  password
+     * @return                          TRUE if creation successful
+     *                                  FALSE otherwise
+     */
+    public boolean createAccount(String username, String firstName, String lastName,
+                                 String mail, String password){
+        if(fh.getUserFromSave(username) != null)//User already exists
+            return false;
+        User newUser = new User();
+        newUser.setUsername(username);
+        newUser.setFirstName(firstName);
+        newUser.setLastName(lastName);
+        newUser.setPassword(password);
+        newUser.setMail(mail);
+        return fh.createUserSave(newUser);
     }
 }
