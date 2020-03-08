@@ -67,16 +67,14 @@ public class ScreenHandler extends Application
 
     @Override
     public void start(Stage stage) throws Exception {
-        try
-        {
-            addScene("LoginScreen.fxml");
-            addScene("MainPage.fxml");
-            addScene("accountCreation.fxml");
-            addScene("accountModification.fxml");
+        addScene("LoginScreen.fxml");
+        addScene("MainPage.fxml");
+        addScene("accountCreation.fxml");
+        addScene("accountModification.fxml");
 
-            scene = new Scene(screens.get(LOGINSCREEN));
-        }
-        catch(Exception expc){ System.out.println("Error loading all screen"); expc.printStackTrace();}
+        if(screens.isEmpty()) {throw new Exception("Failed to log allScene") ;}
+
+        scene = new Scene(screens.get(LOGINSCREEN));
         stage.setTitle("TikZOverflow");
         stage.setMaximized(true);
         stage.setScene(scene);
