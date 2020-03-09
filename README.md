@@ -17,12 +17,7 @@ ant -buildfile tikzoverflow.xml
 
 ### Starting the app
 
-Run the jar file to start the software.
-```
-cd out/artifacts
-```
-Now every folder corresponds to a specific version of the software. Choose the most recent, and execute
-the jar file inside it.
+Run the most recent jar file from dist folder to start the software.
 ```
 java -jar *.jar
 ```
