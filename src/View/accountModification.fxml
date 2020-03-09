@@ -38,8 +38,8 @@
         </VBox>
     </HBox>
     <HBox alignment="CENTER" layoutX="-1.0" layoutY="381.0" prefHeight="72.0" prefWidth="600.0" spacing="20.0">
-        <Button fx:id="return_button" mnemonicParsing="false" text="Return" onAction="#returnButtonAction"/>
-        <Button fx:id="validate_button" alignment="CENTER_RIGHT" mnemonicParsing="false"
+        <Button mnemonicParsing="false" text="Return" onAction="#returnButtonAction"/>
+        <Button alignment="CENTER_RIGHT" mnemonicParsing="false"
                 onAction="#validateButtonAction" text="Validate"/>
     </HBox>
 </VBox>
