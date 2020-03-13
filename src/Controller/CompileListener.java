@@ -56,6 +56,11 @@ public class CompileListener extends ControllerSuperclass implements Initializab
         ScreenHandler.changeScene(ScreenHandler.LOGINSCREEN);
     }
 
+    /**
+     * Adds a Label to the panel on the right hand side of the screen describing the
+     * shape that was added.
+     * @param shape
+     */
     @FXML
     public void addShape(Shape shape) {
         //String shapeText = "Added rectangle of length 5 and width 3 at position 5 ggggggeqegggggggggg.";
@@ -70,12 +75,24 @@ public class CompileListener extends ControllerSuperclass implements Initializab
         suiviForme.getChildren().add(label);
     }
 
+    /**
+     * Initialization of the region where the names of the added shapes will appear
+     * (VBox and ScrollPane).
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         suiviForme.prefWidthProperty().bind(scroll.prefWidthProperty());
         suiviForme.prefHeightProperty().bind(scroll.prefHeightProperty());
     }
 
+    /**
+     * Creation of the String to insert into the label when a new shape has been added.
+     * This String is different depending on the shape added.
+     * @param shape
+     * @return returnString
+     */
     public String createString(Shape shape) {
         String returnString = "Added";
         if ( shape instanceof Circle) {
