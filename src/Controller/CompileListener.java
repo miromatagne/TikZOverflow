@@ -4,6 +4,9 @@ import Model.FileHandler;
 
 
 import Model.Session;
+import Model.Shapes.Circle;
+import Model.Shapes.Rectangle;
+import Model.Shapes.Shape;
 import View.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -96,10 +99,10 @@ public class CompileListener extends ControllerSuperclass implements Initializab
     public String createString(Shape shape) {
         String returnString = "Added";
         if ( shape instanceof Circle) {
-            returnString += "circle of radius " + shape.getRadius() + "and center " + shape.getCenter() + ".";
+            returnString += "circle of radius " + ((Circle) shape).getRadius() + "and center (" + shape.getPosX() + ", "+ shape.getPosY() + ").";
         }
         else if ( shape instanceof Rectangle) {
-            returnString += "Rectangle of height " + shape.getHeight() + "and width " + shape.getWidth() + ".";
+            returnString += "Rectangle of height " + ((Rectangle) shape).getHeight() + "and width " + ((Rectangle) shape).getWidth() + ".";
         }
 
         return returnString;
