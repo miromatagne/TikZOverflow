@@ -11,7 +11,7 @@ public abstract class Link extends Shape{
         this.yDestination = yDestination;
     }
 
-    public Link(Shape origin, Shape destination){
+    public Link(Node origin, Node destination){
         this.xOrigin = origin.getPosX();
         this.yOrigin = origin.getPosY();
         this.xDestination = destination.getPosX();
