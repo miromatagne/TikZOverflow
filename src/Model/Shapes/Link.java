@@ -21,4 +21,17 @@ public abstract class Link extends Shape{
     public void setStrokeWidth(int strokeWidth){
         this.strokeWidth = strokeWidth;
     }
+
+    public int getxOrigin() {
+        return xOrigin;
+    }
+    public int getyOrigin() {
+        return yOrigin;
+    }
+    public int getxDestination() {
+        return xDestination;
+    }
+    public int getyDestination() {
+        return yDestination;
+    }
 }
