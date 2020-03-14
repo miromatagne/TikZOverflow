@@ -1,8 +1,10 @@
 package Model.Shapes;
 
+import javafx.scene.paint.Color;
+
 public abstract class Shape {
     private int posX, posY;
-
+    private Color color;
     public int getPosX() {
         return posX;
     }
