@@ -110,7 +110,10 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ColorPicker GridPane.columnIndex="1" />
+            <ColorPicker GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin></ColorPicker>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Color" textAlignment="CENTER" wrappingWidth="71.46484375" GridPane.halignment="CENTER" />
          </children>
       </GridPane>

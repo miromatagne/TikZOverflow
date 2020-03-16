@@ -14,11 +14,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
@@ -43,7 +41,7 @@ public class CompileListener extends ControllerSuperclass implements Initializab
     public void compile() {
         FileHandler fh = new FileHandler();
         fh.setupSaveProjectDirectory("project");
-        boolean res = fh.createProject(codeInterface.getText());
+        fh.createProject(codeInterface.getText());
 
     }
 
@@ -115,6 +113,10 @@ public class CompileListener extends ControllerSuperclass implements Initializab
         return returnString;
     }
 
+
+    /**
+     * Create a pop-up which allows to create a new shape
+     */
     @FXML
     public void addShapeMenu() throws IOException {
         Stage popupStage = new Stage();

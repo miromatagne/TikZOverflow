@@ -7,12 +7,11 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.SubScene;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AddShapeMenuController extends ControllerSuperclass implements Initializable {
@@ -47,6 +46,7 @@ public class AddShapeMenuController extends ControllerSuperclass implements Init
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Locale.setDefault(Locale.ENGLISH);
         addScene("/View/rectangleMenu.fxml");
         addScene("/View/circleMenu.fxml");
         addScene("/View/lineMenu.fxml");

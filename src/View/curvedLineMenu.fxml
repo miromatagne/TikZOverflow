@@ -129,7 +129,10 @@
          </rowConstraints>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Color" textAlignment="CENTER" wrappingWidth="109.46484375" GridPane.halignment="CENTER" />
-            <ColorPicker GridPane.columnIndex="1" />
+            <ColorPicker GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin></ColorPicker>
          </children>
       </GridPane>
    </children>
