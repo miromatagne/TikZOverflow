@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.CompilerLatex;
 import Model.FileHandler;
 
 
@@ -7,6 +8,8 @@ import Model.Session;
 import View.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
+
+import java.io.File;
 
 
 public class CompileListener extends ControllerSuperclass {
@@ -19,10 +22,15 @@ public class CompileListener extends ControllerSuperclass {
      */
     @FXML
     public void compile() {
-        FileHandler fh = new FileHandler();
+       /* FileHandler fh = new FileHandler();
         fh.setupSaveProjectDirectory("project");
-        boolean res = fh.createProject(codeInterface.getText());
-
+        boolean res = fh.createProject(codeInterface.getText());*/ //Done in the first it
+        String filePath = "../Latex/" + Session.getInstance().getUser().getUsername() + ".tex" ;
+       try
+        {
+            CompilerLatex.getInstance().runProcess(filePath);
+        }
+        catch(Exception e){System.err.println("Error in compilation :  " + e.toString());}
     }
 
     @FXML
