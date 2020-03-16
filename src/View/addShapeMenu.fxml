@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane prefHeight="400.0" prefWidth="533.0" style="-fx-background: #404040;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddShapeMenuController">
+<GridPane fx:id="gridPaneAddShape" prefHeight="400.0" prefWidth="533.0" style="-fx-background: #404040;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddShapeMenuController">
    <rowConstraints>
       <RowConstraints maxHeight="60.0" minHeight="10.0" percentHeight="100.0" prefHeight="28.0" />
    </rowConstraints>
@@ -20,20 +20,16 @@
                <children>
                   <Text fx:id="arrowText" onMouseClicked="#changeToArrowMenu" onMouseEntered="#arrowTextHand" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Arrow" wrappingWidth="36.13671875" />
                   <Text fx:id="circleText" onMouseClicked="#changeToCircleMenu" onMouseEntered="#circleTextHand" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Circle" wrappingWidth="36.13671875" />
-                  <Text fx:id="curvedLineText" onMouseClicked="#changeToCurvedLineMenu" onMouseEntered="#curvedLineTextHand" strokeType="OUTSIDE" style="-fx-fill: white;" strokeWidth="0.0" text="Curved line" wrappingWidth="65.13671875" />
+                  <Text fx:id="curvedLineText" onMouseClicked="#changeToCurvedLineMenu" onMouseEntered="#curvedLineTextHand" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Curved line" wrappingWidth="65.13671875" />
                   <Text fx:id="lineText" onMouseClicked="#changeToLineMenu" onMouseEntered="#lineTextHand" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Line" wrappingWidth="31.62109375" />
-                  <Text fx:id="rectangleText" onMouseClicked="#changeToRectangleMenu" onMouseEntered="#rectangleTextHand" strokeType="OUTSIDE" style="-fx-fill: white;" strokeWidth="0.0" text="Rectangle" wrappingWidth="58.13671875" />
+                  <Text fx:id="rectangleText" onMouseClicked="#changeToRectangleMenu" onMouseEntered="#rectangleTextHand" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Rectangle" wrappingWidth="58.13671875" />
                </children></VBox>
          </content>
       </ScrollPane>
-      <Pane fx:id="rightPaneShapeMenu" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-         <children>
-            <SubScene fx:id="shapeScene" fill="#c8caca" height="402.0" width="427.0">
-              <root>
-                <Region />
-              </root>
-            </SubScene>
-         </children>
-      </Pane>
+      <SubScene fx:id="shapeScene" fill="#c8caca" height="400.0" width="426.0" GridPane.columnIndex="1">
+        <root>
+          <Region />
+        </root>
+      </SubScene>
    </children>
 </GridPane>

@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.SubScene;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -21,7 +22,7 @@ public class AddShapeMenuController extends ControllerSuperclass implements Init
     @FXML private Text arrowText;
     @FXML private Text curvedLineText;
     @FXML private Text lineText;
-    @FXML private Pane rightPaneShapeMenu;
+    @FXML private GridPane gridPaneAddShape;
     private static ArrayList<Parent> allShapes = new ArrayList<>() ;
     private static ArrayList<Text> allTexts = new ArrayList<>();
 
@@ -56,11 +57,8 @@ public class AddShapeMenuController extends ControllerSuperclass implements Init
             //Error
             return;
         }
-        shapeScene.widthProperty().bind(rightPaneShapeMenu.widthProperty());
-        shapeScene.heightProperty().bind(rightPaneShapeMenu.heightProperty());
-        for (int i = 0; i < NUMBER_OF_MENUS; i++){
-            changeToMenu(i);
-        }
+        shapeScene.widthProperty().bind(gridPaneAddShape.widthProperty().multiply(0.8));
+        shapeScene.heightProperty().bind(gridPaneAddShape.heightProperty());
         changeToArrowMenu();
 
     }
