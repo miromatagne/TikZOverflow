@@ -9,15 +9,22 @@ import Model.Shapes.Rectangle;
 import Model.Shapes.Shape;
 import View.ScreenHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -108,4 +115,13 @@ public class CompileListener extends ControllerSuperclass implements Initializab
         return returnString;
     }
 
+    @FXML
+    public void addShapeMenu() throws IOException {
+        Stage popupStage = new Stage();
+        popupStage.setTitle("Add Shape Menu");
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        Parent addShapeMenuRoot = FXMLLoader.load(getClass().getResource("/View/addShapeMenu.fxml"));
+        popupStage.setScene(new Scene(addShapeMenuRoot));
+        popupStage.show();
+    }
 }

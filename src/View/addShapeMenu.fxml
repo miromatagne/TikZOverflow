@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane prefHeight="400.0" prefWidth="533.0" style="-fx-background: #404040;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AddShapeMenuController">
+   <rowConstraints>
+      <RowConstraints maxHeight="60.0" minHeight="10.0" percentHeight="100.0" prefHeight="28.0" />
+   </rowConstraints>
+   <columnConstraints>
+      <ColumnConstraints maxWidth="194.0" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
+      <ColumnConstraints maxWidth="107.0" minWidth="6.0" percentWidth="80.0" prefWidth="100.0" />
+   </columnConstraints>
+   <children>
+      <ScrollPane prefHeight="400.0" prefWidth="167.0" style="-fx-control-inner-background: transparent;-fx-focus-traversable: false;-fx-background-color: transparent;-fx-background: #404040;">
+         <content>
+            <VBox prefHeight="397.0" prefWidth="105.0" spacing="5.0" style="-fx-focus-traversable: false;">
+               <children>
+                  <Text fx:id="arrowText" fill="WHITE" onMouseEntered="#arrowTextHand" strokeType="OUTSIDE" strokeWidth="0.0" text="Arrow" wrappingWidth="36.13671875" />
+                  <Text fx:id="circleText" fill="WHITE" onMouseEntered="#circleTextHand" strokeType="OUTSIDE" strokeWidth="0.0" text="Circle" wrappingWidth="36.13671875" />
+                  <Text fx:id="curvedlineText" fill="WHITE" onMouseEntered="#curvedLineTextHand" strokeType="OUTSIDE" strokeWidth="0.0" text="Curved line" wrappingWidth="65.13671875" />
+                  <Text fx:id="lineText" fill="WHITE" onMouseEntered="#lineTextHand" strokeType="OUTSIDE" strokeWidth="0.0" text="Line" wrappingWidth="31.62109375" />
+                  <Text fx:id="rectangleText" fill="WHITE" onMouseEntered="#rectangleTextHand" strokeType="OUTSIDE" strokeWidth="0.0" text="Rectangle" wrappingWidth="58.13671875" />
+               </children></VBox>
+         </content>
+      </ScrollPane>
+      <SubScene fx:id="shapeScene" fill="#545151" height="402.0" width="427.0" GridPane.columnIndex="1">
+        <root>
+          <Region />
+        </root>
+      </SubScene>
+   </children>
+</GridPane>
