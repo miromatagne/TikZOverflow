@@ -32,6 +32,9 @@ public class CompileListener extends ControllerSuperclass implements Initializab
     @FXML private TextArea codeInterface;
     @FXML private VBox suiviForme;
     @FXML private ScrollPane scroll;
+    private Stage popUpStage;
+
+
 
     /**
      * when we click on "compile" button it send the text to a save file
@@ -90,9 +93,19 @@ public class CompileListener extends ControllerSuperclass implements Initializab
      * @param resources
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources){
         suiviForme.prefWidthProperty().bind(scroll.prefWidthProperty());
         suiviForme.prefHeightProperty().bind(scroll.prefHeightProperty());
+        try{popUpInitialize();}catch(Exception e){}
+
+    }
+
+    private void popUpInitialize() throws IOException{
+        popUpStage = new Stage();
+        popUpStage.setTitle("Add Shape Menu");
+        popUpStage.initModality(Modality.APPLICATION_MODAL);
+        Parent addShapeMenuRoot = FXMLLoader.load(getClass().getResource("/View/addShapeMenu.fxml"));
+        popUpStage.setScene(new Scene(addShapeMenuRoot));
     }
 
     /**
@@ -118,12 +131,7 @@ public class CompileListener extends ControllerSuperclass implements Initializab
      * Create a pop-up which allows to create a new shape
      */
     @FXML
-    public void addShapeMenu() throws IOException {
-        Stage popupStage = new Stage();
-        popupStage.setTitle("Add Shape Menu");
-        popupStage.initModality(Modality.APPLICATION_MODAL);
-        Parent addShapeMenuRoot = FXMLLoader.load(getClass().getResource("/View/addShapeMenu.fxml"));
-        popupStage.setScene(new Scene(addShapeMenuRoot));
-        popupStage.show();
+    public void addShapeMenu(){
+        popUpStage.show();
     }
 }
