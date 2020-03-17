@@ -1,20 +1,20 @@
-package Controller;
+package View;
 
+import Controller.ScreenHandler;
 import Model.FileHandler;
 
 
-import Model.Session;
-import View.ScreenHandler;
+import Controller.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
 
-public class CompileListener extends ControllerSuperclass {
+public class MainPageController extends ControllerSuperclass {
 
     @FXML private TextArea codeInterface;
 
     /**
-     * when we click on "compile" button it send the text to a save file
+     * when we click on "compile" button it sends the text to a save file
      *
      */
     @FXML

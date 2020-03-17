@@ -1,8 +1,8 @@
-package Controller;
+package View;
 
+import Controller.ScreenHandler;
 import Model.FieldChecker;
-import Model.Session;
-import View.ScreenHandler;
+import Controller.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
