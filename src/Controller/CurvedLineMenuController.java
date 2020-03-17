@@ -43,4 +43,32 @@ public class CurvedLineMenuController extends ControllerSuperclass implements In
         allTextFields.add(strokeWidthTextField);
         allTextFields.add(curvedRadiusTextField);
     }
+
+    public String getXOrigin() {
+        return xOriginTextField.getText();
+    }
+
+    public String getYOrigin() {
+        return yOriginTextField.getText();
+    }
+
+    public String getXDestination() {
+        return xDestinationTextField.getText();
+    }
+
+    public String getYDestination() {
+        return yDestinationTextField.getText();
+    }
+
+    public String getStrokeWidth() {
+        return strokeWidthTextField.getText();
+    }
+
+    public String getCurvedRadius(){
+        return curvedRadiusTextField.getText();
+    }
+
+    public Color getColor() {
+        return colorPicker.getValue();
+    }
 }

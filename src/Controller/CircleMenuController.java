@@ -36,4 +36,20 @@ public class CircleMenuController extends ControllerSuperclass implements Initia
         allTextFields.add(yPositionTextField);
         allTextFields.add(radiusTextField);
     }
+
+    public String getXPosition() {
+        return xPositionTextField.getText();
+    }
+
+    public String getYPosition() {
+        return yPositionTextField.getText();
+    }
+
+    public String getRadius() {
+        return radiusTextField.getText();
+    }
+
+    public Color getColor() {
+        return colorPicker.getValue();
+    }
 }

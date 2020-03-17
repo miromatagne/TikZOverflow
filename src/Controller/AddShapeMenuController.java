@@ -45,10 +45,10 @@ public class AddShapeMenuController extends ControllerSuperclass implements Init
     @Override
     public void update() {
         changeToArrowMenu();
-        clearTexts();
+        clearShapeMenus();
     }
 
-    private void clearTexts(){
+    private void clearShapeMenus(){
         for (int i = 0; i< allControllers.size(); i++){
             allControllers.get(i).update();
         }
@@ -83,6 +83,9 @@ public class AddShapeMenuController extends ControllerSuperclass implements Init
 
     private void changeToMenu(int value){
         shapeScene.setRoot(allShapes.get(value));
+        if (idCurrent != value){
+            clearShapeMenus();
+        }
         idCurrent = value ;
     }
 

@@ -40,4 +40,28 @@ public class ArrowMenuController extends ControllerSuperclass implements Initial
         allTextFields.add(yDestinationTextField);
         allTextFields.add(strokeWidthTextField);
     }
+
+    public String getXOrigin() {
+        return xOriginTextField.getText();
+    }
+
+    public String getYOrigin() {
+        return yOriginTextField.getText();
+    }
+
+    public String getXDestination() {
+        return xDestinationTextField.getText();
+    }
+
+    public String getYDestination() {
+        return yDestinationTextField.getText();
+    }
+
+    public String getStrokeWidth() {
+        return strokeWidthTextField.getText();
+    }
+
+    public Color getColor() {
+        return colorPicker.getValue();
+    }
 }
