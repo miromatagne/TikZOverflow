@@ -15,9 +15,6 @@ public class LineMenuController extends ControllerSuperclass implements Initiali
     @FXML
     TextField xOriginTextField, yOriginTextField, xDestinationTextField, yDestinationTextField,strokeWidthTextField;
     @FXML ColorPicker colorPicker;
-
-
-
     private static ArrayList<TextField> allTextFields = new ArrayList<>();
 
 
@@ -38,5 +35,29 @@ public class LineMenuController extends ControllerSuperclass implements Initiali
         allTextFields.add(xDestinationTextField);
         allTextFields.add(yDestinationTextField);
         allTextFields.add(strokeWidthTextField);
+    }
+
+    public String getXOrigin() {
+        return xOriginTextField.getText();
+    }
+
+    public String getYOrigin() {
+        return yOriginTextField.getText();
+    }
+
+    public String getXDestination() {
+        return xDestinationTextField.getText();
+    }
+
+    public String getYDestination() {
+        return yDestinationTextField.getText();
+    }
+
+    public String getStrokeWidth() {
+        return strokeWidthTextField.getText();
+    }
+
+    public Color getColor() {
+        return colorPicker.getValue();
     }
 }
