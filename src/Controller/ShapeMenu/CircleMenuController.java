@@ -11,18 +11,25 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class CircleMenuController extends MenuController implements Initializable{
+/**
+ * This controller is used to handle the circle menu, get the inputs from the texts fields and clear them when it has to
+ */
 
-    @FXML TextField xPositionTextField;
-    @FXML TextField yPositionTextField;
-    @FXML TextField radiusTextField;
-    @FXML ColorPicker colorPicker;
+public class CircleMenuController extends ControllerSuperclass implements Initializable {
+
+    @FXML private TextField xPositionTextField;
+    @FXML private TextField yPositionTextField;
+    @FXML private TextField radiusTextField;
+    @FXML private ColorPicker colorPicker;
 
     private static ArrayList<TextField> allTextFields = new ArrayList<>();
 
 
 
     @Override
+    /**
+     * Function called when a new menu is selected. It clears the different fields
+     */
     public void update() {
         for (int i = 0; i < allTextFields.size();i++){
             allTextFields.get(i).setText("");
@@ -32,6 +39,9 @@ public class CircleMenuController extends MenuController implements Initializabl
 
 
     @Override
+    /**
+     * Initialization by adding the different textfield to an array list
+     */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         allTextFields.add(xPositionTextField);
         allTextFields.add(yPositionTextField);

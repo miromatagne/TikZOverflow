@@ -1,6 +1,11 @@
 package Model;
 
+/**
+ * Class to model a user
+ */
+
 public class User {
+
     private String username = "";
     private String lastName = "";
     private String firstName = "";

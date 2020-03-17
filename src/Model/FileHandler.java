@@ -3,11 +3,16 @@ package Model;
 
 import java.io.*;
 
+/**
+ * This class is used to handle interactions with files. It creates directories and write the saves
+ */
+
 public class FileHandler {
+
     private String saveUserDirectory = "";
     private String saveProjectDirectory = "";
     private String saveUserFormat = ".txt";
-    public static String DEFAULT_DIRECTORY  = "save user";
+    private static String DEFAULT_DIRECTORY  = "save user";
 
     public FileHandler() {
         setupSaveUserDirectory(DEFAULT_DIRECTORY);

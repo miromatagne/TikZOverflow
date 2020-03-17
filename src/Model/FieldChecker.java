@@ -1,6 +1,10 @@
 package Model;
 import java.util.HashSet;
 
+/**
+ * This class allows to check different inputs from the user of the application
+ */
+
 public class FieldChecker {
 
     HashSet<Character> userCharCollection = new HashSet<>();
@@ -106,12 +110,17 @@ public class FieldChecker {
         return false;
     }
 
+    /**
+     * Check if the text given in parameter is a number (float)
+     * @param text                      text to be checked
+     * @return                          TRUE if valid
+     *                                  FALSE otherwise
+     */
     public boolean isValidNumber(String text){
         if (text == null || text.equals("")){
             return false;
         }
         int pointCounter = 0;
-
         for (int i = 0; i < text.length(); i++){
             if (text.charAt(i) == '.'){
                 pointCounter++;
