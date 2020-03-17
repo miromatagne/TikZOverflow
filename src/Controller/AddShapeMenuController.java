@@ -24,6 +24,7 @@ public class AddShapeMenuController extends ControllerSuperclass implements Init
     @FXML private GridPane gridPaneAddShape;
     private static ArrayList<Parent> allShapes = new ArrayList<>() ;
     private static ArrayList<Text> allTexts = new ArrayList<>();
+    private static ArrayList<ControllerSuperclass> allControllers = new ArrayList<>();
 
     int idCurrent;
     final static int RECTANGLE = 0;
@@ -42,7 +43,16 @@ public class AddShapeMenuController extends ControllerSuperclass implements Init
     }
 
     @Override
-    public void update() {}
+    public void update() {
+        changeToArrowMenu();
+        clearTexts();
+    }
+
+    private void clearTexts(){
+        for (int i = 0; i< allControllers.size(); i++){
+            allControllers.get(i).update();
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -111,7 +121,6 @@ public class AddShapeMenuController extends ControllerSuperclass implements Init
     public void changeToCurvedLineMenu(){
         changeToMenu(CURVED_LINE);
         changeTextColor(CURVED_LINE);
-
     }
     /**
      * Changes cursor to hand.
@@ -122,11 +131,11 @@ public class AddShapeMenuController extends ControllerSuperclass implements Init
     }
 
 
-    private void addScene(String scenePath)
-    {
+    private void addScene(String scenePath) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(scenePath));
             allShapes.add(loader.load());
+            allControllers.add(loader.getController());
         }
         catch(Exception expc){System.out.println("Error loading all screen" + scenePath); expc.printStackTrace();}
     }

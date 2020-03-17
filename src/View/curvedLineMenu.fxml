@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #c8caca;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:controller="Controller.CurvedLineMenuController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #c8caca;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -27,7 +27,7 @@
         </rowConstraints>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="X origin" textAlignment="CENTER" wrappingWidth="77.91015625" GridPane.halignment="CENTER" />
-            <TextField prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="1">
+            <TextField prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="1" fx:id="xOriginTextField">
                <GridPane.margin>
                   <Insets left="5.0" right="20.0" />
                </GridPane.margin>
@@ -44,7 +44,7 @@
          </rowConstraints>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Y origin" textAlignment="CENTER" wrappingWidth="71.46484375" GridPane.halignment="CENTER" />
-            <TextField prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="1">
+            <TextField fx:id="yOriginTextField" prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" right="20.0" />
                </GridPane.margin>
@@ -61,7 +61,7 @@
          </rowConstraints>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="X destination" textAlignment="CENTER" wrappingWidth="71.46484375" GridPane.halignment="CENTER" />
-            <TextField prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="1">
+            <TextField prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="1" fx:id="xDestinationTextField">
                <GridPane.margin>
                   <Insets left="5.0" right="20.0" />
                </GridPane.margin>
@@ -78,7 +78,7 @@
          </rowConstraints>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Y destination" textAlignment="CENTER" wrappingWidth="71.46484375" GridPane.halignment="CENTER" />
-            <TextField prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="1">
+            <TextField fx:id="yDestinationTextField" prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" right="20.0" />
                </GridPane.margin>
@@ -95,7 +95,7 @@
          </rowConstraints>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Stroke width" textAlignment="CENTER" wrappingWidth="71.46484375" GridPane.halignment="CENTER" />
-            <TextField prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="1">
+            <TextField fx:id="strokeWidthTextField" prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" right="20.0" />
                </GridPane.margin>
@@ -112,7 +112,7 @@
          </rowConstraints>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Curved radius" textAlignment="CENTER" wrappingWidth="109.46484375" GridPane.halignment="CENTER" />
-            <TextField prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="1">
+            <TextField fx:id="curvedRadiusTextField" prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" right="20.0" />
                </GridPane.margin>
@@ -129,7 +129,7 @@
          </rowConstraints>
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Color" textAlignment="CENTER" wrappingWidth="109.46484375" GridPane.halignment="CENTER" />
-            <ColorPicker GridPane.columnIndex="1">
+            <ColorPicker fx:id="colorPicker" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin></ColorPicker>

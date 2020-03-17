@@ -33,6 +33,7 @@ public class CompileListener extends ControllerSuperclass implements Initializab
     @FXML private VBox suiviForme;
     @FXML private ScrollPane scroll;
     private Stage popUpStage;
+    private AddShapeMenuController addShapeMenuController;
 
 
 
@@ -104,7 +105,9 @@ public class CompileListener extends ControllerSuperclass implements Initializab
         popUpStage = new Stage();
         popUpStage.setTitle("Add Shape Menu");
         popUpStage.initModality(Modality.APPLICATION_MODAL);
-        Parent addShapeMenuRoot = FXMLLoader.load(getClass().getResource("/View/addShapeMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/addShapeMenu.fxml"));
+        Parent addShapeMenuRoot = loader.load();
+        addShapeMenuController = loader.getController();
         popUpStage.setScene(new Scene(addShapeMenuRoot));
     }
 
@@ -132,6 +135,8 @@ public class CompileListener extends ControllerSuperclass implements Initializab
      */
     @FXML
     public void addShapeMenu(){
+        addShapeMenuController.update();
         popUpStage.show();
+
     }
 }
