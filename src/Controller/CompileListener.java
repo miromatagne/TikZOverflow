@@ -1,5 +1,6 @@
 package Controller;
 
+import Controller.ShapeMenu.AddShapeMenuController;
 import Model.FileHandler;
 
 
@@ -108,6 +109,7 @@ public class CompileListener extends ControllerSuperclass implements Initializab
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/addShapeMenu.fxml"));
         Parent addShapeMenuRoot = loader.load();
         addShapeMenuController = loader.getController();
+        addShapeMenuController.setCompileListener(this);
         popUpStage.setScene(new Scene(addShapeMenuRoot));
     }
 
@@ -137,6 +139,9 @@ public class CompileListener extends ControllerSuperclass implements Initializab
     public void addShapeMenu(){
         addShapeMenuController.update();
         popUpStage.show();
+    }
 
+    public void closePopup() {
+        popUpStage.hide();
     }
 }

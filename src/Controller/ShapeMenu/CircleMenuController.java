@@ -1,5 +1,6 @@
-package Controller;
+package Controller.ShapeMenu;
 
+import Controller.ControllerSuperclass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
@@ -10,7 +11,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class CircleMenuController extends ControllerSuperclass implements Initializable {
+public class CircleMenuController extends MenuController implements Initializable{
 
     @FXML TextField xPositionTextField;
     @FXML TextField yPositionTextField;
@@ -49,6 +50,12 @@ public class CircleMenuController extends ControllerSuperclass implements Initia
         return radiusTextField.getText();
     }
 
+    @Override
+    public ArrayList<TextField> getAllTextFields() {
+        return allTextFields;
+    }
+
+    @Override
     public Color getColor() {
         return colorPicker.getValue();
     }

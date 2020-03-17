@@ -2,9 +2,12 @@ package Model.Shapes;
 
 public abstract class Link extends Shape{
 
-    private int xOrigin, yOrigin, xDestination, yDestination;
-    private int strokeWidth;
-    public Link(int xOrigin, int yOrigin, int xDestination, int yDestination){
+    private float xOrigin;
+    private float yOrigin;
+    private float xDestination;
+    private float yDestination;
+    private float strokeWidth;
+    public Link(float xOrigin, float yOrigin, float xDestination, float yDestination){
         this.xOrigin = xOrigin;
         this.yOrigin = yOrigin;
         this.xDestination = xDestination;
@@ -18,7 +21,7 @@ public abstract class Link extends Shape{
         this.yDestination = destination.getPosY();
     }
 
-    public void setStrokeWidth(int strokeWidth){
+    public void setStrokeWidth(float strokeWidth){
         this.strokeWidth = strokeWidth;
     }
 }

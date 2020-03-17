@@ -1,16 +1,16 @@
 package Model.Shapes;
 
 public class Rectangle extends Node {
-    private int height,width;
-    public Rectangle(int xCenter, int yCenter){
+    private float height,width;
+    public Rectangle(float xCenter, float yCenter){
         super(xCenter,yCenter);
     }
-    public void setHeight(int height) {
+    public void setHeight(float height) {
         this.height = height;
     }
-    public void setWidth(int width) {
+    public void setWidth(float width) {
         this.width = width;
     }
-    public int getHeight(){return height;}
-    public int getWidth(){return width;}
+    public float getHeight(){return height;}
+    public float getWidth(){return width;}
 }

@@ -1,5 +1,6 @@
-package Controller;
+package Controller.ShapeMenu;
 
+import Controller.ControllerSuperclass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
@@ -10,11 +11,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+public class ArrowMenuController extends MenuController implements Initializable{
 
-public class LineMenuController extends ControllerSuperclass implements Initializable {
-    @FXML
-    TextField xOriginTextField, yOriginTextField, xDestinationTextField, yDestinationTextField,strokeWidthTextField;
+    @FXML TextField xOriginTextField;
+    @FXML TextField yOriginTextField;
+    @FXML TextField xDestinationTextField;
+    @FXML TextField yDestinationTextField;
+    @FXML TextField strokeWidthTextField;
     @FXML ColorPicker colorPicker;
+
     private static ArrayList<TextField> allTextFields = new ArrayList<>();
 
 
@@ -37,26 +42,12 @@ public class LineMenuController extends ControllerSuperclass implements Initiali
         allTextFields.add(strokeWidthTextField);
     }
 
-    public String getXOrigin() {
-        return xOriginTextField.getText();
+    @Override
+    public ArrayList<TextField> getAllTextFields() {
+        return allTextFields;
     }
 
-    public String getYOrigin() {
-        return yOriginTextField.getText();
-    }
-
-    public String getXDestination() {
-        return xDestinationTextField.getText();
-    }
-
-    public String getYDestination() {
-        return yDestinationTextField.getText();
-    }
-
-    public String getStrokeWidth() {
-        return strokeWidthTextField.getText();
-    }
-
+    @Override
     public Color getColor() {
         return colorPicker.getValue();
     }

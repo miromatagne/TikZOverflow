@@ -1,11 +1,16 @@
-package Controller;
+package Controller.ShapeMenu;
 
+import Controller.CompileListener;
+import Controller.ControllerSuperclass;
+import Model.FieldChecker;
+import Model.Shapes.Shape;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.SubScene;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
@@ -22,9 +27,13 @@ public class AddShapeMenuController extends ControllerSuperclass implements Init
     @FXML private Text curvedLineText;
     @FXML private Text lineText;
     @FXML private GridPane gridPaneAddShape;
+
+    private CompileListener compileListener;
+    private FieldChecker fieldChecker = new FieldChecker();
+
     private static ArrayList<Parent> allShapes = new ArrayList<>() ;
     private static ArrayList<Text> allTexts = new ArrayList<>();
-    private static ArrayList<ControllerSuperclass> allControllers = new ArrayList<>();
+    private static ArrayList<MenuController> allControllers = new ArrayList<>();
 
     int idCurrent;
     final static int RECTANGLE = 0;
@@ -142,5 +151,37 @@ public class AddShapeMenuController extends ControllerSuperclass implements Init
         }
         catch(Exception expc){System.out.println("Error loading all screen" + scenePath); expc.printStackTrace();}
     }
+
+    public void setCompileListener(CompileListener listener){
+        compileListener = listener;
+    }
+
+    public void confirmShape(){
+        //Verify Fields
+        boolean allFieldsValid = true;
+
+        ArrayList<TextField> allTextFields = allControllers.get(idCurrent).getAllTextFields();
+        ArrayList<Float> allDataInField = new ArrayList<Float>();
+
+        for(int i=0;i<allTextFields.size();i++){
+            String tempStringInField = allTextFields.get(i).getText();
+            if(!fieldChecker.isValidNumber(tempStringInField) || tempStringInField == null){
+                allFieldsValid = false;
+                break;
+            }
+            else
+                allDataInField.add(Float.parseFloat(tempStringInField));
+        }
+        //Nothing happened if fields are wrong or empty
+        if(!allFieldsValid)
+            return;
+
+        FactoryShape factoryShape = new FactoryShape();
+        Shape s = factoryShape.factoryShape(idCurrent,allDataInField,allControllers.get(idCurrent).getColor());
+
+        compileListener.addShape(s);
+        compileListener.closePopup();
+    }
+
 
 }

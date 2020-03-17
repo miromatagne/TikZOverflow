@@ -1,5 +1,6 @@
-package Controller;
+package Controller.ShapeMenu;
 
+import Controller.ControllerSuperclass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
@@ -11,7 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class CurvedLineMenuController extends ControllerSuperclass implements Initializable {
+public class CurvedLineMenuController extends MenuController implements Initializable{
 
     @FXML TextField xOriginTextField;
     @FXML TextField yOriginTextField;
@@ -44,30 +45,13 @@ public class CurvedLineMenuController extends ControllerSuperclass implements In
         allTextFields.add(curvedRadiusTextField);
     }
 
-    public String getXOrigin() {
-        return xOriginTextField.getText();
+
+    @Override
+    public ArrayList<TextField> getAllTextFields() {
+        return allTextFields;
     }
 
-    public String getYOrigin() {
-        return yOriginTextField.getText();
-    }
-
-    public String getXDestination() {
-        return xDestinationTextField.getText();
-    }
-
-    public String getYDestination() {
-        return yDestinationTextField.getText();
-    }
-
-    public String getStrokeWidth() {
-        return strokeWidthTextField.getText();
-    }
-
-    public String getCurvedRadius(){
-        return curvedRadiusTextField.getText();
-    }
-
+    @Override
     public Color getColor() {
         return colorPicker.getValue();
     }
