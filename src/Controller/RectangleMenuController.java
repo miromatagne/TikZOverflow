@@ -30,4 +30,24 @@ public class RectangleMenuController extends ControllerSuperclass implements Ini
         allTextField.add(heightTextField);
         allTextField.add(widthTextField);
     }
+
+    public String getXPosition() {
+        return xPositionTextField.getText();
+    }
+
+    public String getYPosition() {
+        return yPositionTextField.getText();
+    }
+
+    public String getHeight() {
+        return heightTextField.getText();
+    }
+
+    public String getWidth() {
+        return widthTextField.getText();
+    }
+
+    public ColorPicker getColorPicker() {
+        return colorPicker;
+    }
 }
