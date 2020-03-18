@@ -35,6 +35,13 @@ public class MainPageController extends ControllerSuperclass  implements Initial
        /* FileHandler fh = new FileHandler();
         fh.setupSaveProjectDirectory("project");
         boolean res = fh.createProject(codeInterface.getText());*/ //Done in the first it
+
+        Shape rec = new Rectangle(33333333,444444444);
+        ((Rectangle)rec).setHeight(44444444);
+        ((Rectangle)rec).setWidth(44444444);
+        Shape cer = new Circle(0,1);
+        addShape(cer);
+        addShape(rec);
         String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
         try {
             LatexCompiler.runProcess(filePath);
