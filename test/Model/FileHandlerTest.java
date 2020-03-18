@@ -2,6 +2,8 @@ package Model;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class FileHandlerTest {
@@ -32,6 +34,8 @@ class FileHandlerTest {
         user1.setMail("ftrouill@ulb.ac.be");
         user1.setPassword("123456789");
         System.out.println(fh.createUserSave(user1)); //Indicate if the save was already existing
+        File tex_file = new File("./Latex/" + user1.getUsername() + ".tex");
+        assertTrue(tex_file.exists());
         User user2 = fh.getUserFromSave("ftrouill");
         assertEquals("ftrouill", user2.getUsername());
         assertEquals("Franck", user2.getFirstName());

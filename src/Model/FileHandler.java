@@ -91,13 +91,7 @@ public class FileHandler {
             System.err.println("There was an error while creating the file");
             e.printStackTrace();
         }
-        String text="";
-        text+="last:"+user.getLastName()+"\n";
-        text+="first:"+user.getFirstName()+"\n";
-        text+="username:"+user.getUsername()+"\n";
-        text+="mail:"+user.getMail()+"\n";
-        text+="password:"+user.getPassword()+"\n";
-        return writeSave(user, file);
+        return writeSave(user, save_file);
     }
 
     private boolean writeSave(User user, File file) {
