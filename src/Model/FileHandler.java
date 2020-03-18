@@ -91,14 +91,18 @@ public class FileHandler {
             System.err.println("There was an error while creating the file");
             e.printStackTrace();
         }
-        String text="";
-        text+="last:"+user.getLastName()+"\n";
-        text+="first:"+user.getFirstName()+"\n";
-        text+="username:"+user.getUsername()+"\n";
-        text+="mail:"+user.getMail()+"\n";
-        text+="password:"+user.getPassword()+"\n";
+        return writeSave(user, save_file);
+    }
 
-        return writeInFile(save_file, text);
+    private boolean writeSave(User user, File file) {
+        String text = "";
+        text += "last:" + user.getLastName() + "\n";
+        text += "first:" + user.getFirstName() + "\n";
+        text += "username:" + user.getUsername() + "\n";
+        text += "mail:" + user.getMail() + "\n";
+        text += "password:" + user.getPassword() + "\n";
+
+        return writeInFile(file, text);
     }
 
     /**
@@ -114,14 +118,7 @@ public class FileHandler {
 
         File file = new File(saveUserDirectory+"/"+user.getUsername()+saveUserFormat);
         if (file.exists()) {
-            String text = "";
-            text += "last:" + user.getLastName() + "\n";
-            text += "first:" + user.getFirstName() + "\n";
-            text += "username:" + user.getUsername() + "\n";
-            text += "mail:" + user.getMail() + "\n";
-            text += "password:" + user.getPassword() + "\n";
-
-            return writeInFile(file, text);
+            return writeSave(user, file);
         }
         return false ;
     }
@@ -165,7 +162,7 @@ public class FileHandler {
     }
 
     /**
-     * Creates an user from its username and its save in the save_user directory.
+     * Creates a user from its username and its save in the save_user directory.
      *
      * @param username              Username (identifying users)
      * @return                      User created. Null if save file does not exist.

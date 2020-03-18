@@ -5,6 +5,12 @@ import javafx.scene.paint.Color;
 public abstract class Shape {
     private int posX, posY;
     private Color color;
+
+    public Shape(int posX, int posY) {
+        this.posX = posX;
+        this.posY = posY;
+    }
+
     public int getPosX() {
         return posX;
     }

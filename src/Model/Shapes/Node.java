@@ -4,6 +4,7 @@ public abstract class Node extends Shape {
     private int outlineThickness;
     private int xCenter,yCenter;
     public Node(int xCenter, int yCenter){
+        super(xCenter, yCenter);
         this.xCenter = xCenter;
         this.yCenter = yCenter;
     }

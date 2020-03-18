@@ -1,9 +1,13 @@
-package Controller;
+package View;
 
+import Controller.ScreenHandler;
 import Model.FileHandler;
-import Model.Session;
+import Model.LatexCompiler;
+
+
+import Controller.Session;;
 import Model.Shapes.*;
-import View.ScreenHandler;
+import Controller.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -16,27 +20,30 @@ import javafx.scene.paint.Paint;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
-public class CompileListener extends ControllerSuperclass implements Initializable {
+public class MainPageController extends ControllerSuperclass  implements Initializable{
 
     @FXML private TextArea codeInterface;
     @FXML private VBox suiviForme;
     @FXML private ScrollPane scroll;
 
     /**
-     * when we click on "compile" button it send the text to a save file
+     * when we click on "compile" button it sends the text to a save file
      *
      */
     @FXML
     public void compile() {
-        FileHandler fh = new FileHandler();
+       /* FileHandler fh = new FileHandler();
         fh.setupSaveProjectDirectory("project");
-        boolean res = fh.createProject(codeInterface.getText());
-
+        boolean res = fh.createProject(codeInterface.getText());*/ //Done in the first it
+        String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
+        try {
+            LatexCompiler.runProcess(filePath);
+        }
+        catch(Exception e){System.err.println("Error in compilation :  " + e.toString());}
     }
 
     @FXML
-    public void modifButtonAction()
+    public void modificationButtonAction()
     {
         ScreenHandler.changeScene(ScreenHandler.MODIFICATIONSCREEN);
     }
