@@ -105,13 +105,7 @@ public class FileHandler {
             //Error, the file does already exist
             return false;
         }
-        File tex_file = new File("./Latex/" + user.getUsername() + ".tex");
-        try {
-            tex_file.createNewFile();
-        } catch (IOException e) {
-            System.err.println("There was an error while creating the file");
-            e.printStackTrace();
-        }
+
         return writeSave(user, save_file);
     }
 
@@ -282,6 +276,39 @@ public class FileHandler {
         String temp;
         if (!(temp = getInformation(file, "password")).equals("")) {
             user.setPassword(temp);
+        }
+    }
+
+    /**
+     * Find the errors that the user has written in the compiler
+     * @param path                  The path to the .log file of the project file
+     * @throws IOException          To be able to catch errors if the process of opening a file fails
+     */
+    public void errorLogs(String path) throws IOException {
+        File file = new File(path);
+        String[] words = null;
+        FileReader fileReader = new FileReader(file);
+        BufferedReader buffer = new BufferedReader(fileReader);
+        String line;
+        String input=saveProjectDirectory + Session.getInstance().getUser().getUsername() + ".tex";
+
+        while((line=buffer.readLine())!=null){
+            words=line.split(":");
+            for (String word : words)
+            {
+                if (word.equals(input))
+                {
+                    for(int i = 1; i < words.length; i++){
+                        if(i == 1)
+                            System.out.print("line ");
+                        System.out.print(words[i]);
+                        if(i < words.length - 1)
+                            System.out.print(":");
+                        else
+                            System.out.println();
+                    }
+                }
+            }
         }
     }
 

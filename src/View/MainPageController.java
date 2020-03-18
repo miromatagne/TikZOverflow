@@ -49,14 +49,17 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     @FXML
     public void compile() throws Exception {
         FileHandler fh = new FileHandler();
-        fh.setupSaveProjectDirectory("./Latex/");
+        fh.setupSaveProjectDirectory("project/");
         if(!fh.createProject(codeInterface.getText())){throw new Exception("Error in creating .tex file:");}
-        String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
+        String filePath = "project/" + Session.getInstance().getUser().getUsername() + ".tex";
 
         try {
             LatexCompiler.runProcess(filePath);
         }
-        catch(Exception e){System.err.println("Error in compilation :  " + e.toString());}
+        catch(Exception e){
+            System.err.println("Error in compilation :  " + e.toString());
+            fh.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log");
+        }
     }
 
     @FXML
