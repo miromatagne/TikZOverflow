@@ -105,8 +105,31 @@ public class FileHandler {
             //Error, the file does already exist
             return false;
         }
-
+        makeTexFile(user, "");
         return writeSave(user, save_file);
+    }
+
+    public void makeTexFile(User user, String sourceCode) {
+        setupSaveProjectDirectory("./Latex/");
+        File tex_file = new File(saveProjectDirectory+ user.getUsername() + ".tex");
+
+        if (tex_file.exists()){
+            writeInFile(tex_file, sourceCode);
+        }else{
+            File template_file = new File("./Latex/template.txt");
+            String temp, text = "";
+            BufferedReader br = null;
+            try {
+                br = new BufferedReader(new FileReader(template_file));
+                while ((temp = br.readLine()) != null) {
+                    text = text.concat(temp + '\n');
+                }
+            } catch (IOException e) {
+                System.err.println("There was an error while reading the sample file\n");
+                e.printStackTrace();
+            }
+            writeInFile(tex_file, text);
+        }
     }
 
     private boolean writeSave(User user, File file) {
@@ -133,19 +156,6 @@ public class FileHandler {
         return false ;
     }
 
-    /**
-     * Create a project save with the code that we compiled
-     *
-     * @param text  text to be saved in a text file
-     */
-
-    public boolean createProject(String text){
-        if (saveProjectDirectory.equals("")) {
-            return false;
-        }
-        File file = new File(saveProjectDirectory+ Session.getInstance().getUser().getUsername() + ".tex");
-        return writeInFile(file, text);
-    }
 
     /**
      *  Writes text into file.

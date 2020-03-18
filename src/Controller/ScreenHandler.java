@@ -56,7 +56,7 @@ public class ScreenHandler extends Application {
             screens.add(loader.load());
             controllers.add(loader.getController());
         }
-        catch(Exception expc){System.out.println("Error loading all screen" + scenePath); expc.printStackTrace();}
+        catch(Exception expc){System.out.println("Error loading all screen " + scenePath); expc.printStackTrace();}
     }
 
     @Override
