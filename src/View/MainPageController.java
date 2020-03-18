@@ -41,7 +41,10 @@ public class MainPageController extends ControllerSuperclass  implements Initial
         try {
             LatexCompiler.runProcess(filePath);
         }
-        catch(Exception e){System.err.println("Error in compilation :  " + e.toString());}
+        catch(Exception e){
+            System.err.println("Error in compilation :  " + e.toString());
+            fh.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log");
+        }
     }
 
     @FXML
