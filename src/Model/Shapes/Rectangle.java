@@ -5,14 +5,14 @@ public class Rectangle extends Node {
     public Rectangle(float xCenter, float yCenter){
         super(xCenter,yCenter);
     }
-    public void setHeight(float height) {
+
 
     @Override
     public String getDescription() {
         return "Rectangle of height " + this.getHeight() + " and width " + this.getWidth() + ".";
     }
 
-    public void setHeight(int height) {
+    public void setHeight(float height) {
         this.height = height;
     }
     public void setWidth(float width) {
