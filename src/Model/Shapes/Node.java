@@ -1,11 +1,10 @@
 package Model.Shapes;
 
 public abstract class Node extends Shape {
-
-
     private float outlineThickness;
     private float xCenter,yCenter;
     public Node(float xCenter, float yCenter){
+        super(0,0);
         this.xCenter = xCenter;
         this.yCenter = yCenter;
     }

@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 
 /**
- * Factory to creat instance of shape
+ * Factory to create instance of shape
  */
 
 public class FactoryShape {

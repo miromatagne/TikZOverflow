@@ -13,4 +13,6 @@ public class CurvedLine extends Link{
     public void setCurveRadius(float curveRadius) {
         this.curveRadius = curveRadius;
     }
+
+    public float getCurvedRadius(){return curveRadius;}
 }
