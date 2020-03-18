@@ -22,7 +22,7 @@ public class CompileListener extends ControllerSuperclass {
        /* FileHandler fh = new FileHandler();
         fh.setupSaveProjectDirectory("project");
         boolean res = fh.createProject(codeInterface.getText());*/ //Done in the first it
-        String filePath = "../Latex/" + Session.getInstance().getUser().getUsername() + ".tex" ;
+        String filePath = "../Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
         try {
             LatexCompiler.runProcess(filePath);
         }
