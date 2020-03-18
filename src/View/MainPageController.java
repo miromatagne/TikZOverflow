@@ -8,6 +8,7 @@ import Controller.ScreenHandler;
 import Model.LatexCompiler;
 import Controller.Session;
 import Model.Shapes.*;
+import Controller.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -44,6 +45,8 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     private ShapeMenuController shapeMenuController;
 
 
+    @FXML private Button errorsButton;
+    @FXML private Button compileButton;
 
     /**
      * when we click on "compile" button it sends the text to a save file
@@ -51,8 +54,8 @@ public class MainPageController extends ControllerSuperclass  implements Initial
      */
     @FXML
     public void compile() throws Exception {
-        FileHandler fh = new FileHandler();
-        fh.makeTexFile(Session.getInstance().getUser(), codeInterface.getText());
+        FileHandler fileHandler = new FileHandler();
+        fileHandler.makeTexFile(Session.getInstance().getUser(), codeInterface.getText());
         String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
 
         try {
@@ -62,8 +65,55 @@ public class MainPageController extends ControllerSuperclass  implements Initial
         }
         catch(Exception e){
             System.err.println("Error in compilation :  " + e.toString());
-            fh.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log");
+            fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log");
         }
+        fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log");
+        int errorsCount = fileHandler.getErrorsCounter();
+        errorsButton.setText("Errors (" + errorsCount + ")");
+    }
+
+    /**
+     * when clicking on 'Hide errors' button, the user is sent back on the code interface
+     * @param errorsCount
+     */
+    @FXML
+    public void hideErrors(int errorsCount){
+        compileButton.setDisable(false);
+        compileButton.setVisible(true);
+
+        errorsButton.setText("Errors (" + errorsCount + ")");
+        codeInterface.setEditable(true);
+        codeInterface.setStyle("-fx-border-color: #3A3A3A; -fx-border-insets: 0,0,0,0; -fx-focus-traversable: false; -fx-border-width: 2; -fx-background-color: transparent; -fx-text-fill: white; -fx-highlight-fill: blue; -fx-highlight-text-fill: white; -fx-control-inner-background: #404040; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;");
+        codeInterface.setText("");
+    }
+
+    /**
+     * when clicking on 'errors (..)" button, the user is sent on a screen which shows him the errors after the last
+     * compile
+     * @throws Exception
+     */
+    @FXML
+    public void showErrors() throws Exception {
+        FileHandler fileHandler = new FileHandler();
+        int errorsCount = fileHandler.getErrorsCounter();
+        if(errorsButton.getText() == "Hide errors"){
+            hideErrors(errorsCount);
+        }
+        else {
+
+            compileButton.setDisable(true);
+            compileButton.setVisible(false);
+            fileHandler.makeTexFile(Session.getInstance().getUser(), codeInterface.getText());
+            errorsButton.setText("Hide errors");
+            codeInterface.setEditable(false);
+
+            String errors = fileHandler.getErrors();
+
+            codeInterface.setStyle("-fx-border-color: #3A3A3A; -fx-border-insets: 0,0,0,0; -fx-focus-traversable: false; -fx-border-width: 2; -fx-background-color: transparent; -fx-text-fill: #ff1200; -fx-highlight-fill: blue; -fx-highlight-text-fill: red; -fx-control-inner-background: #404040; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;");
+            codeInterface.setText("You got "+ errorsCount+ " errors on the last compilation \n" + errors);
+        }
+
+
     }
 
     private void renderImage(String pdfPath) {
@@ -87,7 +137,8 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     }
 
     @FXML
-    public void modificationButtonAction() {
+    public void modificationButtonAction()
+    {
         ScreenHandler.changeScene(ScreenHandler.MODIFICATIONSCREEN);
     }
 

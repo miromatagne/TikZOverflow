@@ -4,6 +4,7 @@ package Model;
 import Controller.Session;
 
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * This class is used to handle interactions with files. It creates directories and write the saves
@@ -16,9 +17,10 @@ public class FileHandler {
     private String saveUserFormat = ".txt";
     private static final String DEFAULT_DIRECTORY  = "save user";
 
-    public FileHandler() {
-        setupSaveUserDirectory(DEFAULT_DIRECTORY);
-    }
+    private static int ERRORS_COUNTER = 0;
+    private static String ERRORS = "";
+
+    public FileHandler() {setupSaveUserDirectory(DEFAULT_DIRECTORY);}
 
     public FileHandler(String saveUserDirectory){
         setupSaveUserDirectory(saveUserDirectory);
@@ -290,17 +292,35 @@ public class FileHandler {
     }
 
     /**
+     *
+     * @return                      string with all the errors that the user let in the compiler
+     */
+    public static String getErrors(){
+        return ERRORS;
+    }
+
+    /**
+     *
+     * @return                      quantity of errors that occur in the compiler
+     */
+    public static int getErrorsCounter(){
+        return ERRORS_COUNTER;
+    }
+
+    /**
      * Find the errors that the user has written in the compiler
      * @param path                  The path to the .log file of the project file
      * @throws IOException          To be able to catch errors if the process of opening a file fails
      */
     public void errorLogs(String path) throws IOException {
+        ERRORS = "";
+        ERRORS_COUNTER = 0;
         File file = new File(path);
         String[] words;
         FileReader fileReader = new FileReader(file);
         BufferedReader buffer = new BufferedReader(fileReader);
         String line;
-        String input=saveProjectDirectory + Session.getInstance().getUser().getUsername() + ".tex";
+        String input="Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
 
         while((line=buffer.readLine())!=null){
             words=line.split(":");
@@ -308,15 +328,20 @@ public class FileHandler {
             {
                 if (word.equals(input))
                 {
+                    ERRORS_COUNTER++;
                     for(int i = 1; i < words.length; i++){
                         if(i == 1)
-                            System.out.print("line ");
-                        System.out.print(words[i]);
+                            ERRORS += "line ";
+                        ERRORS += words[i];
                         if(i < words.length - 1)
-                            System.out.print(":");
+                            ERRORS += ":";
                         else
-                            System.out.println();
+                            ERRORS += "\n";
                     }
+                }
+                else if (word.equals("*** (job aborted, no legal \\end found)")){
+                    ERRORS_COUNTER++;
+                    ERRORS += "please add '\\begin{document}' and/or '\\end{document}' to your codes";
                 }
             }
         }
