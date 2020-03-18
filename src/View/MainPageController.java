@@ -1,14 +1,14 @@
-package Controller;
+package View;
 
-import View.ScreenHandler;
 import View.ShapeMenu.ShapeMenuViewController;
+import Controller.ScreenHandler;
 import Model.FileHandler;
+import Model.LatexCompiler;
 
 
-import Model.Session;
-import Model.Shapes.Circle;
-import Model.Shapes.Rectangle;
-import Model.Shapes.Shape;
+import Controller.Session;
+import Model.Shapes.*;
+import Controller.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,8 +29,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
-public class CompileListener extends ControllerSuperclass implements Initializable {
+public class MainPageController extends ControllerSuperclass  implements Initializable{
 
     @FXML private TextArea codeInterface;
     @FXML private VBox suiviForme;
@@ -43,19 +42,23 @@ public class CompileListener extends ControllerSuperclass implements Initializab
 
 
     /**
-     * when we click on "compile" button it send the text to a save file
+     * when we click on "compile" button it sends the text to a save file
      *
      */
     @FXML
     public void compile() {
-        FileHandler fh = new FileHandler();
+       /* FileHandler fh = new FileHandler();
         fh.setupSaveProjectDirectory("project");
-        fh.createProject(codeInterface.getText());
-
+        fh.createProject(codeInterface.getText());*/ //Done in the first it
+        String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
+        try {
+            LatexCompiler.runProcess(filePath);
+        }
+        catch(Exception e){System.err.println("Error in compilation :  " + e.toString());}
     }
 
     @FXML
-    public void modifButtonAction()
+    public void modificationButtonAction()
     {
         ScreenHandler.changeScene(ScreenHandler.MODIFICATIONSCREEN);
     }
@@ -130,14 +133,22 @@ public class CompileListener extends ControllerSuperclass implements Initializab
      * @return returnString     String which describes the shape given in parameter
      */
     public String createString(Shape shape) {
-        String returnString = "Added";
+        String returnString = "Added ";
         if ( shape instanceof Circle) {
-            returnString += "circle of radius " + ((Circle) shape).getRadius() + "and center (" + shape.getPosX() + ", "+ shape.getPosY() + ").";
+            returnString += "Circle of radius " + ((Circle) shape).getRadius() + " and center (" + shape.getPosX() + ","+ shape.getPosY() + ").";
         }
         else if ( shape instanceof Rectangle) {
-            returnString += "Rectangle of height " + ((Rectangle) shape).getHeight() + "and width " + ((Rectangle) shape).getWidth() + ".";
+            returnString += "Rectangle of height " + ((Rectangle) shape).getHeight() + " and width " + ((Rectangle) shape).getWidth() + ".";
         }
-
+        else if ( shape instanceof Arrow) {
+            returnString += "Arrow from (" + ((Arrow) shape).getxOrigin() + "," + ((Arrow) shape).getyOrigin() + ") to (" + ((Arrow) shape).getxDestination() + "," + ((Arrow) shape).getyDestination() + ").";
+        }
+        else if ( shape instanceof CurvedLine) {
+            returnString += "Curved Line from (" + ((CurvedLine) shape).getxOrigin() + "," + ((CurvedLine) shape).getyOrigin() + ") to (" + ((CurvedLine) shape).getxDestination() + "," + ((CurvedLine) shape).getyDestination() + ").";
+        }
+        else if ( shape instanceof Line) {
+            returnString += "Line from (" + ((Line) shape).getxOrigin() + "," + ((Line) shape).getyOrigin() + ") to (" + ((Line) shape).getxDestination() + "," + ((Line) shape).getyDestination() + ").";
+        }
         return returnString;
     }
 

@@ -1,6 +1,6 @@
-package View;
+package Controller;
 
-import Controller.ControllerSuperclass;
+import View.ControllerSuperclass;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,8 +15,7 @@ All the Controller linked to the screens will be contain in a Array of Controlle
 called whenever we change screen.
  */
 
-public class ScreenHandler extends Application
-{
+public class ScreenHandler extends Application {
     //Id scene :
     public static int LOGINSCREEN = 0 ;
     public static int MAINPAGE = 1 ;
@@ -29,13 +28,13 @@ public class ScreenHandler extends Application
     static Scene scene ;
     static int idCurrent = 0 ; // Allow to see at which screen/scene number we are
 
+
     /**
      * changeScene is a static function and will be used by other object such as Controller in order to change the root
      * the active scene.
      *
      * @param idScene  this is an int and it is used to choose which screen will be displayed.(Refer to the list above)
      */
-    //Method
     public static void changeScene(int idScene)
     {
         scene.setRoot(screens.get(idScene));
@@ -60,17 +59,12 @@ public class ScreenHandler extends Application
         catch(Exception expc){System.out.println("Error loading all screen" + scenePath); expc.printStackTrace();}
     }
 
-    public static void main(String[] args) {
-        try{ launch(args);}
-        catch(Exception expc){System.out.println("Error in launching the start() method");}
-    }
-
     @Override
     public void start(Stage stage) throws Exception {
-        addScene("LoginScreen.fxml");
-        addScene("MainPage.fxml");
-        addScene("accountCreation.fxml");
-        addScene("accountModification.fxml");
+        addScene("../View/LoginScreen.fxml");
+        addScene("../View/MainPage.fxml");
+        addScene("../View/accountCreation.fxml");
+        addScene("../View/accountModification.fxml");
 
         if(screens.isEmpty()) {throw new Exception("Failed to log allScene") ;}
 

@@ -98,13 +98,23 @@ public class FileHandler {
         if (saveUserDirectory.equals("")) {
             return false;
         }
-        File file = new File(saveUserDirectory+"/"+user.getUsername()+saveUserFormat);
-        if (file.exists()){
+        File save_file = new File(saveUserDirectory+"/"+user.getUsername()+saveUserFormat);
+        if (save_file.exists()){
             //Error, the file does already exist
             return false;
         }
-        String text=getSaveTextFromUser(user);
+        File tex_file = new File("./Latex/" + user.getUsername() + ".tex");
+        try {
+            tex_file.createNewFile();
+        } catch (IOException e) {
+            System.err.println("There was an error while creating the file");
+            e.printStackTrace();
+        }
+        return writeSave(user, save_file);
+    }
 
+    private boolean writeSave(User user, File file) {
+        String text=getSaveTextFromUser(user);
         return writeInFile(file, text);
     }
 
@@ -122,8 +132,7 @@ public class FileHandler {
 
         File file = new File(saveUserDirectory+"/"+user.getUsername()+saveUserFormat);
         if (file.exists()) {
-            String text = getSaveTextFromUser(user);
-            return writeInFile(file, text);
+            return writeSave(user, file);
         }
         return false ;
     }
@@ -165,7 +174,7 @@ public class FileHandler {
     }
 
     /**
-     * Creates an user from its username and its save in the save_user directory.
+     * Creates a user from its username and its save in the save_user directory.
      *
      * @param username              Username (identifying users)
      * @return                      User created. Null if save file does not exist.

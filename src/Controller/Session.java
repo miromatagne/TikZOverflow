@@ -1,4 +1,8 @@
-package Model;
+package Controller;
+
+import Model.FieldChecker;
+import Model.FileHandler;
+import Model.User;
 
 public class Session {
     public static final int CONNECTION_ESTABLISHED = 0;

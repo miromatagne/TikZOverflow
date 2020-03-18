@@ -1,11 +1,12 @@
-package Model;
+package Controller;
 
-import Controller.Session;
+import Model.FileHandler;
+import Model.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TestSession {
+class SessionTest {
     User testUser;
 
 
