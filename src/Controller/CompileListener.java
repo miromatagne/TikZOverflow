@@ -13,8 +13,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -33,6 +35,7 @@ public class CompileListener extends ControllerSuperclass implements Initializab
     @FXML private TextArea codeInterface;
     @FXML private VBox suiviForme;
     @FXML private ScrollPane scroll;
+    @FXML private Button addShapeButton;
     private Stage popUpStage;
     private AddShapeMenuController addShapeMenuController;
 
@@ -72,7 +75,7 @@ public class CompileListener extends ControllerSuperclass implements Initializab
     /**
      * Adds a Label to the panel on the right hand side of the screen describing the
      * shape that was added.
-     * @param shape
+     * @param shape         Shape to be added
      */
     @FXML
     public void addShape(Shape shape) {
@@ -91,14 +94,18 @@ public class CompileListener extends ControllerSuperclass implements Initializab
     /**
      * Initialization of the region where the names of the added shapes will appear
      * (VBox and ScrollPane).
-     * @param location
-     * @param resources
+     * @param location      URL (not used)
+     * @param resources     ResourceBundle(not used)
      */
     @Override
     public void initialize(URL location, ResourceBundle resources){
         suiviForme.prefWidthProperty().bind(scroll.prefWidthProperty());
         suiviForme.prefHeightProperty().bind(scroll.prefHeightProperty());
-        try{popUpInitialize();}catch(Exception e){}
+        try{
+            popUpInitialize();
+        } catch(Exception ignored){
+
+        }
 
     }
 
@@ -116,8 +123,8 @@ public class CompileListener extends ControllerSuperclass implements Initializab
     /**
      * Creation of the String to insert into the label when a new shape has been added.
      * This String is different depending on the shape added.
-     * @param shape
-     * @return returnString
+     * @param shape             Shape which has to be converted in a string
+     * @return returnString     String which describes the shape given in parameter
      */
     public String createString(Shape shape) {
         String returnString = "Added";
@@ -139,6 +146,11 @@ public class CompileListener extends ControllerSuperclass implements Initializab
     public void addShapeMenu(){
         addShapeMenuController.update();
         popUpStage.show();
+    }
+
+    @FXML
+    public void changeMouseToHand(){
+        addShapeButton.setCursor(Cursor.HAND);
     }
 
     public void closePopup() {

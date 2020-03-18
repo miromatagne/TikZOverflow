@@ -24,4 +24,40 @@ public abstract class Link extends Shape{
     public void setStrokeWidth(float strokeWidth){
         this.strokeWidth = strokeWidth;
     }
+
+    public float getxOrigin() {
+        return xOrigin;
+    }
+
+    public void setxOrigin(float xOrigin) {
+        this.xOrigin = xOrigin;
+    }
+
+    public float getyOrigin() {
+        return yOrigin;
+    }
+
+    public void setyOrigin(float yOrigin) {
+        this.yOrigin = yOrigin;
+    }
+
+    public float getxDestination() {
+        return xDestination;
+    }
+
+    public void setxDestination(float xDestination) {
+        this.xDestination = xDestination;
+    }
+
+    public float getyDestination() {
+        return yDestination;
+    }
+
+    public void setyDestination(float yDestination) {
+        this.yDestination = yDestination;
+    }
+
+    public float getStrokeWidth() {
+        return strokeWidth;
+    }
 }

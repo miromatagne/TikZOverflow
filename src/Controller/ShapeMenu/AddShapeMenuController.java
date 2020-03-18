@@ -10,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.SubScene;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
@@ -59,11 +58,12 @@ public class AddShapeMenuController extends ControllerSuperclass implements Init
         allTexts.add(arrowText);
     }
 
-    @Override
+
     /**
      * Function called when a change occurs on the window.
      * Allows to get a clear page when changing between menus
      */
+    @Override
     public void update() {
         changeToArrowMenu();
         clearShapeMenus();
@@ -73,17 +73,19 @@ public class AddShapeMenuController extends ControllerSuperclass implements Init
      * Clear the shape menus by calling the update function of the controllers
      */
     private void clearShapeMenus(){
-        for (int i = 0; i< allControllers.size(); i++){
-            allControllers.get(i).update();
+        for (MenuController menuController : allControllers) {
+            menuController.update();
         }
     }
 
-    @Override
     /**
      * Initialize the controller, load and add the different menus to an array list
      * The parameters are not needed in this case but because it overrides an abstract function,
      * they have to stay here
+     * @param url               URL (not used)
+     * @param resourceBundle    ResourceBundle(not used)
      */
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Locale.setDefault(Locale.ENGLISH);
         addScene("/View/rectangleMenu.fxml");
@@ -199,28 +201,37 @@ public class AddShapeMenuController extends ControllerSuperclass implements Init
         compileListener = listener;
     }
 
+    /**
+     * Create a shape once all the fields are valid. It is called from the button "Confirm" in the pop-up window which
+     * is used to create a new shape
+     */
     public void confirmShape(){
         //Verify Fields
         boolean allFieldsValid = true;
 
-        ArrayList<TextField> allTextFields = allControllers.get(idCurrent).getAllTextFields();
-        ArrayList<Float> allDataInField = new ArrayList<Float>();
-
-        for(int i=0;i<allTextFields.size();i++){
-            String tempStringInField = allTextFields.get(i).getText();
-            if(!fieldChecker.isValidNumber(tempStringInField) || tempStringInField == null){
+        ArrayList<String> allFields = allControllers.get(idCurrent).getAllFields();
+        ArrayList<Float> allDataInField = new ArrayList<>();
+        String redStyle = "-fx-text-box-border: red";
+        String normalStyle = "";
+        for(int i=0; i<allFields.size() ;i++) {
+            String tempStringInField = allFields.get(i);
+            if (!fieldChecker.isValidNumber(tempStringInField) || tempStringInField == null) {
                 allFieldsValid = false;
-                break;
-            }
-            else
+                if (i < allControllers.get(idCurrent).getAllTextFields().size()) {
+                    allControllers.get(idCurrent).getAllTextFields().get(i).setStyle(redStyle);
+                }
+            } else {
                 allDataInField.add(Float.parseFloat(tempStringInField));
+                if (i < allControllers.get(idCurrent).getAllTextFields().size()) {
+                    allControllers.get(idCurrent).getAllTextFields().get(i).setStyle(normalStyle);
+                }
+            }
         }
         //Nothing happened if fields are wrong or empty
         if(!allFieldsValid)
             return;
 
-        FactoryShape factoryShape = new FactoryShape();
-        Shape s = factoryShape.factoryShape(idCurrent,allDataInField,allControllers.get(idCurrent).getColor());
+        Shape s = FactoryShape.getInstance(idCurrent,allDataInField,allControllers.get(idCurrent).getColor());
 
         compileListener.addShape(s);
         compileListener.closePopup();

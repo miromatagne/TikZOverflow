@@ -1,6 +1,5 @@
 package Controller.ShapeMenu;
 
-import Controller.ControllerSuperclass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
@@ -22,36 +21,47 @@ public class CurvedLineMenuController extends MenuController implements Initiali
     @FXML private TextField xDestinationTextField;
     @FXML private TextField yDestinationTextField;
     @FXML private TextField strokeWidthTextField;
-    @FXML private TextField curvedRadiusTextField;
+    @FXML private TextField curveRadiusTextField;
     @FXML private ColorPicker colorPicker;
 
     private static ArrayList<TextField> allTextFields = new ArrayList<>();
 
 
 
-    @Override
     /**
      * Function called when a new menu is selected. It clears the different fields
      */
+    @Override
     public void update() {
-        for (int i = 0; i < allTextFields.size();i++){
-            allTextFields.get(i).setText("");
+        for (TextField textField : allTextFields) {
+            textField.setText("");
         }
         colorPicker.setValue(Color.WHITE);
     }
 
 
-    @Override
     /**
      * Initialization by adding the different textfield to an array list
+     * @param url               URL (not used)
+     * @param resourceBundle    ResourceBundle(not used)
      */
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         allTextFields.add(xOriginTextField);
         allTextFields.add(yOriginTextField);
         allTextFields.add(xDestinationTextField);
         allTextFields.add(yDestinationTextField);
         allTextFields.add(strokeWidthTextField);
-        allTextFields.add(curvedRadiusTextField);
+        allTextFields.add(curveRadiusTextField);
+    }
+
+    @Override
+    public ArrayList<String> getAllFields() {
+        ArrayList<String> returnValue = new ArrayList<>();
+        for (TextField textField : allTextFields) {
+            returnValue.add(textField.getText());
+        }
+        return returnValue;
     }
 
     @Override

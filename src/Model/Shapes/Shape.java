@@ -6,6 +6,7 @@ public abstract class Shape {
     private float posX;
     private float posY;
     private Color color;
+
     public float getPosX() {
         return posX;
     }
@@ -23,5 +24,9 @@ public abstract class Shape {
     }
 
     public void setColor(Color c){color=c;}
+
+    public Color getColor() {
+        return color;
+    }
 
 }

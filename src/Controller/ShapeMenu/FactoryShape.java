@@ -5,44 +5,66 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
+/**
+ * Factory to creat instance of shape
+ */
+
 public class FactoryShape {
 
-    public Shape factoryShape(int id, ArrayList<Float> data, Color color) {
-        Shape s = null;
+
+    final static int RECTANGLE = 0;
+    final static int CIRCLE = 1;
+    final static int LINE = 2;
+    final static int CURVED_LINE = 3;
+    final static int ARROW = 4;
+
+    /**
+     * Get an instance of a shape based on information given in parameters
+     * @param id            Identify the type of shape
+     * @param data          Data needed to create the shape
+     * @param color         Color of the shape
+     * @return              Instance of shape
+     */
+    public static Shape getInstance(int id, ArrayList<Float> data, Color color) {
+        Shape instance = null;
         switch (id) {
-            case 0:
+            case RECTANGLE:
                 Rectangle r = new Rectangle(data.get(0),data.get(1));
                 r.setHeight(data.get(2));
                 r.setWidth(data.get(3));
+                r.setOutlineThickness(data.get(4));
                 r.setColor(color);
-                s=r;
+                instance=r;
                 break;
-            case 1:
+            case CIRCLE:
                 Circle c = new Circle(data.get(0),data.get(1));
                 c.setRadius(data.get(2));
+                c.setOutlineThickness(data.get(3));
                 c.setColor(color);
-                s=c;
+                instance=c;
                 break;
-            case 2:
+            case LINE:
                 Line l = new Line(data.get(0),data.get(1),data.get(2),data.get(3));
                 l.setStrokeWidth(data.get(4));
                 l.setColor(color);
-                s=l;
+                instance=l;
                 break;
-            case 3:
+            case CURVED_LINE:
                 CurvedLine cl = new CurvedLine(data.get(0),data.get(1),data.get(2),data.get(3));
                 cl.setStrokeWidth(data.get(4));
                 cl.setCurveRadius(data.get(5));
                 cl.setColor(color);
-                s=cl;
+                instance=cl;
                 break;
-            case 4:
+            case ARROW:
                 Arrow a = new Arrow(data.get(0),data.get(1),data.get(2),data.get(3));
                 a.setStrokeWidth(data.get(4));
+                a.setArrowHeadLength(data.get(5));
+                a.setArrowHeadWidth(data.get(6));
                 a.setColor(color);
-                s=a;
+                instance=a;
                 break;
         }
-        return s;
+        return instance;
     }
 }

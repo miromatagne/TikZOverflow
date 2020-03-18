@@ -12,7 +12,7 @@ public class FileHandler {
     private String saveUserDirectory = "";
     private String saveProjectDirectory = "";
     private String saveUserFormat = ".txt";
-    private static String DEFAULT_DIRECTORY  = "save user";
+    private static final String DEFAULT_DIRECTORY  = "save user";
 
     public FileHandler() {
         setupSaveUserDirectory(DEFAULT_DIRECTORY);
@@ -42,17 +42,15 @@ public class FileHandler {
      *  Setups the directory for projects' saves
      *
      * @param saveProjectDirectory  Path to the directory projects's saves
-     * @return                      TRUE if the setup is made successfully
-     *                              FALSE otherwise
      */
 
-    public boolean setupSaveProjectDirectory(String saveProjectDirectory){
+    public void setupSaveProjectDirectory(String saveProjectDirectory){
         if (saveProjectDirectory.equals("")){
-            return false;
+            return;
         }
         this.saveProjectDirectory = saveProjectDirectory;
         File file = new File(saveProjectDirectory);
-        return checkAndCreateSaveDirectory(file);
+        checkAndCreateSaveDirectory(file);
     }
 
     /**
@@ -74,6 +72,22 @@ public class FileHandler {
     }
 
     /**
+     *  Get the save text from the user
+     *
+     * @param user      User to be handle
+     * @return          The user save in a string
+     */
+    private String getSaveTextFromUser(User user){
+        String text="";
+        text+="last:"+user.getLastName()+"\n";
+        text+="first:"+user.getFirstName()+"\n";
+        text+="username:"+user.getUsername()+"\n";
+        text+="mail:"+user.getMail()+"\n";
+        text+="password:"+user.getPassword()+"\n";
+        return text;
+    }
+
+    /**
      *  Creates a save corresponding to given user.
      *
      *  @param  user                User to be saved in a text file
@@ -89,36 +103,26 @@ public class FileHandler {
             //Error, the file does already exist
             return false;
         }
-        String text="";
-        text+="last:"+user.getLastName()+"\n";
-        text+="first:"+user.getFirstName()+"\n";
-        text+="username:"+user.getUsername()+"\n";
-        text+="mail:"+user.getMail()+"\n";
-        text+="password:"+user.getPassword()+"\n";
+        String text=getSaveTextFromUser(user);
 
         return writeInFile(file, text);
     }
 
     /**
+     * Save the user in the user directory
+     *
      * @param user  user contain all the new data to be saved
      * @return      TRUE if the save was successfull
      *              FALSE otherwise
      */
-    public boolean saveUser(User user)
-    {
+    public boolean saveUser(User user) {
         if (saveUserDirectory.equals("")) {
             return false;
         }
 
         File file = new File(saveUserDirectory+"/"+user.getUsername()+saveUserFormat);
         if (file.exists()) {
-            String text = "";
-            text += "last:" + user.getLastName() + "\n";
-            text += "first:" + user.getFirstName() + "\n";
-            text += "username:" + user.getUsername() + "\n";
-            text += "mail:" + user.getMail() + "\n";
-            text += "password:" + user.getPassword() + "\n";
-
+            String text = getSaveTextFromUser(user);
             return writeInFile(file, text);
         }
         return false ;
@@ -128,16 +132,14 @@ public class FileHandler {
      * Create a project save with the code that we compiled
      *
      * @param text  text to be saved in a text file
-     * @return      TRUE if writing successfully
-     *              FALSE otherwise
      */
 
-    public boolean createProject(String text){
+    public void createProject(String text){
         if (saveProjectDirectory.equals("")) {
-            return false;
+            return;
         }
         File file = new File(saveProjectDirectory+"/project1"+saveUserFormat);
-        return writeInFile(file, text);
+        writeInFile(file, text);
     }
 
     /**
