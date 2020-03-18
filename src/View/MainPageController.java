@@ -1,22 +1,30 @@
 package View;
 
+import Controller.ShapeMenuController;
+import View.ShapeMenu.ShapeMenuViewController;
 import Controller.ScreenHandler;
-import Model.FileHandler;
 import Model.LatexCompiler;
 
 
-import Controller.Session;;
+import Controller.Session;
 import Model.Shapes.*;
-import Controller.ScreenHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,6 +33,12 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     @FXML private TextArea codeInterface;
     @FXML private VBox suiviForme;
     @FXML private ScrollPane scroll;
+    @FXML private Button addShapeButton;
+    private Stage popUpStage;
+    private ShapeMenuViewController shapeMenuViewController;
+    private ShapeMenuController shapeMenuController;
+
+
 
     /**
      * when we click on "compile" button it sends the text to a save file
@@ -34,7 +48,7 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     public void compile() {
        /* FileHandler fh = new FileHandler();
         fh.setupSaveProjectDirectory("project");
-        boolean res = fh.createProject(codeInterface.getText());*/ //Done in the first it
+        fh.createProject(codeInterface.getText());*/ //Done in the first it
         String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
         try {
             LatexCompiler.runProcess(filePath);
@@ -64,7 +78,7 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     /**
      * Adds a Label to the panel on the right hand side of the screen describing the
      * shape that was added.
-     * @param shape Shape to be added
+     * @param shape         Shape to be added
      */
     @FXML
     public void addShape(Shape shape) {
@@ -83,18 +97,39 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     /**
      * Initialization of the region where the names of the added shapes will appear
      * (VBox and ScrollPane).
+     * @param location      URL (not used)
+     * @param resources     ResourceBundle(not used)
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(URL location, ResourceBundle resources){
         suiviForme.prefWidthProperty().bind(scroll.prefWidthProperty());
         suiviForme.prefHeightProperty().bind(scroll.prefHeightProperty());
+        try{
+            popUpInitialize();
+        } catch(Exception ignored){
+
+        }
+
+    }
+
+    private void popUpInitialize() throws IOException{
+        popUpStage = new Stage();
+        popUpStage.setTitle("Add Shape Menu");
+        popUpStage.initModality(Modality.APPLICATION_MODAL);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/ShapeMenu/FxmlFiles/addShapeMenu.fxml"));
+        Parent addShapeMenuRoot = loader.load();
+        shapeMenuViewController = loader.getController();
+        shapeMenuController = new ShapeMenuController();
+        shapeMenuController.setMainPageController(this);
+        shapeMenuViewController.setShapeMenuController(shapeMenuController);
+        popUpStage.setScene(new Scene(addShapeMenuRoot));
     }
 
     /**
      * Creation of the String to insert into the label when a new shape has been added.
      * This String is different depending on the shape added.
-     * @param shape Shape to be added
-     * @return returnString
+     * @param shape             Shape which has to be converted in a string
+     * @return returnString     String which describes the shape given in parameter
      */
     public String createString(Shape shape) {
         String returnString = "Added ";
@@ -104,4 +139,22 @@ public class MainPageController extends ControllerSuperclass  implements Initial
         return returnString;
     }
 
+
+    /**
+     * Create a pop-up which allows to create a new shape
+     */
+    @FXML
+    public void addShapeMenu(){
+        shapeMenuViewController.update();
+        popUpStage.show();
+    }
+
+    @FXML
+    public void changeMouseToHand(){
+        addShapeButton.setCursor(Cursor.HAND);
+    }
+
+    public void closePopup() {
+        popUpStage.hide();
+    }
 }

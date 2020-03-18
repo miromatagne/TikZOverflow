@@ -1,8 +1,8 @@
 package Model.Shapes;
 
 public class CurvedLine extends Link{
-    private int curveRadius;
-    public CurvedLine(int xOrigin, int yOrigin, int xDestination, int yDestination) {
+    private float curveRadius;
+    public CurvedLine(float xOrigin, float yOrigin, float xDestination, float yDestination) {
         super(xOrigin, yOrigin, xDestination, yDestination);
     }
 
@@ -10,9 +10,11 @@ public class CurvedLine extends Link{
         super(origin, destination);
     }
 
-    public void setCurveRadius(int curveRadius) {
+    public void setCurveRadius(float curveRadius) {
         this.curveRadius = curveRadius;
     }
+
+    public float getCurvedRadius(){return curveRadius;}
 
     @Override
     public String getDescription() {

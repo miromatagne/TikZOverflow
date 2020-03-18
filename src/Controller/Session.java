@@ -9,14 +9,12 @@ public class Session {
     public static final int USER_NOT_REGISTERED = -1;
     public static final int INVALID_PASSWORD = -2;
     private User currentUser = null;
-    private FieldChecker fc;
-    private FileHandler fh;
+    private FileHandler fileHandler;
     private static Session session = new Session();
 
     /* Singleton class */
     private Session(){
-        fc = new FieldChecker();
-        fh = new FileHandler();
+        fileHandler = new FileHandler();
     }
 
     public static Session getInstance() {
@@ -27,9 +25,8 @@ public class Session {
     public void setUser(User newUser){ currentUser = newUser;}
 
     public int openSession(String username, String password){
-        FileHandler fh = new FileHandler();
-        fh.setupSaveUserDirectory("save user");
-        currentUser = fh.getUserFromSave(username);
+        fileHandler.setupSaveUserDirectory("save user");
+        currentUser = fileHandler.getUserFromSave(username);
         if(currentUser == null){
             return USER_NOT_REGISTERED; //User is not registered
         }else{
@@ -64,7 +61,7 @@ public class Session {
      */
     public boolean createAccount(String username, String firstName, String lastName,
                                  String mail, String password){
-        if(fh.getUserFromSave(username) != null)//User already exists
+        if(fileHandler.getUserFromSave(username) != null)//User already exists
             return false;
         User newUser = new User();
         newUser.setUsername(username);
@@ -72,6 +69,6 @@ public class Session {
         newUser.setLastName(lastName);
         newUser.setPassword(password);
         newUser.setMail(mail);
-        return fh.createUserSave(newUser);
+        return fileHandler.createUserSave(newUser);
     }
 }

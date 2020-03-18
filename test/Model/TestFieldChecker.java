@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FieldCheckerTest {
+class TestFieldChecker {
 
     @Test
     void setupFieldChecker() {
@@ -57,5 +57,19 @@ class FieldCheckerTest {
         assertFalse(fc.isValidMail("ftrouill.ulb.ac.be"));
         assertFalse(fc.isValidMail("ftrouill@ulb@ac.be"));
         assertFalse(fc.isValidMail("ftrouill @ulb.ac.be"));
+    }
+
+    @Test
+    void isValidNumber() {
+        FieldChecker fc = new FieldChecker();
+        fc.setupFieldChecker();
+        assertTrue(fc.isValidNumber("321.7"));
+        assertTrue(fc.isValidNumber("0.3217"));
+        assertTrue(fc.isValidNumber("3217"));
+        assertFalse(fc.isValidNumber("12."));
+        assertFalse(fc.isValidNumber("a"));
+        assertFalse(fc.isValidNumber(".56"));
+        assertFalse(fc.isValidNumber("0.5.6"));
+        assertFalse(fc.isValidNumber("5.6a"));
     }
 }

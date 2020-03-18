@@ -1,7 +1,7 @@
 package Model.Shapes;
 
 public class Line extends Link {
-    public Line(int xOrigin, int yOrigin, int xDestination, int yDestination) {
+    public Line(float xOrigin, float yOrigin, float xDestination, float yDestination) {
         super(xOrigin, yOrigin, xDestination, yDestination);
     }
 

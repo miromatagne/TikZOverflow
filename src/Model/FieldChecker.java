@@ -1,11 +1,16 @@
 package Model;
 import java.util.HashSet;
 
+/**
+ * This class allows to check different inputs from the user of the application
+ */
+
 public class FieldChecker {
 
     HashSet<Character> userCharCollection = new HashSet<>();
     HashSet<Character> alphaCharCollection = new HashSet<>();
     HashSet<Character> numericCharCollection = new HashSet<>();
+    HashSet<Character> numericCollection = new HashSet<>();
 
     public FieldChecker() {
         setupFieldChecker();
@@ -19,6 +24,7 @@ public class FieldChecker {
             if (i < 58) { //0-9
                 userCharCollection.add((char) i);
                 numericCharCollection.add((char) i);
+                numericCollection.add((char) i);
             }
             else if ((i >= 65 && i <= 90) || (i >= 97 && i <= 122)) { //A-Z and a-z
                 alphaCharCollection.add((char)i);
@@ -102,5 +108,30 @@ public class FieldChecker {
         if (isValidUsername(username) && isValidName(firstName) && isValidName(lastName) && isValidMail(mail))
             return password.equals(passwordConfirmation);
         return false;
+    }
+
+    /**
+     * Check if the text given in parameter is a number (float)
+     * @param text                      text to be checked
+     * @return                          TRUE if valid
+     *                                  FALSE otherwise
+     */
+    public boolean isValidNumber(String text){
+        if (text == null || text.equals("")){
+            return false;
+        }
+        int pointCounter = 0;
+        for (int i = 0; i < text.length(); i++){
+            if (text.charAt(i) == '.'){
+                pointCounter++;
+                if (i == 0 || i == text.length()-1){
+                    return false;
+                }
+            }
+            else if (!numericCollection.contains(text.charAt(i))) {
+                return false;
+            }
+        }
+        return pointCounter <= 1;
     }
 }

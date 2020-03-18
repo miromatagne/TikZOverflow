@@ -2,9 +2,12 @@ package Model.Shapes;
 
 public abstract class Link extends Shape{
 
-    private int xOrigin, yOrigin, xDestination, yDestination;
-    private int strokeWidth;
-    public Link(int xOrigin, int yOrigin, int xDestination, int yDestination){
+    private float xOrigin;
+    private float yOrigin;
+    private float xDestination;
+    private float yDestination;
+    private float strokeWidth;
+    public Link(float xOrigin, float yOrigin, float xDestination, float yDestination){
         super(xOrigin, yOrigin);
         this.xOrigin = xOrigin;
         this.yOrigin = yOrigin;
@@ -20,20 +23,43 @@ public abstract class Link extends Shape{
         this.yDestination = destination.getPosY();
     }
 
-    public void setStrokeWidth(int strokeWidth){
+    public void setStrokeWidth(float strokeWidth){
         this.strokeWidth = strokeWidth;
     }
 
-    public int getxOrigin() {
+    public float getxOrigin() {
         return xOrigin;
     }
-    public int getyOrigin() {
+
+    public void setxOrigin(float xOrigin) {
+        this.xOrigin = xOrigin;
+    }
+
+    public float getyOrigin() {
         return yOrigin;
     }
-    public int getxDestination() {
+
+    public void setyOrigin(float yOrigin) {
+        this.yOrigin = yOrigin;
+    }
+
+    public float getxDestination() {
         return xDestination;
     }
-    public int getyDestination() {
+
+    public void setxDestination(float xDestination) {
+        this.xDestination = xDestination;
+    }
+
+    public float getyDestination() {
         return yDestination;
+    }
+
+    public void setyDestination(float yDestination) {
+        this.yDestination = yDestination;
+    }
+
+    public float getStrokeWidth() {
+        return strokeWidth;
     }
 }

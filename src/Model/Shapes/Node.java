@@ -1,14 +1,36 @@
 package Model.Shapes;
 
 public abstract class Node extends Shape {
-    private int outlineThickness;
-    private int xCenter,yCenter;
-    public Node(int xCenter, int yCenter){
-        super(xCenter, yCenter);
+    private float outlineThickness;
+    private float xCenter,yCenter;
+    public Node(float xCenter, float yCenter){
+        super(0,0);
         this.xCenter = xCenter;
         this.yCenter = yCenter;
     }
-    public void setOutlineThickness(int outlineThickness){
+
+
+    public float getXCenter() {
+        return xCenter;
+    }
+
+    public void setXCenter(float xCenter) {
+        this.xCenter = xCenter;
+    }
+
+    public float getYCenter() {
+        return yCenter;
+    }
+
+    public void setYCenter(float yCenter) {
+        this.yCenter = yCenter;
+    }
+
+    public float getOutlineThickness() {
+        return outlineThickness;
+    }
+
+    public void setOutlineThickness(float outlineThickness){
         this.outlineThickness = outlineThickness;
     }
 }

@@ -6,7 +6,7 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FileHandlerTest {
+class TestFileHandler {
 
     @Test
     public void setupSaveUserDirectory(){

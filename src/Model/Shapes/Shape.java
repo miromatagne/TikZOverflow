@@ -3,15 +3,13 @@ package Model.Shapes;
 import javafx.scene.paint.Color;
 
 public abstract class Shape {
-    private int posX, posY;
+    private float posX;
+    private float posY;
     private Color color;
 
-    public Shape(int posX, int posY) {
-        this.posX = posX;
-        this.posY = posY;
-    }
+    public  Shape(float posX, float posY){ this.posX = posX;this.posY=posY;}
 
-    public int getPosX() {
+    public float getPosX() {
         return posX;
     }
 
@@ -27,5 +25,11 @@ public abstract class Shape {
         this.posY = posY;
     }
     public abstract String getDescription();
+
+    public void setColor(Color c){color=c;}
+
+    public Color getColor() {
+        return color;
+    }
 
 }

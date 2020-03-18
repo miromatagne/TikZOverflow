@@ -1,6 +1,11 @@
 package Model;
 
+/**
+ * Class to model a user
+ */
+
 public class User {
+
     private String username = "";
     private String lastName = "";
     private String firstName = "";
@@ -46,6 +51,5 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
 }
