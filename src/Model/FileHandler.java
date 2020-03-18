@@ -79,10 +79,17 @@ public class FileHandler {
         if (saveUserDirectory.equals("")) {
             return false;
         }
-        File file = new File(saveUserDirectory+"/"+user.getUsername()+saveUserFormat);
-        if (file.exists()){
+        File save_file = new File(saveUserDirectory+"/"+user.getUsername()+saveUserFormat);
+        if (save_file.exists()){
             //Error, the file does already exist
             return false;
+        }
+        File tex_file = new File("./Latex/" + user.getUsername() + ".tex");
+        try {
+            tex_file.createNewFile();
+        } catch (IOException e) {
+            System.err.println("There was an error while creating the file");
+            e.printStackTrace();
         }
         String text="";
         text+="last:"+user.getLastName()+"\n";
@@ -91,7 +98,7 @@ public class FileHandler {
         text+="mail:"+user.getMail()+"\n";
         text+="password:"+user.getPassword()+"\n";
 
-        return writeInFile(file, text);
+        return writeInFile(save_file, text);
     }
 
     /**
