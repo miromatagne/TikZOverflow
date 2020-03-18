@@ -1,6 +1,5 @@
-package Controller.ShapeMenu;
+package Model.Shapes;
 
-import Model.Shapes.*;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FactoryShapeTest {
+class TestFactoryShape {
 
     final static int RECTANGLE = 0;
     final static int CIRCLE = 1;
