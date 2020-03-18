@@ -8,4 +8,9 @@ public class Line extends Link {
     public Line(Node origin, Node destination) {
         super(origin, destination);
     }
+
+    @Override
+    public String getDescription() {
+        return "Line from (" + this.getxOrigin() + "," + this.getyOrigin() + ") to (" + this.getxDestination() + "," + this.getyDestination() + ").";
+    }
 }

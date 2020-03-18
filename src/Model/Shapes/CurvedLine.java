@@ -13,4 +13,9 @@ public class CurvedLine extends Link{
     public void setCurveRadius(int curveRadius) {
         this.curveRadius = curveRadius;
     }
+
+    @Override
+    public String getDescription() {
+        return "Curved Line from (" + this.getxOrigin() + "," + this.getyOrigin() + ") to (" + this.getxDestination() + "," + this.getyDestination() + ").";
+    }
 }

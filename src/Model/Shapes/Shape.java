@@ -26,5 +26,6 @@ public abstract class Shape {
     public void setPosY(int posY) {
         this.posY = posY;
     }
+    public abstract String getDescription();
 
 }

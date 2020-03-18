@@ -98,21 +98,9 @@ public class MainPageController extends ControllerSuperclass  implements Initial
      */
     public String createString(Shape shape) {
         String returnString = "Added ";
-        if ( shape instanceof Circle) {
-            returnString += "Circle of radius " + ((Circle) shape).getRadius() + " and center (" + shape.getPosX() + ","+ shape.getPosY() + ").";
-        }
-        else if ( shape instanceof Rectangle) {
-            returnString += "Rectangle of height " + ((Rectangle) shape).getHeight() + " and width " + ((Rectangle) shape).getWidth() + ".";
-        }
-        else if ( shape instanceof Arrow) {
-            returnString += "Arrow from (" + ((Arrow) shape).getxOrigin() + "," + ((Arrow) shape).getyOrigin() + ") to (" + ((Arrow) shape).getxDestination() + "," + ((Arrow) shape).getyDestination() + ").";
-        }
-        else if ( shape instanceof CurvedLine) {
-            returnString += "Curved Line from (" + ((CurvedLine) shape).getxOrigin() + "," + ((CurvedLine) shape).getyOrigin() + ") to (" + ((CurvedLine) shape).getxDestination() + "," + ((CurvedLine) shape).getyDestination() + ").";
-        }
-        else if ( shape instanceof Line) {
-            returnString += "Line from (" + ((Line) shape).getxOrigin() + "," + ((Line) shape).getyOrigin() + ") to (" + ((Line) shape).getxDestination() + "," + ((Line) shape).getyDestination() + ").";
-        }
+
+        returnString += shape.getDescription();
+
         return returnString;
     }
 

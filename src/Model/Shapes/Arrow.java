@@ -17,4 +17,9 @@ public class Arrow extends Link{
     public void setArrowHeadWidth(int arrowHeadWidth) {
         this.arrowHeadWidth = arrowHeadWidth;
     }
+
+    @Override
+    public String getDescription() {
+        return "Arrow from (" + this.getxOrigin() + "," + this.getyOrigin() + ") to (" + this.getxDestination() + "," + this.getyDestination() + ").";
+    }
 }
