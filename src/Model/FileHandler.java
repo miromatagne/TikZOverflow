@@ -1,6 +1,8 @@
 package Model;
 
 
+import Controller.Session;
+
 import java.io.*;
 
 /**
@@ -143,12 +145,12 @@ public class FileHandler {
      * @param text  text to be saved in a text file
      */
 
-    public void createProject(String text){
+    public boolean createProject(String text){
         if (saveProjectDirectory.equals("")) {
-            return;
+            return false;
         }
-        File file = new File(saveProjectDirectory+"/project1"+saveUserFormat);
-        writeInFile(file, text);
+        File file = new File(saveProjectDirectory+ Session.getInstance().getUser().getUsername() + ".tex");
+        return writeInFile(file, text);
     }
 
     /**

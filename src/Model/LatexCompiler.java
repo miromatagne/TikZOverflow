@@ -42,7 +42,7 @@ public class LatexCompiler {
         /* String command = "pdflatex -file-line-error -interaction=nonstopmode -synctex=1 " +
                 "-output-format=pdf -output-directory=C:/IntelliJ_projet/groupe08/out " + filePath ; */
         String command = "pdflatex -file-line-error -interaction=nonstopmode -synctex=1 " +
-                "-output-format=pdf -output-directory=" + DEFAULT_OUTPUT_DIRECTORY + " " + filePath ;
+                "-output-format=pdf -output-directory " + DEFAULT_OUTPUT_DIRECTORY + " " + filePath ;
         String outStreamText = "" ; //Is used to track error in the latex file
         String outStreamError = "" ;
         Process pro = Runtime.getRuntime().exec(command);

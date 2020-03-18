@@ -1,6 +1,7 @@
 package View;
 
 import Controller.ShapeMenuController;
+import Model.FileHandler;
 import View.ShapeMenu.ShapeMenuViewController;
 import Controller.ScreenHandler;
 import Model.LatexCompiler;
@@ -24,6 +25,7 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -45,11 +47,12 @@ public class MainPageController extends ControllerSuperclass  implements Initial
      *
      */
     @FXML
-    public void compile() {
-       /* FileHandler fh = new FileHandler();
-        fh.setupSaveProjectDirectory("project");
-        fh.createProject(codeInterface.getText());*/ //Done in the first it
+    public void compile() throws Exception {
+        FileHandler fh = new FileHandler();
+        fh.setupSaveProjectDirectory("./Latex/");
+        if(!fh.createProject(codeInterface.getText())){throw new Exception("Error in creating .tex file:");}
         String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
+
         try {
             LatexCompiler.runProcess(filePath);
         }
