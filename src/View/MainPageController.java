@@ -5,10 +5,9 @@ import Model.FileHandler;
 import Model.LatexCompiler;
 
 
-import Controller.Session;
-import Model.Session;
+import Controller.Session;;
 import Model.Shapes.*;
-import View.ScreenHandler;
+import Controller.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -21,9 +20,7 @@ import javafx.scene.paint.Paint;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainPageController extends ControllerSuperclass {
-
-public class CompileListener extends ControllerSuperclass implements Initializable {
+public class MainPageController extends ControllerSuperclass  implements Initializable{
 
     @FXML private TextArea codeInterface;
     @FXML private VBox suiviForme;

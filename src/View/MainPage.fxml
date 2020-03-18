@@ -4,13 +4,14 @@
     as well as a button to modify one's profile and a button to log out.-->
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #4D4D4D;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainPageController">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #4D4D4D;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainPageController">
     <columnConstraints>
-        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="50.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
     <rowConstraints>
@@ -28,7 +29,7 @@
       <font>
          <Font name="System Bold" size="12.0" />
       </font></Button>
-   <FlowPane prefHeight="200.0" prefWidth="200.0">
+   <HBox prefHeight="200.0" prefWidth="200.0">
        <Button mnemonicParsing="false" onAction="#modificationButtonAction" style="-fx-background-color: white; -fx-border-insets: 0; -fx-focus-traversable: false;" text="Modification">
            <font>
                <Font name="System Bold" size="12.0" />
@@ -39,10 +40,15 @@
                <Font name="System Bold" size="12.0" />
            </font>
        </Button>
-    </FlowPane>
-   <ScrollPane fx:id="scroll" hbarPolicy="NEVER" maxWidth="250.0" prefWidth="250.0" style="-fx-control-inner-background: transparent; -fx-background: #404040; -fx-border-color: #3A3A3A; -fx-focus-traversable: false; -fx-background-color: transparent; -fx-border-width: 2;" GridPane.rowIndex="1" GridPane.rowSpan="3">
+    </HBox>
+   <ScrollPane fx:id="scroll" hbarPolicy="NEVER" prefHeight="338.0" prefWidth="200.0" style="-fx-control-inner-background: transparent; -fx-background: #404040; -fx-border-color: #3A3A3A; -fx-focus-traversable: false; -fx-background-color: transparent; -fx-border-width: 2;" GridPane.rowIndex="1" GridPane.rowSpan="3">
       <content>
          <VBox fx:id="suiviForme" maxWidth="-Infinity" minHeight="0.0" minWidth="-Infinity" prefWidth="250.0" style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-border-width: 2; -fx-focus-traversable: false;" />
+      </content>
+   </ScrollPane>
+   <ScrollPane fx:id="scroll1" hbarPolicy="NEVER" maxWidth="1.7976931348623157E308" style="-fx-control-inner-background: transparent; -fx-background: #404040; -fx-border-color: #3A3A3A; -fx-focus-traversable: false; -fx-background-color: transparent; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.rowSpan="3">
+      <content>
+         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
       </content>
    </ScrollPane>
 </GridPane>
