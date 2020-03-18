@@ -1,4 +1,4 @@
-package Controller;
+package View;
 
 abstract public class ControllerSuperclass {
 

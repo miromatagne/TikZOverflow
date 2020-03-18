@@ -1,9 +1,8 @@
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import Controller.ScreenHandler;
+import javafx.application.Application;
 
 public class Main {
-    public static void main(String[] args) {
-        View.ScreenHandler.main(args);
+    public static void main(String[] args){
+        Application.launch(ScreenHandler.class, args);
     }
 }

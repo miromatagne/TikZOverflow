@@ -1,8 +1,8 @@
-package Controller;
+package View;
 
 
-import Model.Session;
-import View.ScreenHandler;
+import Controller.ScreenHandler;
+import Controller.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;

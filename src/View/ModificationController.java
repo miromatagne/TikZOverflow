@@ -1,10 +1,10 @@
-package Controller;
+package View;
 
+import Controller.ScreenHandler;
 import Model.FieldChecker;
 import Model.FileHandler;
-import Model.Session;
+import Controller.Session;
 import Model.User;
-import View.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
