@@ -1,10 +1,8 @@
 package View.ShapeMenu;
 
-import Controller.CompileListener;
 import Controller.ControllerSuperclass;
+import Controller.ShapeMenuController;
 import Model.FieldChecker;
-import Model.Shapes.FactoryShape;
-import Model.Shapes.Shape;
 import View.ShapeMenu.AllShapeMenus.MenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,7 +32,7 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
     @FXML private Text lineText;
     @FXML private GridPane gridPaneAddShape;
 
-    private CompileListener compileListener;
+    private ShapeMenuController shapeMenuController;
     private FieldChecker fieldChecker = new FieldChecker();
 
     private static ArrayList<Parent> allShapes = new ArrayList<>() ;
@@ -199,10 +197,6 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
         }
     }
 
-    public void setCompileListener(CompileListener listener){
-        compileListener = listener;
-    }
-
     /**
      * Create a shape once all the fields are valid. It is called from the button "Confirm" in the pop-up window which
      * is used to create a new shape
@@ -233,11 +227,11 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
         if(!allFieldsValid)
             return;
 
-        Shape s = FactoryShape.getInstance(idCurrent,allDataInField,allControllers.get(idCurrent).getColor());
-
-        compileListener.addShape(s);
-        compileListener.closePopup();
+        shapeMenuController.addShape(idCurrent,allDataInField,allControllers.get(idCurrent).getColor());
     }
 
 
+    public void setShapeMenuController(ShapeMenuController shapeMenuController) {
+        this.shapeMenuController = shapeMenuController;
+    }
 }
