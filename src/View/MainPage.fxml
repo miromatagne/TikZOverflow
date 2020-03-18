@@ -48,7 +48,7 @@
     </ScrollPane>
    <ScrollPane fx:id="scroll1" hbarPolicy="NEVER" maxWidth="1.7976931348623157E308" style="-fx-control-inner-background: transparent; -fx-background: #404040; -fx-border-color: #3A3A3A; -fx-focus-traversable: false; -fx-background-color: transparent; -fx-border-width: 2;" GridPane.columnIndex="1" GridPane.rowSpan="3">
       <content>
-         <ImageView fx:id="renderedImageView" fitHeight="115.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="renderedImageView" fitHeight="115.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
       </content>
    </ScrollPane>
     <Button fx:id="addShapeButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="250.0" mnemonicParsing="false" onAction="#addShapeMenu" onMouseEntered="#changeMouseToHand" prefWidth="200.0" style="-fx-background-color: white; -fx-focus-traversable: false; -fx-border-insets: 0;" text="+" GridPane.columnIndex="0" GridPane.rowIndex="3">

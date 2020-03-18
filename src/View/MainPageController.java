@@ -52,7 +52,7 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     @FXML
     public void compile() throws Exception {
         FileHandler fh = new FileHandler();
-        fh.setupSaveProjectDirectory("project/");
+        fh.setupSaveProjectDirectory("./Latex/");
         if(!fh.createProject(codeInterface.getText())){throw new Exception("Error in creating .tex file:");}
         String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
         try {
