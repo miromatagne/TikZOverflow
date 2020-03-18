@@ -8,5 +8,12 @@ public class Circle extends Node {
     public void setRadius(float radius) {
         this.radius = radius;
     }
+
+    @Override
+    public String getDescription() {
+        return "Circle of radius " + this.getRadius() + " and center (" + this.getPosX() + ","+ this.getPosY() + ").";
+    }
+
+
     public float getRadius(){return radius;}
 }

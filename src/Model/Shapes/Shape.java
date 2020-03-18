@@ -24,6 +24,7 @@ public abstract class Shape {
     public void setPosY(float posY) {
         this.posY = posY;
     }
+    public abstract String getDescription();
 
     public void setColor(Color c){color=c;}
 
