@@ -1,6 +1,5 @@
-package Controller.ShapeMenu;
+package Model.Shapes;
 
-import Model.Shapes.*;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;

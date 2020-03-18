@@ -1,4 +1,4 @@
-package Controller.ShapeMenu;
+package View.ShapeMenu.AllShapeMenus;
 
 import Controller.ControllerSuperclass;
 import javafx.scene.control.TextField;

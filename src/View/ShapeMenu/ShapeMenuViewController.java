@@ -1,9 +1,11 @@
-package Controller.ShapeMenu;
+package View.ShapeMenu;
 
 import Controller.CompileListener;
 import Controller.ControllerSuperclass;
 import Model.FieldChecker;
+import Model.Shapes.FactoryShape;
 import Model.Shapes.Shape;
+import View.ShapeMenu.AllShapeMenus.MenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,7 +24,7 @@ import java.util.ResourceBundle;
  * Controller of the menu to add a new shape. It is linked to the "AddShapeMenuController.fxml" file
  * It handles the behavior of the pop-up window
  */
-public class AddShapeMenuController extends ControllerSuperclass implements Initializable {
+public class ShapeMenuViewController extends ControllerSuperclass implements Initializable {
 
     @FXML private SubScene shapeScene;
     @FXML private Text rectangleText;
@@ -88,11 +90,11 @@ public class AddShapeMenuController extends ControllerSuperclass implements Init
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Locale.setDefault(Locale.ENGLISH);
-        addScene("/View/rectangleMenu.fxml");
-        addScene("/View/circleMenu.fxml");
-        addScene("/View/lineMenu.fxml");
-        addScene("/View/curvedLineMenu.fxml");
-        addScene("/View/arrowMenu.fxml");
+        addScene("/View/ShapeMenu/FxmlFiles/rectangleMenu.fxml");
+        addScene("/View/ShapeMenu/FxmlFiles/circleMenu.fxml");
+        addScene("/View/ShapeMenu/FxmlFiles/lineMenu.fxml");
+        addScene("/View/ShapeMenu/FxmlFiles/curvedLineMenu.fxml");
+        addScene("/View/ShapeMenu/FxmlFiles/arrowMenu.fxml");
         setupTexts();
         if(allShapes.isEmpty()){
             //Error

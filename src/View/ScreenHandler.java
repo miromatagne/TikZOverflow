@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-/*
+/**
 Class used to contain all the FXML in an ArrayList in order to switch between screen using a static method.
 All the Controller linked to the screens will be contain in a Array of Controller and their update method will be
 called whenever we change screen.

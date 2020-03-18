@@ -1,9 +1,8 @@
-package Controller.ShapeMenu;
+package View.ShapeMenu.AllShapeMenus;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
@@ -12,17 +11,17 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * This controller is used to handle the rectangle menu, get the inputs from the texts fields and clear them when it has to
+ * This controller is used to handle the line menu, get the inputs from the texts fields and clear them when it has to
  */
 
-public class RectangleMenuController extends MenuController implements Initializable{
-    @FXML private TextField xPositionTextField;
-    @FXML private TextField yPositionTextField;
-    @FXML private TextField heightTextField;
-    @FXML private TextField widthTextField;
-    @FXML private Slider thicknessSlider;
+public class LineMenuController extends MenuController implements Initializable {
+    @FXML private TextField xOriginTextField;
+    @FXML private TextField yOriginTextField;
+    @FXML private TextField xDestinationTextField;
+    @FXML private TextField yDestinationTextField;
+    @FXML private TextField strokeWidthTextField;
     @FXML private ColorPicker colorPicker;
-    private ArrayList<TextField> allTextFields = new ArrayList<>();
+    private static ArrayList<TextField> allTextFields = new ArrayList<>();
 
     /**
      * Function called when a new menu is selected. It clears the different fields
@@ -31,9 +30,11 @@ public class RectangleMenuController extends MenuController implements Initializ
     public void update() {
         for (TextField textField : allTextFields) {
             textField.setText("");
+            textField.setStyle("");
         }
-        colorPicker.setValue(Color.valueOf("#FFFFFF"));
+        colorPicker.setValue(Color.WHITE);
     }
+
 
     /**
      * Initialization by adding the different textfield to an array list
@@ -42,11 +43,13 @@ public class RectangleMenuController extends MenuController implements Initializ
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        allTextFields.add(xPositionTextField);
-        allTextFields.add(yPositionTextField);
-        allTextFields.add(heightTextField);
-        allTextFields.add(widthTextField);
+        allTextFields.add(xOriginTextField);
+        allTextFields.add(yOriginTextField);
+        allTextFields.add(xDestinationTextField);
+        allTextFields.add(yDestinationTextField);
+        allTextFields.add(strokeWidthTextField);
     }
+
 
     @Override
     public ArrayList<String> getAllFields() {
@@ -54,7 +57,6 @@ public class RectangleMenuController extends MenuController implements Initializ
         for (TextField textField : allTextFields) {
             returnValue.add(textField.getText());
         }
-        returnValue.add(Double.toString(thicknessSlider.getValue()));
         return returnValue;
     }
 

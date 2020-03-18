@@ -1,4 +1,4 @@
-package Controller.ShapeMenu;
+package View.ShapeMenu.AllShapeMenus;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,17 +11,22 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * This controller is used to handle the line menu, get the inputs from the texts fields and clear them when it has to
+ * This controller is used to handle the arrow menu, get the inputs from the texts fields and clear them when it has to
  */
 
-public class LineMenuController extends MenuController implements Initializable {
+public class ArrowMenuController extends MenuController implements Initializable{
+
     @FXML private TextField xOriginTextField;
     @FXML private TextField yOriginTextField;
     @FXML private TextField xDestinationTextField;
     @FXML private TextField yDestinationTextField;
     @FXML private TextField strokeWidthTextField;
+    @FXML private TextField headLengthTextField;
+    @FXML private TextField headWidthTextField;
     @FXML private ColorPicker colorPicker;
+
     private static ArrayList<TextField> allTextFields = new ArrayList<>();
+
 
     /**
      * Function called when a new menu is selected. It clears the different fields
@@ -30,6 +35,7 @@ public class LineMenuController extends MenuController implements Initializable 
     public void update() {
         for (TextField textField : allTextFields) {
             textField.setText("");
+            textField.setStyle("");
         }
         colorPicker.setValue(Color.WHITE);
     }
@@ -47,8 +53,9 @@ public class LineMenuController extends MenuController implements Initializable 
         allTextFields.add(xDestinationTextField);
         allTextFields.add(yDestinationTextField);
         allTextFields.add(strokeWidthTextField);
+        allTextFields.add(headLengthTextField);
+        allTextFields.add(headWidthTextField);
     }
-
 
     @Override
     public ArrayList<String> getAllFields() {

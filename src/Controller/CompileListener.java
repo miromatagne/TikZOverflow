@@ -1,6 +1,7 @@
 package Controller;
 
-import Controller.ShapeMenu.AddShapeMenuController;
+import View.ScreenHandler;
+import View.ShapeMenu.ShapeMenuViewController;
 import Model.FileHandler;
 
 
@@ -8,7 +9,6 @@ import Model.Session;
 import Model.Shapes.Circle;
 import Model.Shapes.Rectangle;
 import Model.Shapes.Shape;
-import View.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,7 +37,7 @@ public class CompileListener extends ControllerSuperclass implements Initializab
     @FXML private ScrollPane scroll;
     @FXML private Button addShapeButton;
     private Stage popUpStage;
-    private AddShapeMenuController addShapeMenuController;
+    private ShapeMenuViewController addShapeMenuController;
 
 
 
@@ -113,7 +113,7 @@ public class CompileListener extends ControllerSuperclass implements Initializab
         popUpStage = new Stage();
         popUpStage.setTitle("Add Shape Menu");
         popUpStage.initModality(Modality.APPLICATION_MODAL);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/addShapeMenu.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/ShapeMenu/FxmlFiles/addShapeMenu.fxml"));
         Parent addShapeMenuRoot = loader.load();
         addShapeMenuController = loader.getController();
         addShapeMenuController.setCompileListener(this);
