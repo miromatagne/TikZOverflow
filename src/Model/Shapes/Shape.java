@@ -7,6 +7,11 @@ public abstract class Shape {
     private float posY;
     private Color color;
 
+    public Shape(float posX, float posY) {
+        this.posX = posX;
+        this.posY = posY;
+    }
+
     public float getPosX() {
         return posX;
     }

@@ -8,6 +8,7 @@ public abstract class Link extends Shape{
     private float yDestination;
     private float strokeWidth;
     public Link(float xOrigin, float yOrigin, float xDestination, float yDestination){
+        super(xOrigin, yOrigin);
         this.xOrigin = xOrigin;
         this.yOrigin = yOrigin;
         this.xDestination = xDestination;
@@ -15,6 +16,7 @@ public abstract class Link extends Shape{
     }
 
     public Link(Node origin, Node destination){
+        super(origin.getPosX(), origin.getPosY());
         this.xOrigin = origin.getPosX();
         this.yOrigin = origin.getPosY();
         this.xDestination = destination.getPosX();
