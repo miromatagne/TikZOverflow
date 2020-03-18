@@ -1,5 +1,5 @@
 # Histoires pour l'itération 1
-Pour l'itération 1, le groupe 08 devra réaliser l'histoire 1 et une partie de l'histoire 4. L'histoire 4 a donc été scindée en les histoires 16 et 17 et l'histoire 16 sera réalisée pour l'itération 1. Ces deux histoires correspond à un total de 28 points pour tout le groupe.
+Pour l'itération 1, le groupe 08 devra réaliser l'histoire 1 et une partie de l'histoire 4. L'histoire 4 a donc été scindée en les histoires 4.1 et 4.2 et l'histoire 4.1 sera réalisée pour l'itération 1. Ces deux histoires correspond à un total de 28 points pour tout le groupe.
 
 ## Histoire 1
 
@@ -41,7 +41,7 @@ Devons-nous rédiger nous-mêmes les conditions de service ? Oui, il faut rédig
 
 ----------------------
 
-## Histoire 16
+## Histoire 4.1
 
 ### Titre : Création de diagrammes - Partie 1
 

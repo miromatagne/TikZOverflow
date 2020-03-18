@@ -14,10 +14,10 @@ Un point correspond à une heure de travail par binôme (approximatif).  Par it�
 |   | 4 | Histoires 16 et 17 | 1 |  | 47 |
 | 2 | 2 | Histoire 2 | 1 | | 30 |
 |   | 3 | Histoire 3 | 2 | | 15 |
-|   | 6 | Histoire 6 | | | 8 |
+|   | 6 | Histoire 6 | 2 | | 8 |
 |   | 7 | Histoire 7 | 3 | | 10 |
 |   | 10 | Histoire 10 | 2 | | 32 |
-| 3 | 5 | Histoire 5 |  | | 10 |
+| 3 | 5 | Histoire 5 | 2 | | 10 |
 |   | 8 | Histoire 8 | 1 | | 19 |
 |   | 9 | Histoire 9 | 1 | | 17 |
 |   | 11 | Histoire 11 | 1 | | 20 |
@@ -85,16 +85,16 @@ Tous les projets créés ou partagés avec l'utilisateur sont visibles sur sa pa
 ### Points :
 Afin de déterminer le nombre de points de cette histoire, le groupe l'a scindée en les tâches suivantes :
 
-- Création d'un projet : 7 points
+- Création d'un projet : 5 points
 - Sauvegarde à la fermeture de fichier : 2 points
-- Sauvegarde manuelle : 3 points
+- Sauvegarde manuelle : 1 points
 - Interface pour lister les projets : 6 points
 - Copier, supprimer, partager un projet : 6 points
 - Renommer un projet : 2 points
 - Sauvegarde automatique : 3 points
 - Travail d'équipe : 1 point
 
-TOTAL : 30 points
+TOTAL : 26 points
 
 ----------------------
 
@@ -126,7 +126,7 @@ TOTAL : 15 points
 
 ----------------------
 
-## Histoire 16
+## Histoire 4.1
 
 ### Titre : Création de diagrammes - Partie 1
 
@@ -148,16 +148,45 @@ TOTAL : 4 points
 
 ----------------------
 
-## Histoire 17
+## Histoire 4.2
 
 ### Titre : Création de diagrammes - Partie 2
 
 ### Description
 L’utilisateur a deux possibilités pour créer un diagramme :
+- utiliser la méthode point-and-click; (cette possiblité ne sera pas entièrement impléméntée dans cette histoire)
+- utiliser le langage TikZ.
+Dans le premier cas, l’utilisateur doit uniquement pouvoir définir, pour cette histoire, les caractéristiques initiales des noeuds et des liens qu’il veut utiliser, grâce à un panneau de configuration où l’utilisateur peut choisir le type du noeud (cercle, rectangle, triangle, ...), le type du lien (arc, arête, ...) et leurs caractéristiques graphiques (couleur, épaisseur, étiquette, ...). 
+Dans le deuxième cas, l’utilisateur peut utiliser le cadre de texte pour décrire son diagramme en langage TikZ. Quand l’utilisateur termine son code, le cadre contenant le canevas produira le dessin du diagramme automatiquement.
+
+### Priorité Client : 1
+
+### Risque Développeurs : 1
+
+### Introduit dans l'itération : 2
+
+### Etat : 
+
+### Points :
+- Configuration du panneau (liens et noeuds) : 13 points
+- Conversion du coe TikZ en diagramme : 15 points
+
+TOTAL : 28 points
+
+### Notes :
+Lorsqu'un élément a été défini à partir du panneau de configuration, les caractéristiques de celui-ci (au format texte) seront inscrites dans un label "Elements ajoutés".
+
+----------------------
+
+## Histoire 4.3
+
+### Titre : Création de diagrammes - Partie 3
+
+### Description
+L’utilisateur a deux possibilités pour créer un diagramme :
 - utiliser la méthodepoint-and-click;
 - utiliser le langage TikZ.
-Dans le premier cas, l’utilisateur doit tout d’abord définir les caractéristiques initiales des noeuds et des liens qu’il veut utiliser, grâce à un panneau de configuration où l’utilisateurpeut choisir le type du noeud (cercle, rectangle, triangle, ...), le type du lien (arc, arête, ...)et leurs caractéristiques graphiques (couleur, épaisseur, étiquette, ...). Quand un élément(noeud/lien) est défini, l’utilisateur peut le sélectionner et le placer dans un cadre de typepoint-and-clickcontenant un canevas. Cette action a pour effet de déposer l’élément sur lecanevas et en même temps la production du code TikZ correspondant qui est visible dans undeuxième cadre de texte associé.
-Dans le deuxième cas, l’utilisateur peut utiliser le cadre de texte pour décrire son diagramme en langage TikZ. Quand l’utilisateur termine son code, le cadre contenant le canevas produirale dessin du diagramme automatiquement.
+Dans le premier cas, quand un élément (noeud/lien) est défini à partir du panneau de configuration, l’utilisateur peut le sélectionner et le placer dans un cadre de type point-and-click contenant un canevas. Cette action a pour effet de déposer l’élément sur le canevas et en même temps la production du code TikZ correspondant qui est visible dans undeuxième cadre de texte associé.
 
 ### Priorité Client : 1
 
@@ -168,14 +197,12 @@ Dans le deuxième cas, l’utilisateur peut utiliser le cadre de texte pour déc
 ### Etat : 
 
 ### Points :
-- Configuration du panneau (liens et noeuds) : 13 points
-- Point-and-click : 7 points
-- Conversion du diagramme en code TikZ : 5 points
-- Conversion du coe TikZ en diagramme : 15 points
+- Point-and-click : 5 points
+- Conversion du diagramme en code TikZ : 7 points
 - Documentation : 4 points
 - Travail d'équipe : 3 points
 
-TOTAL : 47 points
+TOTAL : 19 points
 
 ----------------------
 
