@@ -1,8 +1,6 @@
 package Controller;
 
 import Model.FileHandler;
-
-
 import Model.Session;
 import Model.Shapes.*;
 import View.ScreenHandler;
@@ -12,7 +10,6 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 
@@ -60,7 +57,7 @@ public class CompileListener extends ControllerSuperclass implements Initializab
     /**
      * Adds a Label to the panel on the right hand side of the screen describing the
      * shape that was added.
-     * @param shape
+     * @param shape Shape to be added
      */
     @FXML
     public void addShape(Shape shape) {
@@ -79,8 +76,6 @@ public class CompileListener extends ControllerSuperclass implements Initializab
     /**
      * Initialization of the region where the names of the added shapes will appear
      * (VBox and ScrollPane).
-     * @param location
-     * @param resources
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -91,7 +86,7 @@ public class CompileListener extends ControllerSuperclass implements Initializab
     /**
      * Creation of the String to insert into the label when a new shape has been added.
      * This String is different depending on the shape added.
-     * @param shape
+     * @param shape Shape to be added
      * @return returnString
      */
     public String createString(Shape shape) {
