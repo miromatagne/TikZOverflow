@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 public class LatexCompiler {
 
     private static LatexCompiler compiler = new LatexCompiler();
-    private static final String DEFAULT_OUTPUT_DIRECTORY = "../Latex/out";
+    private static final String DEFAULT_OUTPUT_DIRECTORY = "./Latex/out";
 
     /* Singleton class */
     private LatexCompiler() {
@@ -38,7 +38,7 @@ public class LatexCompiler {
     public static void runProcess(String filePath) throws Exception {
 
         //Check if the filePath is valid
-        if(isFileValid(filePath)){throw new Exception("Error in compiling the latex : " + filePath + "is not valid");}
+        if(!isFileValid(filePath)){throw new Exception("Error in compiling the latex : " + filePath + "is not valid");}
         /* String command = "pdflatex -file-line-error -interaction=nonstopmode -synctex=1 " +
                 "-output-format=pdf -output-directory=C:/IntelliJ_projet/groupe08/out " + filePath ; */
         String command = "pdflatex -file-line-error -interaction=nonstopmode -synctex=1 " +

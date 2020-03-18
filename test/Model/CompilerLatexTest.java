@@ -8,7 +8,7 @@ class CompilerLatexTest
     @Test
     void compile() {
         //Send to the compilerLatex the latex file
-        String filePath = "../Latex/test_latex.t"; // Test typo
+        String filePath = "./Latex/test_latex.t"; // Test typo
         try {
             LatexCompiler.runProcess(filePath);
             fail("Exception not thrown"); // Error
@@ -16,7 +16,7 @@ class CompilerLatexTest
         catch (Exception e){/*Where it needs to be*/}
 
 
-        filePath = "../Latex/test_latex.tex";
+        filePath = "./Latex/test_latex.tex";
         try {
             LatexCompiler.runProcess(filePath);
         }
