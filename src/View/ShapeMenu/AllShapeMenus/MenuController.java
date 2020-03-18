@@ -1,6 +1,6 @@
 package View.ShapeMenu.AllShapeMenus;
 
-import Controller.ControllerSuperclass;
+import View.ControllerSuperclass;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 

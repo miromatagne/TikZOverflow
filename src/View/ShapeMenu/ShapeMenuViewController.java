@@ -1,8 +1,8 @@
 package View.ShapeMenu;
 
-import Controller.ControllerSuperclass;
 import Controller.ShapeMenuController;
 import Model.FieldChecker;
+import View.ControllerSuperclass;
 import View.ShapeMenu.AllShapeMenus.MenuController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

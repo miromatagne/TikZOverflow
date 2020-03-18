@@ -1,14 +1,13 @@
 package View;
 
+import Controller.ShapeMenuController;
 import View.ShapeMenu.ShapeMenuViewController;
 import Controller.ScreenHandler;
-import Model.FileHandler;
 import Model.LatexCompiler;
 
 
 import Controller.Session;
 import Model.Shapes.*;
-import Controller.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -121,7 +120,7 @@ public class MainPageController extends ControllerSuperclass  implements Initial
         Parent addShapeMenuRoot = loader.load();
         shapeMenuViewController = loader.getController();
         shapeMenuController = new ShapeMenuController();
-        shapeMenuController.setCompileListener(this);
+        shapeMenuController.setMainPageController(this);
         shapeMenuViewController.setShapeMenuController(shapeMenuController);
         popUpStage.setScene(new Scene(addShapeMenuRoot));
     }

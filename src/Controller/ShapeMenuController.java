@@ -2,20 +2,21 @@ package Controller;
 
 import Model.Shapes.FactoryShape;
 import Model.Shapes.Shape;
+import View.MainPageController;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
 public class ShapeMenuController {
-    private CompileListener compileListener;
+    private MainPageController mainPageController;
 
-    public void setCompileListener(CompileListener compileListener) {
-        this.compileListener = compileListener;
+    public void setMainPageController(MainPageController mainPageController) {
+        this.mainPageController = mainPageController;
     }
 
     public void addShape(int idCurrent, ArrayList<Float> allData, Color color){
         Shape shape = FactoryShape.getInstance(idCurrent,allData, color);
-        compileListener.addShape(shape);
-        compileListener.closePopup();
+        mainPageController.addShape(shape);
+        mainPageController.closePopup();
     }
 }
