@@ -31,7 +31,7 @@ public class PDFHandler {
         PDDocument document = PDDocument.load(file);
         PDFRenderer renderer = new PDFRenderer(document);
         BufferedImage renderedImage = renderer.renderImage(0);
-        ImageIO.write(renderedImage, "PNG", new File(pdfPath.replace(".pdf", ".png")));
+        ImageIO.write(renderedImage, "JPEG", new File(pdfPath.replace(".pdf", ".jpg")));
         document.close();
     }
 }

@@ -286,7 +286,7 @@ public class FileHandler {
      */
     public void errorLogs(String path) throws IOException {
         File file = new File(path);
-        String[] words = null;
+        String[] words;
         FileReader fileReader = new FileReader(file);
         BufferedReader buffer = new BufferedReader(fileReader);
         String line;

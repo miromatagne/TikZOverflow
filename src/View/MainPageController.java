@@ -2,11 +2,10 @@ package View;
 
 import Controller.ShapeMenuController;
 import Model.FileHandler;
+import Model.PDFHandler;
 import View.ShapeMenu.ShapeMenuViewController;
 import Controller.ScreenHandler;
 import Model.LatexCompiler;
-
-
 import Controller.Session;
 import Model.Shapes.*;
 import javafx.fxml.FXML;
@@ -20,12 +19,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,6 +38,7 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     @FXML private VBox suiviForme;
     @FXML private ScrollPane scroll;
     @FXML private Button addShapeButton;
+    @FXML private ImageView renderedImageView;
     private Stage popUpStage;
     private ShapeMenuViewController shapeMenuViewController;
     private ShapeMenuController shapeMenuController;
@@ -51,10 +54,11 @@ public class MainPageController extends ControllerSuperclass  implements Initial
         FileHandler fh = new FileHandler();
         fh.setupSaveProjectDirectory("project/");
         if(!fh.createProject(codeInterface.getText())){throw new Exception("Error in creating .tex file:");}
-        String filePath = "project/" + Session.getInstance().getUser().getUsername() + ".tex";
-
+        String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
         try {
             LatexCompiler.runProcess(filePath);
+            String pdfPath = "./Latex/out/" + Session.getInstance().getUser().getUsername() + ".pdf";
+            renderImage(pdfPath);
         }
         catch(Exception e){
             System.err.println("Error in compilation :  " + e.toString());
@@ -62,9 +66,28 @@ public class MainPageController extends ControllerSuperclass  implements Initial
         }
     }
 
+    private void renderImage(String pdfPath) {
+        System.out.println(pdfPath);
+        PDFHandler pdfHandler = new PDFHandler(pdfPath);
+        try {
+            pdfHandler.convertPdfToImage();
+        } catch (Exception e) {
+            System.err.println("Error converting " + pdfPath + " to image");
+            e.printStackTrace();
+        }
+        String imagePath = pdfPath.replace(".pdf", ".jpg");
+        try {
+            Image renderedImage = new Image(new FileInputStream(imagePath));
+            renderedImageView.setImage(renderedImage);
+        } catch (IOException e) {
+            System.err.println("Image file not found");
+            e.printStackTrace();
+        }
+
+    }
+
     @FXML
-    public void modificationButtonAction()
-    {
+    public void modificationButtonAction() {
         ScreenHandler.changeScene(ScreenHandler.MODIFICATIONSCREEN);
     }
 
