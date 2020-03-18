@@ -1,6 +1,8 @@
 package Model;
 
 
+import Controller.Session;
+
 import java.io.*;
 
 public class FileHandler {
@@ -135,7 +137,7 @@ public class FileHandler {
         if (saveProjectDirectory.equals("")) {
             return false;
         }
-        File file = new File(saveProjectDirectory+"/project1"+saveUserFormat);
+        File file = new File(saveProjectDirectory+ Session.getInstance().getUser().getUsername() + ".tex");
         return writeInFile(file, text);
     }
 
