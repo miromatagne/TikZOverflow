@@ -20,6 +20,7 @@ class TestFileHandler {
         //Check if the directory is made (if not already made)
     }
 
+
     @Test
     public void test() {
         /* After execution, a folder should be made containing
@@ -42,5 +43,9 @@ class TestFileHandler {
         assertEquals("Trouillez", user2.getLastName());
         assertEquals("ftrouill@ulb.ac.be", user2.getMail());
         assertEquals("123456789", user2.getPassword());
+
+        String readerTest = fh.readInFile(new File("./save user/ftrouill.txt"));
+        assertEquals("last:Trouillez" + "\n" + "first:Franck" + "\n" + "username:ftrouill" + "\n" +
+                              "mail:ftrouill@ulb.ac.be" + "\n" + "password:123456789" + "\n", readerTest);
     }
 }

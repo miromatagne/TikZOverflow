@@ -181,6 +181,31 @@ public class FileHandler {
         return false;
     }
 
+
+    /**
+     * Read the text in a File
+     *
+     * @param file      The file to read
+     * @return          A String containing all the line of the file
+     */
+    public String readInFile(File file){
+        String textInFile = "";
+        StringBuilder builder = new StringBuilder();
+
+        try {
+            FileReader reader = new FileReader(file);
+            BufferedReader buffer = new BufferedReader(reader);
+            while( (textInFile = buffer.readLine()) != null){
+                builder.append(textInFile).append("\n");
+            }
+        }
+        catch(IOException e){
+            System.err.format("IOException: %s%n", e) ;
+        }
+
+        return builder.toString();
+    }
+
     /**
      * Creates a user from its username and its save in the save_user directory.
      *
