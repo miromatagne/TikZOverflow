@@ -102,21 +102,28 @@ public class FileHandler {
         if (saveUserDirectory.equals("")) {
             return false;
         }
-        File save_file = new File(saveUserDirectory+"/"+user.getUsername()+saveUserFormat);
-        if (save_file.exists()){
+        File saveFile = new File(saveUserDirectory+"/"+user.getUsername()+saveUserFormat);
+        if (saveFile.exists()){
             //Error, the file does already exist
             return false;
         }
         makeTexFile(user, "");
-        return writeSave(user, save_file);
+        return writeSave(user, saveFile);
     }
 
+    /**
+     * Creates a .tex file for every new user, and updates it with the new source code
+     * when compiling.
+     *
+     * @param user                User for whom the .tex file will be created/updated
+     * @param sourceCode          String from the compiling text area
+     */
     public void makeTexFile(User user, String sourceCode) {
         setupSaveProjectDirectory("./Latex/");
-        File tex_file = new File(saveProjectDirectory+ user.getUsername() + ".tex");
+        File texFile = new File(saveProjectDirectory+ user.getUsername() + ".tex");
 
-        if (tex_file.exists()){
-            writeInFile(tex_file, sourceCode);
+        if (texFile.exists()){
+            writeInFile(texFile, sourceCode);
         }else{
             File template_file = new File("./Latex/template.txt");
             String temp, text = "";
@@ -130,10 +137,18 @@ public class FileHandler {
                 System.err.println("There was an error while reading the sample file\n");
                 e.printStackTrace();
             }
-            writeInFile(tex_file, text);
+            writeInFile(texFile, text);
         }
     }
 
+    /**
+     * Writes a user's data in his save file.
+     *
+     * @param user          User to be saved.
+     * @param file          File in which to write.
+     * @return              TRUE if writing was successful
+     *                      FALSE otherwise
+     */
     private boolean writeSave(User user, File file) {
         String text=getSaveTextFromUser(user);
         return writeInFile(file, text);
@@ -143,7 +158,7 @@ public class FileHandler {
      * Save the user in the user directory
      *
      * @param user  user contain all the new data to be saved
-     * @return      TRUE if the save was successfull
+     * @return      TRUE if the save was successful
      *              FALSE otherwise
      */
     public boolean saveUser(User user) {

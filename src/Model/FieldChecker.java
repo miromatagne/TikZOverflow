@@ -106,7 +106,7 @@ public class FieldChecker {
     public boolean isValidAccount(String username, String firstName, String lastName,
                                    String mail, String password, String passwordConfirmation){
         if (isValidUsername(username) && isValidName(firstName) && isValidName(lastName) && isValidMail(mail))
-            return password.equals(passwordConfirmation);
+            return password.equals(passwordConfirmation) && !password.equals("");
         return false;
     }
 
