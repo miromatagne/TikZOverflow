@@ -48,6 +48,27 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     @FXML private Button errorsButton;
     @FXML private Button compileButton;
 
+    private String textSaved;
+
+    public void update() {
+        if (this.textSaved == null) {
+            FileHandler handler = new FileHandler();
+            String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
+            File userFile = new File(filePath);
+            String textInLatexFile = handler.readInFile(userFile);
+            this.codeInterface.setText(textInLatexFile);
+            this.textSaved = textInLatexFile;
+        } else {
+            this.fillWithTextSaved();
+        }
+
+    }
+
+    private void fillWithTextSaved() {
+        this.codeInterface.setText(this.textSaved);
+    }
+
+
     /**
      * when we click on "compile" button it sends the text to a save file
      *
@@ -85,7 +106,7 @@ public class MainPageController extends ControllerSuperclass  implements Initial
         errorsButton.setText("Errors (" + errorsCount + ")");
         codeInterface.setEditable(true);
         codeInterface.setStyle("-fx-border-color: #3A3A3A; -fx-border-insets: 0,0,0,0; -fx-focus-traversable: false; -fx-border-width: 2; -fx-background-color: transparent; -fx-text-fill: white; -fx-highlight-fill: blue; -fx-highlight-text-fill: white; -fx-control-inner-background: #404040; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;");
-        codeInterface.setText("");
+        this.fillWithTextSaved(); // Put the saved text in the codeInterface
     }
 
     /**
@@ -101,7 +122,7 @@ public class MainPageController extends ControllerSuperclass  implements Initial
             hideErrors(errorsCount);
         }
         else {
-
+            this.textSaved = this.codeInterface.getText(); // Save the text in the box before showing the errors
             compileButton.setDisable(true);
             compileButton.setVisible(false);
             fileHandler.makeTexFile(Session.getInstance().getUser(), codeInterface.getText());
@@ -143,15 +164,11 @@ public class MainPageController extends ControllerSuperclass  implements Initial
         ScreenHandler.changeScene(ScreenHandler.MODIFICATIONSCREEN);
     }
 
-    @Override
-    public void update() {
-        //Nothing to update for now but the project it will needs to display will probably be updated
-    }
-
     /**
      * Action of "Log Out" button. Logs current user out and goes back to LoginScreen.
      */
     public void logout() {
+        this.textSaved = null; // Set the textSaved to null in order to display the correct one during the next login
         Session.getInstance().logOut();
         ScreenHandler.changeScene(ScreenHandler.LOGINSCREEN);
     }
