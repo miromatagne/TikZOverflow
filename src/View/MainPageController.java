@@ -40,6 +40,7 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     @FXML private ScrollPane scroll;
     @FXML private Button addShapeButton;
     @FXML private ImageView renderedImageView;
+    @FXML private ScrollPane imageScrollPane ;
     private Stage popUpStage;
     private ShapeMenuViewController shapeMenuViewController;
     private ShapeMenuController shapeMenuController;
@@ -139,10 +140,9 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     }
 
     private void renderImage(String pdfPath) {
-        System.out.println(pdfPath);
         PDFHandler pdfHandler = new PDFHandler(pdfPath);
         try {
-            pdfHandler.convertPdfToImage();
+            pdfHandler.convertPdfToImageOnDisk();
         } catch (Exception e) {
             System.err.println("Error converting " + pdfPath + " to image");
             e.printStackTrace();
@@ -150,6 +150,7 @@ public class MainPageController extends ControllerSuperclass  implements Initial
         String imagePath = pdfPath.replace(".pdf", ".jpg");
         try {
             Image renderedImage = new Image(new FileInputStream(imagePath));
+            renderedImageView.setFitWidth(imageScrollPane.getWidth());
             renderedImageView.setImage(renderedImage);
         } catch (IOException e) {
             System.err.println("Image file not found");
