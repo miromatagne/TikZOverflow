@@ -3,7 +3,6 @@ package Model;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,7 +12,7 @@ class PDFHandlerTest {
     void convertPdfToImage() {
         PDFHandler pdfHandler = new PDFHandler("./out/test_latex.pdf");
         try {
-            pdfHandler.convertPdfToImage();
+            pdfHandler.convertPdfToImageOnDisk();
         } catch (Exception e) {
             System.err.println("Error converting pdf file");
             e.printStackTrace();

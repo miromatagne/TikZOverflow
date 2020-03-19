@@ -8,7 +8,7 @@ import Controller.ScreenHandler;
 import Model.LatexCompiler;
 import Controller.Session;
 import Model.Shapes.*;
-import Controller.ScreenHandler;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,7 +27,7 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.File;
+import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -40,6 +40,7 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     @FXML private ScrollPane scroll;
     @FXML private Button addShapeButton;
     @FXML private ImageView renderedImageView;
+    @FXML private ScrollPane imageScrollPane;
     private Stage popUpStage;
     private ShapeMenuViewController shapeMenuViewController;
     private ShapeMenuController shapeMenuController;
@@ -118,10 +119,9 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     }
 
     private void renderImage(String pdfPath) {
-        System.out.println(pdfPath);
         PDFHandler pdfHandler = new PDFHandler(pdfPath);
         try {
-            pdfHandler.convertPdfToImage();
+            pdfHandler.convertPdfToImageOnDisk();
         } catch (Exception e) {
             System.err.println("Error converting " + pdfPath + " to image");
             e.printStackTrace();
@@ -129,12 +129,13 @@ public class MainPageController extends ControllerSuperclass  implements Initial
         String imagePath = pdfPath.replace(".pdf", ".jpg");
         try {
             Image renderedImage = new Image(new FileInputStream(imagePath));
+            renderedImageView.setFitWidth(imageScrollPane.getWidth());
+            //renderedImageView.setFitHeight(imageScrollPane.getHeight());
             renderedImageView.setImage(renderedImage);
         } catch (IOException e) {
             System.err.println("Image file not found");
             e.printStackTrace();
         }
-
     }
 
     @FXML
