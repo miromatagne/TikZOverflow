@@ -341,7 +341,7 @@ public class FileHandler {
                 }
                 else if (word.equals("*** (job aborted, no legal \\end found)")){
                     ERRORS_COUNTER++;
-                    ERRORS += "please add '\\begin{document}' and/or '\\end{document}' to your codes";
+                    ERRORS += "*** Missing '\\begin{document}' and/or '\\end{document}'";
                 }
             }
         }

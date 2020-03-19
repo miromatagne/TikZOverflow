@@ -70,6 +70,7 @@ public class MainPageController extends ControllerSuperclass  implements Initial
         fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log");
         int errorsCount = fileHandler.getErrorsCounter();
         errorsButton.setText("Errors (" + errorsCount + ")");
+        System.out.println("You got "+ errorsCount+ " errors on the last compilation \n" + fileHandler.getErrors());
     }
 
     /**
