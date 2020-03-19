@@ -7,6 +7,7 @@ import org.apache.pdfbox.pdmodel.PDResources;
 import org.apache.pdfbox.pdmodel.graphics.PDXObject;
 import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
 
 import javax.imageio.ImageIO;
@@ -35,11 +36,11 @@ public class PDFHandler {
      * Converts pdf file to PNG image file in the same directory
      * @throws Exception    if pdf file doesn't exist
      */
-    public void convertPdfToImage() throws Exception {
+    public void convertPdfToImageOnDisk() throws Exception {
         File file = new File(pdfPath);
         PDDocument document = PDDocument.load(file);
         PDFRenderer renderer = new PDFRenderer(document);
-        BufferedImage renderedImage = renderer.renderImage(0);
+        BufferedImage renderedImage = renderer.renderImageWithDPI(0, 300, ImageType.RGB);
         ImageIO.write(renderedImage, "JPEG", new File(pdfPath.replace(".pdf", ".jpg")));
         document.close();
     }

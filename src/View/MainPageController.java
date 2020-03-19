@@ -8,6 +8,7 @@ import Controller.ScreenHandler;
 import Model.LatexCompiler;
 import Controller.Session;
 import Model.Shapes.*;
+import Controller.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -43,30 +44,9 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     private ShapeMenuViewController shapeMenuViewController;
     private ShapeMenuController shapeMenuController;
 
-    private String textSaved = null;
-
 
     @FXML private Button errorsButton;
     @FXML private Button compileButton;
-
-
-    @Override
-    public void update() {
-        if(textSaved == null) {
-            FileHandler handler = new FileHandler();
-            String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
-            File userFile = new File(filePath);
-            String textInLatexFile = handler.readInFile(userFile);
-            codeInterface.setText(textInLatexFile);
-
-            textSaved = textInLatexFile;
-        }
-        else{fillWithTextSaved();}
-    }
-
-    private void fillWithTextSaved(){
-        codeInterface.setText(textSaved);
-    }
 
     /**
      * when we click on "compile" button it sends the text to a save file
@@ -105,8 +85,7 @@ public class MainPageController extends ControllerSuperclass  implements Initial
         errorsButton.setText("Errors (" + errorsCount + ")");
         codeInterface.setEditable(true);
         codeInterface.setStyle("-fx-border-color: #3A3A3A; -fx-border-insets: 0,0,0,0; -fx-focus-traversable: false; -fx-border-width: 2; -fx-background-color: transparent; -fx-text-fill: white; -fx-highlight-fill: blue; -fx-highlight-text-fill: white; -fx-control-inner-background: #404040; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;");
-
-        fillWithTextSaved(); // Show the original text
+        codeInterface.setText("");
     }
 
     /**
@@ -116,14 +95,13 @@ public class MainPageController extends ControllerSuperclass  implements Initial
      */
     @FXML
     public void showErrors() throws Exception {
-
         FileHandler fileHandler = new FileHandler();
         int errorsCount = fileHandler.getErrorsCounter();
         if(errorsButton.getText() == "Hide errors"){
             hideErrors(errorsCount);
         }
         else {
-            textSaved = codeInterface.getText() ;//Save the text when switching to error text
+
             compileButton.setDisable(true);
             compileButton.setVisible(false);
             fileHandler.makeTexFile(Session.getInstance().getUser(), codeInterface.getText());
@@ -165,12 +143,15 @@ public class MainPageController extends ControllerSuperclass  implements Initial
         ScreenHandler.changeScene(ScreenHandler.MODIFICATIONSCREEN);
     }
 
+    @Override
+    public void update() {
+        //Nothing to update for now but the project it will needs to display will probably be updated
+    }
+
     /**
      * Action of "Log Out" button. Logs current user out and goes back to LoginScreen.
      */
     public void logout() {
-        //The savedText needs to be assign to null in order to load another one if th client relog on another account
-        textSaved = null;
         Session.getInstance().logOut();
         ScreenHandler.changeScene(ScreenHandler.LOGINSCREEN);
     }
