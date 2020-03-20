@@ -8,7 +8,6 @@ import Controller.ScreenHandler;
 import Model.LatexCompiler;
 import Controller.Session;
 import Model.Shapes.*;
-import Controller.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
