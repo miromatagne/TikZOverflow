@@ -33,7 +33,7 @@ public class PDFHandler {
     }
 
     /**
-     * Converts pdf file to PNG image file in the same directory
+     * Converts pdf file to jpeg image file in the same directory
      * @throws Exception    if pdf file doesn't exist
      */
     public void convertPdfToImageOnDisk() throws Exception {

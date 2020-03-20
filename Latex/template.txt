@@ -1,5 +1,5 @@
 % Preamble
-\documentclass{standalone}
+\documentclass{article}
 
 % Packages
 \usepackage{tikz}

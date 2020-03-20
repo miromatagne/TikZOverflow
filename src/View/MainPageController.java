@@ -71,7 +71,7 @@ public class MainPageController extends ControllerSuperclass  implements Initial
 
 
     /**
-     * when we click on "compile" button it sends the text to a save file
+     * Compiles code in text area into pdf file and displays it on UI.
      *
      */
     @FXML
@@ -139,6 +139,10 @@ public class MainPageController extends ControllerSuperclass  implements Initial
 
     }
 
+    /**
+     * Renders compilation result (PDF) on UI.
+     * @param pdfPath   path to Latex compilation output (PDF format)
+     */
     private void renderImage(String pdfPath) {
         PDFHandler pdfHandler = new PDFHandler(pdfPath);
         try {
@@ -160,8 +164,7 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     }
 
     @FXML
-    public void modificationButtonAction()
-    {
+    public void modificationButtonAction() {
         ScreenHandler.changeScene(ScreenHandler.MODIFICATIONSCREEN);
     }
 
