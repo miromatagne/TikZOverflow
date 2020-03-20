@@ -1,7 +1,10 @@
 package Model;
 
 
+import Controller.Session;
+
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * This class is used to handle interactions with files. It creates directories and write the saves
@@ -14,9 +17,10 @@ public class FileHandler {
     private String saveUserFormat = ".txt";
     private static final String DEFAULT_DIRECTORY  = "save user";
 
-    public FileHandler() {
-        setupSaveUserDirectory(DEFAULT_DIRECTORY);
-    }
+    private static int ERRORS_COUNTER = 0;
+    private static String ERRORS = "";
+
+    public FileHandler() {setupSaveUserDirectory(DEFAULT_DIRECTORY);}
 
     public FileHandler(String saveUserDirectory){
         setupSaveUserDirectory(saveUserDirectory);
@@ -98,21 +102,53 @@ public class FileHandler {
         if (saveUserDirectory.equals("")) {
             return false;
         }
-        File save_file = new File(saveUserDirectory+"/"+user.getUsername()+saveUserFormat);
-        if (save_file.exists()){
+        File saveFile = new File(saveUserDirectory+"/"+user.getUsername()+saveUserFormat);
+        if (saveFile.exists()){
             //Error, the file does already exist
             return false;
         }
-        File tex_file = new File("./Latex/" + user.getUsername() + ".tex");
-        try {
-            tex_file.createNewFile();
-        } catch (IOException e) {
-            System.err.println("There was an error while creating the file");
-            e.printStackTrace();
-        }
-        return writeSave(user, save_file);
+        makeTexFile(user, "");
+        return writeSave(user, saveFile);
     }
 
+    /**
+     * Creates a .tex file for every new user, and updates it with the new source code
+     * when compiling.
+     *
+     * @param user                User for whom the .tex file will be created/updated
+     * @param sourceCode          String from the compiling text area
+     */
+    public void makeTexFile(User user, String sourceCode) {
+        setupSaveProjectDirectory("./Latex/");
+        File texFile = new File(saveProjectDirectory+ user.getUsername() + ".tex");
+
+        if (texFile.exists()){
+            writeInFile(texFile, sourceCode);
+        }else{
+            File template_file = new File("./Latex/template.txt");
+            String temp, text = "";
+            BufferedReader br = null;
+            try {
+                br = new BufferedReader(new FileReader(template_file));
+                while ((temp = br.readLine()) != null) {
+                    text = text.concat(temp + '\n');
+                }
+            } catch (IOException e) {
+                System.err.println("There was an error while reading the sample file\n");
+                e.printStackTrace();
+            }
+            writeInFile(texFile, text);
+        }
+    }
+
+    /**
+     * Writes a user's data in his save file.
+     *
+     * @param user          User to be saved.
+     * @param file          File in which to write.
+     * @return              TRUE if writing was successful
+     *                      FALSE otherwise
+     */
     private boolean writeSave(User user, File file) {
         String text=getSaveTextFromUser(user);
         return writeInFile(file, text);
@@ -122,7 +158,7 @@ public class FileHandler {
      * Save the user in the user directory
      *
      * @param user  user contain all the new data to be saved
-     * @return      TRUE if the save was successfull
+     * @return      TRUE if the save was successful
      *              FALSE otherwise
      */
     public boolean saveUser(User user) {
@@ -137,19 +173,6 @@ public class FileHandler {
         return false ;
     }
 
-    /**
-     * Create a project save with the code that we compiled
-     *
-     * @param text  text to be saved in a text file
-     */
-
-    public void createProject(String text){
-        if (saveProjectDirectory.equals("")) {
-            return;
-        }
-        File file = new File(saveProjectDirectory+"/project1"+saveUserFormat);
-        writeInFile(file, text);
-    }
 
     /**
      *  Writes text into file.
@@ -171,6 +194,31 @@ public class FileHandler {
             System.err.format("IOException: %s%n", e);
         }
         return false;
+    }
+
+
+    /**
+     * Read the text in a File
+     *
+     * @param file      The file to read
+     * @return          A String containing all the line of the file
+     */
+    public String readInFile(File file){
+        String textInFile = "";
+        StringBuilder builder = new StringBuilder();
+
+        try {
+            FileReader reader = new FileReader(file);
+            BufferedReader buffer = new BufferedReader(reader);
+            while( (textInFile = buffer.readLine()) != null){
+                builder.append(textInFile).append("\n");
+            }
+        }
+        catch(IOException e){
+            System.err.format("IOException: %s%n", e) ;
+        }
+
+        return builder.toString();
     }
 
     /**
@@ -280,6 +328,62 @@ public class FileHandler {
         String temp;
         if (!(temp = getInformation(file, "password")).equals("")) {
             user.setPassword(temp);
+        }
+    }
+
+    /**
+     *
+     * @return                      string with all the errors that the user let in the compiler
+     */
+    public static String getErrors(){
+        return ERRORS;
+    }
+
+    /**
+     *
+     * @return                      quantity of errors that occur in the compiler
+     */
+    public static int getErrorsCounter(){
+        return ERRORS_COUNTER;
+    }
+
+    /**
+     * Find the errors that the user has written in the compiler
+     * @param path                  The path to the .log file of the project file
+     * @throws IOException          To be able to catch errors if the process of opening a file fails
+     */
+    public void errorLogs(String path) throws IOException {
+        ERRORS = "";
+        ERRORS_COUNTER = 0;
+        File file = new File(path);
+        String[] words;
+        FileReader fileReader = new FileReader(file);
+        BufferedReader buffer = new BufferedReader(fileReader);
+        String line;
+        String input="Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
+
+        while((line=buffer.readLine())!=null){
+            words=line.split(":");
+            for (String word : words)
+            {
+                if (word.equals(input))
+                {
+                    ERRORS_COUNTER++;
+                    for(int i = 1; i < words.length; i++){
+                        if(i == 1)
+                            ERRORS += "line ";
+                        ERRORS += words[i];
+                        if(i < words.length - 1)
+                            ERRORS += ":";
+                        else
+                            ERRORS += "\n";
+                    }
+                }
+                else if (word.equals("*** (job aborted, no legal \\end found)")){
+                    ERRORS_COUNTER++;
+                    ERRORS += "*** Missing '\\begin{document}' and/or '\\end{document}'";
+                }
+            }
         }
     }
 

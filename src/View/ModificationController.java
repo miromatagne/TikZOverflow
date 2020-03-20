@@ -1,6 +1,7 @@
 package View;
 
 import Controller.ScreenHandler;
+import Controller.UserController;
 import Model.FieldChecker;
 import Model.FileHandler;
 import Controller.Session;
@@ -16,8 +17,7 @@ import java.util.ResourceBundle;
 
 /*Controller for the modification screen that contains the method used by the button or textfield.
  */
-public class ModificationController extends ControllerSuperclass implements Initializable
-{
+public class ModificationController extends ControllerSuperclass implements Initializable {
 
     //Attribut
     @FXML private TextField usernameField ; // Attribut @FXML link directly to the .fxml corresponding to this controller class
@@ -27,13 +27,13 @@ public class ModificationController extends ControllerSuperclass implements Init
     @FXML private PasswordField passwordField ;
     @FXML private PasswordField passwordConfirmationField;
 
-    private User userCurrent ;
+    private UserController userController = new UserController();
 
     //Method
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        userCurrent = new User() ;
+
     }
 
     /**
@@ -41,9 +41,8 @@ public class ModificationController extends ControllerSuperclass implements Init
      * Used to update all the TextField with the information of the CurrentUser from Session
      */
     @Override
-    public void update()
-    {
-        userCurrent = Session.getInstance().getUser();
+    public void update() {
+        User userCurrent = Session.getInstance().getUser();
         usernameField.setText(userCurrent.getUsername());
         firstNameField.setText(userCurrent.getFirstName());
         lastNameField.setText(userCurrent.getLastName());
@@ -59,37 +58,14 @@ public class ModificationController extends ControllerSuperclass implements Init
      *                                  - Save the information of the user in the file username.txt
      */
     @FXML
-    public void validateButtonAction()
-    {
-        boolean validateInformation = true ;
-        // Need to check if a fct can be made to generalize this check with the creationAccount screen/controller
-        FieldChecker fieldChecker = new FieldChecker();
-        String defaultTextFieldStyle = "-fx-text-inner-color: black;";
-        String redTextFieldStyle = "-fx-text-inner-color: red; -fx-text-box-border: red;";
-        if(!fieldChecker.isValidName(firstNameField.getText())){firstNameField.setStyle(redTextFieldStyle);validateInformation = false;} else{ firstNameField.setStyle(defaultTextFieldStyle);}
-        if(!fieldChecker.isValidName(lastNameField.getText())){lastNameField.setStyle(redTextFieldStyle);validateInformation = false;} else{ lastNameField.setStyle(defaultTextFieldStyle);}
-        if(!fieldChecker.isValidMail(emailField.getText())){emailField.setStyle(redTextFieldStyle);validateInformation = false;} else{ emailField.setStyle(defaultTextFieldStyle);}
-        if(!passwordField.getText().equals(passwordConfirmationField.getText()) || passwordField.getText().equals("") || passwordConfirmationField.getText().equals("")){
-            passwordField.setStyle(redTextFieldStyle);
-            passwordConfirmationField.setStyle(redTextFieldStyle);
-            validateInformation = false;
-        } else {
-            passwordField.setStyle(defaultTextFieldStyle);
-            passwordConfirmationField.setStyle(defaultTextFieldStyle);
-        }
-
-        userCurrent.setLastName(lastNameField.getText());
-        userCurrent.setFirstName(firstNameField.getText());
-        userCurrent.setMail(emailField.getText());
-        userCurrent.setPassword(passwordField.getText());
-        Session.getInstance().setUser(userCurrent);
-
-        if(validateInformation) {
-            FileHandler handler = new FileHandler();
-            if (!handler.saveUser(userCurrent)) {
-                System.out.println("Error in saving the user");
-            }
-        }
+    public void validateButtonAction() {
+        userController.setUsernameField(usernameField);
+        userController.setFirstNameField(firstNameField);
+        userController.setLastNameField(lastNameField);
+        userController.setEmailField(emailField);
+        userController.setPasswordField(passwordField);
+        userController.setPasswordConfirmationField(passwordConfirmationField);
+        userController.validateModification();
     }
 
 

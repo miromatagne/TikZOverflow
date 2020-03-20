@@ -1,8 +1,5 @@
-%! Author = alexandre
-%! Date = 16/03/2020
-
 % Preamble
-\documentclass[11pt]{article}
+\documentclass{article}
 
 % Packages
 \usepackage{tikz}
