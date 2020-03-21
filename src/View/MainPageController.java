@@ -50,7 +50,12 @@ public class MainPageController extends ControllerSuperclass  implements Initial
 
     private String textSaved;
 
+    /**
+     * Update is a function of the ControllerSuperClass and will be called every time the mainPage screen is displayed.
+     *
+     */
     public void update() {
+        //update of codeInterface a textArea
         if (this.textSaved == null) {
             FileHandler handler = new FileHandler();
             String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
@@ -62,6 +67,8 @@ public class MainPageController extends ControllerSuperclass  implements Initial
             this.fillWithTextSaved();
         }
 
+        //Update of renderedImageView an ImageView containing the pdf corresponding to the latex code
+        renderedImageView.setImage(null);
     }
 
     private void fillWithTextSaved() {
