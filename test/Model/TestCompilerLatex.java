@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CompilerLatexTest {
+class TestCompilerLatex {
     @Test
     void compile() {
         //Send to the compilerLatex the latex file

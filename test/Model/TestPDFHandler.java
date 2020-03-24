@@ -6,7 +6,7 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PDFHandlerTest {
+class TestPDFHandler {
 
     @Test
     void convertPdfToImage() {

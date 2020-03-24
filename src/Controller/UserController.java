@@ -6,6 +6,9 @@ import Model.User;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+/**
+ * Handles all requests regarding the user coming from View.
+ */
 public class UserController {
     private User userCurrent = new User();
     private TextField firstNameField;
@@ -55,6 +58,27 @@ public class UserController {
         }
 
         return fieldChecker.isValidAccount(usernameField.getText(), firstNameField.getText(), lastNameField.getText(), emailField.getText(), passwordField.getText(), passwordConfirmationField.getText());
+    }
+
+    /**
+     * Checks if the username and password are correct with the session object. If they are, the user gets to his main screen.
+     * If not, the incorrect credentials are highlighted in red.
+     */
+    public void validateLogin(TextField usernameField, PasswordField passwordField){
+        Session session = Session.getInstance();
+        int valid = session.openSession(usernameField.getText(), passwordField.getText());
+        final String redTextFieldStyle = "-fx-text-inner-color: red; -fx-text-box-border: red;";
+        final String defaultTextFieldStyle = "-fx-text-inner-color: black;";
+        if (valid == Session.CONNECTION_ESTABLISHED){
+            ScreenHandler.changeScene(ScreenHandler.MAINPAGE);
+        }
+        else if (valid == Session.USER_NOT_REGISTERED){
+            usernameField.setStyle(redTextFieldStyle);
+        }
+        else if(valid == Session.INVALID_PASSWORD){
+            passwordField.setStyle(redTextFieldStyle);
+            usernameField.setStyle(defaultTextFieldStyle);
+        }
     }
 
     public void setFirstNameField(TextField firstNameField) {

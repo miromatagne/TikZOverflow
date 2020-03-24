@@ -1,20 +1,13 @@
 package View;
 
-import Controller.ShapeMenuController;
-import Model.FileHandler;
-import Model.PDFHandler;
-import View.ShapeMenu.ShapeMenuViewController;
+import Controller.LatexController;
 import Controller.ScreenHandler;
-import Model.LatexCompiler;
 import Controller.Session;
-import Model.Shapes.*;
+import Controller.ShapeMenuController;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -23,26 +16,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainPageController extends ControllerSuperclass  implements Initializable{
 
     @FXML private TextArea codeInterface;
-    @FXML private VBox suiviForme;
+    @FXML private VBox shapeList;
     @FXML private ScrollPane scroll;
     @FXML private Button addShapeButton;
     @FXML private ImageView renderedImageView;
     @FXML private ScrollPane imageScrollPane ;
-    private Stage popUpStage;
-    private ShapeMenuViewController shapeMenuViewController;
-    private ShapeMenuController shapeMenuController;
+    private ShapeMenuController shapeMenuController = new ShapeMenuController();
+    private LatexController latexController = new LatexController(this);
 
 
     @FXML private Button errorsButton;
@@ -57,10 +44,7 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     public void update() {
         //update of codeInterface a textArea
         if (this.textSaved == null) {
-            FileHandler handler = new FileHandler();
-            String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
-            File userFile = new File(filePath);
-            String textInLatexFile = handler.readInFile(userFile);
+            String textInLatexFile = latexController.getTextInFile();
             this.codeInterface.setText(textInLatexFile);
             this.textSaved = textInLatexFile;
         } else {
@@ -82,28 +66,14 @@ public class MainPageController extends ControllerSuperclass  implements Initial
      */
     @FXML
     public void compile() throws Exception {
-        FileHandler fileHandler = new FileHandler();
-        fileHandler.makeTexFile(Session.getInstance().getUser(), codeInterface.getText());
-        String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
+        String errorsButtonText = latexController.compileTikz();
+        errorsButton.setText(errorsButtonText);
 
-        try {
-            LatexCompiler.runProcess(filePath);
-            String pdfPath = "./Latex/out/" + Session.getInstance().getUser().getUsername() + ".pdf";
-            renderImage(pdfPath);
-        }
-        catch(Exception e){
-            System.err.println("Error in compilation :  " + e.toString());
-            fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log");
-        }
-        fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log");
-        int errorsCount = fileHandler.getErrorsCounter();
-        errorsButton.setText("Errors (" + errorsCount + ")");
-        System.out.println("You got "+ errorsCount+ " errors on the last compilation \n" + fileHandler.getErrors());
     }
 
     /**
      * when clicking on 'Hide errors' button, the user is sent back on the code interface
-     * @param errorsCount
+     * @param errorsCount           number of errors
      */
     @FXML
     public void hideErrors(int errorsCount){
@@ -117,55 +87,30 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     }
 
     /**
-     * when clicking on 'errors (..)" button, the user is sent on a screen which shows him the errors after the last
+     * when clicking on "errors (..)" button, the user is sent on a screen which shows him the errors after the last
      * compile
-     * @throws Exception
      */
     @FXML
-    public void showErrors() throws Exception {
-        FileHandler fileHandler = new FileHandler();
-        int errorsCount = fileHandler.getErrorsCounter();
-        if(errorsButton.getText() == "Hide errors"){
+    public void showErrors() {
+
+        int errorsCount = latexController.getFileHandler().getErrorsCounter();
+        if(errorsButton.getText().equals("Hide errors")){
             hideErrors(errorsCount);
         }
         else {
             this.textSaved = this.codeInterface.getText(); // Save the text in the box before showing the errors
             compileButton.setDisable(true);
             compileButton.setVisible(false);
-            fileHandler.makeTexFile(Session.getInstance().getUser(), codeInterface.getText());
+            latexController.saveTikz();
             errorsButton.setText("Hide errors");
             codeInterface.setEditable(false);
 
-            String errors = fileHandler.getErrors();
+            String errors = latexController.getFileHandler().getErrors();
 
             codeInterface.setStyle("-fx-border-color: #3A3A3A; -fx-border-insets: 0,0,0,0; -fx-focus-traversable: false; -fx-border-width: 2; -fx-background-color: transparent; -fx-text-fill: #ff1200; -fx-highlight-fill: blue; -fx-highlight-text-fill: red; -fx-control-inner-background: #404040; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;");
             codeInterface.setText("You got "+ errorsCount+ " errors on the last compilation \n" + errors);
         }
 
-
-    }
-
-    /**
-     * Renders compilation result (PDF) on UI.
-     * @param pdfPath   path to Latex compilation output (PDF format)
-     */
-    private void renderImage(String pdfPath) {
-        PDFHandler pdfHandler = new PDFHandler(pdfPath);
-        try {
-            pdfHandler.convertPdfToImageOnDisk();
-        } catch (Exception e) {
-            System.err.println("Error converting " + pdfPath + " to image");
-            e.printStackTrace();
-        }
-        String imagePath = pdfPath.replace(".pdf", ".jpg");
-        try {
-            Image renderedImage = new Image(new FileInputStream(imagePath));
-            renderedImageView.setFitWidth(imageScrollPane.getWidth());
-            renderedImageView.setImage(renderedImage);
-        } catch (IOException e) {
-            System.err.println("Image file not found");
-            e.printStackTrace();
-        }
 
     }
 
@@ -186,20 +131,16 @@ public class MainPageController extends ControllerSuperclass  implements Initial
     /**
      * Adds a Label to the panel on the right hand side of the screen describing the
      * shape that was added.
-     * @param shape         Shape to be added
+     * @param shapeText         Description of the Shape to be added
      */
-    @FXML
-    public void addShape(Shape shape) {
-        //String shapeText = "Added rectangle of length 5 and width 3 at position 5 ggggggeqegggggggggg.";
-        String shapeText = createString(shape);
-
+    public void addShape(String shapeText) {
         Label label = new Label(shapeText);
         label.setTextFill(Paint.valueOf("White"));
         label.setStyle("-fx-border-color: #3A3A3A; -fx-background-color: #4D4D4D");
         label.setPadding(new Insets(5,5,5,5));
-        label.prefWidthProperty().bind(suiviForme.prefWidthProperty());
+        label.prefWidthProperty().bind(shapeList.prefWidthProperty());
         label.setWrapText(true);
-        suiviForme.getChildren().add(label);
+        shapeList.getChildren().add(label);
     }
 
     /**
@@ -210,51 +151,23 @@ public class MainPageController extends ControllerSuperclass  implements Initial
      */
     @Override
     public void initialize(URL location, ResourceBundle resources){
-        suiviForme.prefWidthProperty().bind(scroll.prefWidthProperty());
-        suiviForme.prefHeightProperty().bind(scroll.prefHeightProperty());
-        try{
-            popUpInitialize();
-        } catch(Exception ignored){
-
-        }
-
-    }
-
-    private void popUpInitialize() throws IOException{
-        popUpStage = new Stage();
-        popUpStage.setTitle("Add Shape Menu");
-        popUpStage.initModality(Modality.APPLICATION_MODAL);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/ShapeMenu/FxmlFiles/addShapeMenu.fxml"));
-        Parent addShapeMenuRoot = loader.load();
-        shapeMenuViewController = loader.getController();
-        shapeMenuController = new ShapeMenuController();
+        System.out.println("init");
+        shapeList.prefWidthProperty().bind(scroll.prefWidthProperty());
+        shapeList.prefHeightProperty().bind(scroll.prefHeightProperty());
         shapeMenuController.setMainPageController(this);
-        shapeMenuViewController.setShapeMenuController(shapeMenuController);
-        popUpStage.setScene(new Scene(addShapeMenuRoot));
+        try{
+            shapeMenuController.popUpInitialize();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
-
-    /**
-     * Creation of the String to insert into the label when a new shape has been added.
-     * This String is different depending on the shape added.
-     * @param shape             Shape which has to be converted in a string
-     * @return returnString     String which describes the shape given in parameter
-     */
-    public String createString(Shape shape) {
-        String returnString = "Added ";
-
-        returnString += shape.getDescription();
-
-        return returnString;
-    }
-
 
     /**
      * Create a pop-up which allows to create a new shape
      */
     @FXML
     public void addShapeMenu(){
-        shapeMenuViewController.update();
-        popUpStage.show();
+        shapeMenuController.showPopUp();
     }
 
     @FXML
@@ -262,7 +175,16 @@ public class MainPageController extends ControllerSuperclass  implements Initial
         addShapeButton.setCursor(Cursor.HAND);
     }
 
-    public void closePopup() {
-        popUpStage.hide();
+
+    public TextArea getCodeInterface() {
+        return codeInterface;
+    }
+
+    /**
+     * Renders image from compilation on UI.
+     */
+    public void renderImage(Image renderedImage) {
+        renderedImageView.setFitWidth(imageScrollPane.getWidth());
+        renderedImageView.setImage(renderedImage);
     }
 }

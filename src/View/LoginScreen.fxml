@@ -34,13 +34,13 @@
     </Label>
     <Pane maxWidth="-Infinity" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
           GridPane.rowIndex="1" GridPane.valignment="CENTER">
-        <TextField fx:id="username" layoutY="40.0" maxWidth="200.0" prefHeight="25.0" prefWidth="200.0"
+        <TextField fx:id="usernameField" layoutY="40.0" maxWidth="200.0" prefHeight="25.0" prefWidth="200.0"
                    promptText="Username"/>
         <Label layoutY="14.0" text="Username" textFill="WHITE"/>
     </Pane>
     <Pane maxWidth="-Infinity" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2"
           GridPane.valignment="CENTER">
-        <PasswordField fx:id="password" layoutY="40.0" maxWidth="200.0" prefHeight="25.0" prefWidth="200.0"
+        <PasswordField fx:id="passwordField" layoutY="40.0" maxWidth="200.0" prefHeight="25.0" prefWidth="200.0"
                        promptText="Password"/>
         <Label layoutY="14.0" text="Password" textFill="WHITE"/>
     </Pane>

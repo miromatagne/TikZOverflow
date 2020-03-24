@@ -31,7 +31,7 @@ public class LatexCompiler {
     }
 
     /**
-     * getLines can acces an Inputstream and store in an String all the line that the stream contain
+     * getLines can access an InputStream and store in an String all the line that the stream contain
      *
      * @param  input     The inputstream from which the string will be extracted
      * @return           The complete string coming from the stream
