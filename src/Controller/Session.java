@@ -1,8 +1,12 @@
 package Controller;
 
-import Model.FieldChecker;
 import Model.FileHandler;
 import Model.User;
+
+/**
+ * Class that controls the current session, including the logging in, the logging out
+ * and the account creation by the clients.
+ */
 
 public class Session {
     public static final int CONNECTION_ESTABLISHED = 0;

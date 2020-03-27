@@ -10,19 +10,19 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
-Class used to contain all the FXML in an ArrayList in order to switch between screen using a static method.
-All the Controller linked to the screens will be contain in a Array of Controller and their update method will be
+Class used to contain all the FXML files in an ArrayList in order to switch between screens using a static method.
+All the Controllers linked to the screens will be contained in a Array of Controllers and their update method will be
 called whenever we change screen.
  */
 
 public class ScreenHandler extends Application {
-    //Id scene :
+    //Scene IDs :
     public static int LOGINSCREEN = 0 ;
     public static int MAINPAGE = 1 ;
     public static int ACCOUNTCREATION = 2 ;
     public static int MODIFICATIONSCREEN = 3 ;
 
-    //Attribut
+    //Attributes
     private static ArrayList<Parent> screens = new ArrayList<>() ;
     static ArrayList<ControllerSuperclass> controllers = new ArrayList<>() ;
     static Scene scene ;
