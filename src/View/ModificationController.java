@@ -1,10 +1,8 @@
 package View;
 
 import Controller.ScreenHandler;
-import Controller.UserController;
-import Model.FieldChecker;
-import Model.FileHandler;
 import Controller.Session;
+import Controller.UserController;
 import Model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

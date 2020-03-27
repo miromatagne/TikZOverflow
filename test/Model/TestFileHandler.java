@@ -45,7 +45,7 @@ class TestFileHandler {
         assertEquals("ftrouill@ulb.ac.be", user2.getMail());
         assertEquals("123456789", user2.getPassword());
 
-        String readerTest = fh.readInFile(new File("./save user/ftrouill.txt"));
+        String readerTest = fh.readInFile("./save user/ftrouill.txt");
         assertEquals("last:Trouillez" + "\n" + "first:Franck" + "\n" + "username:ftrouill" + "\n" +
                               "mail:ftrouill@ulb.ac.be" + "\n" + "password:123456789" + "\n", readerTest);
     }

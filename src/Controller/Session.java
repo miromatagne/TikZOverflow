@@ -28,6 +28,14 @@ public class Session {
     public User getUser(){return currentUser;}
     public void setUser(User newUser){ currentUser = newUser;}
 
+    /**
+     * Tries to open a new session (log in)
+     * @param username      Username of the user
+     * @param password      Password of the user
+     * @return              0 if successful
+     *                      -1 if wrong username
+     *                      -2 if wrong password
+     */
     public int openSession(String username, String password){
         fileHandler.setupSaveUserDirectory("save user");
         currentUser = fileHandler.getUserFromSave(username);

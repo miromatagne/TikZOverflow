@@ -4,7 +4,6 @@ package Model;
 import Controller.Session;
 
 import java.io.*;
-import java.util.ArrayList;
 
 /**
  * This class is used to handle interactions with files. It creates directories and write the saves
@@ -127,7 +126,7 @@ public class FileHandler {
         }else{
             File template_file = new File("./Latex/template.txt");
             String temp, text = "";
-            BufferedReader br = null;
+            BufferedReader br;
             try {
                 br = new BufferedReader(new FileReader(template_file));
                 while ((temp = br.readLine()) != null) {
@@ -200,11 +199,12 @@ public class FileHandler {
     /**
      * Read the text in a File
      *
-     * @param file      The file to read
-     * @return          A String containing all the line of the file
+     *
+     * @param path@return          A String containing all the line of the file
      */
-    public String readInFile(File file){
-        String textInFile = "";
+    public String readInFile(String path){
+        File file = new File(path);
+        String textInFile;
         StringBuilder builder = new StringBuilder();
 
         try {
@@ -335,7 +335,7 @@ public class FileHandler {
      *
      * @return                      string with all the errors that the user let in the compiler
      */
-    public static String getErrors(){
+    public String getErrors(){
         return ERRORS;
     }
 
@@ -343,7 +343,7 @@ public class FileHandler {
      *
      * @return                      quantity of errors that occur in the compiler
      */
-    public static int getErrorsCounter(){
+    public int getErrorsCounter(){
         return ERRORS_COUNTER;
     }
 
