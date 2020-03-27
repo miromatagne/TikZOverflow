@@ -3,10 +3,20 @@ package Controller;
 import View.ControllerSuperclass;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -56,15 +66,15 @@ public class ScreenHandler extends Application {
             screens.add(loader.load());
             controllers.add(loader.getController());
         }
-        catch(Exception expc){System.out.println("Error loading all screen" + scenePath); expc.printStackTrace();}
+        catch(Exception expc){System.out.println("Error loading all screen " + scenePath); expc.printStackTrace();}
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        addScene("../View/LoginScreen.fxml");
-        addScene("../View/MainPage.fxml");
-        addScene("../View/accountCreation.fxml");
-        addScene("../View/accountModification.fxml");
+        addScene("/View/LoginScreen.fxml");
+        addScene("/View/MainPage.fxml");
+        addScene("/View/accountCreation.fxml");
+        addScene("/View/accountModification.fxml");
 
         if(screens.isEmpty()) {throw new Exception("Failed to log allScene") ;}
 
@@ -73,5 +83,56 @@ public class ScreenHandler extends Application {
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
+    }
+
+    /**
+     * Creates a popup stage when account creation has been attempted to inform user.
+     * @param message   message to display to user
+     * @param success   defines if account creation was successful or not
+     */
+    public void createAccountCreationPopup(String message, boolean success) {
+        Stage popupStage = new Stage();
+        popupStage.setTitle("Account creation");
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(10);
+        vBox.getChildren().add(new Label(message));
+        int width = (message.length() <= 30) ? 200 : 300;
+        Button button = new Button("OK");
+        button.setOnMouseClicked(e -> {
+            popupStage.close();
+            if(success) changeScene(LOGINSCREEN);
+        });
+        popupStage.setOnCloseRequest(e ->{
+            if(success) changeScene(LOGINSCREEN);
+        });
+        vBox.getChildren().add(button);
+        Scene scene = new Scene(vBox, width,75);
+        popupStage.setScene(scene);
+        popupStage.show();
+    }
+
+    /**
+     * Creates a pop-up window when user clicks on "I accept terms and conditions".
+     * @throws IOException when terms and conditions file doesn't exist.
+     */
+    public void tcuWindow() throws IOException {
+        Parent tcuRoot = FXMLLoader.load(getClass().getResource("/View/termsAndConditions.fxml"));
+        Scene tcuScene = new Scene(tcuRoot);
+        Stage tcuStage = new Stage();
+        tcuStage.initModality(Modality.APPLICATION_MODAL);
+        tcuStage.setTitle("Terms and conditions");
+        File f = new File("tcu.txt");
+        BufferedReader br = new BufferedReader(new FileReader(f));
+        String tmp, text = "";
+        while ((tmp = br.readLine()) != null) {
+            text = text.concat(tmp + '\n');
+        }
+        tcuStage.setScene(tcuScene);
+        tcuStage.show();
+        Text tcuFullText = (Text) tcuRoot.lookup("#tcuFullText");
+        tcuFullText.setText(text);
+        tcuFullText.wrappingWidthProperty().bind(tcuScene.widthProperty().subtract(20));
     }
 }
