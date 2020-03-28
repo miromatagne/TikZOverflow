@@ -1,7 +1,7 @@
 package Controller;
 
 import Model.FieldChecker;
-import Model.Shapes.FactoryShape;
+import Model.Shapes.ShapeFactory;
 import Model.Shapes.Shape;
 import View.MainPageController;
 import View.ShapeMenu.AllShapeMenus.MenuController;
@@ -17,14 +17,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ShapeMenuController {
-    private MainPageController mainPageController;
     private static ArrayList<MenuController> allControllers = new ArrayList<>();
-    private static ArrayList<Parent> allShapes = new ArrayList<>() ;
+    private static ArrayList<Parent> allShapes = new ArrayList<>();
+    ShapeMenuViewController shapeMenuViewController;
+    private MainPageController mainPageController;
     private FieldChecker fieldChecker = new FieldChecker();
     private Stage popUpStage;
-
-    ShapeMenuViewController shapeMenuViewController;
-
     private int idCurrent;
 
 
@@ -35,12 +33,12 @@ public class ShapeMenuController {
     /**
      * Creates a new shape and sends the String to be added to the main page.
      *
-     * @param idCurrent         id of the current scene: identifies the type of shape to create
-     * @param allData           Properties of the shape
-     * @param color             Color of the shape
+     * @param idCurrent id of the current scene: identifies the type of shape to create
+     * @param allData   Properties of the shape
+     * @param color     Color of the shape
      */
-    public void addShape(int idCurrent, ArrayList<Float> allData, Color color){
-        Shape shape = FactoryShape.getInstance(idCurrent,allData, color);
+    public void addShape(int idCurrent, ArrayList<Float> allData, Color color) {
+        Shape shape = ShapeFactory.getInstance(idCurrent, allData, color);
         mainPageController.addShape(createString(shape));
         closePopup();
     }
@@ -48,7 +46,8 @@ public class ShapeMenuController {
     /**
      * Creation of the String to insert into the label when a new shape has been added.
      * This String is different depending on the shape added.
-     * @param shape             Shape which has to be converted in a string
+     *
+     * @param shape Shape which has to be converted in a string
      * @return returnString     String which describes the shape given in parameter
      */
     public String createString(Shape shape) {
@@ -62,7 +61,7 @@ public class ShapeMenuController {
     /**
      * Clear the shape menus by calling the update function of the controllers
      */
-    public void clearShapeMenus(){
+    public void clearShapeMenus() {
         for (MenuController menuController : allControllers) {
             menuController.update();
         }
@@ -70,7 +69,8 @@ public class ShapeMenuController {
 
     /**
      * Add the scenes for all the shape menus to the ArrayList.
-     * @throws IOException      If there was an error while reading a .fxml file
+     *
+     * @throws IOException If there was an error while reading a .fxml file
      */
     public void setUpScenes() throws IOException {
         addScene("/View/ShapeMenu/FxmlFiles/rectangleMenu.fxml");
@@ -78,35 +78,36 @@ public class ShapeMenuController {
         addScene("/View/ShapeMenu/FxmlFiles/lineMenu.fxml");
         addScene("/View/ShapeMenu/FxmlFiles/curvedLineMenu.fxml");
         addScene("/View/ShapeMenu/FxmlFiles/arrowMenu.fxml");
-        if(allShapes.isEmpty()){
-           throw new IOException();
+        if (allShapes.isEmpty()) {
+            throw new IOException();
         }
     }
 
     /**
      * Change the menu to the menu indicated by the value given in parameter
-     * @param idNew                 Corresponds to the id of the menu which is going to be set
+     *
+     * @param idNew Corresponds to the id of the menu which is going to be set
      */
-    public void changeToMenu(int idNew){
+    public void changeToMenu(int idNew) {
         shapeMenuViewController.getShapeScene().setRoot(allShapes.get(idNew));
-        if (idCurrent != idNew){
+        if (idCurrent != idNew) {
             clearShapeMenus();
         }
         shapeMenuViewController.changeTextColor(idNew);
-        idCurrent = idNew ;
+        idCurrent = idNew;
     }
 
     /**
      * Add a scene to the array list containing all the menus and add its controller to an array too
-     * @param scenePath             Path to the corresponding fxml file
+     *
+     * @param scenePath Path to the corresponding fxml file
      */
     private void addScene(String scenePath) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(scenePath));
             allShapes.add(loader.load());
             allControllers.add(loader.getController());
-        }
-        catch(Exception exc){
+        } catch (Exception exc) {
             System.out.println("Error loading scene " + scenePath);
             exc.printStackTrace();
         }
@@ -121,7 +122,7 @@ public class ShapeMenuController {
         ArrayList<Float> allDataInField = new ArrayList<>();
         String redStyle = "-fx-text-box-border: red";
         String normalStyle = "";
-        for(int i=0; i<allFields.size() ;i++) {
+        for (int i = 0; i < allFields.size(); i++) {
             String tempStringInField = allFields.get(i);
             if (!fieldChecker.isValidNumber(tempStringInField) || tempStringInField == null) {
                 if (i < allControllers.get(idCurrent).getAllTextFields().size()) {
@@ -134,12 +135,13 @@ public class ShapeMenuController {
                 }
             }
         }
-        addShape(idCurrent,allDataInField,allControllers.get(idCurrent).getColor());
+        addShape(idCurrent, allDataInField, allControllers.get(idCurrent).getColor());
     }
 
     /**
      * Create the Pop Up menu for the shapes and add the menus to it.
-     * @throws IOException      If there was an error while reading the .fxml file
+     *
+     * @throws IOException If there was an error while reading the .fxml file
      */
     public void popUpInitialize() throws IOException {
         popUpStage = new Stage();

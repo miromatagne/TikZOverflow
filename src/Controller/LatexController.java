@@ -15,8 +15,8 @@ import java.io.IOException;
  */
 public class LatexController {
 
-    private MainPageController mainPageController;
     FileHandler fileHandler = new FileHandler();
+    private MainPageController mainPageController;
 
     public LatexController(MainPageController mainPageController) {
         this.mainPageController = mainPageController;
@@ -24,7 +24,8 @@ public class LatexController {
 
     /**
      * Gets the source code from a previous save.
-     * @return      Source code
+     *
+     * @return Source code
      */
     public String getTextInFile() {
         String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
@@ -33,8 +34,9 @@ public class LatexController {
 
     /**
      * Compiles current source code to a .pdf file.
-     * @return                  String with error count
-     * @throws IOException      If reading the log was unsuccessful
+     *
+     * @return String with error count
+     * @throws IOException If reading the log was unsuccessful
      */
     public String compileTikz() throws IOException {
         saveTikz();
@@ -44,20 +46,20 @@ public class LatexController {
             LatexCompiler.runProcess(filePath);
             String pdfPath = "./Latex/out/" + Session.getInstance().getUser().getUsername() + ".pdf";
             createImage(pdfPath);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.err.println("Error in compilation :  " + e.toString());
             fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log", Session.getInstance().getUser().getUsername());
         }
         fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log", Session.getInstance().getUser().getUsername());
         int errorsCount = fileHandler.getErrorsCounter();
-        System.out.println("You got "+ errorsCount+ " errors on the last compilation \n" + fileHandler.getErrors());
+        System.out.println("You got " + errorsCount + " errors on the last compilation \n" + fileHandler.getErrors());
         return "Errors (" + errorsCount + ")";
     }
 
     /**
      * Creates image from compilation result (PDF).
-     * @param pdfPath   path to Latex compilation output (PDF format)
+     *
+     * @param pdfPath path to Latex compilation output (PDF format)
      */
     public void createImage(String pdfPath) {
         PDFHandler pdfHandler = new PDFHandler(pdfPath);

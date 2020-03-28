@@ -16,15 +16,17 @@ public class PDFHandler {
 
     /**
      * Constructor
-     * @param pdfPath   path to the pdf file to be treated
+     *
+     * @param pdfPath path to the pdf file to be treated
      */
-    public PDFHandler(String pdfPath){
+    public PDFHandler(String pdfPath) {
         this.pdfPath = pdfPath;
     }
 
     /**
      * Converts pdf file to jpeg image file in the same directory
-     * @throws Exception    if pdf file doesn't exist
+     *
+     * @throws Exception if pdf file doesn't exist
      */
     public void convertPdfToImageOnDisk() throws Exception {
         File file = new File(pdfPath);

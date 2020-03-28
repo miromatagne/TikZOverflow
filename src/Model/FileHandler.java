@@ -11,29 +11,30 @@ import java.io.*;
 
 public class FileHandler {
 
+    private static final String DEFAULT_DIRECTORY = "save user";
+    private static int ERRORS_COUNTER = 0;
+    private static String ERRORS = "";
     private String saveUserDirectory = "";
     private String saveProjectDirectory = "";
     private String saveUserFormat = ".txt";
-    private static final String DEFAULT_DIRECTORY  = "save user";
 
-    private static int ERRORS_COUNTER = 0;
-    private static String ERRORS = "";
+    public FileHandler() {
+        setupSaveUserDirectory(DEFAULT_DIRECTORY);
+    }
 
-    public FileHandler() {setupSaveUserDirectory(DEFAULT_DIRECTORY);}
-
-    public FileHandler(String saveUserDirectory){
+    public FileHandler(String saveUserDirectory) {
         setupSaveUserDirectory(saveUserDirectory);
     }
 
     /**
-     *  Setups the directory for users' saves.
+     * Setups the directory for users' saves.
      *
-     *  @param  saveUserDirectory   Path to the directory users' saves
-     *  @return                     TRUE if the setup is made successfully
-     *                              FALSE otherwise
+     * @param saveUserDirectory Path to the directory users' saves
+     * @return TRUE if the setup is made successfully
+     * FALSE otherwise
      */
-    public boolean setupSaveUserDirectory(String saveUserDirectory){
-        if (saveUserDirectory == null || saveUserDirectory.equals("")){
+    public boolean setupSaveUserDirectory(String saveUserDirectory) {
+        if (saveUserDirectory == null || saveUserDirectory.equals("")) {
             return false;
         }
         this.saveUserDirectory = saveUserDirectory;
@@ -42,13 +43,13 @@ public class FileHandler {
     }
 
     /**
-     *  Setups the directory for projects' saves
+     * Setups the directory for projects' saves
      *
-     * @param saveProjectDirectory  Path to the directory projects's saves
+     * @param saveProjectDirectory Path to the directory projects's saves
      */
 
-    public void setupSaveProjectDirectory(String saveProjectDirectory){
-        if (saveProjectDirectory.equals("")){
+    public void setupSaveProjectDirectory(String saveProjectDirectory) {
+        if (saveProjectDirectory.equals("")) {
             return;
         }
         this.saveProjectDirectory = saveProjectDirectory;
@@ -57,52 +58,52 @@ public class FileHandler {
     }
 
     /**
-     *  Checks if the directory exists. Otherwise, creates it.
+     * Checks if the directory exists. Otherwise, creates it.
      *
-     *  @param  file                File created with path to the save_user directory
-     *  @return                     TRUE if the directory already exists OR if the
-     *                              creation of the directory is successful
-     *                              FALSE if the creation of the directory failed
+     * @param file File created with path to the save_user directory
+     * @return TRUE if the directory already exists OR if the
+     * creation of the directory is successful
+     * FALSE if the creation of the directory failed
      */
-    private boolean checkAndCreateSaveDirectory(File file){
-        if (file == null){
+    private boolean checkAndCreateSaveDirectory(File file) {
+        if (file == null) {
             return false;
         }
-        if(file.exists() && file.isDirectory()){
+        if (file.exists() && file.isDirectory()) {
             return true;
         }
         return file.mkdir();
     }
 
     /**
-     *  Get the save text from the user
+     * Get the save text from the user
      *
-     * @param user      User to be handle
-     * @return          The user save in a string
+     * @param user User to be handle
+     * @return The user save in a string
      */
-    private String getSaveTextFromUser(User user){
-        String text="";
-        text+="last:"+user.getLastName()+"\n";
-        text+="first:"+user.getFirstName()+"\n";
-        text+="username:"+user.getUsername()+"\n";
-        text+="mail:"+user.getMail()+"\n";
-        text+="password:"+user.getPassword()+"\n";
+    private String getSaveTextFromUser(User user) {
+        String text = "";
+        text += "last:" + user.getLastName() + "\n";
+        text += "first:" + user.getFirstName() + "\n";
+        text += "username:" + user.getUsername() + "\n";
+        text += "mail:" + user.getMail() + "\n";
+        text += "password:" + user.getPassword() + "\n";
         return text;
     }
 
     /**
-     *  Creates a save corresponding to given user.
+     * Creates a save corresponding to given user.
      *
-     *  @param  user                User to be saved in a text file
-     *  @return                     TRUE if writing successful
-     *                              FALSE otherwise
+     * @param user User to be saved in a text file
+     * @return TRUE if writing successful
+     * FALSE otherwise
      */
-    public boolean createUserSave(User user){
+    public boolean createUserSave(User user) {
         if (saveUserDirectory.equals("")) {
             return false;
         }
-        File saveFile = new File(saveUserDirectory+"/"+user.getUsername()+saveUserFormat);
-        if (saveFile.exists()){
+        File saveFile = new File(saveUserDirectory + "/" + user.getUsername() + saveUserFormat);
+        if (saveFile.exists()) {
             //Error, the file does already exist
             return false;
         }
@@ -114,16 +115,16 @@ public class FileHandler {
      * Creates a .tex file for every new user, and updates it with the new source code
      * when compiling.
      *
-     * @param user                User for whom the .tex file will be created/updated
-     * @param sourceCode          String from the compiling text area
+     * @param user       User for whom the .tex file will be created/updated
+     * @param sourceCode String from the compiling text area
      */
     public void makeTexFile(User user, String sourceCode) {
         setupSaveProjectDirectory("./Latex/");
-        File texFile = new File(saveProjectDirectory+ user.getUsername() + ".tex");
+        File texFile = new File(saveProjectDirectory + user.getUsername() + ".tex");
 
-        if (texFile.exists()){
+        if (texFile.exists()) {
             writeInFile(texFile, sourceCode);
-        }else{
+        } else {
             File template_file = new File("./Latex/template.txt");
             String temp, text = "";
             BufferedReader br;
@@ -143,43 +144,43 @@ public class FileHandler {
     /**
      * Writes a user's data in his save file.
      *
-     * @param user          User to be saved.
-     * @param file          File in which to write.
-     * @return              TRUE if writing was successful
-     *                      FALSE otherwise
+     * @param user User to be saved.
+     * @param file File in which to write.
+     * @return TRUE if writing was successful
+     * FALSE otherwise
      */
     private boolean writeSave(User user, File file) {
-        String text=getSaveTextFromUser(user);
+        String text = getSaveTextFromUser(user);
         return writeInFile(file, text);
     }
 
     /**
      * Save the user in the user directory
      *
-     * @param user  user contain all the new data to be saved
-     * @return      TRUE if the save was successful
-     *              FALSE otherwise
+     * @param user user contain all the new data to be saved
+     * @return TRUE if the save was successful
+     * FALSE otherwise
      */
     public boolean saveUser(User user) {
         if (saveUserDirectory.equals("")) {
             return false;
         }
 
-        File file = new File(saveUserDirectory+"/"+user.getUsername()+saveUserFormat);
+        File file = new File(saveUserDirectory + "/" + user.getUsername() + saveUserFormat);
         if (file.exists()) {
             return writeSave(user, file);
         }
-        return false ;
+        return false;
     }
 
 
     /**
-     *  Writes text into file.
+     * Writes text into file.
      *
-     *  @param  file                File written
-     *  @param  text                Content to write
-     *  @return                     TRUE if writing successful
-     *                              FALSE otherwise
+     * @param file File written
+     * @param text Content to write
+     * @return TRUE if writing successful
+     * FALSE otherwise
      */
     public boolean writeInFile(File file, String text) {
         try {
@@ -188,8 +189,7 @@ public class FileHandler {
             bw.write(text);
             bw.close();
             return true;
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             System.err.format("IOException: %s%n", e);
         }
         return false;
@@ -199,10 +199,9 @@ public class FileHandler {
     /**
      * Read the text in a File
      *
-     *
-     * @param path@return          A String containing all the line of the file
+     * @param path@return A String containing all the line of the file
      */
-    public String readInFile(String path){
+    public String readInFile(String path) {
         File file = new File(path);
         String textInFile;
         StringBuilder builder = new StringBuilder();
@@ -210,12 +209,11 @@ public class FileHandler {
         try {
             FileReader reader = new FileReader(file);
             BufferedReader buffer = new BufferedReader(reader);
-            while( (textInFile = buffer.readLine()) != null){
+            while ((textInFile = buffer.readLine()) != null) {
                 builder.append(textInFile).append("\n");
             }
-        }
-        catch(IOException e){
-            System.err.format("IOException: %s%n", e) ;
+        } catch (IOException e) {
+            System.err.format("IOException: %s%n", e);
         }
 
         return builder.toString();
@@ -224,15 +222,15 @@ public class FileHandler {
     /**
      * Creates a user from its username and its save in the save_user directory.
      *
-     * @param username              Username (identifying users)
-     * @return                      User created. Null if save file does not exist.
+     * @param username Username (identifying users)
+     * @return User created. Null if save file does not exist.
      */
     public User getUserFromSave(String username) {
         if (saveUserDirectory.equals("")) {
             return null;
         }
-        File file = new File(saveUserDirectory+"/"+username+saveUserFormat);
-        if (!file.exists()){
+        File file = new File(saveUserDirectory + "/" + username + saveUserFormat);
+        if (!file.exists()) {
             //Error, the file does not exist
             return null;
         }
@@ -248,43 +246,42 @@ public class FileHandler {
     /**
      * Searches the information needed with the given save file flag.
      *
-     * @param file                  File corresponding to user save file
-     * @param flag                  Flag to extract the information from
-     * @return                      Information needed, or empty string if empty file/flag
+     * @param file File corresponding to user save file
+     * @param flag Flag to extract the information from
+     * @return Information needed, or empty string if empty file/flag
      */
-    private String getInformation(File file, String flag){
-        if (file == null || flag.equals("")){
+    private String getInformation(File file, String flag) {
+        if (file == null || flag.equals("")) {
             return "";
         }
-        if (file.length() == 0){
-            System.out.println("File "+file.getPath()+" is empty");
+        if (file.length() == 0) {
+            System.out.println("File " + file.getPath() + " is empty");
             return "";
         }
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
-            while ((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 String[] lineArray = line.split(":");
-                if(lineArray[0].equals(flag)){
-                    if (!lineArray[1].equals("")){
+                if (lineArray[0].equals(flag)) {
+                    if (!lineArray[1].equals("")) {
                         return lineArray[1];
                     }
                 }
             }
             br.close();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             System.err.format("IOException: %s%n", e);
         }
-        System.out.println("No information for the flag : "+flag+", in file "+file.getPath());
+        System.out.println("No information for the flag : " + flag + ", in file " + file.getPath());
         return "";
     }
 
     /**
      * Fills user last name from file.
      *
-     * @param file                  File corresponding to user save file
-     * @param user                  User whose last name is set
+     * @param file File corresponding to user save file
+     * @param user User whose last name is set
      */
     private void setUserLastName(File file, User user) {
         String temp;
@@ -296,8 +293,8 @@ public class FileHandler {
     /**
      * Fills user first name from file.
      *
-     * @param file                  File corresponding to user save file
-     * @param user                  User whose first name is set
+     * @param file File corresponding to user save file
+     * @param user User whose first name is set
      */
     private void setUserFirstName(File file, User user) {
         String temp;
@@ -309,8 +306,8 @@ public class FileHandler {
     /**
      * Fills user mail from file.
      *
-     * @param file                  File corresponding to user save file
-     * @param user                  User whose mail is set
+     * @param file File corresponding to user save file
+     * @param user User whose mail is set
      */
     private void setUserMail(File file, User user) {
         String temp;
@@ -321,8 +318,9 @@ public class FileHandler {
 
     /**
      * Fills user password from file.
-     * @param file                  File corresponding to user save file
-     * @param user                  User whose password is set
+     *
+     * @param file File corresponding to user save file
+     * @param user User whose password is set
      */
     private void setUserPassword(File file, User user) {
         String temp;
@@ -332,26 +330,25 @@ public class FileHandler {
     }
 
     /**
-     *
-     * @return                      string with all the errors that the user let in the compiler
+     * @return string with all the errors that the user let in the compiler
      */
-    public String getErrors(){
+    public String getErrors() {
         return ERRORS;
     }
 
     /**
-     *
-     * @return                      quantity of errors that occur in the compiler
+     * @return quantity of errors that occur in the compiler
      */
-    public int getErrorsCounter(){
+    public int getErrorsCounter() {
         return ERRORS_COUNTER;
     }
 
     /**
      * Find the errors that the user has written in the compiler
-     * @param path                  the path to the log file which contains all information about the last compilation
-     *                              that we made
-     * @param username              each error give the username so we need it to filter errors from other information
+     *
+     * @param path     the path to the log file which contains all information about the last compilation
+     *                 that we made
+     * @param username each error give the username so we need it to filter errors from other information
      * @throws IOException
      */
     public void errorLogs(String path, String username) throws IOException {
@@ -362,26 +359,23 @@ public class FileHandler {
         FileReader fileReader = new FileReader(file);
         BufferedReader buffer = new BufferedReader(fileReader);
         String line;
-        String input="Latex/" + username + ".tex";
+        String input = "Latex/" + username + ".tex";
 
-        while((line=buffer.readLine())!=null){
-            words=line.split(":");
-            for (String word : words)
-            {
-                if (word.equals(input))
-                {
+        while ((line = buffer.readLine()) != null) {
+            words = line.split(":");
+            for (String word : words) {
+                if (word.equals(input)) {
                     ERRORS_COUNTER++;
-                    for(int i = 1; i < words.length; i++){
-                        if(i == 1)
+                    for (int i = 1; i < words.length; i++) {
+                        if (i == 1)
                             ERRORS += "line ";
                         ERRORS += words[i];
-                        if(i < words.length - 1)
+                        if (i < words.length - 1)
                             ERRORS += ":";
                         else
                             ERRORS += "\n";
                     }
-                }
-                else if (word.equals("*** (job aborted, no legal \\end found)")){
+                } else if (word.equals("*** (job aborted, no legal \\end found)")) {
                     ERRORS_COUNTER++;
                     ERRORS += "*** Missing '\\begin{document}' and/or '\\end{document}'";
                 }

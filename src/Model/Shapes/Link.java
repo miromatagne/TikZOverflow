@@ -1,13 +1,14 @@
 package Model.Shapes;
 
-public abstract class Link extends Shape{
+public abstract class Link extends Shape {
 
     private float xOrigin;
     private float yOrigin;
     private float xDestination;
     private float yDestination;
     private float strokeWidth;
-    public Link(float xOrigin, float yOrigin, float xDestination, float yDestination){
+
+    public Link(float xOrigin, float yOrigin, float xDestination, float yDestination) {
         super(xOrigin, yOrigin);
         this.xOrigin = xOrigin;
         this.yOrigin = yOrigin;
@@ -15,16 +16,12 @@ public abstract class Link extends Shape{
         this.yDestination = yDestination;
     }
 
-    public Link(Node origin, Node destination){
+    public Link(Node origin, Node destination) {
         super(origin.getPosX(), origin.getPosY());
         this.xOrigin = origin.getPosX();
         this.yOrigin = origin.getPosY();
         this.xDestination = destination.getPosX();
         this.yDestination = destination.getPosY();
-    }
-
-    public void setStrokeWidth(float strokeWidth){
-        this.strokeWidth = strokeWidth;
     }
 
     public float getxOrigin() {
@@ -61,5 +58,9 @@ public abstract class Link extends Shape{
 
     public float getStrokeWidth() {
         return strokeWidth;
+    }
+
+    public void setStrokeWidth(float strokeWidth) {
+        this.strokeWidth = strokeWidth;
     }
 }

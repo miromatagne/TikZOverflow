@@ -23,8 +23,10 @@ public class LoginScreenController extends ControllerSuperclass implements Initi
     PasswordField passwordField;
     @FXML
     Label signUpLabel;
+
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) { }
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+    }
 
     /**
      * Tries to login with filled in username and password.
@@ -38,7 +40,7 @@ public class LoginScreenController extends ControllerSuperclass implements Initi
      * Action of "Sign Up" button. Changes from the "Log in" screen to the "Account creation" screen.
      */
     public void newAccount() {
-        ScreenHandler.changeScene(ScreenHandler.ACCOUNTCREATION);
+        ScreenHandler.changeScene(ScreenHandler.ACCOUNT_CREATION);
     }
 
     @Override

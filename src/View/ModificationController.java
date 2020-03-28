@@ -18,19 +18,24 @@ import java.util.ResourceBundle;
 public class ModificationController extends ControllerSuperclass implements Initializable {
 
     //Attribut
-    @FXML private TextField usernameField ; // Attribut @FXML link directly to the .fxml corresponding to this controller class
-    @FXML private TextField firstNameField ;
-    @FXML private TextField lastNameField ;
-    @FXML private TextField emailField ;
-    @FXML private PasswordField passwordField ;
-    @FXML private PasswordField passwordConfirmationField;
+    @FXML
+    private TextField usernameField; // Attribut @FXML link directly to the .fxml corresponding to this controller class
+    @FXML
+    private TextField firstNameField;
+    @FXML
+    private TextField lastNameField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private PasswordField passwordConfirmationField;
 
     private UserController userController = new UserController();
 
     //Method
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle)
-    {
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
@@ -52,8 +57,8 @@ public class ModificationController extends ControllerSuperclass implements Init
 
 
     /**
-     *  Action of the validate button : - Check if all the information in the field are correct
-     *                                  - Save the information of the user in the file username.txt
+     * Action of the validate button : - Check if all the information in the field are correct
+     * - Save the information of the user in the file username.txt
      */
     @FXML
     public void validateButtonAction() {
@@ -71,8 +76,7 @@ public class ModificationController extends ControllerSuperclass implements Init
      * Action of the return Button : Change screen to the main page
      */
     @FXML
-    public void returnButtonAction()
-    {
-        ScreenHandler.changeScene(ScreenHandler.MAINPAGE);
+    public void returnButtonAction() {
+        ScreenHandler.changeScene(ScreenHandler.MAIN_PAGE);
     }
 }

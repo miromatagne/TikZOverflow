@@ -7,7 +7,10 @@ public abstract class Shape {
     private float posY;
     private Color color;
 
-    public  Shape(float posX, float posY){ this.posX = posX;this.posY=posY;}
+    public Shape(float posX, float posY) {
+        this.posX = posX;
+        this.posY = posY;
+    }
 
     public float getPosX() {
         return posX;
@@ -24,12 +27,15 @@ public abstract class Shape {
     public void setPosY(float posY) {
         this.posY = posY;
     }
-    public abstract String getDescription();
 
-    public void setColor(Color c){color=c;}
+    public abstract String getDescription();
 
     public Color getColor() {
         return color;
+    }
+
+    public void setColor(Color c) {
+        color = c;
     }
 
 }

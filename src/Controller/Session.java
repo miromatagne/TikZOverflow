@@ -25,8 +25,8 @@ public class Session {
         return session;
     }
 
-    public User getUser(){return currentUser;}
-    public void setUser(User newUser){ currentUser = newUser;}
+    public User getUser() { return currentUser; }
+    public void setUser(User newUser) { currentUser = newUser; }
 
     /**
      * Tries to open a new session (log in)
@@ -39,15 +39,14 @@ public class Session {
     public int openSession(String username, String password){
         fileHandler.setupSaveUserDirectory("save user");
         currentUser = fileHandler.getUserFromSave(username);
-        if(currentUser == null){
+        if(currentUser == null) {
             return USER_NOT_REGISTERED; //User is not registered
-        }else{
-
-            if(password.equals(currentUser.getPassword())){
+        } else {
+            if(password.equals(currentUser.getPassword())) {
                 System.out.println("Connected user : "+ currentUser.getUsername());
                 System.out.println("Connected user password : " + currentUser.getPassword());
                 return CONNECTION_ESTABLISHED;
-            }else{
+            } else {
                 return INVALID_PASSWORD;
             }
         }

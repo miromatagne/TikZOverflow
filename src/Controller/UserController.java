@@ -21,8 +21,8 @@ public class UserController {
     /**
      * If all fields are valid, modifies the user's info.
      */
-    public void validateModification(){
-        if(validateInformation()){
+    public void validateModification() {
+        if (validateInformation()) {
             userCurrent.setUsername(usernameField.getText());
             userCurrent.setLastName(lastNameField.getText());
             userCurrent.setFirstName(firstNameField.getText());
@@ -38,18 +38,32 @@ public class UserController {
 
     /**
      * Checks whether all fields are valid, and highlights in red those that are not.
-     * @return          TRUE if all fields are  valid
-     *                  FALSE otherwise
+     *
+     * @return TRUE if all fields are  valid
+     * FALSE otherwise
      */
-    public boolean validateInformation(){
+    public boolean validateInformation() {
         FieldChecker fieldChecker = new FieldChecker();
         String defaultTextFieldStyle = "-fx-text-inner-color: black;";
         String redTextFieldStyle = "-fx-text-inner-color: red; -fx-text-box-border: red;";
-        if(!fieldChecker.isValidUsername(usernameField.getText())) usernameField.setStyle(redTextFieldStyle); else usernameField.setStyle(defaultTextFieldStyle);
-        if(!fieldChecker.isValidName(firstNameField.getText())){firstNameField.setStyle(redTextFieldStyle);} else{ firstNameField.setStyle(defaultTextFieldStyle);}
-        if(!fieldChecker.isValidName(lastNameField.getText())){lastNameField.setStyle(redTextFieldStyle);} else{ lastNameField.setStyle(defaultTextFieldStyle);}
-        if(!fieldChecker.isValidMail(emailField.getText())){emailField.setStyle(redTextFieldStyle);} else{ emailField.setStyle(defaultTextFieldStyle);}
-        if(!passwordField.getText().equals(passwordConfirmationField.getText()) || passwordField.getText().equals("")){
+        if (!fieldChecker.isValidUsername(usernameField.getText())) usernameField.setStyle(redTextFieldStyle);
+        else usernameField.setStyle(defaultTextFieldStyle);
+        if (!fieldChecker.isValidName(firstNameField.getText())) {
+            firstNameField.setStyle(redTextFieldStyle);
+        } else {
+            firstNameField.setStyle(defaultTextFieldStyle);
+        }
+        if (!fieldChecker.isValidName(lastNameField.getText())) {
+            lastNameField.setStyle(redTextFieldStyle);
+        } else {
+            lastNameField.setStyle(defaultTextFieldStyle);
+        }
+        if (!fieldChecker.isValidMail(emailField.getText())) {
+            emailField.setStyle(redTextFieldStyle);
+        } else {
+            emailField.setStyle(defaultTextFieldStyle);
+        }
+        if (!passwordField.getText().equals(passwordConfirmationField.getText()) || passwordField.getText().equals("")) {
             passwordField.setStyle(redTextFieldStyle);
             passwordConfirmationField.setStyle(redTextFieldStyle);
         } else {
@@ -64,18 +78,16 @@ public class UserController {
      * Checks if the username and password are correct with the session object. If they are, the user gets to his main screen.
      * If not, the incorrect credentials are highlighted in red.
      */
-    public void validateLogin(TextField usernameField, PasswordField passwordField){
+    public void validateLogin(TextField usernameField, PasswordField passwordField) {
         Session session = Session.getInstance();
         int valid = session.openSession(usernameField.getText(), passwordField.getText());
         final String redTextFieldStyle = "-fx-text-inner-color: red; -fx-text-box-border: red;";
         final String defaultTextFieldStyle = "-fx-text-inner-color: black;";
-        if (valid == Session.CONNECTION_ESTABLISHED){
-            ScreenHandler.changeScene(ScreenHandler.MAINPAGE);
-        }
-        else if (valid == Session.USER_NOT_REGISTERED){
+        if (valid == Session.CONNECTION_ESTABLISHED) {
+            ScreenHandler.changeScene(ScreenHandler.MAIN_PAGE);
+        } else if (valid == Session.USER_NOT_REGISTERED) {
             usernameField.setStyle(redTextFieldStyle);
-        }
-        else if(valid == Session.INVALID_PASSWORD){
+        } else if (valid == Session.INVALID_PASSWORD) {
             passwordField.setStyle(redTextFieldStyle);
             usernameField.setStyle(defaultTextFieldStyle);
         }

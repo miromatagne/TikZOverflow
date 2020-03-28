@@ -20,65 +20,70 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
-Class used to contain all the FXML files in an ArrayList in order to switch between screens using a static method.
-All the Controllers linked to the screens will be contained in a Array of Controllers and their update method will be
-called whenever we change screen.
+ * Class used to contain all the FXML files in an ArrayList in order to switch between screens using a static method.
+ * All the Controllers linked to the screens will be contained in a Array of Controllers and their update method will be
+ * called whenever we change screen.
  */
 
 public class ScreenHandler extends Application {
-    //Scene IDs :
-    public static int LOGINSCREEN = 0 ;
-    public static int MAINPAGE = 1 ;
-    public static int ACCOUNTCREATION = 2 ;
-    public static int MODIFICATIONSCREEN = 3 ;
+    // Scene IDs :
+    public static int LOGIN_SCREEN = 0;
+    public static int MAIN_PAGE = 1;
+    public static int ACCOUNT_CREATION = 2;
+    public static int MODIFICATION_SCREEN = 3;
 
     //Attributes
-    private static ArrayList<Parent> screens = new ArrayList<>() ;
-    static ArrayList<ControllerSuperclass> controllers = new ArrayList<>() ;
-    static Scene scene ;
-    static int idCurrent = 0 ; // Allow to see at which screen/scene number we are
+    private static ArrayList<Parent> screens = new ArrayList<>();
+    static ArrayList<ControllerSuperclass> controllers = new ArrayList<>();
+    static Scene scene;
+    static int idCurrent = 0; // Allow to see at which screen/scene number we are
 
 
     /**
      * changeScene is a static function and will be used by other object such as Controller in order to change the root
-     * the active scene.
+     * of the active scene.
      *
-     * @param idScene  this is an int and it is used to choose which screen will be displayed.(Refer to the list above)
+     * @param idScene this is an int and it is used to choose which screen will be displayed.(Refer to the list above)
      */
-    public static void changeScene(int idScene)
-    {
+    public static void changeScene(int idScene) {
         scene.setRoot(screens.get(idScene));
-        idCurrent = idScene ;
+        idCurrent = idScene;
         controllers.get(idScene).update();
     }
 
     /**
-     *Method used to add a fxml file to the ArrayList and add the Controller link to that fxml in the ArrayList of
+     * Method used to add a fxml file to the ArrayList and add the Controller link to that fxml in the ArrayList of
      * Controller.
      *
-     * @param scenePath  String containing the path of the fxml file that will be loaded.
+     * @param scenePath String containing the path of the fxml file that will be loaded.
      */
 
-    private void addScene(String scenePath)
-    {
+    private void addScene(String scenePath) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(scenePath));
             screens.add(loader.load());
             controllers.add(loader.getController());
+        } catch (Exception e) {
+            System.out.println("Error loading all screens " + scenePath);
+            e.printStackTrace();
         }
-        catch(Exception expc){System.out.println("Error loading all screen " + scenePath); expc.printStackTrace();}
     }
 
+    /**
+     * At first, start() adds all scenes to screens attribute.
+     *
+     * @param stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         addScene("/View/LoginScreen.fxml");
         addScene("/View/MainPage.fxml");
         addScene("/View/accountCreation.fxml");
         addScene("/View/accountModification.fxml");
-
-        if(screens.isEmpty()) {throw new Exception("Failed to log allScene") ;}
-
-        scene = new Scene(screens.get(LOGINSCREEN));
+        if (screens.isEmpty())
+            throw new Exception("Failed to add all scenes");
+        scene = new Scene(screens.get(LOGIN_SCREEN));
         stage.setTitle("TikZOverflow");
         stage.setMaximized(true);
         stage.setScene(scene);
@@ -87,8 +92,9 @@ public class ScreenHandler extends Application {
 
     /**
      * Creates a popup stage when account creation has been attempted to inform user.
-     * @param message   message to display to user
-     * @param success   defines if account creation was successful or not
+     *
+     * @param message message to display to user
+     * @param success defines if account creation was successful or not
      */
     public void createAccountCreationPopup(String message, boolean success) {
         Stage popupStage = new Stage();
@@ -102,19 +108,20 @@ public class ScreenHandler extends Application {
         Button button = new Button("OK");
         button.setOnMouseClicked(e -> {
             popupStage.close();
-            if(success) changeScene(LOGINSCREEN);
+            if (success) changeScene(LOGIN_SCREEN);
         });
-        popupStage.setOnCloseRequest(e ->{
-            if(success) changeScene(LOGINSCREEN);
+        popupStage.setOnCloseRequest(e -> {
+            if (success) changeScene(LOGIN_SCREEN);
         });
         vBox.getChildren().add(button);
-        Scene scene = new Scene(vBox, width,75);
+        Scene scene = new Scene(vBox, width, 75);
         popupStage.setScene(scene);
         popupStage.show();
     }
 
     /**
      * Creates a pop-up window when user clicks on "I accept terms and conditions".
+     *
      * @throws IOException when terms and conditions file doesn't exist.
      */
     public void tcuWindow() throws IOException {

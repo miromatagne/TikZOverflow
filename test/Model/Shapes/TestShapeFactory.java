@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TestFactoryShape {
+class TestShapeFactory {
 
     final static int RECTANGLE = 0;
     final static int CIRCLE = 1;
@@ -28,7 +28,7 @@ class TestFactoryShape {
         Color color = Color.WHITE;
 
         //RECTANGLE
-        Rectangle r = (Rectangle) FactoryShape.getInstance(RECTANGLE,data,color);
+        Rectangle r = (Rectangle) ShapeFactory.getInstance(RECTANGLE,data,color);
         assertEquals((float) 1.2,r.getXCenter());
         assertEquals((float) 15.6,r.getYCenter());
         assertEquals(Color.WHITE,r.getColor());
@@ -37,14 +37,14 @@ class TestFactoryShape {
         assertEquals((float) 145,r.getOutlineThickness());
 
         //CIRCLE
-        Circle c = (Circle) FactoryShape.getInstance(CIRCLE,data,color);
+        Circle c = (Circle) ShapeFactory.getInstance(CIRCLE,data,color);
         assertEquals((float) 1.2,c.getXCenter());
         assertEquals((float) 15.6,c.getYCenter());
         assertEquals(Color.WHITE,c.getColor());
         assertEquals((float) 102,c.getRadius());
 
         //ARROW
-        Arrow a = (Arrow) FactoryShape.getInstance(ARROW,data,color);
+        Arrow a = (Arrow) ShapeFactory.getInstance(ARROW,data,color);
         assertEquals((float) 1.2,a.getxOrigin());
         assertEquals((float) 15.6,a.getyOrigin());
         assertEquals(Color.WHITE,a.getColor());
@@ -55,7 +55,7 @@ class TestFactoryShape {
         assertEquals((float) 40,a.getArrowHeadWidth());
 
         //CURVED LINE
-        CurvedLine cl = (CurvedLine) FactoryShape.getInstance(CURVED_LINE,data,color);
+        CurvedLine cl = (CurvedLine) ShapeFactory.getInstance(CURVED_LINE,data,color);
         assertEquals((float) 1.2,cl.getxOrigin());
         assertEquals((float) 15.6,cl.getyOrigin());
         assertEquals(Color.WHITE,cl.getColor());
@@ -65,7 +65,7 @@ class TestFactoryShape {
         assertEquals((float) 0.456,cl.getCurvedRadius());
 
         //LINE
-        Line l = (Line) FactoryShape.getInstance(LINE,data,color);
+        Line l = (Line) ShapeFactory.getInstance(LINE,data,color);
         assertEquals((float) 1.2,l.getxOrigin());
         assertEquals((float) 15.6,l.getyOrigin());
         assertEquals(Color.WHITE,l.getColor());
