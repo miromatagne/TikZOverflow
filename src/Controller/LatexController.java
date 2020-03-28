@@ -47,9 +47,9 @@ public class LatexController {
         }
         catch(Exception e){
             System.err.println("Error in compilation :  " + e.toString());
-            fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log");
+            fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log", Session.getInstance().getUser().getUsername());
         }
-        fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log");
+        fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log", Session.getInstance().getUser().getUsername());
         int errorsCount = fileHandler.getErrorsCounter();
         System.out.println("You got "+ errorsCount+ " errors on the last compilation \n" + fileHandler.getErrors());
         return "Errors (" + errorsCount + ")";

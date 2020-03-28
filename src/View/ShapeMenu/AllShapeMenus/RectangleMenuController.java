@@ -1,5 +1,7 @@
 package View.ShapeMenu.AllShapeMenus;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
@@ -21,6 +23,7 @@ public class RectangleMenuController extends MenuController implements Initializ
     @FXML private TextField heightTextField;
     @FXML private TextField widthTextField;
     @FXML private Slider thicknessSlider;
+    @FXML private TextField thicknessValue;
     @FXML private ColorPicker colorPicker;
     private ArrayList<TextField> allTextFields = new ArrayList<>();
 
@@ -40,7 +43,8 @@ public class RectangleMenuController extends MenuController implements Initializ
     }
 
     /**
-     * Initialization by adding the different textfield to an array list
+     * Initialization by adding the different textfield to an array list and adding a listener for slider to see
+     * it value
      * @param url               URL (not used)
      * @param resourceBundle    ResourceBundle(not used)
      */
@@ -50,6 +54,13 @@ public class RectangleMenuController extends MenuController implements Initializ
         allTextFields.add(yPositionTextField);
         allTextFields.add(heightTextField);
         allTextFields.add(widthTextField);
+        thicknessValue.setText(String.format("%.1f", thicknessSlider.getValue()));
+        thicknessSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                thicknessValue.setText(String.format("%.1f", new_val));
+            }
+        });
     }
 
     @Override

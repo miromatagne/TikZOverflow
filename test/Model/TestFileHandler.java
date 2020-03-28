@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.Session;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -71,5 +72,23 @@ class TestFileHandler {
             e.printStackTrace();
         }
         assertEquals(text, "testing");
+    }
+
+    @Test
+    void errorLogs() throws IOException {
+        User user = new User();
+        user.setUsername("logFileTest");
+        FileHandler fileHandler = new FileHandler();
+        fileHandler.errorLogs("./test/Model/" + user.getUsername() + ".log", user.getUsername());
+        int errorsCounterTest = 7;
+        String errors = "line 1: LaTeX Error: Missing \\begin{document}.\n" +
+                "line 6: Paragraph ended before \\@fileswith@ptions was complete\n" +
+                "line 9: LaTeX Error: Environment tikzpicture undefined.\n" +
+                "line 10: Undefined control sequence.\n" +
+                "line 11: Undefined control sequence.\n" +
+                "line 12: Undefined control sequence.\n" +
+                "line 13: LaTeX Error: \\begin{document} ended by \\end{tikzpictu\n";
+        assertEquals(errorsCounterTest, fileHandler.getErrorsCounter());//check if we have the same number of errors
+        assertEquals(errors, fileHandler.getErrors());//check if we have the same errors
     }
 }

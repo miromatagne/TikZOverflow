@@ -349,10 +349,12 @@ public class FileHandler {
 
     /**
      * Find the errors that the user has written in the compiler
-     * @param path                  The path to the .log file of the project file
-     * @throws IOException          To be able to catch errors if the process of opening a file fails
+     * @param path                  the path to the log file which contains all information about the last compilation
+     *                              that we made
+     * @param username              each error give the username so we need it to filter errors from other information
+     * @throws IOException
      */
-    public void errorLogs(String path) throws IOException {
+    public void errorLogs(String path, String username) throws IOException {
         ERRORS = "";
         ERRORS_COUNTER = 0;
         File file = new File(path);
@@ -360,7 +362,7 @@ public class FileHandler {
         FileReader fileReader = new FileReader(file);
         BufferedReader buffer = new BufferedReader(fileReader);
         String line;
-        String input="Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
+        String input="Latex/" + username + ".tex";
 
         while((line=buffer.readLine())!=null){
             words=line.split(":");

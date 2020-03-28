@@ -1,5 +1,7 @@
 package View.ShapeMenu.AllShapeMenus;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ColorPicker;
@@ -21,6 +23,7 @@ public class CircleMenuController extends MenuController implements Initializabl
     @FXML private TextField yPositionTextField;
     @FXML private TextField radiusTextField;
     @FXML private Slider thicknessSlider;
+    @FXML private TextField thicknessValue;
     @FXML private ColorPicker colorPicker;
 
     private static final double THICKNESS_DEFAULT_VALUE = 50;
@@ -42,8 +45,10 @@ public class CircleMenuController extends MenuController implements Initializabl
         colorPicker.setValue(Color.WHITE);
     }
 
+
     /**
-     * Initialization by adding the different textfield to an array list
+     * Initialization by adding the different textfield to an array list and adding a listener for slider to see
+     * it value
      * @param url               URL (not used)
      * @param resourceBundle    ResourceBundle(not used)
      */
@@ -52,6 +57,13 @@ public class CircleMenuController extends MenuController implements Initializabl
         allTextFields.add(xPositionTextField);
         allTextFields.add(yPositionTextField);
         allTextFields.add(radiusTextField);
+        thicknessValue.setText(String.format("%.1f", thicknessSlider.getValue()));
+        thicknessSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                thicknessValue.setText(String.format("%.1f", new_val));
+            }
+        });
     }
 
     public ArrayList<String> getAllFields() {
