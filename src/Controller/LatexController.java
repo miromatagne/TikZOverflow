@@ -11,7 +11,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 /**
- * Handles all requests regarding the Tikz source code coming from View.
+ * Handles all requests regarding the TikZ source code coming from View.
  */
 public class LatexController {
 

@@ -20,6 +20,9 @@ import javafx.scene.paint.Paint;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Handles main screen interaction, including TikZ compilation, display and shape addition.
+ */
 public class MainPageController extends ControllerSuperclass implements Initializable {
 
     @FXML

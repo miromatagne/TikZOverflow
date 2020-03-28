@@ -16,6 +16,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Handles shape creation with popup and adding them to the shape list.
+ */
 public class ShapeMenuController {
     private static ArrayList<MenuController> allControllers = new ArrayList<>();
     private static ArrayList<Parent> allShapes = new ArrayList<>();
