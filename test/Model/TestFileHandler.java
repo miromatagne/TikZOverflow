@@ -58,8 +58,9 @@ class TestFileHandler {
         fh.setupSaveUserDirectory("save user");
         fh.createUserSave(user);
         File texFile = new File("./Latex/" + user.getUsername() + ".tex");
-        assertTrue(texFile.exists());
+        fh.writeInFile(texFile, "");
         fh.makeTexFile(user, "testing");
+        assertTrue(texFile.exists());
         String temp, text = "";
         BufferedReader br;
         try {
