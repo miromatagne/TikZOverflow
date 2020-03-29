@@ -1,5 +1,10 @@
 package Model.Shapes;
 
+/**
+ * Superclass for link-type shapes. Links connect two points.
+ * They store the positions of those two points and have a strokeWidth attribute.
+ */
+
 public abstract class Link extends Shape {
 
     private float xOrigin;

@@ -1,5 +1,9 @@
 package Model.Shapes;
 
+/**
+ * Class for the Arrow shape (link-type).
+ */
+
 public class Arrow extends Link {
     private float arrowHeadLength = 5;
     private float arrowHeadWidth = 5;

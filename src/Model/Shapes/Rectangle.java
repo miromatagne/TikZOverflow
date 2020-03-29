@@ -1,5 +1,9 @@
 package Model.Shapes;
 
+/**
+ * Class for the Rectangle shape (node-type).
+ */
+
 public class Rectangle extends Node {
     private float height, width;
 

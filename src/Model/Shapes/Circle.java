@@ -1,5 +1,9 @@
 package Model.Shapes;
 
+/**
+ * Class for the Rectangle shape (node-type).
+ */
+
 public class Circle extends Node {
     private float radius;
 

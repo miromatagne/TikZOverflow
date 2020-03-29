@@ -1,5 +1,11 @@
 package Model.Shapes;
 
+/**
+ * Superclass for node-type shapes figuring in a diagram
+ * Nodes can be connected using links (Link class)
+ * In addition to the general attributes from the Shape class, nodes have an outlineThickness attribute
+ */
+
 public abstract class Node extends Shape {
     private float outlineThickness;
     private float xCenter, yCenter;

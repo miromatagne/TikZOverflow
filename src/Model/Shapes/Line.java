@@ -1,5 +1,9 @@
 package Model.Shapes;
 
+/**
+ * Class for the Line shape (link-type).
+ */
+
 public class Line extends Link {
     public Line(float xOrigin, float yOrigin, float xDestination, float yDestination) {
         super(xOrigin, yOrigin, xDestination, yDestination);

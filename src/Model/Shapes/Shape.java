@@ -2,6 +2,11 @@ package Model.Shapes;
 
 import javafx.scene.paint.Color;
 
+/**
+ * Superclass for the different shapes that can be added to a diagram
+ * Shapes have a position (x, y) and a color by default
+ */
+
 public abstract class Shape {
     private float posX;
     private float posY;
@@ -28,6 +33,11 @@ public abstract class Shape {
         this.posY = posY;
     }
 
+    /**
+     * Get the description of the shape (type et general attributes)
+     *
+     * @return String containing the description of the shape
+     */
     public abstract String getDescription();
 
     public Color getColor() {

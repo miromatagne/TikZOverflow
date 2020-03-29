@@ -1,5 +1,9 @@
 package Model.Shapes;
 
+/**
+ * Class for the Curved Line shape (link-type).
+ */
+
 public class CurvedLine extends Link {
     private float curveRadius;
 
