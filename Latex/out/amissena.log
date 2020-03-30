@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.13)  29 MAR 2020 12:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.13)  30 MAR 2020 18:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -384,7 +384,7 @@ Here is how much of TeX's memory you used:
  60i,6n,60p,397b,531s stack positions out of 5000i,500n,10000p,200000b,80000s
 <c:/texlive/2019/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmr10.pfb>
-Output written on ./Latex/out/amissena.pdf (1 page, 11689 bytes).
+Output written on ./Latex/out/amissena.pdf (1 page, 11794 bytes).
 PDF statistics:
  15 PDF objects out of 1000 (max. 8388607)
  10 compressed objects within 1 object stream

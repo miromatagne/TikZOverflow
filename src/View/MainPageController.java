@@ -47,27 +47,24 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     @FXML
     private Button compileButton;
 
-    private String textSaved;
+    private String textSaved = null;
 
     /**
      * Update is a function of the ControllerSuperClass and will be called every time the mainPage screen is displayed.
      */
     public void update() {
         //update of codeInterface a textArea
-        if (this.textSaved == null) {
+        if (textSaved == null) {
             String textInLatexFile = latexController.getTextInFile();
-            this.codeInterface.setText(textInLatexFile);
-            this.textSaved = textInLatexFile;
+            codeInterface.setText(textInLatexFile);
+            textSaved = textInLatexFile;
         } else {
-            this.fillWithTextSaved();
+            fillWithTextSaved();
         }
-
-        //Update of renderedImageView an ImageView containing the pdf corresponding to the latex code
-        renderedImageView.setImage(null);
     }
 
     private void fillWithTextSaved() {
-        this.codeInterface.setText(this.textSaved);
+        codeInterface.setText(this.textSaved);
     }
 
 
@@ -109,10 +106,10 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         if (errorsButton.getText().equals("Hide errors")) {
             hideErrors(errorsCount);
         } else {
-            this.textSaved = this.codeInterface.getText(); // Save the text in the box before showing the errors
+            textSaved = codeInterface.getText(); // Save the text in the box before showing the errors
+
             compileButton.setDisable(true);
             compileButton.setVisible(false);
-            latexController.saveTikz();
             errorsButton.setText("Hide errors");
             codeInterface.setEditable(false);
 
@@ -127,6 +124,7 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
     @FXML
     public void modificationButtonAction() {
+        textSaved = codeInterface.getText(); // Save the text
         ScreenHandler.changeScene(ScreenHandler.MODIFICATION_SCREEN);
     }
 
@@ -134,8 +132,8 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      * Action of "Log Out" button. Logs current user out and goes back to LoginScreen.
      */
     public void logout() {
-        this.textSaved = null; // Set the textSaved to null in order to display the correct one during the next login
         Session.getInstance().logOut();
+        clearScreen();
         ScreenHandler.changeScene(ScreenHandler.LOGIN_SCREEN);
     }
 
@@ -201,5 +199,17 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     public void renderImage(Image renderedImage) {
         renderedImageView.setFitWidth(imageScrollPane.getWidth());
         renderedImageView.setImage(renderedImage);
+    }
+
+    /**
+     * Clear the main page screen useful when the user logout
+     */
+    private void clearScreen() {
+        renderedImageView.setImage(null);
+        shapeList.getChildren().clear(); // Clear all the added shapes
+        latexController.getFileHandler().clearErrors(); // Clear all the errors
+        errorsButton.setText("Errors (0)");
+        textSaved = null; // Set the textSaved to null in order to display the correct one during the next login
+        fillWithTextSaved();
     }
 }

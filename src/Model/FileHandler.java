@@ -337,6 +337,12 @@ public class FileHandler {
         return ERRORS;
     }
 
+    public void clearErrors(){
+        ERRORS = "";
+        ERRORS_COUNTER = 0;
+        System.out.println("Called");
+    }
+
     /**
      * @return quantity of errors that occur in the compiler
      */
