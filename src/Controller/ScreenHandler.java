@@ -72,8 +72,8 @@ public class ScreenHandler extends Application {
     /**
      * At first, start() adds all scenes to screens attribute.
      *
-     * @param stage
-     * @throws Exception
+     * @param stage Stage for the application.
+     * @throws Exception If all scenes were not successfully added to the stage.
      */
     @Override
     public void start(Stage stage) throws Exception {

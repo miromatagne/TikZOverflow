@@ -199,7 +199,8 @@ public class FileHandler {
     /**
      * Read the text in a File
      *
-     * @param path@return A String containing all the line of the file
+     * @param path File path.
+     * @return A String containing all the line of the file
      */
     public String readInFile(String path) {
         File file = new File(path);
@@ -349,7 +350,7 @@ public class FileHandler {
      * @param path     the path to the log file which contains all information about the last compilation
      *                 that we made
      * @param username each error give the username so we need it to filter errors from other information
-     * @throws IOException
+     * @throws IOException If there was an error while reading the file.
      */
     public void errorLogs(String path, String username) throws IOException {
         ERRORS = "";

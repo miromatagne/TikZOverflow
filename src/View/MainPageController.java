@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -72,12 +73,13 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
     /**
      * Compiles code in text area into pdf file and displays it on UI.
+     *
+     * @throws IOException If reading the log was unsuccessful.
      */
     @FXML
-    public void compile() throws Exception {
+    public void compile() throws IOException {
         String errorsButtonText = latexController.compileTikz();
         errorsButton.setText(errorsButtonText);
-
     }
 
     /**
@@ -193,6 +195,8 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
     /**
      * Renders image from compilation on UI.
+     *
+     * @param renderedImage Image from the compilation of the source code.
      */
     public void renderImage(Image renderedImage) {
         renderedImageView.setFitWidth(imageScrollPane.getWidth());

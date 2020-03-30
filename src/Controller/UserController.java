@@ -77,6 +77,9 @@ public class UserController {
     /**
      * Checks if the username and password are correct with the session object. If they are, the user gets to his main screen.
      * If not, the incorrect credentials are highlighted in red.
+     *
+     * @param usernameField Username field on the Login Screen.
+     * @param passwordField Password field on the Login Screen.
      */
     public void validateLogin(TextField usernameField, PasswordField passwordField) {
         Session session = Session.getInstance();
