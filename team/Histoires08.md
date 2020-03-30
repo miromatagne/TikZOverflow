@@ -14,7 +14,7 @@ Un point correspond à une heure de travail par binôme (approximatif).  Par it�
 |   | 4 | Histoires 4.1, 4.2 et 4.3 | 1 | 32 | 51 |
 | 2 | 2 | Histoire 2 | 1 | | 30 |
 |   | 3 | Histoire 3 | 2 | | 15 |
-|   | 6 | Histoire 6 | 2 | | 8 |
+|   | 6 | Histoire 6 | 2 | | 4 |
 |   | 7 | Histoire 7 | 3 | | 10 |
 |   | 10 | Histoire 10 | 2 | | 32 |
 | 3 | 5 | Histoire 5 | 2 | | 10 |
@@ -245,10 +245,8 @@ Le système offre une fonctionnalité d’aperçu dans laquelle il est possible 
 
 ### Points :
 - Générer PDF et image : 4 points
-- Documentation : 3 points
-- Travail d'équipe : 1 point
 
-TOTAL : 8 points
+TOTAL : 4 points
 
 ----------------------
 
