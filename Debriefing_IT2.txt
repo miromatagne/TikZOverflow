@@ -1,5 +1,5 @@
 Toutes les fonctionnalités ont été correctement implémentées. Cette itération a 
-été un peu plus compliquée en terme d'organisation à cause des mesures de 
+été un peu plus compliquée en termes d'organisation à cause des mesures de 
 confinement, mais le départ rapide de chaque binôme lors du début de l'itération
 a permis de contourner cette difficulté. La communication au sein du groupe a 
 été renforcée et les méthodes virtuelles de travail en groupe ont été mises en 
