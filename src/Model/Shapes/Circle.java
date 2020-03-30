@@ -13,7 +13,7 @@ public class Circle extends Node {
 
     @Override
     public String getDescription() {
-        return "Circle of radius " + this.getRadius() + " and center (" + this.getPosX() + "," + this.getPosY() + ").";
+        return "Circle of radius " + this.getRadius() + " , center (" + this.getXCenter() + "," + this.getYCenter() + ") and thickness " + this.getOutlineThickness() + ".";
     }
 
     public float getRadius() {

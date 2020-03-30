@@ -14,7 +14,7 @@ public class Rectangle extends Node {
 
     @Override
     public String getDescription() {
-        return "Rectangle of height " + this.getHeight() + " and width " + this.getWidth() + ".";
+        return "Rectangle of height " + this.getHeight() + " and width " + this.getWidth() + " with a thickness of " + this.getOutlineThickness() + ".";
     }
 
     public float getHeight() {

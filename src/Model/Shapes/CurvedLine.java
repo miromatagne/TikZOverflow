@@ -25,6 +25,6 @@ public class CurvedLine extends Link {
 
     @Override
     public String getDescription() {
-        return "Curved Line from (" + this.getxOrigin() + "," + this.getyOrigin() + ") to (" + this.getxDestination() + "," + this.getyDestination() + ").";
+        return "Curved Line from (" + this.getxOrigin() + "," + this.getyOrigin() + ") to (" + this.getxDestination() + "," + this.getyDestination() + ") with a stroke width of " + this.getStrokeWidth() + " and a curved radius of " + this.getCurvedRadius() + ".";
     }
 }
