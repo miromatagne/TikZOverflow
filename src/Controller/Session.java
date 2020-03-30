@@ -5,7 +5,7 @@ import Model.User;
 
 /**
  * Class that controls the current session, including the logging in, the logging out
- * and the account creation by the clients.
+ * and the account creation.
  */
 
 public class Session {
