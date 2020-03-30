@@ -58,6 +58,8 @@ public class ShapeMenuController {
 
         returnString += shape.getDescription();
 
+        returnString += " Color : " + shape.getColor() + ".";
+
         return returnString;
     }
 
