@@ -18,7 +18,7 @@ Dans le deuxième cas, l’utilisateur peut utiliser le cadre de texte pour déc
 
 ### Introduit dans l'itération : 2
 
-### Etat : 
+### Etat : Complétée
 
 ### Points :
 - Configuration du panneau (liens et noeuds) : 13 points
