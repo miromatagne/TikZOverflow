@@ -13,7 +13,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-/*Controller for the modification screen that contains the method used by the button or textfield.
+/**
+ * Controller for the modification screen that contains the methods used by the buttons and to update the textfields.
  */
 public class ModificationController extends ControllerSuperclass implements Initializable {
 

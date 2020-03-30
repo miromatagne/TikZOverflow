@@ -122,6 +122,10 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
     }
 
+
+    /**
+     * Action of "Modification" button. Sends user to the account modification screen.
+     */
     @FXML
     public void modificationButtonAction() {
         textSaved = codeInterface.getText(); // Save the text
@@ -162,7 +166,6 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("init");
         shapeList.prefWidthProperty().bind(scroll.prefWidthProperty());
         shapeList.prefHeightProperty().bind(scroll.prefHeightProperty());
         shapeMenuController.setMainPageController(this);
@@ -202,7 +205,7 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     }
 
     /**
-     * Clear the main page screen useful when the user logout
+     * Clear the main page screen. Useful when the user logs out
      */
     private void clearScreen() {
         renderedImageView.setImage(null);

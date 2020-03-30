@@ -155,7 +155,6 @@ public class ShapeMenuController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/ShapeMenu/FxmlFiles/addShapeMenu.fxml"));
         Parent addShapeMenuRoot = loader.load();
         shapeMenuViewController = loader.getController();
-        System.out.println(shapeMenuViewController);
         shapeMenuViewController.setShapeMenuController(this);
         setUpScenes();
         changeToMenu(ShapeMenuViewController.ARROW);
