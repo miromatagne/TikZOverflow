@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+/**
+ * Handles LaTeX files reading and compilation.
+ */
 public class LatexCompiler {
 
     private static final String DEFAULT_OUTPUT_DIRECTORY = "./Latex/out";
@@ -61,8 +64,6 @@ public class LatexCompiler {
         if (!isFileValid(filePath)) {
             throw new Exception("Error in compiling the latex : " + filePath + "is not valid");
         }
-        /* String command = "pdflatex -file-line-error -interaction=nonstopmode -synctex=1 " +
-                "-output-format=pdf -output-directory=C:/IntelliJ_projet/groupe08/out " + filePath ; */
         String command = "pdflatex -file-line-error -interaction=nonstopmode -synctex=1 " +
                 "-output-format=pdf -output-directory " + DEFAULT_OUTPUT_DIRECTORY + " " + filePath;
         String outStreamText = ""; //Is used to track error in the latex file
