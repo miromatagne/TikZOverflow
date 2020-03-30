@@ -11,7 +11,7 @@ Un point correspond à une heure de travail par binôme (approximatif).  Par it�
 | Priorité/3 | N° | Description | Risque/3 | Heures/? | Points |
 | ------ | ------ | ------ | ------ | ------ | ------ |
 | 1 | [1](#Histoire-A) | Histoire 1| 2 | 24.5 | 24 |
-|   | 4 | Histoires 16 et 17 | 1 |  | 47 |
+|   | 4 | Histoires 4.1, 4.2 et 4.3 | 1 | 32 | 47 |
 | 2 | 2 | Histoire 2 | 1 | | 30 |
 |   | 3 | Histoire 3 | 2 | | 15 |
 |   | 6 | Histoire 6 | 2 | | 8 |
@@ -165,7 +165,7 @@ Dans le deuxième cas, l’utilisateur peut utiliser le cadre de texte pour déc
 
 ### Introduit dans l'itération : 2
 
-### Etat : 
+### Etat : Complétée
 
 ### Points :
 - Configuration du panneau (liens et noeuds) : 13 points
