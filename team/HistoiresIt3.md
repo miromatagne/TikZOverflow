@@ -31,6 +31,7 @@ TOTAL : 19 points
 
 ### Notes :
 
+Les coordonnées des éléments graphiques seront directement décidées depuis le panneau de configuration.
 
 ----------------------
 
