@@ -184,7 +184,7 @@ Lorsqu'un élément a été défini à partir du panneau de configuration, les c
 
 ### Description
 L’utilisateur a deux possibilités pour créer un diagramme :
-- utiliser la méthodepoint-and-click;
+- utiliser la méthode point-and-click;
 - utiliser le langage TikZ.
 Dans le premier cas, quand un élément (noeud/lien) est défini à partir du panneau de configuration, l’utilisateur peut le sélectionner et le placer dans un cadre de type point-and-click contenant un canevas. Cette action a pour effet de déposer l’élément sur le canevas et en même temps la production du code TikZ correspondant qui est visible dans undeuxième cadre de texte associé.
 
