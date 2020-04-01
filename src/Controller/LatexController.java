@@ -37,9 +37,10 @@ public class LatexController {
      *
      * @return String with error count
      * @throws IOException If reading the log was unsuccessful
+     * @param sourceCode
      */
-    public String compileTikz() throws IOException {
-        saveTikz();
+    public String compileTikz(String sourceCode) throws IOException {
+        saveTikz(sourceCode);
         String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
 
         try {
@@ -85,8 +86,9 @@ public class LatexController {
 
     /**
      * Save current source code in .tex file
+     * @param sourceCode
      */
-    public void saveTikz() {
-        fileHandler.makeTexFile(Session.getInstance().getUser(), mainPageController.getCodeInterface().getText());
+    public void saveTikz(String sourceCode) {
+        fileHandler.makeTexFile(Session.getInstance().getUser(), sourceCode);
     }
 }
