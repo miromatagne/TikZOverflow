@@ -16,15 +16,24 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Handles main screen interaction, including TikZ compilation, display and shape addition.
  */
 public class MainPageController extends ControllerSuperclass implements Initializable {
+
+    public static final int SHAPES_ONLY = 0;
+    public static final int FULL_CODE = 1;
+
+    private int currentCodeDisplay;
 
     @FXML
     private TextArea codeInterface;
@@ -46,6 +55,10 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     private Button errorsButton;
     @FXML
     private Button compileButton;
+    @FXML
+    private Button fullCodeButton;
+    @FXML
+    private Text codeTitle;
 
     private String textSaved = null;
 
@@ -56,15 +69,34 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         //update of codeInterface a textArea
         if (textSaved == null) {
             String textInLatexFile = latexController.getTextInFile();
-            codeInterface.setText(textInLatexFile);
-            textSaved = textInLatexFile;
-        } else {
-            fillWithTextSaved();
+            // Display only shapes from .tex file
+            currentCodeDisplay = SHAPES_ONLY;
+            textSaved = extractShapesSubCode(textInLatexFile, true);
         }
+        fillWithTextSaved();
     }
 
     private void fillWithTextSaved() {
         codeInterface.setText(this.textSaved);
+    }
+
+    private String extractShapesSubCode(String fullCode, boolean trim) {
+        Pattern pattern = Pattern.compile("\\\\begin\\{tikzpicture}.*\\\\end\\{tikzpicture}", Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(fullCode);
+        if(matcher.find()) {
+            int index = 1;
+            String totalString = "";
+            String[] strings = matcher.group(0).split("\n");
+            while (index < strings.length-1){
+                if(trim) {
+                    totalString = totalString.concat(strings[index++].trim()+"\n");
+                } else {
+                    totalString = totalString.concat(strings[index++]+"\n");
+                }
+            }
+            return totalString;
+        }
+        return null;
     }
 
 
@@ -75,7 +107,18 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      */
     @FXML
     public void compile() throws IOException {
-        String errorsButtonText = latexController.compileTikz();
+        String sourceCode = "";
+        if(currentCodeDisplay == SHAPES_ONLY){
+            StringBuilder shapesOnlyCode = new StringBuilder();
+            for(String line : codeInterface.getText().split("\n")){
+                shapesOnlyCode.append("\t").append(line.trim()).append("\n");
+            }
+            sourceCode = latexController.getTextInFile()
+                    .replace(Objects.requireNonNull(extractShapesSubCode(latexController.getTextInFile(), false)), shapesOnlyCode.toString());
+        } else if (currentCodeDisplay == FULL_CODE) {
+            sourceCode = codeInterface.getText();
+        }
+        String errorsButtonText = latexController.compileTikz(sourceCode);
         errorsButton.setText(errorsButtonText);
     }
 
@@ -88,7 +131,8 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     public void hideErrors(int errorsCount) {
         compileButton.setDisable(false);
         compileButton.setVisible(true);
-
+        fullCodeButton.setDisable(false);
+        fullCodeButton.setVisible(true);
         errorsButton.setText("Errors (" + errorsCount + ")");
         codeInterface.setEditable(true);
         codeInterface.setStyle("-fx-border-color: #3A3A3A; -fx-border-insets: 0,0,0,0; -fx-focus-traversable: false; -fx-border-width: 2; -fx-background-color: transparent; -fx-text-fill: white; -fx-highlight-fill: blue; -fx-highlight-text-fill: white; -fx-control-inner-background: #404040; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;");
@@ -101,7 +145,6 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      */
     @FXML
     public void showErrors() {
-
         int errorsCount = latexController.getFileHandler().getErrorsCounter();
         if (errorsButton.getText().equals("Hide errors")) {
             hideErrors(errorsCount);
@@ -110,6 +153,8 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
             compileButton.setDisable(true);
             compileButton.setVisible(false);
+            fullCodeButton.setVisible(false);
+            fullCodeButton.setDisable(true);
             errorsButton.setText("Hide errors");
             codeInterface.setEditable(false);
 
@@ -118,8 +163,43 @@ public class MainPageController extends ControllerSuperclass implements Initiali
             codeInterface.setStyle("-fx-border-color: #3A3A3A; -fx-border-insets: 0,0,0,0; -fx-focus-traversable: false; -fx-border-width: 2; -fx-background-color: transparent; -fx-text-fill: #ff1200; -fx-highlight-fill: blue; -fx-highlight-text-fill: red; -fx-control-inner-background: #404040; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;");
             codeInterface.setText("You got " + errorsCount + " errors on the last compilation \n" + errors);
         }
+    }
 
+    public void switchCodeDisplay() {
+        if(currentCodeDisplay == SHAPES_ONLY){
+            displayFullCode();
+        } else if(currentCodeDisplay == FULL_CODE){
+            displayShapesOnly();
+        }
+    }
 
+    private void displayFullCode() {
+        //TODO : save text before switching views
+        currentCodeDisplay = FULL_CODE;
+        textSaved = codeInterface.getText();
+        String textInLatexFile = latexController.getTextInFile(); // full code is NEVER saved as textSaved
+        codeInterface.setStyle("-fx-border-color: #3A3A3A; -fx-border-insets: 0,0,0,0; -fx-focus-traversable: false; -fx-border-width: 2; -fx-background-color: transparent; -fx-text-fill: grey; -fx-highlight-fill: blue; -fx-highlight-text-fill: grey; -fx-control-inner-background: #404040; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;");
+        codeInterface.setText(textInLatexFile);
+        codeInterface.setEditable(false);
+        compileButton.setVisible(false);
+        compileButton.setDisable(true);
+        errorsButton.setVisible(false);
+        errorsButton.setDisable(true);
+        fullCodeButton.setText("Display shapes-only code");
+        codeTitle.setText("Full LaTeX code");
+    }
+
+    private void displayShapesOnly() {
+        currentCodeDisplay = SHAPES_ONLY;
+        fillWithTextSaved();
+        codeInterface.setStyle("-fx-border-color: #3A3A3A; -fx-border-insets: 0,0,0,0; -fx-focus-traversable: false; -fx-border-width: 2; -fx-background-color: transparent; -fx-text-fill: white; -fx-highlight-fill: blue; -fx-highlight-text-fill: white; -fx-control-inner-background: #404040; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;");
+        codeInterface.setEditable(true);
+        compileButton.setVisible(true);
+        compileButton.setDisable(false);
+        errorsButton.setVisible(true);
+        errorsButton.setDisable(false);
+        fullCodeButton.setText("Display full code");
+        codeTitle.setText("Shapes-only code");
     }
 
 
@@ -214,5 +294,9 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         errorsButton.setText("Errors (0)");
         textSaved = null; // Set the textSaved to null in order to display the correct one during the next login
         fillWithTextSaved();
+    }
+
+    public int getCurrentCodeDisplay() {
+        return currentCodeDisplay;
     }
 }
