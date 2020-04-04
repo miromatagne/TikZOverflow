@@ -142,4 +142,8 @@ public class ScreenHandler extends Application {
         tcuFullText.setText(text);
         tcuFullText.wrappingWidthProperty().bind(tcuScene.widthProperty().subtract(20));
     }
+
+    public static ArrayList<Parent> getScreens() {
+        return screens;
+    }
 }

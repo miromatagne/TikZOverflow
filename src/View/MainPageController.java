@@ -8,6 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -15,13 +18,20 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
@@ -36,6 +46,10 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     public static final int FULL_CODE = 1;
 
     private int currentCodeDisplay;
+
+    private boolean canvasIsCreated = false;
+
+    private Canvas canvas = new Canvas(250,250);
 
     @FXML
     private TextArea codeInterface;
@@ -304,10 +318,29 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
 
     public void mouseDragged(MouseEvent mouseEvent) {
-        System.out.println("Mouse at: (" + mouseEvent.getX() + ", " + mouseEvent.getY() + ")");
+        //System.out.println("Mouse at: (" + mouseEvent.getX() + ", " + mouseEvent.getY() + ")");
+        canvas.setTranslateX(mouseEvent.getX());
+        canvas.setTranslateY(mouseEvent.getY());
     }
 
     public void dragDetected(MouseEvent mouseEvent) {
-        System.out.println("Start: (" + mouseEvent.getX() + ", " + mouseEvent.getY() + ")");
+        //System.out.println("Start: (" + mouseEvent.getX() + ", " + mouseEvent.getY() + ")");
+        Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
+        canvas.setTranslateX(mouseEvent.getX());
+        canvas.setTranslateY(mouseEvent.getY());
+        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
+        graphicsContext.setFill(Color.BLUE);
+        graphicsContext.fillRect(0, 0, 100, 100);
+        ((GridPane) root).getChildren().add(canvas);
+        canvasIsCreated = true;
+    }
+
+    public void mouseDragReleased(MouseEvent mouseEvent) {
+        if(canvasIsCreated) {
+            System.out.println("Canvas removed");
+            Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
+            ((GridPane) root).getChildren().remove(canvas);
+            canvasIsCreated = false;
+        }
     }
 }
