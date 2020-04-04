@@ -14,6 +14,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -298,5 +300,14 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
     public int getCurrentCodeDisplay() {
         return currentCodeDisplay;
+    }
+
+
+    public void mouseDragged(MouseEvent mouseEvent) {
+        System.out.println("Mouse at: (" + mouseEvent.getX() + ", " + mouseEvent.getY() + ")");
+    }
+
+    public void dragDetected(MouseEvent mouseEvent) {
+        System.out.println("Start: (" + mouseEvent.getX() + ", " + mouseEvent.getY() + ")");
     }
 }
