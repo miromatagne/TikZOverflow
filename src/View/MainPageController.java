@@ -14,8 +14,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,6 +40,8 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     private ImageView renderedImageView;
     @FXML
     private ScrollPane imageScrollPane;
+    @FXML
+    private Text forme;
     private ShapeMenuController shapeMenuController = new ShapeMenuController();
     private LatexController latexController = new LatexController(this);
 
@@ -214,5 +218,44 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         errorsButton.setText("Errors (0)");
         textSaved = null; // Set the textSaved to null in order to display the correct one during the next login
         fillWithTextSaved();
+    }
+
+    /**
+     * detect a drag event on shape from the left side label
+     * @param event
+     */
+    @FXML
+    private void handleDragDetect( MouseEvent event){
+        Dragboard db = forme.startDragAndDrop(TransferMode.ANY);
+
+        ClipboardContent cb = new ClipboardContent();
+        cb.putString(forme.getText());
+
+        db.setContent(cb);
+
+        event.consume();
+
+    }
+
+    /**
+     * detect if the dragged shape can be dropped or not on the mouse position
+     * @param event
+     */
+    @FXML
+    private void handleDragOver( DragEvent event){
+        if(event.getDragboard().hasString()){
+            event.acceptTransferModes(TransferMode.ANY);
+        }
+    }
+
+    /**
+     * get position when dropping out the shape on the PDF box
+     * @param event
+     */
+    @FXML
+    private void handleDragDropped (DragEvent event){
+
+        System.out.println(event.getX());
+        System.out.println(event.getY());
     }
 }
