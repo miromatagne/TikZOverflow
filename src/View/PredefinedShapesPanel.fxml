@@ -8,11 +8,11 @@
 <?import javafx.scene.image.Image?>
 <FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button mnemonicParsing="false">
+      <Button mnemonicParsing="false" prefHeight="95.0" prefWidth="159.0">
          <graphic>
             <ImageView fitWidth="150" preserveRatio="true" smooth="true">
                <image>
-                  <Image url="@../../resources/cercle.png"/>
+                  <Image url="@/th.jpeg"/>
                </image>
             </ImageView>
          </graphic>
