@@ -16,6 +16,7 @@ public class ShapeFactory {
     final static int LINE = 2;
     final static int CURVED_LINE = 3;
     final static int ARROW = 4;
+    final static int SQUARE = 5;
 
     /**
      * Get an instance of a shape based on information given in parameters
@@ -63,6 +64,65 @@ public class ShapeFactory {
                 a.setArrowHeadWidth(data.get(6));
                 a.setColor(color);
                 instance = a;
+                break;
+        }
+        return instance;
+    }
+
+    public static Shape getDefaultInstance(int id) {
+        Shape instance = null;
+        ArrayList<Float> data = new ArrayList<>();
+
+        switch(id) {
+            case RECTANGLE:
+                data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("3"));
+                data.add(Float.parseFloat("4"));
+                data.add(Float.parseFloat("50"));
+                instance = getInstance(RECTANGLE, data, Color.BLACK);
+                break;
+            case CIRCLE:
+                data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("3"));
+                data.add(Float.parseFloat("50"));
+                instance = getInstance(CIRCLE, data, Color.BLACK);
+                break;
+            case LINE:
+                data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("1"));
+                data.add(Float.parseFloat("1"));
+                data.add(Float.parseFloat("50"));
+                instance = getInstance(LINE, data, Color.BLACK);
+                break;
+            case CURVED_LINE:
+                data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("1"));
+                data.add(Float.parseFloat("1"));
+                data.add(Float.parseFloat("50"));
+                data.add(Float.parseFloat("1"));
+                instance = getInstance(CURVED_LINE, data, Color.BLACK);
+                break;
+            case ARROW:
+                data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("2"));
+                data.add(Float.parseFloat("2"));
+                data.add(Float.parseFloat("50"));
+                data.add(Float.parseFloat("1"));
+                data.add(Float.parseFloat("1"));
+                instance = getInstance(ARROW, data, Color.BLACK);
+                break;
+            case SQUARE:
+                data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("4"));
+                data.add(Float.parseFloat("4"));
+                data.add(Float.parseFloat("50"));
+                instance = getInstance(RECTANGLE, data, Color.BLACK);
                 break;
         }
         return instance;

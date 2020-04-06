@@ -1,21 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.PredefinedShapesPanelViewController">
    <children>
       <Button mnemonicParsing="false">
          <graphic>
             <ImageView fitWidth="150" preserveRatio="true" smooth="true">
                <image>
-                  <Image url="@../../resources/cercle.png"/>
+                  <Image url="@/th.jpeg" />
                </image>
             </ImageView>
          </graphic>
       </Button>
+      <Button mnemonicParsing="false">
+         <graphic>
+            <ImageView fitWidth="150" preserveRatio="true" smooth="true">
+               <image>
+                  <Image url="@/th.jpeg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button mnemonicParsing="false">
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic></Button>
+      <Button mnemonicParsing="false">
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic></Button>
+      <Button mnemonicParsing="false">
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic></Button>
+      <Button mnemonicParsing="false">
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic></Button>
    </children>
 </FlowPane>
