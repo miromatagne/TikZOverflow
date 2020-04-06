@@ -43,7 +43,7 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     @FXML
     private GridPane buttonsContainer;
     @FXML
-    private Button buttonCircle, buttonRectangle, buttonTriangle, buttonArrow, buttonLine, buttonCurvedLine;
+    private ImageView buttonCircle, buttonRectangle, buttonTriangle, buttonArrow, buttonLine, buttonCurvedLine;
 
     final static int RECTANGLE = 0;
     final static int CIRCLE = 1;
@@ -234,9 +234,9 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
     }
 
-    private void bindButton(Button button) {
-        button.prefWidthProperty().bind(buttonsContainer.prefWidthProperty().multiply(0.5));
-        button.prefHeightProperty().bind(buttonsContainer.prefHeightProperty().multiply(0.33));
+    private void bindButton(ImageView button) {
+        button.fitWidthProperty().bind(buttonsContainer.prefWidthProperty().multiply(0.5));
+        button.fitHeightProperty().bind(buttonsContainer.prefHeightProperty().multiply(0.33));
     }
 
 
