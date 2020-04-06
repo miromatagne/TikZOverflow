@@ -9,7 +9,9 @@ Pour l'itération 3, le groupe 08 devra réaliser l'histoire 4.3 et une partie d
 L’utilisateur a deux possibilités pour créer un diagramme :
 - utiliser la méthode point-and-click;
 - utiliser le langage TikZ.
-Dans le premier cas, quand un élément (noeud/lien) est défini à partir du panneau de configuration, l’utilisateur peut le sélectionner et le placer dans un cadre de type point-and-click contenant un canevas. Cette action a pour effet de déposer l’élément sur le canevas et en même temps la production du code TikZ correspondant qui est visible dans undeuxième cadre de texte associé.
+
+Dans le premier cas, quand un élément (noeud/lien) est défini à partir du panneau de configuration, l’utilisateur peut le sélectionner et le placer dans un cadre de type point-and-click contenant un canevas.
+Cette action a pour effet de déposer l’élément sur le canevas et en même temps la production du code TikZ correspondant qui est visible dans undeuxième cadre de texte associé.
 
 
 ### Priorité Client : 1
@@ -40,7 +42,11 @@ Les coordonnées des éléments graphiques seront directement décidées depuis 
 ### Titre : Drag & Drop (Glisser-déposer)
 
 ### Description
-L’utilisateur peut construire un diagramme TikZ de façon modulaire, en utilisant des éléments graphiques du diagramme, prédéfinis dans le logiciel (e.g. noeuds ronds, noeuds carrés, flèches, axes, . . .).Pour ce faire, il faut d’abord afficher ces éléments prédéfinis dans une partie dédiée de l’in-terface graphique. Ensuite, l’utilisateur clique sur un élément graphique avec le bouton principal de la souris (le gauche en mode droitier, le droit en mode gaucher), et, en maintenant ce bouton enfoncé, il fera glisser l’objet jusqu’à sa destination sur le diagramme. Une fois atteint la cible, l’utilisateur relâchera le bouton et il verra apparaître l’objet désirédans le diagramme. Lorsque le glisser-déposer aura été complété, le code correspondant au diagramme devra être mis à jour dans la partie de l’interface graphique prévue à cet effet.
+L’utilisateur peut construire un diagramme TikZ de façon modulaire, en utilisant des éléments graphiques du diagramme, prédéfinis dans le logiciel (e.g. noeuds ronds, noeuds carrés, flèches, axes, . . .).
+Pour ce faire, il faut d’abord afficher ces éléments prédéfinis dans une partie dédiée de l’interface graphique. Ensuite, l’utilisateur clique sur un élément graphique avec le bouton principal de la souris 
+(le gauche en mode droitier), et, en maintenant ce bouton enfoncé, il fera glisser l’objet jusqu’à sa destination sur le diagramme. Une fois atteint la cible, 
+l’utilisateur relâchera le bouton et il verra apparaître l’objet désiré dans le diagramme. Lorsque le glisser-déposer aura été complété, le code correspondant au diagramme devra être mis à jour dans la partie
+de l’interface graphique prévue à cet effet.
 
 ### Priorité Client : 2
 
@@ -60,6 +66,7 @@ TOTAL : 9 points
 
 ### Notes :
 
+Le mode gaucher n'est pas à réaliser pour cette itération.
 
 ----------------------
 
