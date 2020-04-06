@@ -1,24 +1,16 @@
 package View;
 
-import Controller.LatexController;
+import Controller.*;
 import Controller.ScreenHandler;
-import Controller.Session;
-import Controller.ShapeMenuController;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Cursor;
-import javafx.scene.SubScene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
+import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -48,11 +40,19 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
     private String textSaved = null;
 
+    @FXML
+    private GridPane buttonsContainer;
+    @FXML
+    private Button buttonCircle, buttonRectangle, buttonTriangle, buttonArrow, buttonLine, buttonCurvedLine;
 
-    @FXML
-    private SubScene predefinedShapesPanel;
-    @FXML
-    private AnchorPane predefinedShapesContainer;
+    final static int RECTANGLE = 0;
+    final static int CIRCLE = 1;
+    final static int LINE = 2;
+    final static int CURVED_LINE = 3;
+    final static int ARROW = 4;
+    final static int SQUARE = 5;
+
+    PredefinedShapesPanelController predefinedShapesPanelController;
 
     /**
      * Update is a function of the ControllerSuperClass and will be called every time the mainPage screen is displayed.
@@ -179,9 +179,8 @@ public class MainPageController extends ControllerSuperclass implements Initiali
             e.printStackTrace();
         }
 
-        predefinedShapesPanel.widthProperty().bind(predefinedShapesContainer.widthProperty());
-        predefinedShapesPanel.heightProperty().bind(predefinedShapesContainer.heightProperty());
-        initializePredefinedShapesPanel("PredefinedShapesPanel.fxml");
+        predefinedShapesPanelController = new PredefinedShapesPanelController();
+        initializeButton();
 
     }
 
@@ -225,14 +224,45 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         fillWithTextSaved();
     }
 
+    private void initializeButton() {
+        bindButton(buttonCircle);
+        bindButton(buttonRectangle);
+        bindButton(buttonTriangle);
+        bindButton(buttonArrow);
+        bindButton(buttonLine);
+        bindButton(buttonCurvedLine);
 
-    private void initializePredefinedShapesPanel(String scenePath) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(scenePath));
-            predefinedShapesPanel.setRoot(loader.load());
-        } catch (Exception exc) {
-            System.out.println("Error loading scene " + scenePath);
-            exc.printStackTrace();
-        }
     }
+
+    private void bindButton(Button button) {
+        button.prefWidthProperty().bind(buttonsContainer.prefWidthProperty().multiply(0.5));
+        button.prefHeightProperty().bind(buttonsContainer.prefHeightProperty().multiply(0.33));
+    }
+
+
+    private void circleClicked() {
+        predefinedShapesPanelController.createShape(CIRCLE);
+    }
+
+    private void rectangleClicked() {
+        predefinedShapesPanelController.createShape(RECTANGLE);
+    }
+
+    private void lineClicked() {
+        predefinedShapesPanelController.createShape(LINE);
+    }
+
+    private void curvedLineClicked() {
+        predefinedShapesPanelController.createShape(CURVED_LINE);
+    }
+
+    private void arrowClicked() {
+        predefinedShapesPanelController.createShape(ARROW);
+    }
+
+    private void squareClicked() {
+        predefinedShapesPanelController.createShape(SQUARE);
+    }
+
+
 }

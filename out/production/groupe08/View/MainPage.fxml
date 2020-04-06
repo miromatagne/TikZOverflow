@@ -4,7 +4,6 @@
     as well as a button to modify one's profile and a button to log out.-->
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -66,13 +65,74 @@
             <ImageView fx:id="renderedImageView" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
         </content>
     </ScrollPane>
-   <AnchorPane fx:id="predefinedShapesContainer" maxWidth="250.0" minHeight="10.0" minWidth="10.0" prefHeight="30.0" prefWidth="50.0" GridPane.rowIndex="1">
-      <children>
-         <SubScene fx:id="predefinedShapesPanel" height="200.0" width="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-           <root>
-             <Region />
-           </root>
-         </SubScene>
-      </children>
-   </AnchorPane>
+    <GridPane maxWidth="250.0" minWidth="10.0" prefWidth="135.0" GridPane.rowIndex="1" GridPane.rowSpan="2">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+        <children>
+            <Button mnemonicParsing="false" prefHeight="114.0" prefWidth="94.0">
+                <graphic>
+                    <ImageView fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
+                        <image>
+                            <Image url="@/defaultCircle.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+         <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="114.0" prefWidth="94.0" GridPane.rowIndex="1">
+            <graphic>
+               <ImageView fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
+                  <image>
+                     <Image url="@/th.jpeg" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="114.0" prefWidth="94.0" GridPane.rowIndex="2">
+            <graphic>
+               <ImageView fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
+                  <image>
+                     <Image url="@/th.jpeg" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="114.0" prefWidth="94.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <graphic>
+               <ImageView fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
+                  <image>
+                     <Image url="@/th.jpeg" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="114.0" prefWidth="94.0" GridPane.columnIndex="1">
+            <graphic>
+               <ImageView fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
+                  <image>
+                     <Image url="@/th.jpeg" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="114.0" prefWidth="94.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <graphic>
+               <ImageView fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
+                  <image>
+                     <Image url="@/th.jpeg" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+        </children>
+      <GridPane.margin>
+         <Insets />
+      </GridPane.margin>
+    </GridPane>
 </GridPane>
