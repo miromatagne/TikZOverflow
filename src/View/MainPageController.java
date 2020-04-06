@@ -5,15 +5,18 @@ import Controller.ScreenHandler;
 import Controller.Session;
 import Controller.ShapeMenuController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
+import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 
@@ -28,10 +31,6 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
     @FXML
     private TextArea codeInterface;
-    @FXML
-    private VBox shapeList;
-    @FXML
-    private ScrollPane scroll;
     @FXML
     private Button addShapeButton;
     @FXML
@@ -48,6 +47,12 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     private Button compileButton;
 
     private String textSaved = null;
+
+
+    @FXML
+    private SubScene predefinedShapesPanel;
+    @FXML
+    private AnchorPane predefinedShapesContainer;
 
     /**
      * Update is a function of the ControllerSuperClass and will be called every time the mainPage screen is displayed.
@@ -148,13 +153,13 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      * @param shapeText Description of the Shape to be added
      */
     public void addShape(String shapeText) {
-        Label label = new Label(shapeText);
+       /* Label label = new Label(shapeText);
         label.setTextFill(Paint.valueOf("White"));
         label.setStyle("-fx-border-color: #3A3A3A; -fx-background-color: #4D4D4D");
         label.setPadding(new Insets(5, 5, 5, 5));
         label.prefWidthProperty().bind(shapeList.prefWidthProperty());
         label.setWrapText(true);
-        shapeList.getChildren().add(label);
+        shapeList.getChildren().add(label);*/
     }
 
     /**
@@ -166,14 +171,18 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        shapeList.prefWidthProperty().bind(scroll.prefWidthProperty());
-        shapeList.prefHeightProperty().bind(scroll.prefHeightProperty());
+
         shapeMenuController.setMainPageController(this);
         try {
             shapeMenuController.popUpInitialize();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        predefinedShapesPanel.widthProperty().bind(predefinedShapesContainer.widthProperty());
+        predefinedShapesPanel.heightProperty().bind(predefinedShapesContainer.heightProperty());
+        initializePredefinedShapesPanel("PredefinedShapesPanel.fxml");
+
     }
 
     /**
@@ -209,10 +218,21 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      */
     private void clearScreen() {
         renderedImageView.setImage(null);
-        shapeList.getChildren().clear(); // Clear all the added shapes
+        //shapeList.getChildren().clear(); // Clear all the added shapes
         latexController.getFileHandler().clearErrors(); // Clear all the errors
         errorsButton.setText("Errors (0)");
         textSaved = null; // Set the textSaved to null in order to display the correct one during the next login
         fillWithTextSaved();
+    }
+
+
+    private void initializePredefinedShapesPanel(String scenePath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(scenePath));
+            predefinedShapesPanel.setRoot(loader.load());
+        } catch (Exception exc) {
+            System.out.println("Error loading scene " + scenePath);
+            exc.printStackTrace();
+        }
     }
 }
