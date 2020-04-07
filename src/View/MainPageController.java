@@ -51,6 +51,7 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     final static int CURVED_LINE = 3;
     final static int ARROW = 4;
     final static int SQUARE = 5;
+    final static int TRIANGLE = 6;
 
     PredefinedShapesPanelController predefinedShapesPanelController;
 
@@ -263,6 +264,8 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     private void squareClicked() {
         predefinedShapesPanelController.createShape(SQUARE);
     }
+
+    private void triangleClicked() { predefinedShapesPanelController.createShape(TRIANGLE) ; }
 
 
 }
