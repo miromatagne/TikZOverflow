@@ -16,8 +16,8 @@ public class ShapeFactory {
     final static int LINE = 2;
     final static int CURVED_LINE = 3;
     final static int ARROW = 4;
-    final static int SQUARE = 5;
-    final static int TRIANGLE = 6;
+    final static int TRIANGLE = 5;
+    final static int SQUARE = 6;
 
     /**
      * Get an instance of a shape based on information given in parameters
@@ -76,9 +76,10 @@ public class ShapeFactory {
                 break;
             case TRIANGLE:
                 Triangle triangle = new Triangle(data.get(0), data.get(1));
-                triangle.setBase(data.get(2));
-                triangle.setHeight(data.get(3));
-                triangle.setOutlineThickness(data.get(4));
+                triangle.setSide_a(data.get(2));
+                triangle.setSide_b(data.get(3));
+                triangle.setSide_c(data.get(4));
+                triangle.setOutlineThickness(data.get(5));
                 triangle.setColor(color);
                 instance = triangle;
         }
@@ -143,6 +144,7 @@ public class ShapeFactory {
             case TRIANGLE:
                 data.add(Float.parseFloat("0"));
                 data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("4"));
                 data.add(Float.parseFloat("4"));
                 data.add(Float.parseFloat("4"));
                 data.add(Float.parseFloat("50"));

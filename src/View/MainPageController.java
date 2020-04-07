@@ -43,7 +43,9 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     @FXML
     private GridPane buttonsContainer;
     @FXML
-    private ImageView buttonCircle, buttonRectangle, buttonTriangle, buttonArrow, buttonLine, buttonCurvedLine;
+    private Button buttonCircle, buttonRectangle, buttonTriangle, buttonArrow, buttonLine,buttonCurvedLine, buttonSquare;
+    @FXML
+    private ImageView imageCircle, imageRectangle, imageTriangle, imageArrow, imageLine, imageCurvedLine, imageSquare;
 
     final static int RECTANGLE = 0;
     final static int CIRCLE = 1;
@@ -181,7 +183,8 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         }
 
         predefinedShapesPanelController = new PredefinedShapesPanelController();
-        initializeButton();
+        initializeImageButton();
+
 
     }
 
@@ -191,11 +194,6 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     @FXML
     public void addShapeMenu() {
         shapeMenuController.showPopUp();
-    }
-
-    @FXML
-    public void changeMouseToHand() {
-        addShapeButton.setCursor(Cursor.HAND);
     }
 
 
@@ -225,47 +223,48 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         fillWithTextSaved();
     }
 
-    private void initializeButton() {
-        bindButton(buttonCircle);
-        bindButton(buttonRectangle);
-        bindButton(buttonTriangle);
-        bindButton(buttonArrow);
-        bindButton(buttonLine);
-        bindButton(buttonCurvedLine);
+    private void initializeImageButton() {
+        bindImageButton(imageCircle, buttonCircle);
+        bindImageButton(imageRectangle, buttonRectangle);
+        bindImageButton(imageTriangle, buttonTriangle);
+        bindImageButton(imageArrow, buttonArrow);
+        bindImageButton(imageLine, buttonLine);
+        bindImageButton(imageCurvedLine, buttonCurvedLine);
+        bindImageButton(imageSquare, buttonSquare);
 
     }
 
-    private void bindButton(ImageView button) {
-        button.fitWidthProperty().bind(buttonsContainer.prefWidthProperty().multiply(0.5));
-        button.fitHeightProperty().bind(buttonsContainer.prefHeightProperty().multiply(0.33));
+
+    private void bindImageButton(ImageView imageButton, Button button) {
+        imageButton.fitWidthProperty().bind(button.widthProperty().multiply(0.6));
+        imageButton.fitHeightProperty().bind(button.heightProperty().multiply(0.6));
     }
 
-
-    private void circleClicked() {
+    public void circleClicked() {
         predefinedShapesPanelController.createShape(CIRCLE);
     }
 
-    private void rectangleClicked() {
+    public void rectangleClicked() {
         predefinedShapesPanelController.createShape(RECTANGLE);
     }
 
-    private void lineClicked() {
+    public void lineClicked() {
         predefinedShapesPanelController.createShape(LINE);
     }
 
-    private void curvedLineClicked() {
+    public void curvedLineClicked() {
         predefinedShapesPanelController.createShape(CURVED_LINE);
     }
 
-    private void arrowClicked() {
+    public void arrowClicked() {
         predefinedShapesPanelController.createShape(ARROW);
     }
 
-    private void squareClicked() {
+    public void squareClicked() {
         predefinedShapesPanelController.createShape(SQUARE);
     }
 
-    private void triangleClicked() { predefinedShapesPanelController.createShape(TRIANGLE) ; }
+    public void triangleClicked() { predefinedShapesPanelController.createShape(TRIANGLE) ; }
 
 
 }

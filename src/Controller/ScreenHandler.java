@@ -87,6 +87,8 @@ public class ScreenHandler extends Application {
         stage.setTitle("TikZOverflow");
         stage.setMaximized(true);
         stage.setScene(scene);
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
         stage.show();
     }
 

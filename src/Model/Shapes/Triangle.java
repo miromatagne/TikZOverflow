@@ -1,7 +1,7 @@
 package Model.Shapes;
 
 public class Triangle extends Node {
-    private float height, base;
+    private float side_a,side_b,side_c;
 
     public Triangle(float xCenter, float yCenter) { super(xCenter, yCenter); }
 
@@ -10,11 +10,27 @@ public class Triangle extends Node {
         return "Triangle of center (" + this.getXCenter() + "," + this.getYCenter() + ").";
     }
 
-    public float getBase() { return base; }
+    public float getSide_a() {
+        return side_a;
+    }
 
-    public void setBase(float base) { this.base = base; }
+    public void setSide_a(float side_a) {
+        this.side_a = side_a;
+    }
 
-    public float getHeight() { return height; }
+    public float getSide_b() {
+        return side_b;
+    }
 
-    public void setHeight(float height) { this.height = height; }
+    public void setSide_b(float side_b) {
+        this.side_b = side_b;
+    }
+
+    public float getSide_c() {
+        return side_c;
+    }
+
+    public void setSide_c(float side_c) {
+        this.side_c = side_c;
+    }
 }
