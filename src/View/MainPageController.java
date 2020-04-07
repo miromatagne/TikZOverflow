@@ -22,8 +22,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Handles main screen interaction, including TikZ compilation, display and shape addition.
@@ -71,32 +69,13 @@ public class MainPageController extends ControllerSuperclass implements Initiali
             String textInLatexFile = latexController.getTextInFile();
             // Display only shapes from .tex file
             currentCodeDisplay = SHAPES_ONLY;
-            textSaved = extractShapesSubCode(textInLatexFile, true);
+            textSaved = latexController.extractShapesSubCode(textInLatexFile, true);
         }
         fillWithTextSaved();
     }
 
     private void fillWithTextSaved() {
         codeInterface.setText(this.textSaved);
-    }
-
-    private String extractShapesSubCode(String fullCode, boolean trim) {
-        Pattern pattern = Pattern.compile("\\\\begin\\{tikzpicture}.*\\\\end\\{tikzpicture}", Pattern.DOTALL);
-        Matcher matcher = pattern.matcher(fullCode);
-        if(matcher.find()) {
-            int index = 1;
-            String totalString = "";
-            String[] strings = matcher.group(0).split("\n");
-            while (index < strings.length-1){
-                if(trim) {
-                    totalString = totalString.concat(strings[index++].trim()+"\n");
-                } else {
-                    totalString = totalString.concat(strings[index++]+"\n");
-                }
-            }
-            return totalString;
-        }
-        return null;
     }
 
 
@@ -109,12 +88,7 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     public void compile() throws IOException {
         String sourceCode = "";
         if(currentCodeDisplay == SHAPES_ONLY){
-            StringBuilder shapesOnlyCode = new StringBuilder();
-            for(String line : codeInterface.getText().split("\n")){
-                shapesOnlyCode.append("\t").append(line.trim()).append("\n");
-            }
-            sourceCode = latexController.getTextInFile()
-                    .replace(Objects.requireNonNull(extractShapesSubCode(latexController.getTextInFile(), false)), shapesOnlyCode.toString());
+            sourceCode = latexController.buildFullCodeFromShapesOnlyCode(codeInterface.getText());
         } else if (currentCodeDisplay == FULL_CODE) {
             sourceCode = codeInterface.getText();
         }
@@ -165,6 +139,9 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         }
     }
 
+    /**
+     * Switches between editable, shapes-only display and uneditable full code display.
+     */
     public void switchCodeDisplay() {
         if(currentCodeDisplay == SHAPES_ONLY){
             displayFullCode();
@@ -173,8 +150,11 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         }
     }
 
+    /**
+     * Shows full LaTeX code. This code cannot be edited.
+     */
     private void displayFullCode() {
-        //TODO : save text before switching views
+        latexController.saveTikz(latexController.buildFullCodeFromShapesOnlyCode(codeInterface.getText()));
         currentCodeDisplay = FULL_CODE;
         textSaved = codeInterface.getText();
         String textInLatexFile = latexController.getTextInFile(); // full code is NEVER saved as textSaved
@@ -189,6 +169,9 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         codeTitle.setText("Full LaTeX code");
     }
 
+    /**
+     * Shows shapes-only TikZ code. This code can be edited.
+     */
     private void displayShapesOnly() {
         currentCodeDisplay = SHAPES_ONLY;
         fillWithTextSaved();
