@@ -16,6 +16,11 @@ public class Circle extends Node {
         return "Circle of radius " + this.getRadius() + " , center (" + this.getXCenter() + "," + this.getYCenter() + ") and thickness " + this.getOutlineThickness() + ".";
     }
 
+    @Override
+    public String generateAndGetTikzCode() {
+        return null;
+    }
+
     public float getRadius() {
         return radius;
     }

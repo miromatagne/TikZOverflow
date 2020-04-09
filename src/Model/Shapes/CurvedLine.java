@@ -27,4 +27,9 @@ public class CurvedLine extends Link {
     public String getDescription() {
         return "Curved Line from (" + this.getxOrigin() + "," + this.getyOrigin() + ") to (" + this.getxDestination() + "," + this.getyDestination() + ") with a stroke width of " + this.getStrokeWidth() + " and a curved radius of " + this.getCurvedRadius() + ".";
     }
+
+    @Override
+    public String generateAndGetTikzCode() {
+        return null;
+    }
 }
