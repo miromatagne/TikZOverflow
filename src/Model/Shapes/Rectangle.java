@@ -17,6 +17,11 @@ public class Rectangle extends Node {
         return "Rectangle of height " + this.getHeight() + " and width " + this.getWidth() + " with a thickness of " + this.getOutlineThickness() + ".";
     }
 
+    @Override
+    public String generateAndGetTikzCode() {
+        return "code rectangle";
+    }
+
     public float getHeight() {
         return height;
     }

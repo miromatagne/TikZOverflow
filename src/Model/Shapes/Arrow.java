@@ -21,6 +21,11 @@ public class Arrow extends Link {
         return "Arrow from (" + this.getxOrigin() + "," + this.getyOrigin() + ") to (" + this.getxDestination() + "," + this.getyDestination() + "), with a stroke width of " + this.getStrokeWidth() + " , a head length of " + this.getArrowHeadLength() + " and a head width of " + this.getArrowHeadWidth() + "." ;
     }
 
+    @Override
+    public String generateAndGetTikzCode() {
+        return null;
+    }
+
     public float getArrowHeadLength() {
         return arrowHeadLength;
     }

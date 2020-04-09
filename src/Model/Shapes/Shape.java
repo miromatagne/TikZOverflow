@@ -16,7 +16,6 @@ public abstract class Shape {
         this.posX = posX;
         this.posY = posY;
     }
-
     public float getPosX() {
         return posX;
     }
@@ -39,6 +38,7 @@ public abstract class Shape {
      * @return String containing the description of the shape
      */
     public abstract String getDescription();
+    public abstract String generateAndGetTikzCode();
 
     public Color getColor() {
         return color;

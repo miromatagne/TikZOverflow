@@ -4,6 +4,7 @@ import Controller.LatexController;
 import Controller.ScreenHandler;
 import Controller.Session;
 import Controller.ShapeMenuController;
+import Model.Shapes.Shape;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -205,19 +206,13 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     }
 
     /**
-     * Adds a Label to the panel on the right hand side of the screen describing the
-     * shape that was added.
+     * Adds shape code to the coding interface according to the shape received as a parameter
      *
-     * @param shapeText Description of the Shape to be added
+     * @param shape Shape whose code has to be generated in the coding interface
      */
-    public void addShape(String shapeText) {
-        Label label = new Label(shapeText);
-        label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-border-color: #3A3A3A; -fx-background-color: #4D4D4D");
-        label.setPadding(new Insets(5, 5, 5, 5));
-        label.prefWidthProperty().bind(shapeList.prefWidthProperty());
-        label.setWrapText(true);
-        shapeList.getChildren().add(label);
+    public void addShape(Shape shape) {
+        String code = shape.generateAndGetTikzCode();
+        codeInterface.appendText(code);
     }
 
     /**
