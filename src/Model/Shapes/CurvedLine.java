@@ -30,6 +30,25 @@ public class CurvedLine extends Link {
 
     @Override
     public String generateAndGetTikzCode() {
-        return null;
+        String code = "\\draw";
+
+        //Width
+        code += " [line width=" + String.valueOf(getStrokeWidth()) + "mm";
+
+        //Color
+        code += " ,color={rgb:red," + String.valueOf(getColor().getRed()*100) + ";green," + String.valueOf(getColor().getGreen()*100);
+        code += ";blue," + String.valueOf(getColor().getBlue()*100) + "}]";
+
+
+        //Starting position
+        code += " (" + String.valueOf(getxOrigin()) + "," + String.valueOf(getyOrigin()) + ")";
+
+        //Curve
+        code += " to[out=" + String.valueOf(getCurvedRadius()) + ",in=" + String.valueOf(getCurvedRadius()) + "]";
+
+        //Ending position
+        code += "(" + String.valueOf(getxDestination()) + "," + String.valueOf(getyDestination()) + ");";
+
+        return code;
     }
 }

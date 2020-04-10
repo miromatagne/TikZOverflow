@@ -20,6 +20,19 @@ public class Line extends Link {
 
     @Override
     public String generateAndGetTikzCode() {
-        return null;
+        String code = "\\draw";
+
+        //Width
+        code += " [line width=" + String.valueOf(getStrokeWidth()) + "mm";
+
+        //Color
+        code += " ,color={rgb:red," + String.valueOf(getColor().getRed()*100) + ";green," + String.valueOf(getColor().getGreen()*100);
+        code += ";blue," + String.valueOf(getColor().getBlue()*100) + "}]";
+
+        //Draw line Position
+        code += " (" + String.valueOf(getxOrigin()) + "," + String.valueOf(getyOrigin()) + ")";
+        code += " --";
+        code += " (" + String.valueOf(getxDestination()) + "," + String.valueOf(getyDestination()) + ");";
+        return code ;
     }
 }
