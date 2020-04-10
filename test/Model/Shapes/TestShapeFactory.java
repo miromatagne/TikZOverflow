@@ -62,7 +62,8 @@ class TestShapeFactory {
         assertEquals((float) 102,cl.getxDestination());
         assertEquals((float) 589,cl.getyDestination());
         assertEquals((float) 145,cl.getStrokeWidth());
-        assertEquals((float) 0.456,cl.getCurvedRadius());
+        assertEquals((float) 0.456,cl.getCurvedOutAngle());
+        assertEquals((float) 40,cl.getCurvedInAngle());
 
         //LINE
         Line l = (Line) ShapeFactory.getInstance(LINE,data,color);

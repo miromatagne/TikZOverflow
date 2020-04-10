@@ -52,7 +52,8 @@ public class ShapeFactory {
             case CURVED_LINE:
                 CurvedLine cl = new CurvedLine(data.get(0), data.get(1), data.get(2), data.get(3));
                 cl.setStrokeWidth(data.get(4));
-                cl.setCurveRadius(data.get(5));
+                cl.setCurveOutAngle(data.get(5));
+                cl.setCurveInAngle(data.get(6));
                 cl.setColor(color);
                 instance = cl;
                 break;
