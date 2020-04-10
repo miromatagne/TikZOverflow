@@ -18,7 +18,11 @@ public class Circle extends Node {
 
     @Override
     public String generateAndGetTikzCode() {
-        return null;
+        String code = "\\filldraw";
+        code += "[fill={rgb:red," + getColor().getRed()*255 + ";green," + getColor().getGreen()*255 + ";blue," + getColor().getBlue()*255 + "}]";
+        code += "(" + getPosX() + "," + getPosY() + ") circle ";
+        code += "(" + radius + ");";
+        return code;
     }
 
     public float getRadius() {

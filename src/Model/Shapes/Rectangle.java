@@ -19,7 +19,15 @@ public class Rectangle extends Node {
 
     @Override
     public String generateAndGetTikzCode() {
-        return "code rectangle";
+        float x1 = getPosX();
+        float y1 = getPosY();
+        float x2 = getPosX() + width;
+        float y2 = getPosY() + height;
+        String code = "\\filldraw";
+        code += "[fill={rgb:red," + getColor().getRed()*255 + ";green," + getColor().getGreen()*255 + ";blue," + getColor().getBlue()*255 + "}]";
+        code += "(" + x1 + "," + y1 + ") rectangle ";
+        code += "(" + x2 + "," + y2 + ");";
+        return code;
     }
 
     public float getHeight() {
