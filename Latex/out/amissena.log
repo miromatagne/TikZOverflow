@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.13)  10 APR 2020 09:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.13)  10 APR 2020 10:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -370,21 +370,26 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 (c:/texlive/2019/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
-)) [1
+))
+Overfull \hbox (24.88628pt too wide) in paragraph at lines 15--16
+[][] 
+ []
+
+[1
 
 {c:/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 (./Latex/out/amissena.aux) ) 
 Here is how much of TeX's memory you used:
- 11441 strings out of 480994
- 235804 string characters out of 5916032
+ 11455 strings out of 480994
+ 236131 string characters out of 5916032
  444881 words of memory out of 5000000
- 26782 multiletter control sequences out of 15000+600000
+ 26796 multiletter control sequences out of 15000+600000
  532638 words of font info for 25 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,6n,60p,397b,531s stack positions out of 5000i,500n,10000p,200000b,80000s
 <c:/texlive/2019/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmr10.pfb>
-Output written on ./Latex/out/amissena.pdf (1 page, 11835 bytes).
+Output written on ./Latex/out/amissena.pdf (1 page, 11896 bytes).
 PDF statistics:
  15 PDF objects out of 1000 (max. 8388607)
  10 compressed objects within 1 object stream
