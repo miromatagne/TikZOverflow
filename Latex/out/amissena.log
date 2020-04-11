@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.13)  10 APR 2020 14:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.13)  11 APR 2020 12:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -326,7 +326,14 @@ File: pgfmodulematrix.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 brarytopaths.code.tex
 File: tikzlibrarytopaths.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 )))
-(c:/texlive/2019/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
+(c:/texlive/2019/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.cod
+e.tex
+File: pgflibraryarrows.meta.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfarrowinset=\dimen187
+\pgfarrowlength=\dimen188
+\pgfarrowwidth=\dimen189
+\pgfarrowlinewidth=\dimen190
+) (c:/texlive/2019/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-02-23 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count196
 \l__pdf_internal_box=\box56
@@ -334,31 +341,31 @@ File: l3backend-pdfmode.def 2020-02-23 L3 backend support: PDF mode
 (./Latex/out/amissena.aux)
 \openout1 = `amissena.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
-LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
+LaTeX Font Info:    ... okay on input line 9.
  ABD: EveryShipout initializing macros
 (c:/texlive/2019/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count197
-\scratchdimen=\dimen187
+\scratchdimen=\dimen191
 \scratchbox=\box57
 \nofMPsegments=\count198
 \nofMParguments=\count199
 \everyMPshowfont=\toks28
 \MPscratchCnt=\count266
-\MPscratchDim=\dimen188
+\MPscratchDim=\dimen192
 \MPnumerator=\count267
 \makeMPintoPDFobject=\count268
 \everyMPtoPDFconversion=\toks29
@@ -375,16 +382,16 @@ e
 {c:/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 (./Latex/out/amissena.aux) ) 
 Here is how much of TeX's memory you used:
- 11449 strings out of 480994
- 235905 string characters out of 5916032
- 444881 words of memory out of 5000000
- 26790 multiletter control sequences out of 15000+600000
+ 11751 strings out of 480994
+ 244443 string characters out of 5916032
+ 454108 words of memory out of 5000000
+ 27088 multiletter control sequences out of 15000+600000
  532638 words of font info for 25 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,6n,60p,397b,531s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,5n,67p,425b,617s stack positions out of 5000i,500n,10000p,200000b,80000s
 <c:/texlive/2019/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmr10.pfb>
-Output written on ./Latex/out/amissena.pdf (1 page, 11850 bytes).
+Output written on ./Latex/out/amissena.pdf (1 page, 8447 bytes).
 PDF statistics:
  15 PDF objects out of 1000 (max. 8388607)
  10 compressed objects within 1 object stream
