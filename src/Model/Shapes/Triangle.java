@@ -10,11 +10,6 @@ public class Triangle extends Node {
         return "Triangle of center (" + this.getXCenter() + "," + this.getYCenter() + ").";
     }
 
-    @Override
-    public String generateAndGetTikzCode() {
-        return null;
-    }
-
     public float getSide_a() {
         return side_a;
     }

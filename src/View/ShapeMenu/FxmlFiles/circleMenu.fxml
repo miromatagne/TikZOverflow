@@ -93,10 +93,10 @@
                 <Insets left="20.0" right="20.0" />
             </GridPane.margin>
         </Slider>
-      <TextField fx:id="thicknessValue" alignment="CENTER" editable="false" maxHeight="20.0" maxWidth="70.0" style="-fx-background-color: #c8caca;" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-         <GridPane.margin>
-            <Insets bottom="60.0" />
-         </GridPane.margin>
-      </TextField>
+        <TextField fx:id="thicknessValue" alignment="CENTER" editable="false" maxHeight="20.0" maxWidth="70.0" style="-fx-background-color: #c8caca;" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+            <GridPane.margin>
+                <Insets bottom="60.0" />
+            </GridPane.margin>
+        </TextField>
     </GridPane>
 </GridPane>

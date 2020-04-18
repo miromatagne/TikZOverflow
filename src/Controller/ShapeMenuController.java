@@ -42,7 +42,7 @@ public class ShapeMenuController {
      */
     public void addShape(int idCurrent, ArrayList<Float> allData, Color color) {
         Shape shape = ShapeFactory.getInstance(idCurrent, allData, color);
-        mainPageController.addShape(shape);
+        mainPageController.addShape(createString(shape));
         closePopup();
     }
 
