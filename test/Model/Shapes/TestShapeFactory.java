@@ -26,25 +26,28 @@ class TestShapeFactory {
         data.add((float) 0.456);
         data.add((float) 40);
         Color color = Color.WHITE;
+        String label = "Shape";
 
         //RECTANGLE
-        Rectangle r = (Rectangle) ShapeFactory.getInstance(RECTANGLE,data,color);
+        Rectangle r = (Rectangle) ShapeFactory.getInstance(RECTANGLE,data,color,label);
         assertEquals((float) 1.2,r.getXCenter());
         assertEquals((float) 15.6,r.getYCenter());
         assertEquals(Color.WHITE,r.getColor());
         assertEquals((float) 102,r.getHeight());
         assertEquals((float) 589,r.getWidth());
         assertEquals((float) 145,r.getOutlineThickness());
+        assertEquals("Shape", r.getLabel());
 
         //CIRCLE
-        Circle c = (Circle) ShapeFactory.getInstance(CIRCLE,data,color);
+        Circle c = (Circle) ShapeFactory.getInstance(CIRCLE,data,color,label);
         assertEquals((float) 1.2,c.getXCenter());
         assertEquals((float) 15.6,c.getYCenter());
         assertEquals(Color.WHITE,c.getColor());
         assertEquals((float) 102,c.getRadius());
+        assertEquals("Shape", c.getLabel());
 
         //ARROW
-        Arrow a = (Arrow) ShapeFactory.getInstance(ARROW,data,color);
+        Arrow a = (Arrow) ShapeFactory.getInstance(ARROW,data,color,label);
         assertEquals((float) 1.2,a.getxOrigin());
         assertEquals((float) 15.6,a.getyOrigin());
         assertEquals(Color.WHITE,a.getColor());
@@ -53,9 +56,10 @@ class TestShapeFactory {
         assertEquals((float) 145,a.getStrokeWidth());
         assertEquals((float) 0.456,a.getArrowHeadLength());
         assertEquals((float) 40,a.getArrowHeadWidth());
+        assertEquals("Shape", a.getLabel());
 
         //CURVED LINE
-        CurvedLine cl = (CurvedLine) ShapeFactory.getInstance(CURVED_LINE,data,color);
+        CurvedLine cl = (CurvedLine) ShapeFactory.getInstance(CURVED_LINE,data,color,label);
         assertEquals((float) 1.2,cl.getxOrigin());
         assertEquals((float) 15.6,cl.getyOrigin());
         assertEquals(Color.WHITE,cl.getColor());
@@ -63,15 +67,17 @@ class TestShapeFactory {
         assertEquals((float) 589,cl.getyDestination());
         assertEquals((float) 145,cl.getStrokeWidth());
         assertEquals((float) 0.456,cl.getCurvedRadius());
+        assertEquals("Shape", cl.getLabel());
 
         //LINE
-        Line l = (Line) ShapeFactory.getInstance(LINE,data,color);
+        Line l = (Line) ShapeFactory.getInstance(LINE,data,color,label);
         assertEquals((float) 1.2,l.getxOrigin());
         assertEquals((float) 15.6,l.getyOrigin());
         assertEquals(Color.WHITE,l.getColor());
         assertEquals((float) 102,l.getxDestination());
         assertEquals((float) 589,l.getyDestination());
         assertEquals((float) 145,l.getStrokeWidth());
+        assertEquals("Shape", l.getLabel());
 
 
     }

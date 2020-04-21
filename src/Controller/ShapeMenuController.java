@@ -9,10 +9,12 @@ import View.ShapeMenu.ShapeMenuViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -35,13 +37,13 @@ public class ShapeMenuController {
 
     /**
      * Creates a new shape and sends the String to be added to the main page.
-     *
-     * @param idCurrent id of the current scene: identifies the type of shape to create
+     *  @param idCurrent id of the current scene: identifies the type of shape to create
      * @param allData   Properties of the shape
      * @param color     Color of the shape
+     * @param label
      */
-    public void addShape(int idCurrent, ArrayList<Float> allData, Color color) {
-        Shape shape = ShapeFactory.getInstance(idCurrent, allData, color);
+    public void addShape(int idCurrent, ArrayList<Float> allData, Color color, String label) {
+        Shape shape = ShapeFactory.getInstance(idCurrent, allData, color, label);
         mainPageController.addShape(createString(shape));
         closePopup();
     }
@@ -140,7 +142,12 @@ public class ShapeMenuController {
                 }
             }
         }
-        addShape(idCurrent, allDataInField, allControllers.get(idCurrent).getColor());
+        String label = allControllers.get(idCurrent).getLabel().getText();
+        System.out.println(label);
+        if(label.equals("")) {
+            allControllers.get(idCurrent).getLabel().setStyle(redStyle);
+        }
+        addShape(idCurrent, allDataInField, allControllers.get(idCurrent).getColor(), label);
     }
 
     /**

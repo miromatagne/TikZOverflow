@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 abstract public class MenuController extends ControllerSuperclass {
     public abstract Color getColor();
+    public abstract TextField getLabel();
     public abstract ArrayList<String> getAllFields();
     public abstract ArrayList<TextField> getAllTextFields();
 }

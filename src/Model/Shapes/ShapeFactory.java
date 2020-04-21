@@ -23,9 +23,10 @@ public class ShapeFactory {
      * @param id    Identify the type of shape
      * @param data  Data needed to create the shape
      * @param color Color of the shape
+     * @param label
      * @return Instance of shape
      */
-    public static Shape getInstance(int id, ArrayList<Float> data, Color color) {
+    public static Shape getInstance(int id, ArrayList<Float> data, Color color, String label) {
         Shape instance = null;
         switch (id) {
             case RECTANGLE:
@@ -34,6 +35,7 @@ public class ShapeFactory {
                 r.setWidth(data.get(3));
                 r.setOutlineThickness(data.get(4));
                 r.setColor(color);
+                r.setLabel(label);
                 instance = r;
                 break;
             case CIRCLE:
@@ -41,12 +43,14 @@ public class ShapeFactory {
                 c.setRadius(data.get(2));
                 c.setOutlineThickness(data.get(3));
                 c.setColor(color);
+                c.setLabel(label);
                 instance = c;
                 break;
             case LINE:
                 Line l = new Line(data.get(0), data.get(1), data.get(2), data.get(3));
                 l.setStrokeWidth(data.get(4));
                 l.setColor(color);
+                l.setLabel(label);
                 instance = l;
                 break;
             case CURVED_LINE:
@@ -54,6 +58,7 @@ public class ShapeFactory {
                 cl.setStrokeWidth(data.get(4));
                 cl.setCurveRadius(data.get(5));
                 cl.setColor(color);
+                cl.setLabel(label);
                 instance = cl;
                 break;
             case ARROW:
@@ -62,6 +67,7 @@ public class ShapeFactory {
                 a.setArrowHeadLength(data.get(5));
                 a.setArrowHeadWidth(data.get(6));
                 a.setColor(color);
+                a.setLabel(label);
                 instance = a;
                 break;
         }
