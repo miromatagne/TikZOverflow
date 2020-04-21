@@ -145,7 +145,7 @@ public class ShapeMenuController {
         if(label.equals("")) {
             allControllers.get(idCurrent).getLabel().setStyle(redStyle);
         }
-        addShape(idCurrent, allDataInField, allControllers.get(idCurrent).getColor(), label);
+        //addShape(idCurrent, allDataInField, allControllers.get(idCurrent).getColor(), label);
     }
 
     /**

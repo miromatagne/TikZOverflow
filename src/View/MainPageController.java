@@ -19,6 +19,13 @@ import java.util.ResourceBundle;
  */
 public class MainPageController extends ControllerSuperclass implements Initializable {
 
+
+    public static final int SHAPES_ONLY = 0;
+    public static final int FULL_CODE = 1;
+
+    private int currentCodeDisplay;
+
+
     @FXML
     private TextArea codeInterface;
     @FXML
@@ -77,9 +84,16 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      */
     @FXML
     public void compile() throws IOException {
-        String errorsButtonText = latexController.compileTikz();
+        String sourceCode = "";
+        if(currentCodeDisplay == SHAPES_ONLY){
+            sourceCode = latexController.buildFullCodeFromShapesOnlyCode(codeInterface.getText());
+        } else if (currentCodeDisplay == FULL_CODE) {
+            sourceCode = codeInterface.getText();
+        }
+        String errorsButtonText = latexController.compileTikz(sourceCode);
         errorsButton.setText(errorsButtonText);
     }
+
 
     /**
      * when clicking on 'Hide errors' button, the user is sent back on the code interface

@@ -76,7 +76,7 @@ class TestShapeFactory {
         assertEquals("Shape", l.getLabel());
 
         //TRIANGLE
-        Triangle t = (Triangle) ShapeFactory.getInstance(TRIANGLE,data,color);
+        Triangle t = (Triangle) ShapeFactory.getInstance(TRIANGLE,data,color, label);
         assertEquals((float) 1.2,t.getXCenter());
         assertEquals((float) 15.6,t.getYCenter());
         assertEquals(Color.WHITE,t.getColor());
