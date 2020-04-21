@@ -4,13 +4,11 @@ import Controller.*;
 import Controller.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,8 +21,6 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
     @FXML
     private TextArea codeInterface;
-    @FXML
-    private Button addShapeButton;
     @FXML
     private ImageView renderedImageView;
     @FXML
@@ -40,8 +36,6 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
     private String textSaved = null;
 
-    @FXML
-    private GridPane buttonsContainer;
     @FXML
     private Button buttonCircle, buttonRectangle, buttonTriangle, buttonArrow, buttonLine,buttonCurvedLine, buttonSquare;
     @FXML
@@ -223,6 +217,9 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         fillWithTextSaved();
     }
 
+    /**
+     * Initialize the image buttons for the predefined shapes
+     */
     private void initializeImageButton() {
         bindImageButton(imageCircle, buttonCircle);
         bindImageButton(imageRectangle, buttonRectangle);
@@ -235,11 +232,20 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     }
 
 
+    /**
+     * Bind the image and the button to keep a scale between them.
+     * @param imageButton       Image to bind
+     * @param button            Button to bind
+     */
     private void bindImageButton(ImageView imageButton, Button button) {
+        //0.6 is an empirical value
         imageButton.fitWidthProperty().bind(button.widthProperty().multiply(0.6));
         imageButton.fitHeightProperty().bind(button.heightProperty().multiply(0.6));
     }
 
+    /**
+     * The following methods send a message to the controller to create the corresponding shape when the button is clicked
+     */
     public void circleClicked() {
         predefinedShapesPanelController.createShape(CIRCLE);
     }

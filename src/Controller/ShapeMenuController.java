@@ -42,6 +42,7 @@ public class ShapeMenuController {
      */
     public void addShape(int idCurrent, ArrayList<Float> allData, Color color) {
         Shape shape = ShapeFactory.getInstance(idCurrent, allData, color);
+        //Doit on encore ajouter la shape en "label" au main page ?
         mainPageController.addShape(createString(shape));
         closePopup();
     }
@@ -55,11 +56,8 @@ public class ShapeMenuController {
      */
     public String createString(Shape shape) {
         String returnString = "Added ";
-
         returnString += shape.getDescription();
-
         returnString += " Color : " + shape.getColor() + ".";
-
         return returnString;
     }
 
