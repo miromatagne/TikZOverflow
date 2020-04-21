@@ -79,14 +79,6 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
     }
 
 
-    /**
-     * The following functions changes the cursor to an hand cursor when we enter the text area
-     */
-    public void rectangleTextHand(){this.changeCursorToHand(rectangleText);}
-    public void circleTextHand(){this.changeCursorToHand(circleText);}
-    public void arrowTextHand(){this.changeCursorToHand(arrowText);}
-    public void curvedLineTextHand(){this.changeCursorToHand(curvedLineText);}
-    public void lineTextHand(){this.changeCursorToHand(lineText);}
 
 
 
@@ -106,16 +98,6 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
                 allTexts.get(i).setStyle(WHITE);
             }
         }
-    }
-
-    
-    /**
-     * Changes cursor to hand.
-     *
-     * @param text when given text is hovered, cursor changes to hand.
-     */
-    private void changeCursorToHand(Text text){
-        text.setCursor(Cursor.HAND);
     }
 
 

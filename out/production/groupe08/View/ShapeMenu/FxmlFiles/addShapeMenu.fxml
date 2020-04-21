@@ -17,11 +17,26 @@
    </columnConstraints>
    <ScrollPane hbarPolicy="NEVER" prefHeight="387.0" prefWidth="107.0" style="-fx-control-inner-background: transparent;-fx-focus-traversable: false;-fx-background-color: transparent;-fx-background: #404040;" GridPane.rowSpan="2">
       <VBox prefHeight="397.0" prefWidth="105.0" spacing="5.0" style="-fx-focus-traversable: false;">
-         <Text fx:id="arrowText" onMouseClicked="#changeMenu" userData="4" onMouseEntered="#arrowTextHand" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Arrow" wrappingWidth="36.13671875" />
-         <Text fx:id="circleText" onMouseClicked="#changeMenu" userData="1" onMouseEntered="#circleTextHand" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Circle" wrappingWidth="36.13671875" />
-         <Text fx:id="curvedLineText" onMouseClicked="#changeMenu" userData="3" onMouseEntered="#curvedLineTextHand" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Curved line" wrappingWidth="65.13671875" />
-         <Text fx:id="lineText" onMouseClicked="#changeMenu" userData="2" onMouseEntered="#lineTextHand" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Line" wrappingWidth="31.62109375" />
-         <Text fx:id="rectangleText" onMouseClicked="#changeMenu" userData="0" onMouseEntered="#rectangleTextHand" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Rectangle" wrappingWidth="58.13671875" />
+         <Text fx:id="arrowText" onMouseClicked="#changeMenu" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Arrow" userData="4" wrappingWidth="36.13671875">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Text>
+         <Text fx:id="circleText" onMouseClicked="#changeMenu" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Circle" userData="1" wrappingWidth="36.13671875">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Text>
+         <Text fx:id="curvedLineText" onMouseClicked="#changeMenu" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Curved line" userData="3" wrappingWidth="65.13671875">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Text>
+         <Text fx:id="lineText" onMouseClicked="#changeMenu" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Line" userData="2" wrappingWidth="31.62109375">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Text>
+         <Text fx:id="rectangleText" onMouseClicked="#changeMenu" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Rectangle" userData="0" wrappingWidth="58.13671875">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Text>
       </VBox>
    </ScrollPane>
    <SubScene fx:id="shapeScene" fill="#c8caca" height="362.0" width="426.0" GridPane.columnIndex="1">
@@ -33,6 +48,9 @@
       <padding>
          <Insets right="15.0" />
       </padding>
-      <Button mnemonicParsing="false" onMouseClicked="#confirmShape" text="Confirm" />
+      <Button mnemonicParsing="false" onMouseClicked="#confirmShape" text="Confirm">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
    </HBox>
 </GridPane>
