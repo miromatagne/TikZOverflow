@@ -25,6 +25,7 @@ public class ShapeFactory {
      * @param id    Identify the type of shape
      * @param data  Data needed to create the shape
      * @param color Color of the shape
+     * @param label
      * @return Instance of shape
      */
     public static Shape getInstance(int id, ArrayList<Float> data, Color color, String label) {

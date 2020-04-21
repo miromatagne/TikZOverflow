@@ -108,7 +108,7 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
      */
     public void confirmShape(){
         //Verify Fields
-        shapeMenuController.verifyShape();
+        shapeMenuController.verifyShape(); //TODO responsabilities - verifyShape function creates a shape
 
     }
 

@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 public class LatexCompiler {
 
     private static final String DEFAULT_OUTPUT_DIRECTORY = "./Latex/out";
-    private static LatexCompiler compiler = new LatexCompiler();
+    private static final LatexCompiler compiler = new LatexCompiler();
 
     /* Singleton class */
     private LatexCompiler() {
@@ -55,7 +55,7 @@ public class LatexCompiler {
      * The file corresponding to the file path will be compile using pdfLatex and the output, if an exception doesn't
      * occur, will be stored in ./Latex/out.
      *
-     * @param filePath String corresponding to the locatio of the file .tex
+     * @param filePath String corresponding to the location of .tex file
      * @throws Exception Two Exception can be thrown : - The first one if the file is not valid(check isValid())
      *                   - The second one is if an error occur during the compilation
      */

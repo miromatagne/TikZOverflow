@@ -49,11 +49,7 @@ public abstract class Shape {
         color = c;
     }
 
-    public String getLabel() {
-        return label;
-    }
+    public String getLabel() { return label; }
 
-    public void setLabel(String label) {
-        this.label = label;
-    }
+    public void setLabel(String label) { this.label = label; }
 }

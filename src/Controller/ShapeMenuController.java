@@ -9,10 +9,12 @@ import View.ShapeMenu.ShapeMenuViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -35,7 +37,8 @@ public class ShapeMenuController {
 
     /**
      * Creates a new shape and sends the String to be added to the main page.
-     *  @param idCurrent id of the current scene: identifies the type of shape to create
+     *
+     * @param idCurrent id of the current scene: identifies the type of shape to create
      * @param allData   Properties of the shape
      * @param color     Color of the shape
      * @param label     Label of the shape
@@ -45,7 +48,6 @@ public class ShapeMenuController {
         mainPageController.addShape(createString(shape));
         closePopup();
     }
-
 
     /**
      * Creation of the String to insert into the label when a new shape has been added.
@@ -145,7 +147,6 @@ public class ShapeMenuController {
         }
         addShape(idCurrent, allDataInField, allControllers.get(idCurrent).getColor(), label);
     }
-
 
     /**
      * Create the Pop Up menu for the shapes and add the menus to it.
