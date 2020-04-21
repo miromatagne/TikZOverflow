@@ -35,17 +35,17 @@ public class ShapeMenuController {
 
     /**
      * Creates a new shape and sends the String to be added to the main page.
-     *
-     * @param idCurrent id of the current scene: identifies the type of shape to create
+     *  @param idCurrent id of the current scene: identifies the type of shape to create
      * @param allData   Properties of the shape
      * @param color     Color of the shape
+     * @param label     Label of the shape
      */
-    public void addShape(int idCurrent, ArrayList<Float> allData, Color color) {
-        Shape shape = ShapeFactory.getInstance(idCurrent, allData, color);
-        //Doit on encore ajouter la shape en "label" au main page ?
+    public void addShape(int idCurrent, ArrayList<Float> allData, Color color, String label) {
+        Shape shape = ShapeFactory.getInstance(idCurrent, allData, color, label);
         mainPageController.addShape(createString(shape));
         closePopup();
     }
+
 
     /**
      * Creation of the String to insert into the label when a new shape has been added.
@@ -138,8 +138,14 @@ public class ShapeMenuController {
                 }
             }
         }
-        addShape(idCurrent, allDataInField, allControllers.get(idCurrent).getColor());
+        String label = allControllers.get(idCurrent).getLabel().getText();
+        System.out.println(label);
+        if(label.equals("")) {
+            allControllers.get(idCurrent).getLabel().setStyle(redStyle);
+        }
+        addShape(idCurrent, allDataInField, allControllers.get(idCurrent).getColor(), label);
     }
+
 
     /**
      * Create the Pop Up menu for the shapes and add the menus to it.

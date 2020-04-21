@@ -11,6 +11,7 @@ public abstract class Shape {
     private float posX;
     private float posY;
     private Color color;
+    private String label;
 
     public Shape(float posX, float posY) {
         this.posX = posX;
@@ -48,4 +49,11 @@ public abstract class Shape {
         color = c;
     }
 
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
 }

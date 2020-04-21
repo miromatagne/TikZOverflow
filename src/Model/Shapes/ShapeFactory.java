@@ -27,7 +27,7 @@ public class ShapeFactory {
      * @param color Color of the shape
      * @return Instance of shape
      */
-    public static Shape getInstance(int id, ArrayList<Float> data, Color color) {
+    public static Shape getInstance(int id, ArrayList<Float> data, Color color, String label) {
         Shape instance = null;
         switch (id) {
             case RECTANGLE:
@@ -36,6 +36,7 @@ public class ShapeFactory {
                 r.setWidth(data.get(3));
                 r.setOutlineThickness(data.get(4));
                 r.setColor(color);
+                r.setLabel(label);
                 instance = r;
                 break;
             case CIRCLE:
@@ -43,12 +44,14 @@ public class ShapeFactory {
                 c.setRadius(data.get(2));
                 c.setOutlineThickness(data.get(3));
                 c.setColor(color);
+                c.setLabel(label);
                 instance = c;
                 break;
             case LINE:
                 Line l = new Line(data.get(0), data.get(1), data.get(2), data.get(3));
                 l.setStrokeWidth(data.get(4));
                 l.setColor(color);
+                l.setLabel(label);
                 instance = l;
                 break;
             case CURVED_LINE:
@@ -56,6 +59,7 @@ public class ShapeFactory {
                 cl.setStrokeWidth(data.get(4));
                 cl.setCurveRadius(data.get(5));
                 cl.setColor(color);
+                cl.setLabel(label);
                 instance = cl;
                 break;
             case ARROW:
@@ -64,6 +68,7 @@ public class ShapeFactory {
                 a.setArrowHeadLength(data.get(5));
                 a.setArrowHeadWidth(data.get(6));
                 a.setColor(color);
+                a.setLabel(label);
                 instance = a;
                 break;
             case SQUARE:
@@ -72,6 +77,7 @@ public class ShapeFactory {
                 square.setWidth(data.get(3));
                 square.setOutlineThickness(data.get(4));
                 square.setColor(color);
+                square.setLabel(label);
                 instance = square;
                 break;
             case TRIANGLE:
@@ -81,6 +87,7 @@ public class ShapeFactory {
                 triangle.setSide_c(data.get(4));
                 triangle.setOutlineThickness(data.get(5));
                 triangle.setColor(color);
+                triangle.setLabel(label);
                 instance = triangle;
         }
         return instance;
@@ -97,14 +104,14 @@ public class ShapeFactory {
                 data.add(Float.parseFloat("3"));
                 data.add(Float.parseFloat("4"));
                 data.add(Float.parseFloat("50"));
-                instance = getInstance(RECTANGLE, data, Color.BLACK);
+                instance = getInstance(RECTANGLE, data, Color.BLACK,"Rectangle");
                 break;
             case CIRCLE:
                 data.add(Float.parseFloat("0"));
                 data.add(Float.parseFloat("0"));
                 data.add(Float.parseFloat("3"));
                 data.add(Float.parseFloat("50"));
-                instance = getInstance(CIRCLE, data, Color.BLACK);
+                instance = getInstance(CIRCLE, data, Color.BLACK,"Circle");
                 break;
             case LINE:
                 data.add(Float.parseFloat("0"));
@@ -112,7 +119,7 @@ public class ShapeFactory {
                 data.add(Float.parseFloat("1"));
                 data.add(Float.parseFloat("1"));
                 data.add(Float.parseFloat("50"));
-                instance = getInstance(LINE, data, Color.BLACK);
+                instance = getInstance(LINE, data, Color.BLACK, "Line");
                 break;
             case CURVED_LINE:
                 data.add(Float.parseFloat("0"));
@@ -121,7 +128,7 @@ public class ShapeFactory {
                 data.add(Float.parseFloat("1"));
                 data.add(Float.parseFloat("50"));
                 data.add(Float.parseFloat("1"));
-                instance = getInstance(CURVED_LINE, data, Color.BLACK);
+                instance = getInstance(CURVED_LINE, data, Color.BLACK, "Curved line");
                 break;
             case ARROW:
                 data.add(Float.parseFloat("0"));
@@ -131,7 +138,7 @@ public class ShapeFactory {
                 data.add(Float.parseFloat("50"));
                 data.add(Float.parseFloat("1"));
                 data.add(Float.parseFloat("1"));
-                instance = getInstance(ARROW, data, Color.BLACK);
+                instance = getInstance(ARROW, data, Color.BLACK,"Arrow");
                 break;
             case SQUARE:
                 data.add(Float.parseFloat("0"));
@@ -139,7 +146,7 @@ public class ShapeFactory {
                 data.add(Float.parseFloat("4"));
                 data.add(Float.parseFloat("4"));
                 data.add(Float.parseFloat("50"));
-                instance = getInstance(RECTANGLE, data, Color.BLACK);
+                instance = getInstance(RECTANGLE, data, Color.BLACK,"Square");
                 break;
             case TRIANGLE:
                 data.add(Float.parseFloat("0"));
@@ -148,7 +155,7 @@ public class ShapeFactory {
                 data.add(Float.parseFloat("4"));
                 data.add(Float.parseFloat("4"));
                 data.add(Float.parseFloat("50"));
-                instance = getInstance(TRIANGLE, data, Color.BLACK);
+                instance = getInstance(TRIANGLE, data, Color.BLACK,"Triangle");
                 break;
         }
         return instance;
