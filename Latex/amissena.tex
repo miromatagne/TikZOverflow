@@ -3,12 +3,11 @@
 
 % Packages
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta}
 
 % Document
 \begin{document}
     \begin{tikzpicture}
-        \node (h) at (0,0) {Hello};
-        \node (w) at (2,3) {World};
-        \draw (h) edge (w);
+	\draw [arrows={->[length=100.0, width=100.0]} ,line width=2.0mm ,color={rgb:red,100.0;green,0.0;blue,100.0}] (0.0,0.0) -- (5.0,5.0);
     \end{tikzpicture}
 \end{document}

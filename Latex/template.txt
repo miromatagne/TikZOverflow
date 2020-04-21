@@ -3,6 +3,7 @@
 
 % Packages
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta}
 
 % Document
 \begin{document}

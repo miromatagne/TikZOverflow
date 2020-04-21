@@ -21,7 +21,8 @@ public class CurvedLineMenuController extends MenuController implements Initiali
     @FXML private TextField xDestinationTextField;
     @FXML private TextField yDestinationTextField;
     @FXML private TextField strokeWidthTextField;
-    @FXML private TextField curveRadiusTextField;
+    @FXML private TextField curveOutAngleTextField;
+    @FXML private TextField curveInAngleTextField;
     @FXML private ColorPicker colorPicker;
 
     private static ArrayList<TextField> allTextFields = new ArrayList<>();
@@ -53,7 +54,8 @@ public class CurvedLineMenuController extends MenuController implements Initiali
         allTextFields.add(xDestinationTextField);
         allTextFields.add(yDestinationTextField);
         allTextFields.add(strokeWidthTextField);
-        allTextFields.add(curveRadiusTextField);
+        allTextFields.add(curveOutAngleTextField);
+        allTextFields.add(curveInAngleTextField);
     }
 
     @Override
