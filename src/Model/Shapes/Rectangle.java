@@ -24,9 +24,10 @@ public class Rectangle extends Node {
         float x2 = getPosX() + width;
         float y2 = getPosY() + height;
         String code = "\\filldraw";
-        code += "[fill={rgb:red," + getColor().getRed()*255 + ";green," + getColor().getGreen()*255 + ";blue," + getColor().getBlue()*255 + "}]";
+        code += "[fill={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() + ";blue," + getColor().getBlue() + "}," +
+                "line width=" + getOutlineThickness()/20 + "] ";
         code += "(" + x1 + "," + y1 + ") rectangle ";
-        code += "(" + x2 + "," + y2 + ");";
+        code += "(" + x2 + "," + y2 + ");\n";
         return code;
     }
 
