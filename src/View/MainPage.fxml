@@ -167,7 +167,10 @@
             </Button>
             <Button fx:id="buttonSquare" layoutX="78.0" layoutY="128.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#squareClicked" prefHeight="45.0" prefWidth="54.0" GridPane.rowIndex="3">
                 <graphic>
-                    <ImageView fx:id="imageSquare" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true" />
+                    <ImageView fx:id="imageSquare" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
+                  <image>
+                     <Image url="@/defaultSquare.png" />
+                  </image></ImageView>
                 </graphic>
                 <cursor>
                     <Cursor fx:constant="HAND" />
