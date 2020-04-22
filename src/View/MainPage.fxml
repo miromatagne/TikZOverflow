@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#mouseDragged" onMouseReleased="#mouseDragReleased" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #4D4D4D;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainPageController">
+<GridPane alignment="CENTER" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseReleased="#mouseDragReleased" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #4D4D4D;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MainPageController">
     <columnConstraints>
         <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="50.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
@@ -88,7 +88,7 @@
             <ImageView fx:id="renderedImageView" focusTraversable="true" nodeOrientation="INHERIT" onMouseDragged="#mouseDragged" pickOnBounds="true" preserveRatio="true" />
         </content>
     </ScrollPane>
-    <GridPane fx:id="buttonsContainer" focusTraversable="true" hgap="2.0" maxWidth="250.0" minWidth="10.0" onMouseDragged="#mouseDragged" prefWidth="218.0" vgap="2.0" GridPane.rowIndex="1" GridPane.rowSpan="2">
+    <GridPane fx:id="buttonsContainer" focusTraversable="true" hgap="2.0" maxWidth="250.0" minWidth="10.0" prefWidth="218.0" vgap="2.0" GridPane.rowIndex="1" GridPane.rowSpan="2">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />

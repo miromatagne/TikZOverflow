@@ -1,34 +1,19 @@
 package View;
 
 import Controller.*;
-import Controller.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.scene.Cursor;
 import javafx.scene.Parent;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collection;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**
@@ -42,9 +27,8 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
     private int currentCodeDisplay;
 
-    private boolean canvasIsCreated = false;
 
-    private Canvas canvas = new Canvas(250,250);
+
 
     @FXML
     private TextArea codeInterface;
@@ -226,10 +210,6 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     }
 
 
-    public TextArea getCodeInterface() {
-        return codeInterface;
-    }
-
     /**
      * Renders image from compilation on UI.
      *
@@ -332,7 +312,7 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
     public void mouseDragged(MouseEvent mouseEvent) {
         Button button = ((Button) mouseEvent.getSource());
-        System.out.println("Mouse at: (" + mouseEvent.getX() + ", " + mouseEvent.getY() + ")");
+        //System.out.println("Mouse at: (" + mouseEvent.getX() + ", " + mouseEvent.getY() + ")");
         if(movingImage != null) {
             movingImage.setTranslateX(mouseEvent.getX() + button.getLayoutX());
             movingImage.setTranslateY(mouseEvent.getY() + button.getLayoutY());
@@ -341,9 +321,9 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
 
     public void mouseDragReleased(MouseEvent mouseEvent) {
-        System.out.println("released");
+        double x = mouseEvent.getX();
+        double y = mouseEvent.getY();
         if(movingImage != null) {
-            //System.out.println("Canvas removed");
             Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
             ((GridPane) root).getChildren().remove(movingImage);
         }
