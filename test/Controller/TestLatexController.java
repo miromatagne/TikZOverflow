@@ -17,16 +17,16 @@ class TestLatexController {
         String stringTest = latexControl.getTextInFile();
 
         assertEquals("\\documentclass{standalone}\n" +
-                "\n" +
-                "\\usepackage{tikz}\n" +
-                "\n" +
-                "\\begin{document}\n" +
-                "    \\begin{tikzpicture}\n" +
-                "        \\node (h) at (0,0) {Hello};\n" +
-                "        \\node (w) at (2,3) {World};\n" +
-                "        \\draw (h) edge (w);\n" +
-                "    \\end{tikzpicture}\n" +
-                "\\end{document}\n",
+                        "\n" +
+                        "\\usepackage{tikz}\n" +
+                        "\n" +
+                        "\\begin{document}\n" +
+                        "    \\begin{tikzpicture}\n" +
+                        "        \\node (h) at (0,0) {Hello};\n" +
+                        "        \\node (w) at (2,3) {World};\n" +
+                        "        \\draw (h) edge (w);\n" +
+                        "    \\end{tikzpicture}\n" +
+                        "\\end{document}\n",
                 stringTest);
     }
 

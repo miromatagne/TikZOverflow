@@ -9,6 +9,9 @@ import javafx.scene.image.Image;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Handles all requests regarding the TikZ source code coming from View.
@@ -35,9 +38,9 @@ public class LatexController {
     /**
      * Compiles current source code to a .pdf file.
      *
+     * @param sourceCode
      * @return String with error count
      * @throws IOException If reading the log was unsuccessful
-     * @param sourceCode
      */
     public String compileTikz(String sourceCode) throws IOException {
         saveTikz(sourceCode);
@@ -86,9 +89,48 @@ public class LatexController {
 
     /**
      * Save current source code in .tex file
+     *
      * @param sourceCode
      */
     public void saveTikz(String sourceCode) {
         fileHandler.makeTexFile(Session.getInstance().getUser(), sourceCode);
+    }
+
+    /**
+     * Extracts shapes-only code from full LaTeX code.
+     * @param fullCode full LaTeX source code.
+     * @param trim option to trim lines or not
+     * @return TikZ shapes-only code
+     */
+    public String extractShapesSubCode(String fullCode, boolean trim) {
+        Pattern pattern = Pattern.compile("\\\\begin\\{tikzpicture}.*\\\\end\\{tikzpicture}", Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(fullCode);
+        if (matcher.find()) {
+            int index = 1;
+            String totalString = "";
+            String[] strings = matcher.group(0).split("\n");
+            while (index < strings.length - 1) {
+                if (trim) {
+                    totalString = totalString.concat(strings[index++].trim() + "\n");
+                } else {
+                    totalString = totalString.concat(strings[index++] + "\n");
+                }
+            }
+            return totalString;
+        }
+        return null;
+    }
+
+    /**
+     * Builds full LaTeX code from shapes-only code.
+     * @param shapesOnlyCode shapes-only TikZ code
+     * @return full LaTeX code
+     */
+    public String buildFullCodeFromShapesOnlyCode(String shapesOnlyCode) {
+        StringBuilder shapesOnlyCodeBuilder = new StringBuilder();
+        for (String line : shapesOnlyCode.split("\n")) {
+            shapesOnlyCodeBuilder.append("\t").append(line.trim()).append("\n");
+        }
+        return getTextInFile().replace(Objects.requireNonNull(extractShapesSubCode(getTextInFile(), false)), shapesOnlyCodeBuilder.toString());
     }
 }
