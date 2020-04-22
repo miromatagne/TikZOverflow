@@ -67,6 +67,7 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     private Button buttonCircle, buttonRectangle, buttonTriangle, buttonArrow, buttonLine,buttonCurvedLine, buttonSquare;
     @FXML
     private ImageView imageCircle, imageRectangle, imageTriangle, imageArrow, imageLine, imageCurvedLine, imageSquare;
+    private ImageView movingImage;
 
     final static int RECTANGLE = 0;
     final static int CIRCLE = 1;
@@ -280,59 +281,71 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     /**
      * The following methods send a message to the controller to create the corresponding shape when the button is clicked
      */
-    public void circleClicked() {
+    public void circleClicked(MouseEvent mouseEvent) {
         predefinedShapesPanelController.createShape(CIRCLE);
+        createMovingImage("defaultCircle.png", mouseEvent);
+
     }
 
-    public void rectangleClicked() {
+    public void rectangleClicked(MouseEvent mouseEvent) {
         predefinedShapesPanelController.createShape(RECTANGLE);
+        createMovingImage("defaultRectangle.png", mouseEvent);
     }
 
-    public void lineClicked() {
+    public void lineClicked(MouseEvent mouseEvent) {
         predefinedShapesPanelController.createShape(LINE);
+        createMovingImage("defaultLine.png", mouseEvent);
     }
 
-    public void curvedLineClicked() {
+    public void curvedLineClicked(MouseEvent mouseEvent) {
         predefinedShapesPanelController.createShape(CURVED_LINE);
+        createMovingImage("defaultCurvedLine.png", mouseEvent);
     }
 
-    public void arrowClicked() {
+    public void arrowClicked(MouseEvent mouseEvent) {
         predefinedShapesPanelController.createShape(ARROW);
+        createMovingImage("defaultArrow.png", mouseEvent);
     }
 
-    public void squareClicked() {
+    public void squareClicked(MouseEvent mouseEvent) {
         predefinedShapesPanelController.createShape(SQUARE);
+        createMovingImage("defaultSquare.png", mouseEvent);
     }
 
-    public void triangleClicked() { predefinedShapesPanelController.createShape(TRIANGLE) ; }
+    public void triangleClicked(MouseEvent mouseEvent) {
+        predefinedShapesPanelController.createShape(TRIANGLE);
+        createMovingImage("defaultTriangle.png", mouseEvent);
+    }
 
+    public void createMovingImage(String path, MouseEvent mouseEvent){
+        Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
+        Button button = (Button) mouseEvent.getSource();
+        movingImage = new ImageView(path);
+        movingImage.setFitHeight(50);
+        movingImage.setFitWidth(50);
+        movingImage.setTranslateX(mouseEvent.getX() + button.getLayoutX());
+        movingImage.setTranslateY(mouseEvent.getY() + button.getLayoutY());
+        ((GridPane) root).getChildren().add(movingImage);
+    }
 
 
 
     public void mouseDragged(MouseEvent mouseEvent) {
-        //System.out.println("Mouse at: (" + mouseEvent.getX() + ", " + mouseEvent.getY() + ")");
-        canvas.setTranslateX(mouseEvent.getX());
-        canvas.setTranslateY(mouseEvent.getY());
+        Button button = ((Button) mouseEvent.getSource());
+        System.out.println("Mouse at: (" + mouseEvent.getX() + ", " + mouseEvent.getY() + ")");
+        if(movingImage != null) {
+            movingImage.setTranslateX(mouseEvent.getX() + button.getLayoutX());
+            movingImage.setTranslateY(mouseEvent.getY() + button.getLayoutY());
+        }
     }
 
-    public void dragDetected(MouseEvent mouseEvent) {
-        //System.out.println("Start: (" + mouseEvent.getX() + ", " + mouseEvent.getY() + ")");
-        Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
-        canvas.setTranslateX(mouseEvent.getX());
-        canvas.setTranslateY(mouseEvent.getY());
-        GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
-        graphicsContext.setFill(Color.BLUE);
-        graphicsContext.fillRect(0, 0, 100, 100);
-        ((GridPane) root).getChildren().add(canvas);
-        canvasIsCreated = true;
-    }
 
     public void mouseDragReleased(MouseEvent mouseEvent) {
-        if(canvasIsCreated) {
-            System.out.println("Canvas removed");
+        System.out.println("released");
+        if(movingImage != null) {
+            //System.out.println("Canvas removed");
             Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
-            ((GridPane) root).getChildren().remove(canvas);
-            canvasIsCreated = false;
+            ((GridPane) root).getChildren().remove(movingImage);
         }
     }
 }
