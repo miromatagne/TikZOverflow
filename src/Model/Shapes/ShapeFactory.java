@@ -102,7 +102,7 @@ public class ShapeFactory {
         switch(id) {
             case RECTANGLE:
                 data.add(Float.parseFloat("0"));
-                data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("1"));
                 data.add(Float.parseFloat("3"));
                 data.add(Float.parseFloat("4"));
                 data.add(Float.parseFloat("50"));
@@ -130,14 +130,15 @@ public class ShapeFactory {
                 data.add(Float.parseFloat("1"));
                 data.add(Float.parseFloat("50"));
                 data.add(Float.parseFloat("1"));
+                data.add(Float.parseFloat("1"));
                 instance = getInstance(CURVED_LINE, data, Color.BLACK, "Curved line");
                 break;
             case ARROW:
-                data.add(Float.parseFloat("0"));
-                data.add(Float.parseFloat("0"));
-                data.add(Float.parseFloat("2"));
-                data.add(Float.parseFloat("2"));
-                data.add(Float.parseFloat("50"));
+                data.add(Float.parseFloat("1"));
+                data.add(Float.parseFloat("1"));
+                data.add(Float.parseFloat("1"));
+                data.add(Float.parseFloat("1"));
+                data.add(Float.parseFloat("1"));
                 data.add(Float.parseFloat("1"));
                 data.add(Float.parseFloat("1"));
                 instance = getInstance(ARROW, data, Color.BLACK,"Arrow");

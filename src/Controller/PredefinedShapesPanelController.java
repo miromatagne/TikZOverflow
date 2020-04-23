@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Shapes.Shape;
 import Model.Shapes.ShapeFactory;
 
 /**
@@ -14,8 +15,8 @@ public class PredefinedShapesPanelController {
      * Create a shape from the id given
      * @param shapeId       id of the shape
      */
-    public void createShape(int shapeId) {
-        ShapeFactory.getDefaultInstance(shapeId);
+    public Shape createShape(int shapeId) {
+        return ShapeFactory.getDefaultInstance(shapeId);
     }
 
 }

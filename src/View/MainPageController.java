@@ -1,6 +1,7 @@
 package View;
 
 import Controller.*;
+import Model.Shapes.Shape;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -61,13 +62,13 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     @FXML
     private Text codeTitle;
 
-    private String textSaved = null;
-
     @FXML
     private Button buttonCircle, buttonRectangle, buttonTriangle, buttonArrow, buttonLine,buttonCurvedLine, buttonSquare;
     @FXML
     private ImageView imageCircle, imageRectangle, imageTriangle, imageArrow, imageLine, imageCurvedLine, imageSquare;
     private ImageView movingImage;
+
+    private Shape movingShape;
 
     final static int RECTANGLE = 0;
     final static int CIRCLE = 1;
@@ -330,38 +331,38 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      * The following methods send a message to the controller to create the corresponding shape when the button is clicked
      */
     public void circleClicked(MouseEvent mouseEvent) {
-        predefinedShapesPanelController.createShape(CIRCLE);
+        movingShape = predefinedShapesPanelController.createShape(CIRCLE);
         createMovingImage("defaultCircle.png", mouseEvent);
 
     }
 
     public void rectangleClicked(MouseEvent mouseEvent) {
-        predefinedShapesPanelController.createShape(RECTANGLE);
+        movingShape = predefinedShapesPanelController.createShape(RECTANGLE);
         createMovingImage("defaultRectangle.png", mouseEvent);
     }
 
     public void lineClicked(MouseEvent mouseEvent) {
-        predefinedShapesPanelController.createShape(LINE);
+        movingShape = predefinedShapesPanelController.createShape(LINE);
         createMovingImage("defaultLine.png", mouseEvent);
     }
 
     public void curvedLineClicked(MouseEvent mouseEvent) {
-        predefinedShapesPanelController.createShape(CURVED_LINE);
+        movingShape = predefinedShapesPanelController.createShape(CURVED_LINE);
         createMovingImage("defaultCurvedLine.png", mouseEvent);
     }
 
     public void arrowClicked(MouseEvent mouseEvent) {
-        predefinedShapesPanelController.createShape(ARROW);
+        movingShape = predefinedShapesPanelController.createShape(ARROW);
         createMovingImage("defaultArrow.png", mouseEvent);
     }
 
     public void squareClicked(MouseEvent mouseEvent) {
-        predefinedShapesPanelController.createShape(SQUARE);
+        movingShape = predefinedShapesPanelController.createShape(SQUARE);
         createMovingImage("defaultSquare.png", mouseEvent);
     }
 
     public void triangleClicked(MouseEvent mouseEvent) {
-        predefinedShapesPanelController.createShape(TRIANGLE);
+        movingShape = predefinedShapesPanelController.createShape(TRIANGLE);
         createMovingImage("defaultTriangle.png", mouseEvent);
     }
 
@@ -389,11 +390,17 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
 
     public void mouseDragReleased(MouseEvent mouseEvent) {
-        double x = mouseEvent.getX();
-        double y = mouseEvent.getY();
+        float x = (float) mouseEvent.getX();
+        float y = (float) mouseEvent.getY();
         if(movingImage != null) {
             Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
             ((GridPane) root).getChildren().remove(movingImage);
+        }
+        if(movingShape != null) {
+            movingShape.setPosX(x);
+            movingShape.setPosY(y);
+            addShape(movingShape);
+            movingShape = null;
         }
     }
 }

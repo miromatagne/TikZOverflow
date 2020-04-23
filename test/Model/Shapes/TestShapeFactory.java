@@ -70,7 +70,7 @@ class TestShapeFactory {
         assertEquals((float) 40,cl.getCurvedInAngle());
 
         //LINE
-        Line l = (Line) ShapeFactory.getInstance(LINE,data,color);
+        Line l = (Line) ShapeFactory.getInstance(LINE,data,color,label);
         assertEquals((float) 1.2,l.getxOrigin());
         assertEquals((float) 15.6,l.getyOrigin());
         assertEquals(Color.WHITE,l.getColor());
@@ -117,11 +117,11 @@ class TestShapeFactory {
 
         //ARROW
         Arrow a = (Arrow) ShapeFactory.getDefaultInstance(ARROW);
-        assertEquals((float) 0,a.getxOrigin());
-        assertEquals((float) 0,a.getyOrigin());
-        assertEquals((float) 2,a.getxDestination());
-        assertEquals((float) 2,a.getyDestination());
-        assertEquals((float) 50,a.getStrokeWidth());
+        assertEquals((float) 1,a.getxOrigin());
+        assertEquals((float) 1,a.getyOrigin());
+        assertEquals((float) 1,a.getxDestination());
+        assertEquals((float) 1,a.getyDestination());
+        assertEquals((float) 1,a.getStrokeWidth());
         assertEquals((float) 1,a.getArrowHeadLength());
         assertEquals((float) 1,a.getArrowHeadWidth());
         assertEquals(Color.BLACK, a.getColor());
@@ -133,8 +133,8 @@ class TestShapeFactory {
         assertEquals((float) 1,cl.getxDestination());
         assertEquals((float) 1,cl.getyDestination());
         assertEquals((float) 50,cl.getStrokeWidth());
-        assertEquals((float) 0.456,cl.getCurvedOutAngle());
-        assertEquals((float) 40,cl.getCurvedInAngle());
+        assertEquals((float) 1,cl.getCurvedOutAngle());
+        assertEquals((float) 1,cl.getCurvedInAngle());
         assertEquals(Color.BLACK, cl.getColor());
 
         //LINE
