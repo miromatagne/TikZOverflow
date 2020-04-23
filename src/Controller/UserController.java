@@ -114,7 +114,6 @@ public class UserController {
 
     public void setPasswordConfirmationField(PasswordField passwordConfirmationField) {
         this.passwordConfirmationField = passwordConfirmationField;
-
     }
 
     public void setUsernameField(TextField usernameField) {

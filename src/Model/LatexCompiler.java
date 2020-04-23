@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 public class LatexCompiler {
 
     private static final String DEFAULT_OUTPUT_DIRECTORY = "./Latex/out";
-    private static LatexCompiler compiler = new LatexCompiler();
+    private static final LatexCompiler compiler = new LatexCompiler();
 
     /* Singleton class */
     private LatexCompiler() {

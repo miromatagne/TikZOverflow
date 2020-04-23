@@ -25,6 +25,8 @@ public class RectangleMenuController extends MenuController implements Initializ
     @FXML private Slider thicknessSlider;
     @FXML private TextField thicknessValue;
     @FXML private ColorPicker colorPicker;
+    @FXML private TextField labelTextField;
+
     private ArrayList<TextField> allTextFields = new ArrayList<>();
 
     private static final double THICKNESS_DEFAULT_VALUE = 50;
@@ -40,6 +42,8 @@ public class RectangleMenuController extends MenuController implements Initializ
         }
         thicknessSlider.setValue(THICKNESS_DEFAULT_VALUE);
         colorPicker.setValue(Color.WHITE);
+        labelTextField.setText("");
+        labelTextField.setStyle("");
     }
 
     /**
@@ -82,4 +86,8 @@ public class RectangleMenuController extends MenuController implements Initializ
     public Color getColor() {
         return colorPicker.getValue();
     }
+
+    @Override
+    public TextField getLabel() { return labelTextField; }
+
 }
