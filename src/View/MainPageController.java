@@ -1,14 +1,12 @@
 package View;
 
-import Controller.LatexController;
-import Controller.ScreenHandler;
-import Controller.Session;
-import Controller.ShapeMenuController;
+import Controller.*;
 import Model.Shapes.Shape;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -18,6 +16,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
  * Handles main screen interaction, including TikZ compilation, display and shape addition.
  */
 public class MainPageController extends ControllerSuperclass implements Initializable {
+
 
     public static final int SHAPES_ONLY = 0;
     public static final int FULL_CODE = 1;
@@ -58,8 +59,23 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     private Button fullCodeButton;
     @FXML
     private Text codeTitle;
+    @FXML
+    private Button buttonCircle, buttonRectangle, buttonTriangle, buttonArrow, buttonLine,buttonCurvedLine, buttonSquare;
+    @FXML
+    private ImageView imageCircle, imageRectangle, imageTriangle, imageArrow, imageLine, imageCurvedLine, imageSquare;
+    private ImageView movingImage;
 
     private String textSaved = null;
+    final static int RECTANGLE = 0;
+    final static int CIRCLE = 1;
+    final static int LINE = 2;
+    final static int CURVED_LINE = 3;
+    final static int ARROW = 4;
+    final static int SQUARE = 5;
+    final static int TRIANGLE = 6;
+
+    PredefinedShapesPanelController predefinedShapesPanelController;
+
 
     /**
      * Update is a function of the ControllerSuperClass and will be called every time the mainPage screen is displayed.
@@ -224,14 +240,18 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        shapeList.prefWidthProperty().bind(scroll.prefWidthProperty());
-        shapeList.prefHeightProperty().bind(scroll.prefHeightProperty());
+
         shapeMenuController.setMainPageController(this);
         try {
             shapeMenuController.popUpInitialize();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        predefinedShapesPanelController = new PredefinedShapesPanelController();
+        initializeImageButton();
+
+
     }
 
     /**
@@ -242,15 +262,6 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         shapeMenuController.showPopUp();
     }
 
-    @FXML
-    public void changeMouseToHand() {
-        addShapeButton.setCursor(Cursor.HAND);
-    }
-
-
-    public TextArea getCodeInterface() {
-        return codeInterface;
-    }
 
     /**
      * Renders image from compilation on UI.
@@ -267,14 +278,109 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      */
     private void clearScreen() {
         renderedImageView.setImage(null);
-        shapeList.getChildren().clear(); // Clear all the added shapes
+        //shapeList.getChildren().clear(); // Clear all the added shapes
         latexController.getFileHandler().clearErrors(); // Clear all the errors
         errorsButton.setText("Errors (0)");
         textSaved = null; // Set the textSaved to null in order to display the correct one during the next login
         fillWithTextSaved();
     }
-
     public int getCurrentCodeDisplay() {
         return currentCodeDisplay;
+    }
+    /**
+     * Initialize the image buttons for the predefined shapes
+     */
+    private void initializeImageButton() {
+        bindImageButton(imageCircle, buttonCircle);
+        bindImageButton(imageRectangle, buttonRectangle);
+        bindImageButton(imageTriangle, buttonTriangle);
+        bindImageButton(imageArrow, buttonArrow);
+        bindImageButton(imageLine, buttonLine);
+        bindImageButton(imageCurvedLine, buttonCurvedLine);
+        bindImageButton(imageSquare, buttonSquare);
+
+    }
+
+
+    /**
+     * Bind the image and the button to keep a scale between them.
+     * @param imageButton       Image to bind
+     * @param button            Button to bind
+     */
+    private void bindImageButton(ImageView imageButton, Button button) {
+        //0.6 is an empirical value
+        imageButton.fitWidthProperty().bind(button.widthProperty().multiply(0.6));
+        imageButton.fitHeightProperty().bind(button.heightProperty().multiply(0.6));
+    }
+
+    /**
+     * The following methods send a message to the controller to create the corresponding shape when the button is clicked
+     */
+    public void circleClicked(MouseEvent mouseEvent) {
+        predefinedShapesPanelController.createShape(CIRCLE);
+        createMovingImage("defaultCircle.png", mouseEvent);
+
+    }
+
+    public void rectangleClicked(MouseEvent mouseEvent) {
+        predefinedShapesPanelController.createShape(RECTANGLE);
+        createMovingImage("defaultRectangle.png", mouseEvent);
+    }
+
+    public void lineClicked(MouseEvent mouseEvent) {
+        predefinedShapesPanelController.createShape(LINE);
+        createMovingImage("defaultLine.png", mouseEvent);
+    }
+
+    public void curvedLineClicked(MouseEvent mouseEvent) {
+        predefinedShapesPanelController.createShape(CURVED_LINE);
+        createMovingImage("defaultCurvedLine.png", mouseEvent);
+    }
+
+    public void arrowClicked(MouseEvent mouseEvent) {
+        predefinedShapesPanelController.createShape(ARROW);
+        createMovingImage("defaultArrow.png", mouseEvent);
+    }
+
+    public void squareClicked(MouseEvent mouseEvent) {
+        predefinedShapesPanelController.createShape(SQUARE);
+        createMovingImage("defaultSquare.png", mouseEvent);
+    }
+
+    public void triangleClicked(MouseEvent mouseEvent) {
+        predefinedShapesPanelController.createShape(TRIANGLE);
+        createMovingImage("defaultTriangle.png", mouseEvent);
+    }
+
+    public void createMovingImage(String path, MouseEvent mouseEvent){
+        Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
+        Button button = (Button) mouseEvent.getSource();
+        movingImage = new ImageView(path);
+        movingImage.setFitHeight(50);
+        movingImage.setFitWidth(50);
+        movingImage.setTranslateX(mouseEvent.getX() + button.getLayoutX());
+        movingImage.setTranslateY(mouseEvent.getY() + button.getLayoutY());
+        ((GridPane) root).getChildren().add(movingImage);
+    }
+
+
+
+    public void mouseDragged(MouseEvent mouseEvent) {
+        Button button = ((Button) mouseEvent.getSource());
+        //System.out.println("Mouse at: (" + mouseEvent.getX() + ", " + mouseEvent.getY() + ")");
+        if(movingImage != null) {
+            movingImage.setTranslateX(mouseEvent.getX() + button.getLayoutX());
+            movingImage.setTranslateY(mouseEvent.getY() + button.getLayoutY());
+        }
+    }
+
+
+    public void mouseDragReleased(MouseEvent mouseEvent) {
+        double x = mouseEvent.getX();
+        double y = mouseEvent.getY();
+        if(movingImage != null) {
+            Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
+            ((GridPane) root).getChildren().remove(movingImage);
+        }
     }
 }

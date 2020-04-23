@@ -9,10 +9,12 @@ import View.ShapeMenu.ShapeMenuViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -55,11 +57,8 @@ public class ShapeMenuController {
      */
     public String createString(Shape shape) {
         String returnString = "Added ";
-
         returnString += shape.getDescription();
-
         returnString += " Color : " + shape.getColor() + ".";
-
         return returnString;
     }
 

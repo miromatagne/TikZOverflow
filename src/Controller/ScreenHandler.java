@@ -32,7 +32,7 @@ public class ScreenHandler extends Application {
     public static int ACCOUNT_CREATION = 2;
     public static int MODIFICATION_SCREEN = 3;
 
-    //Attributes
+    // Attributes
     private static ArrayList<Parent> screens = new ArrayList<>();
     static ArrayList<ControllerSuperclass> controllers = new ArrayList<>();
     static Scene scene;
@@ -87,6 +87,8 @@ public class ScreenHandler extends Application {
         stage.setTitle("TikZOverflow");
         stage.setMaximized(true);
         stage.setScene(scene);
+        stage.setMinWidth(600);
+        stage.setMinHeight(400);
         stage.show();
     }
 
@@ -141,5 +143,9 @@ public class ScreenHandler extends Application {
         Text tcuFullText = (Text) tcuRoot.lookup("#tcuFullText");
         tcuFullText.setText(text);
         tcuFullText.wrappingWidthProperty().bind(tcuScene.widthProperty().subtract(20));
+    }
+
+    public static ArrayList<Parent> getScreens() {
+        return screens;
     }
 }

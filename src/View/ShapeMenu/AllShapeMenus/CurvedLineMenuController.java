@@ -24,6 +24,7 @@ public class CurvedLineMenuController extends MenuController implements Initiali
     @FXML private TextField curveOutAngleTextField;
     @FXML private TextField curveInAngleTextField;
     @FXML private ColorPicker colorPicker;
+    @FXML private TextField labelTextField;
 
     private static ArrayList<TextField> allTextFields = new ArrayList<>();
 
@@ -39,6 +40,8 @@ public class CurvedLineMenuController extends MenuController implements Initiali
             textField.setStyle("");
         }
         colorPicker.setValue(Color.WHITE);
+        labelTextField.setText("");
+        labelTextField.setStyle("");
     }
 
 
@@ -76,4 +79,8 @@ public class CurvedLineMenuController extends MenuController implements Initiali
     public Color getColor() {
         return colorPicker.getValue();
     }
+
+    @Override
+    public TextField getLabel() { return labelTextField; }
+
 }

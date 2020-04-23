@@ -24,6 +24,7 @@ public class ArrowMenuController extends MenuController implements Initializable
     @FXML private TextField headLengthTextField;
     @FXML private TextField headWidthTextField;
     @FXML private ColorPicker colorPicker;
+    @FXML private TextField labelTextField;
 
     private static ArrayList<TextField> allTextFields = new ArrayList<>();
 
@@ -38,6 +39,8 @@ public class ArrowMenuController extends MenuController implements Initializable
             textField.setStyle("");
         }
         colorPicker.setValue(Color.WHITE);
+        labelTextField.setText("");
+        labelTextField.setStyle("");
     }
 
 
@@ -75,4 +78,7 @@ public class ArrowMenuController extends MenuController implements Initializable
     public Color getColor() {
         return colorPicker.getValue();
     }
+
+    @Override
+    public TextField getLabel() { return labelTextField; }
 }

@@ -25,6 +25,7 @@ public class CircleMenuController extends MenuController implements Initializabl
     @FXML private Slider thicknessSlider;
     @FXML private TextField thicknessValue;
     @FXML private ColorPicker colorPicker;
+    @FXML private TextField labelTextField;
 
     private static final double THICKNESS_DEFAULT_VALUE = 50;
 
@@ -43,6 +44,8 @@ public class CircleMenuController extends MenuController implements Initializabl
         }
         thicknessSlider.setValue(THICKNESS_DEFAULT_VALUE);
         colorPicker.setValue(Color.WHITE);
+        labelTextField.setText("");
+        labelTextField.setStyle("");
     }
 
 
@@ -84,4 +87,8 @@ public class CircleMenuController extends MenuController implements Initializabl
     public Color getColor() {
         return colorPicker.getValue();
     }
+
+    @Override
+    public TextField getLabel() { return labelTextField; }
+
 }
