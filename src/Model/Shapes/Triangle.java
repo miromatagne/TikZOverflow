@@ -27,7 +27,7 @@ public class Triangle extends Node{
                 "line width=" + getOutlineThickness()/20 + "] ";
         code += "(" + getX1() + "," + getY1() + ") --";
         code += "(" + getX2() + "," + getY2() + ") --";
-        code += "(" + getX3() + "," + getY3() + ") -- cycle";
+        code += "(" + getX3() + "," + getY3() + ") -- cycle;\n";
         return code;
     }
 

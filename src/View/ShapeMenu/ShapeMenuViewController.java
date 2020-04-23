@@ -24,6 +24,7 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
 
     @FXML private SubScene shapeScene;
     @FXML private Text rectangleText;
+    @FXML private Text triangleText;
     @FXML private Text circleText;
     @FXML private Text arrowText;
     @FXML private Text curvedLineText;
@@ -37,7 +38,7 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
     private static ArrayList<Text> allTexts = new ArrayList<>();
 
     public final static int ARROW = 4;
-    final static int NUMBER_OF_MENUS = 5;
+    final static int NUMBER_OF_MENUS = 6;
 
     /**
      * Setup the texts and add them to an array list
@@ -48,6 +49,7 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
         allTexts.add(lineText);
         allTexts.add(curvedLineText);
         allTexts.add(arrowText);
+        allTexts.add(triangleText);
     }
 
 
@@ -87,6 +89,7 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
     public void arrowTextHand(){this.changeCursorToHand(arrowText);}
     public void curvedLineTextHand(){this.changeCursorToHand(curvedLineText);}
     public void lineTextHand(){this.changeCursorToHand(lineText);}
+    public void triangleTextHand(){this.changeCursorToHand(triangleText);}
 
 
 
