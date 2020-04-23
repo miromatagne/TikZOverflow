@@ -16,6 +16,7 @@ public class ShapeFactory {
     final static int LINE = 2;
     final static int CURVED_LINE = 3;
     final static int ARROW = 4;
+    final static int TRIANGLE = 5;
 
     /**
      * Get an instance of a shape based on information given in parameters
@@ -65,6 +66,11 @@ public class ShapeFactory {
                 a.setColor(color);
                 instance = a;
                 break;
+            case TRIANGLE:
+                Triangle t = new Triangle(data.get(0), data.get(1), data.get(2), data.get(3), data.get(4), data.get(5));
+                t.setOutlineThickness(data.get(6));
+                t.setColor(color);
+                instance = t;
         }
         return instance;
     }
