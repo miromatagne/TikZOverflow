@@ -119,9 +119,9 @@ class TestShapeFactory {
         Arrow a = (Arrow) ShapeFactory.getDefaultInstance(ARROW);
         assertEquals((float) 1,a.getxOrigin());
         assertEquals((float) 1,a.getyOrigin());
-        assertEquals((float) 1,a.getxDestination());
-        assertEquals((float) 1,a.getyDestination());
-        assertEquals((float) 1,a.getStrokeWidth());
+        assertEquals((float) 5,a.getxDestination());
+        assertEquals((float) 5,a.getyDestination());
+        assertEquals((float) 10,a.getStrokeWidth());
         assertEquals((float) 1,a.getArrowHeadLength());
         assertEquals((float) 1,a.getArrowHeadWidth());
         assertEquals(Color.BLACK, a.getColor());
