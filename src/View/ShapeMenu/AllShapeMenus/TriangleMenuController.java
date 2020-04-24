@@ -27,6 +27,7 @@ public class TriangleMenuController extends MenuController implements Initializa
     @FXML private Slider thicknessSlider;
     @FXML private TextField thicknessValue;
     @FXML private ColorPicker colorPicker;
+    @FXML private TextField labelTextField;
     private ArrayList<TextField> allTextFields = new ArrayList<>();
 
     private static final double THICKNESS_DEFAULT_VALUE = 50;
@@ -42,6 +43,8 @@ public class TriangleMenuController extends MenuController implements Initializa
         }
         thicknessSlider.setValue(THICKNESS_DEFAULT_VALUE);
         colorPicker.setValue(Color.WHITE);
+        labelTextField.setText("");
+        labelTextField.setStyle("");
     }
 
     /**
@@ -88,7 +91,5 @@ public class TriangleMenuController extends MenuController implements Initializa
     }
 
     @Override
-    public TextField getLabel() {
-        return null;
-    }
+    public TextField getLabel() { return labelTextField; }
 }

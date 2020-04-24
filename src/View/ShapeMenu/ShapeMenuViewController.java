@@ -28,6 +28,7 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
     @FXML private Text arrowText;
     @FXML private Text curvedLineText;
     @FXML private Text lineText;
+    @FXML private Text triangleText;
     @FXML private GridPane gridPaneAddShape;
 
     private ShapeMenuController shapeMenuController;
@@ -48,6 +49,7 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
         allTexts.add(lineText);
         allTexts.add(curvedLineText);
         allTexts.add(arrowText);
+        allTexts.add(triangleText);
     }
 
 
@@ -87,7 +89,7 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
     public void arrowTextHand(){this.changeCursorToHand(arrowText);}
     public void curvedLineTextHand(){this.changeCursorToHand(curvedLineText);}
     public void lineTextHand(){this.changeCursorToHand(lineText);}
-    //public void triangleTextHand(){this.changeCursorToHand(triangleText);}
+    public void triangleTextHand(){this.changeCursorToHand(triangleText);}
 
 
 

@@ -84,9 +84,6 @@ class TestShapeFactory {
         assertEquals((float) 1.2,t.getXCenter());
         assertEquals((float) 15.6,t.getYCenter());
         assertEquals(Color.WHITE,t.getColor());
-        assertEquals((float) 102,t.getSide_a());
-        assertEquals((float) 589,t.getSide_b());
-        assertEquals((float) 145,t.getSide_c());
         assertEquals((float) 0.456,t.getOutlineThickness());
 
 
