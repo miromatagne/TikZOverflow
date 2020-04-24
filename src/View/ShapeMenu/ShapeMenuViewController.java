@@ -4,6 +4,7 @@ import Controller.ShapeMenuController;
 import View.ControllerSuperclass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.SubScene;
 import javafx.scene.input.MouseEvent;
@@ -36,7 +37,7 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
     private static ArrayList<Text> allTexts = new ArrayList<>();
 
     public final static int ARROW = 4;
-    final static int NUMBER_OF_MENUS = 5;
+    final static int NUMBER_OF_MENUS = 6;
 
     /**
      * Setup the texts and add them to an array list
@@ -78,6 +79,15 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
     }
 
 
+    /**
+     * The following functions changes the cursor to an hand cursor when we enter the text area
+     */
+    public void rectangleTextHand(){this.changeCursorToHand(rectangleText);}
+    public void circleTextHand(){this.changeCursorToHand(circleText);}
+    public void arrowTextHand(){this.changeCursorToHand(arrowText);}
+    public void curvedLineTextHand(){this.changeCursorToHand(curvedLineText);}
+    public void lineTextHand(){this.changeCursorToHand(lineText);}
+    public void triangleTextHand(){this.changeCursorToHand(triangleText);}
 
 
 
@@ -99,6 +109,15 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
         }
     }
 
+    
+    /**
+     * Changes cursor to hand.
+     *
+     * @param text when given text is hovered, cursor changes to hand.
+     */
+    private void changeCursorToHand(Text text){
+        text.setCursor(Cursor.HAND);
+    }
 
 
 

@@ -29,20 +29,20 @@ public class Arrow extends Link {
         String code = "\\draw";
 
         //Arrow
-        code += " [arrows={->[length=" + String.valueOf(getArrowHeadLength()) + "mm, width="
-                + String.valueOf(getArrowHeadWidth()) + "mm]}";
+        code += " [arrows={->[length=" + getArrowHeadLength() + "mm, width="
+                + getArrowHeadWidth() + "mm]}";
 
         //Width
-        code += " ,line width=" + String.valueOf(getStrokeWidth()) + "mm";
+        code += " ,line width=" + getStrokeWidth() + "mm";
 
         //Color
-        code += " ,color={rgb:red," + String.valueOf(getColor().getRed()*100) + ";green," + String.valueOf(getColor().getGreen()*100);
-        code += ";blue," + String.valueOf(getColor().getBlue()*100) + "}]";
+        code += " ,color={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() +
+                ";blue," + getColor().getBlue() + "}]";
 
         //Draw line Position
-        code += " (" + String.valueOf(getxOrigin()) + "," + String.valueOf(getyOrigin()) + ")";
+        code += " (" + getxOrigin() + "," + getyOrigin() + ")";
         code += " --";
-        code += " (" + String.valueOf(getxDestination()) + "," + String.valueOf(getyDestination()) + ");";
+        code += " (" + getxDestination() + "," + getyDestination() + ");";
         return code ;
     }
 

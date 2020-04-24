@@ -82,6 +82,8 @@ public class ShapeMenuController {
         addScene("/View/ShapeMenu/FxmlFiles/lineMenu.fxml");
         addScene("/View/ShapeMenu/FxmlFiles/curvedLineMenu.fxml");
         addScene("/View/ShapeMenu/FxmlFiles/arrowMenu.fxml");
+        addScene("/View/ShapeMenu/FxmlFiles/triangleMenu.fxml");
+
         if (allShapes.isEmpty()) {
             throw new IOException();
         }
