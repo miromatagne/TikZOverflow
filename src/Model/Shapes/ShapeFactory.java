@@ -150,9 +150,10 @@ public class ShapeFactory {
             case TRIANGLE:
                 data.add(Float.parseFloat("0"));
                 data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("3"));
+                data.add(Float.parseFloat("3"));
                 data.add(Float.parseFloat("4"));
-                data.add(Float.parseFloat("4"));
-                data.add(Float.parseFloat("4"));
+                data.add(Float.parseFloat("1"));
                 data.add(Float.parseFloat("50"));
                 instance = getInstance(TRIANGLE, data, Color.GREY,"Triangle");
                 break;

@@ -75,8 +75,8 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     final static int LINE = 2;
     final static int CURVED_LINE = 3;
     final static int ARROW = 4;
-    final static int SQUARE = 5;
-    final static int TRIANGLE = 6;
+    final static int TRIANGLE = 5;
+    final static int SQUARE = 6;
 
     PredefinedShapesPanelController predefinedShapesPanelController;
 
