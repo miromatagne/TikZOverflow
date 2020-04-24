@@ -83,14 +83,10 @@ public class ShapeFactory {
                 instance = square;
                 break;
             case TRIANGLE:
-                Triangle triangle = new Triangle(data.get(0), data.get(1));
-                triangle.setSide_a(data.get(2));
-                triangle.setSide_b(data.get(3));
-                triangle.setSide_c(data.get(4));
-                triangle.setOutlineThickness(data.get(5));
-                triangle.setColor(color);
-                triangle.setLabel(label);
-                instance = triangle;
+                Triangle t = new Triangle(data.get(0), data.get(1), data.get(2), data.get(3), data.get(4), data.get(5));
+                t.setOutlineThickness(data.get(6));
+                t.setColor(color);
+                instance = t;
         }
         return instance;
     }

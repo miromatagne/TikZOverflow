@@ -87,7 +87,7 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
     public void arrowTextHand(){this.changeCursorToHand(arrowText);}
     public void curvedLineTextHand(){this.changeCursorToHand(curvedLineText);}
     public void lineTextHand(){this.changeCursorToHand(lineText);}
-    public void triangleTextHand(){this.changeCursorToHand(triangleText);}
+    //public void triangleTextHand(){this.changeCursorToHand(triangleText);}
 
 
 

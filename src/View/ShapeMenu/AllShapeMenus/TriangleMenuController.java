@@ -86,4 +86,9 @@ public class TriangleMenuController extends MenuController implements Initializa
     public Color getColor() {
         return colorPicker.getValue();
     }
+
+    @Override
+    public TextField getLabel() {
+        return null;
+    }
 }
