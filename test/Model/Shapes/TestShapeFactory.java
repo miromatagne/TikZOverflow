@@ -10,6 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TestShapeFactory {
 
+    final static int RECTANGLE = 0;
+    final static int CIRCLE = 1;
+    final static int LINE = 2;
+    final static int CURVED_LINE = 3;
+    final static int ARROW = 4;
 
     @Test
     void getInstance(){
@@ -40,7 +45,6 @@ class TestShapeFactory {
         assertEquals((float) 15.6,c.getYCenter());
         assertEquals(Color.WHITE,c.getColor());
         assertEquals((float) 102,c.getRadius());
-        assertEquals("Shape", c.getLabel());
 
         //ARROW
         Arrow a = (Arrow) ShapeFactory.getInstance(ARROW,data,color,label);
@@ -62,8 +66,8 @@ class TestShapeFactory {
         assertEquals((float) 102,cl.getxDestination());
         assertEquals((float) 589,cl.getyDestination());
         assertEquals((float) 145,cl.getStrokeWidth());
-        assertEquals((float) 0.456,cl.getCurvedRadius());
-        assertEquals("Shape", cl.getLabel());
+        assertEquals((float) 0.456,cl.getCurvedOutAngle());
+        assertEquals((float) 40,cl.getCurvedInAngle());
 
         //LINE
         Line l = (Line) ShapeFactory.getInstance(LINE,data,color,label);
@@ -113,11 +117,11 @@ class TestShapeFactory {
 
         //ARROW
         Arrow a = (Arrow) ShapeFactory.getDefaultInstance(ARROW);
-        assertEquals((float) 0,a.getxOrigin());
-        assertEquals((float) 0,a.getyOrigin());
-        assertEquals((float) 2,a.getxDestination());
-        assertEquals((float) 2,a.getyDestination());
-        assertEquals((float) 50,a.getStrokeWidth());
+        assertEquals((float) 1,a.getxOrigin());
+        assertEquals((float) 1,a.getyOrigin());
+        assertEquals((float) 5,a.getxDestination());
+        assertEquals((float) 5,a.getyDestination());
+        assertEquals((float) 10,a.getStrokeWidth());
         assertEquals((float) 1,a.getArrowHeadLength());
         assertEquals((float) 1,a.getArrowHeadWidth());
         assertEquals(Color.BLACK, a.getColor());
@@ -129,7 +133,8 @@ class TestShapeFactory {
         assertEquals((float) 1,cl.getxDestination());
         assertEquals((float) 1,cl.getyDestination());
         assertEquals((float) 50,cl.getStrokeWidth());
-        assertEquals((float) 1,cl.getCurvedRadius());
+        assertEquals((float) 1,cl.getCurvedOutAngle());
+        assertEquals((float) 1,cl.getCurvedInAngle());
         assertEquals(Color.BLACK, cl.getColor());
 
         //LINE

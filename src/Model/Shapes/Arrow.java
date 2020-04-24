@@ -61,4 +61,18 @@ public class Arrow extends Link {
     public void setArrowHeadWidth(float arrowHeadWidth) {
         this.arrowHeadWidth = arrowHeadWidth;
     }
+
+    @Override
+    public void setPosX(float posX) {
+        super.setPosX(posX);
+        super.setxOrigin(posX);
+        super.setxDestination(posX+5);
+    }
+
+    @Override
+    public void setPosY(float posY) {
+        super.setPosY(posY);
+        super.setyOrigin(posY);
+        super.setyDestination(posY+5);
+    }
 }

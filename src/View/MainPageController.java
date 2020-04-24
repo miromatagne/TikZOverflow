@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -18,6 +17,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.Parent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,7 +28,6 @@ import java.util.ResourceBundle;
  * Handles main screen interaction, including TikZ compilation, display and shape addition.
  */
 public class MainPageController extends ControllerSuperclass implements Initializable {
-
 
     public static final int SHAPES_ONLY = 0;
     public static final int FULL_CODE = 1;
@@ -55,17 +54,22 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     private Button errorsButton;
     @FXML
     private Button compileButton;
+
+    private String textSaved = null;
+
     @FXML
     private Button fullCodeButton;
     @FXML
     private Text codeTitle;
+
     @FXML
     private Button buttonCircle, buttonRectangle, buttonTriangle, buttonArrow, buttonLine,buttonCurvedLine, buttonSquare;
     @FXML
     private ImageView imageCircle, imageRectangle, imageTriangle, imageArrow, imageLine, imageCurvedLine, imageSquare;
     private ImageView movingImage;
 
-    private String textSaved = null;
+    private Shape movingShape;
+
     final static int RECTANGLE = 0;
     final static int CIRCLE = 1;
     final static int LINE = 2;
@@ -75,7 +79,6 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     final static int TRIANGLE = 6;
 
     PredefinedShapesPanelController predefinedShapesPanelController;
-
 
     /**
      * Update is a function of the ControllerSuperClass and will be called every time the mainPage screen is displayed.
@@ -240,7 +243,8 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        shapeList.prefWidthProperty().bind(scroll.prefWidthProperty());
+        shapeList.prefHeightProperty().bind(scroll.prefHeightProperty());
         shapeMenuController.setMainPageController(this);
         try {
             shapeMenuController.popUpInitialize();
@@ -262,6 +266,15 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         shapeMenuController.showPopUp();
     }
 
+    @FXML
+    public void changeMouseToHand() {
+        addShapeButton.setCursor(Cursor.HAND);
+    }
+
+
+    public TextArea getCodeInterface() {
+        return codeInterface;
+    }
 
     /**
      * Renders image from compilation on UI.
@@ -278,12 +291,13 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      */
     private void clearScreen() {
         renderedImageView.setImage(null);
-        //shapeList.getChildren().clear(); // Clear all the added shapes
+        shapeList.getChildren().clear(); // Clear all the added shapes
         latexController.getFileHandler().clearErrors(); // Clear all the errors
         errorsButton.setText("Errors (0)");
         textSaved = null; // Set the textSaved to null in order to display the correct one during the next login
         fillWithTextSaved();
     }
+
     public int getCurrentCodeDisplay() {
         return currentCodeDisplay;
     }
@@ -317,38 +331,38 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      * The following methods send a message to the controller to create the corresponding shape when the button is clicked
      */
     public void circleClicked(MouseEvent mouseEvent) {
-        predefinedShapesPanelController.createShape(CIRCLE);
+        movingShape = predefinedShapesPanelController.createShape(CIRCLE);
         createMovingImage("defaultCircle.png", mouseEvent);
 
     }
 
     public void rectangleClicked(MouseEvent mouseEvent) {
-        predefinedShapesPanelController.createShape(RECTANGLE);
+        movingShape = predefinedShapesPanelController.createShape(RECTANGLE);
         createMovingImage("defaultRectangle.png", mouseEvent);
     }
 
     public void lineClicked(MouseEvent mouseEvent) {
-        predefinedShapesPanelController.createShape(LINE);
+        movingShape = predefinedShapesPanelController.createShape(LINE);
         createMovingImage("defaultLine.png", mouseEvent);
     }
 
     public void curvedLineClicked(MouseEvent mouseEvent) {
-        predefinedShapesPanelController.createShape(CURVED_LINE);
+        movingShape = predefinedShapesPanelController.createShape(CURVED_LINE);
         createMovingImage("defaultCurvedLine.png", mouseEvent);
     }
 
     public void arrowClicked(MouseEvent mouseEvent) {
-        predefinedShapesPanelController.createShape(ARROW);
+        movingShape = predefinedShapesPanelController.createShape(ARROW);
         createMovingImage("defaultArrow.png", mouseEvent);
     }
 
     public void squareClicked(MouseEvent mouseEvent) {
-        predefinedShapesPanelController.createShape(SQUARE);
+        movingShape = predefinedShapesPanelController.createShape(SQUARE);
         createMovingImage("defaultSquare.png", mouseEvent);
     }
 
     public void triangleClicked(MouseEvent mouseEvent) {
-        predefinedShapesPanelController.createShape(TRIANGLE);
+        movingShape = predefinedShapesPanelController.createShape(TRIANGLE);
         createMovingImage("defaultTriangle.png", mouseEvent);
     }
 
@@ -376,11 +390,17 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
 
     public void mouseDragReleased(MouseEvent mouseEvent) {
-        double x = mouseEvent.getX();
-        double y = mouseEvent.getY();
+        float x = (float) mouseEvent.getX();
+        float y = (float) mouseEvent.getY();
         if(movingImage != null) {
             Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
             ((GridPane) root).getChildren().remove(movingImage);
+        }
+        if(movingShape != null) {
+            movingShape.setPosX(x);
+            movingShape.setPosY(y);
+            addShape(movingShape);
+            movingShape = null;
         }
     }
 }
