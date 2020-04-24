@@ -392,6 +392,8 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     public void mouseDragReleased(MouseEvent mouseEvent) {
         float x = (float) mouseEvent.getX();
         float y = (float) mouseEvent.getY();
+        System.out.println("x: " + x +" y:" + y);
+
         if(movingImage != null) {
             Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
             ((GridPane) root).getChildren().remove(movingImage);
