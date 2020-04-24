@@ -64,15 +64,17 @@ public class Arrow extends Link {
 
     @Override
     public void setPosX(float posX) {
+        float distanceX = (getxDestination() - getxOrigin());
         super.setPosX(posX);
         super.setxOrigin(posX);
-        super.setxDestination(posX+5);
+        super.setxDestination(posX+distanceX);
     }
 
     @Override
     public void setPosY(float posY) {
+        float distanceY = (getyDestination() - getyOrigin());
         super.setPosY(posY);
         super.setyOrigin(posY);
-        super.setyDestination(posY+5);
+        super.setyDestination(posY+distanceY);
     }
 }
