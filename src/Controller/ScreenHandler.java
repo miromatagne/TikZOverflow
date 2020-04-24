@@ -21,8 +21,8 @@ import java.util.ArrayList;
 
 /**
  * Class used to contain all the FXML files in an ArrayList in order to switch between screens using a static method.
- * All the Controllers linked to the screens will be contained in a Array of Controllers and their update method will be
- * called whenever we change screen.
+ * All the Controllers linked to the screens will be contained in a Array of ControllerSuperclass and their update
+ * method will be called whenever the changeScene method is used.
  */
 
 public class ScreenHandler extends Application {
