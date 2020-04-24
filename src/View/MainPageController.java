@@ -12,10 +12,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.Parent;
 
@@ -327,43 +327,58 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         imageButton.fitHeightProperty().bind(button.heightProperty().multiply(0.6));
     }
 
+    private void createDragAndDrop(MouseEvent event){
+        Dragboard db = movingImage.startDragAndDrop(TransferMode.ANY);
+        ClipboardContent cb = new ClipboardContent();
+        cb.putString("shapeTransfer");
+        db.setContent(cb);
+        event.consume();
+
+    }
+
     /**
      * The following methods send a message to the controller to create the corresponding shape when the button is clicked
      */
     public void circleClicked(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(CIRCLE);
         createMovingImage("defaultCircle.png", mouseEvent);
-
+        createDragAndDrop(mouseEvent);
     }
 
     public void rectangleClicked(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(RECTANGLE);
         createMovingImage("defaultRectangle.png", mouseEvent);
+        createDragAndDrop(mouseEvent);
     }
 
     public void lineClicked(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(LINE);
         createMovingImage("defaultLine.png", mouseEvent);
+        createDragAndDrop(mouseEvent);
     }
 
     public void curvedLineClicked(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(CURVED_LINE);
         createMovingImage("defaultCurvedLine.png", mouseEvent);
+        createDragAndDrop(mouseEvent);
     }
 
     public void arrowClicked(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(ARROW);
         createMovingImage("defaultArrow.png", mouseEvent);
+        createDragAndDrop(mouseEvent);
     }
 
     public void squareClicked(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(SQUARE);
         createMovingImage("defaultSquare.png", mouseEvent);
+        createDragAndDrop(mouseEvent);
     }
 
     public void triangleClicked(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(TRIANGLE);
         createMovingImage("defaultTriangle.png", mouseEvent);
+        createDragAndDrop(mouseEvent);
     }
 
     public void createMovingImage(String path, MouseEvent mouseEvent){
@@ -378,20 +393,9 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     }
 
 
-
-    public void mouseDragged(MouseEvent mouseEvent) {
-        Button button = ((Button) mouseEvent.getSource());
-        //System.out.println("Mouse at: (" + mouseEvent.getX() + ", " + mouseEvent.getY() + ")");
-        if(movingImage != null) {
-            movingImage.setTranslateX(mouseEvent.getX() + button.getLayoutX());
-            movingImage.setTranslateY(mouseEvent.getY() + button.getLayoutY());
-        }
-    }
-
-
-    public void mouseDragReleased(MouseEvent mouseEvent) {
-        float x = (float) mouseEvent.getX();
-        float y = (float) mouseEvent.getY();
+    public void handleDragDropped(DragEvent event){
+        float x = (float) event.getX();
+        float y = (float) event.getY();
         System.out.println("x: " + x +" y:" + y);
 
         if(movingImage != null) {
@@ -404,5 +408,13 @@ public class MainPageController extends ControllerSuperclass implements Initiali
             addShape(movingShape);
             movingShape = null;
         }
+    }
+
+    public void handleDragOver(DragEvent event){
+        if(movingImage != null) {
+            movingImage.setTranslateX(event.getX()+buttonArrow.getLayoutX()*2);
+            movingImage.setTranslateY(event.getY()+buttonArrow.getLayoutY()*2);
+        }
+        event.acceptTransferModes(TransferMode.ANY);
     }
 }

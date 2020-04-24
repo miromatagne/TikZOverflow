@@ -31,7 +31,7 @@ public class Line extends Link {
         //Draw line Position
         code += " (" + getxOrigin() + "," + getyOrigin() + ")";
         code += " --";
-        code += " (" + getxDestination() + "," + getyDestination() + ");";
+        code += " (" + getxDestination() + "," + getyDestination() + ");\n";
         return code ;
     }
 }

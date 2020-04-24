@@ -152,9 +152,9 @@ public class ShapeFactory {
                 data.add(Float.parseFloat("0"));
                 data.add(Float.parseFloat("3"));
                 data.add(Float.parseFloat("3"));
-                data.add(Float.parseFloat("4"));
                 data.add(Float.parseFloat("1"));
-                data.add(Float.parseFloat("50"));
+                data.add(Float.parseFloat("1"));
+                data.add(Float.parseFloat("1"));
                 instance = getInstance(TRIANGLE, data, Color.GREY,"Triangle");
                 break;
         }

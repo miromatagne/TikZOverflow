@@ -33,4 +33,16 @@ public class Circle extends Node {
     public void setRadius(float radius) {
         this.radius = radius;
     }
+
+    @Override
+    public void setPosX(float posX) {
+        super.setPosX(posX);
+        setXCenter(posX);
+    }
+
+    @Override
+    public void setPosY(float posY) {
+        super.setPosY(posY);
+        setYCenter(posY);
+    }
 }
