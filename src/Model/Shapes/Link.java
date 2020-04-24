@@ -68,4 +68,20 @@ public abstract class Link extends Shape {
     public void setStrokeWidth(float strokeWidth) {
         this.strokeWidth = strokeWidth;
     }
+
+    @Override
+    public void setPosX(float posX) {
+        float distance = -getPosX() + getxDestination();
+        super.setPosX(posX);
+        setxOrigin(posX);
+        setxDestination(posX+distance);
+    }
+
+    @Override
+    public void setPosY(float posY) {
+        float distance = -getPosY() + getyDestination();
+        super.setPosY(posY);
+        setyOrigin(posY);
+        setyDestination(posY+distance);
+    }
 }

@@ -55,5 +55,24 @@ public class Triangle extends Node{
         return y3;
     }
 
+    @Override
+    public void setPosX(float posX) {
+        super.setPosX(posX);
+        float distance12 = getX1() - getX2();
+        float distance13 = getX1() - getX3();
+        x1 = posX;
+        x2 = posX + distance12;
+        x3 = posX + distance13;
+    }
+
+    @Override
+    public void setPosY(float posY) {
+        super.setPosY(posY);
+        float distance12 = getY1() - getY2();
+        float distance13 = getY1() - getY3();
+        y1 = posY;
+        y2 = posY + distance12;
+        y3 = posY + distance13;
+    }
 
 }
