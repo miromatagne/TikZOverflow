@@ -104,7 +104,7 @@ class TestShapeFactory {
         assertEquals((float) 3,r.getHeight());
         assertEquals((float) 4,r.getWidth());
         assertEquals((float) 50,r.getOutlineThickness());
-        assertEquals(Color.BLACK, r.getColor());
+        assertEquals(Color.GREY, r.getColor());
 
 
         //CIRCLE
@@ -113,7 +113,7 @@ class TestShapeFactory {
         assertEquals((float) 0,c.getXCenter());
         assertEquals((float) 3,c.getRadius());
         assertEquals((float) 50,c.getOutlineThickness());
-        assertEquals(Color.BLACK, c.getColor());
+        assertEquals(Color.GREY, c.getColor());
 
         //ARROW
         Arrow a = (Arrow) ShapeFactory.getDefaultInstance(ARROW);
@@ -121,10 +121,10 @@ class TestShapeFactory {
         assertEquals((float) 1,a.getyOrigin());
         assertEquals((float) 5,a.getxDestination());
         assertEquals((float) 5,a.getyDestination());
-        assertEquals((float) 10,a.getStrokeWidth());
-        assertEquals((float) 1,a.getArrowHeadLength());
-        assertEquals((float) 1,a.getArrowHeadWidth());
-        assertEquals(Color.BLACK, a.getColor());
+        assertEquals((float) 1,a.getStrokeWidth());
+        assertEquals((float) 5,a.getArrowHeadLength());
+        assertEquals((float) 5,a.getArrowHeadWidth());
+        assertEquals(Color.GREY, a.getColor());
 
         //CURVED LINE
         CurvedLine cl = (CurvedLine) ShapeFactory.getDefaultInstance(CURVED_LINE);
@@ -135,7 +135,7 @@ class TestShapeFactory {
         assertEquals((float) 50,cl.getStrokeWidth());
         assertEquals((float) 1,cl.getCurvedOutAngle());
         assertEquals((float) 1,cl.getCurvedInAngle());
-        assertEquals(Color.BLACK, cl.getColor());
+        assertEquals(Color.GREY, cl.getColor());
 
         //LINE
         Line l = (Line) ShapeFactory.getDefaultInstance(LINE);
@@ -144,7 +144,7 @@ class TestShapeFactory {
         assertEquals((float) 1,l.getxDestination());
         assertEquals((float) 1,l.getyDestination());
         assertEquals((float) 50,l.getStrokeWidth());
-        assertEquals(Color.BLACK, l.getColor());
+        assertEquals(Color.GREY, l.getColor());
 
 
 
