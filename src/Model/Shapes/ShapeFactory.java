@@ -134,9 +134,9 @@ public class ShapeFactory {
                 data.add(Float.parseFloat("1"));
                 data.add(Float.parseFloat("5"));
                 data.add(Float.parseFloat("5"));
-                data.add(Float.parseFloat("10"));
-                data.add(Float.parseFloat("10"));
-                data.add(Float.parseFloat("10"));
+                data.add(Float.parseFloat("1"));
+                data.add(Float.parseFloat("5"));
+                data.add(Float.parseFloat("5"));
                 instance = getInstance(ARROW, data, Color.GREY,"Arrow");
                 break;
             case SQUARE:
