@@ -1,7 +1,7 @@
 package View.ShapeMenu;
 
 import Controller.ShapeMenuController;
-import View.ControllerSuperclass;
+import View.ViewControllers.ControllerSuperclass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;

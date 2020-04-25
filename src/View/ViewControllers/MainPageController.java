@@ -1,4 +1,4 @@
-package View;
+package View.ViewControllers;
 
 import Controller.LatexController;
 import Controller.ScreenHandler;
@@ -20,7 +20,6 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**

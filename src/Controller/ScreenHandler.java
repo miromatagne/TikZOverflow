@@ -1,6 +1,6 @@
 package Controller;
 
-import View.ControllerSuperclass;
+import View.ViewControllers.ControllerSuperclass;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -77,10 +77,10 @@ public class ScreenHandler extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        addScene("/View/LoginScreen.fxml");
-        addScene("/View/MainPage.fxml");
-        addScene("/View/accountCreation.fxml");
-        addScene("/View/accountModification.fxml");
+        addScene("/View/FXML/LoginScreen.fxml");
+        addScene("/View/FXML/MainPage.fxml");
+        addScene("/View/FXML/accountCreation.fxml");
+        addScene("/View/FXML/accountModification.fxml");
         if (screens.isEmpty())
             throw new Exception("Failed to add all scenes");
         scene = new Scene(screens.get(LOGIN_SCREEN));
@@ -125,7 +125,7 @@ public class ScreenHandler extends Application {
      * @throws IOException when terms and conditions file doesn't exist.
      */
     public void tcuWindow() throws IOException {
-        Parent tcuRoot = FXMLLoader.load(getClass().getResource("/View/termsAndConditions.fxml"));
+        Parent tcuRoot = FXMLLoader.load(getClass().getResource("/View/FXML/termsAndConditions.fxml"));
         Scene tcuScene = new Scene(tcuRoot);
         Stage tcuStage = new Stage();
         tcuStage.initModality(Modality.APPLICATION_MODAL);

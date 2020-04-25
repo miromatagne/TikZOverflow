@@ -3,7 +3,7 @@ package Controller;
 import Model.FieldChecker;
 import Model.Shapes.ShapeFactory;
 import Model.Shapes.Shape;
-import View.MainPageController;
+import View.ViewControllers.MainPageController;
 import View.ShapeMenu.AllShapeMenus.MenuController;
 import View.ShapeMenu.ShapeMenuViewController;
 import javafx.fxml.FXMLLoader;

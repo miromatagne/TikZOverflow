@@ -1,4 +1,4 @@
-package View;
+package View.ViewControllers;
 
 import Controller.ScreenHandler;
 import Controller.Session;
@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 /**
  * Controller for the modification screen that contains the methods used by the buttons and to update the textfields.
  */
-public class ModificationController extends ControllerSuperclass implements Initializable {
+public class AccountModificationController extends ControllerSuperclass implements Initializable {
 
     //Attribut
     @FXML

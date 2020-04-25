@@ -1,8 +1,7 @@
 package Controller;
 
 import Model.User;
-import View.ControllerSuperclass;
-import View.MainPageController;
+import View.ViewControllers.MainPageController;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

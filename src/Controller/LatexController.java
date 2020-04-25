@@ -3,7 +3,7 @@ package Controller;
 import Model.FileHandler;
 import Model.LatexCompiler;
 import Model.PDFHandler;
-import View.MainPageController;
+import View.ViewControllers.MainPageController;
 import javafx.scene.image.Image;
 
 
