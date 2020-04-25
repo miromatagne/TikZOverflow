@@ -5,6 +5,7 @@ import Model.LatexCompiler;
 import Model.PDFHandler;
 import View.MainPageController;
 import javafx.scene.image.Image;
+import org.apache.commons.logging.Log;
 
 
 import java.io.FileInputStream;

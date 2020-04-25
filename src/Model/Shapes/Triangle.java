@@ -56,23 +56,21 @@ public class Triangle extends Node{
     }
 
     @Override
-    public void setPosX(float posX) {
-        super.setPosX(posX);
-        float distance12 = getX1() - getX2();
-        float distance13 = getX1() - getX3();
-        x1 = posX;
-        x2 = posX + distance12;
-        x3 = posX + distance13;
+    public void setPosX(float x) {
+        float distance12 = getX2() - getX1();
+        float distance13 = getX3() - getX1();
+        x1 = x;
+        x2 = x + distance12;
+        x3 = x + distance13;
     }
 
     @Override
-    public void setPosY(float posY) {
-        super.setPosY(posY);
-        float distance12 = getY1() - getY2();
-        float distance13 = getY1() - getY3();
-        y1 = posY;
-        y2 = posY + distance12;
-        y3 = posY + distance13;
+    public void setPosY(float y) {
+        float distance12 = getY2() - getY1();
+        float distance13 = getY3() - getY1();
+        y1 = y;
+        y2 = y + distance12;
+        y3 = y + distance13;
     }
 
 }

@@ -61,4 +61,5 @@ public class Arrow extends Link {
     public void setArrowHeadWidth(float arrowHeadWidth) {
         this.arrowHeadWidth = arrowHeadWidth;
     }
+
 }

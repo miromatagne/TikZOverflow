@@ -337,7 +337,6 @@ public class FileHandler {
     public void clearErrors(){
         ERRORS = "";
         ERRORS_COUNTER = 0;
-        System.out.println("Called");
     }
 
     /**

@@ -34,4 +34,5 @@ public class Line extends Link {
         code += " (" + getxDestination() + "," + getyDestination() + ");\n";
         return code ;
     }
+
 }

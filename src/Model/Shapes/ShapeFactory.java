@@ -98,42 +98,42 @@ public class ShapeFactory {
         switch(id) {
             case RECTANGLE:
                 data.add(Float.parseFloat("0"));
-                data.add(Float.parseFloat("1"));
+                data.add(Float.parseFloat("0"));
                 data.add(Float.parseFloat("3"));
                 data.add(Float.parseFloat("4"));
-                data.add(Float.parseFloat("50"));
+                data.add(Float.parseFloat("3"));
                 instance = getInstance(RECTANGLE, data, Color.GREY,"Rectangle");
                 break;
             case CIRCLE:
                 data.add(Float.parseFloat("0"));
                 data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("2"));
                 data.add(Float.parseFloat("3"));
-                data.add(Float.parseFloat("50"));
                 instance = getInstance(CIRCLE, data, Color.GREY,"Circle");
                 break;
             case LINE:
                 data.add(Float.parseFloat("0"));
                 data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("4"));
+                data.add(Float.parseFloat("4"));
                 data.add(Float.parseFloat("1"));
-                data.add(Float.parseFloat("1"));
-                data.add(Float.parseFloat("50"));
                 instance = getInstance(LINE, data, Color.GREY, "Line");
                 break;
             case CURVED_LINE:
                 data.add(Float.parseFloat("0"));
                 data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("4"));
+                data.add(Float.parseFloat("4"));
                 data.add(Float.parseFloat("1"));
-                data.add(Float.parseFloat("1"));
-                data.add(Float.parseFloat("50"));
-                data.add(Float.parseFloat("1"));
-                data.add(Float.parseFloat("1"));
+                data.add(Float.parseFloat("90"));
+                data.add(Float.parseFloat("-90"));
                 instance = getInstance(CURVED_LINE, data, Color.GREY, "Curved line");
                 break;
             case ARROW:
                 data.add(Float.parseFloat("1"));
                 data.add(Float.parseFloat("1"));
-                data.add(Float.parseFloat("5"));
-                data.add(Float.parseFloat("5"));
+                data.add(Float.parseFloat("4"));
+                data.add(Float.parseFloat("4"));
                 data.add(Float.parseFloat("1"));
                 data.add(Float.parseFloat("5"));
                 data.add(Float.parseFloat("5"));
@@ -144,17 +144,17 @@ public class ShapeFactory {
                 data.add(Float.parseFloat("0"));
                 data.add(Float.parseFloat("4"));
                 data.add(Float.parseFloat("4"));
-                data.add(Float.parseFloat("50"));
+                data.add(Float.parseFloat("3"));
                 instance = getInstance(RECTANGLE, data, Color.GREY,"Square");
                 break;
             case TRIANGLE:
                 data.add(Float.parseFloat("0"));
                 data.add(Float.parseFloat("0"));
+                data.add(Float.parseFloat("2"));
                 data.add(Float.parseFloat("3"));
+                data.add(Float.parseFloat("5"));
+                data.add(Float.parseFloat("0"));
                 data.add(Float.parseFloat("3"));
-                data.add(Float.parseFloat("1"));
-                data.add(Float.parseFloat("1"));
-                data.add(Float.parseFloat("1"));
                 instance = getInstance(TRIANGLE, data, Color.GREY,"Triangle");
                 break;
         }

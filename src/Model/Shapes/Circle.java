@@ -35,14 +35,12 @@ public class Circle extends Node {
     }
 
     @Override
-    public void setPosX(float posX) {
-        super.setPosX(posX);
-        setXCenter(posX);
+    public void setPosX(float x) {
+        setXCenter((float) (x+radius*0.7));
     }
 
     @Override
-    public void setPosY(float posY) {
-        super.setPosY(posY);
-        setYCenter(posY);
+    public void setPosY(float y) {
+        setYCenter((float) (y+radius*0.7));
     }
 }

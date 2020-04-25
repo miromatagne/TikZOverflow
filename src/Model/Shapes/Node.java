@@ -23,14 +23,14 @@ public abstract class Node extends Shape {
 
     public void setXCenter(float xCenter) {
         this.xCenter = xCenter;
+        super.setPosX(xCenter);
     }
 
-    public float getYCenter() {
-        return yCenter;
-    }
+    public float getYCenter() { return yCenter; }
 
     public void setYCenter(float yCenter) {
         this.yCenter = yCenter;
+        super.setPosY(yCenter);
     }
 
     public float getOutlineThickness() {
@@ -40,4 +40,8 @@ public abstract class Node extends Shape {
     public void setOutlineThickness(float outlineThickness) {
         this.outlineThickness = outlineThickness;
     }
+
+    public abstract void setPosX(float x);
+
+    public abstract void setPosY(float y);
 }

@@ -67,7 +67,7 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     @FXML
     private ImageView imageCircle, imageRectangle, imageTriangle, imageArrow, imageLine, imageCurvedLine, imageSquare;
     private ImageView movingImage;
-
+    private int movingShapeID;
     private Shape movingShape;
 
     final static int RECTANGLE = 0;
@@ -155,7 +155,6 @@ public class MainPageController extends ControllerSuperclass implements Initiali
             String errors = latexController.getFileHandler().getErrors();
 
             codeInterface.setStyle("-fx-border-color: #3A3A3A; -fx-border-insets: 0,0,0,0; -fx-focus-traversable: false; -fx-border-width: 2; -fx-background-color: transparent; -fx-text-fill: #ff1200; -fx-highlight-fill: blue; -fx-highlight-text-fill: red; -fx-control-inner-background: #404040; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;");
-            codeInterface.setText("You got " + errorsCount + " errors on the last compilation \n" + errors);
         }
     }
 
@@ -254,8 +253,6 @@ public class MainPageController extends ControllerSuperclass implements Initiali
 
         predefinedShapesPanelController = new PredefinedShapesPanelController();
         initializeImageButton();
-
-
     }
 
     /**
@@ -327,8 +324,13 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         imageButton.fitHeightProperty().bind(button.heightProperty().multiply(0.6));
     }
 
-    private void createDragAndDrop(MouseEvent event){
-        Dragboard db = movingImage.startDragAndDrop(TransferMode.ANY);
+    /**
+     * This method creates the drag of the mouse
+     * @param event             Mouse event
+     * @param button            The source of the drag
+     */
+    private void createDragAndDrop(MouseEvent event, Button button){
+        Dragboard db = button.startDragAndDrop(TransferMode.ANY);
         ClipboardContent cb = new ClipboardContent();
         cb.putString("shapeTransfer");
         db.setContent(cb);
@@ -341,79 +343,127 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      */
     public void circleClicked(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(CIRCLE);
-        createMovingImage("defaultCircle.png", mouseEvent);
-        createDragAndDrop(mouseEvent);
+        movingShapeID = CIRCLE;
+        createDragAndDrop(mouseEvent, buttonCircle);
     }
 
     public void rectangleClicked(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(RECTANGLE);
-        createMovingImage("defaultRectangle.png", mouseEvent);
-        createDragAndDrop(mouseEvent);
+        movingShapeID = RECTANGLE;
+        createDragAndDrop(mouseEvent, buttonRectangle);
     }
 
     public void lineClicked(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(LINE);
-        createMovingImage("defaultLine.png", mouseEvent);
-        createDragAndDrop(mouseEvent);
+        movingShapeID = LINE;
+        createDragAndDrop(mouseEvent, buttonLine);
     }
 
     public void curvedLineClicked(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(CURVED_LINE);
-        createMovingImage("defaultCurvedLine.png", mouseEvent);
-        createDragAndDrop(mouseEvent);
+        movingShapeID = CURVED_LINE;
+        createDragAndDrop(mouseEvent, buttonCurvedLine);
     }
 
     public void arrowClicked(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(ARROW);
-        createMovingImage("defaultArrow.png", mouseEvent);
-        createDragAndDrop(mouseEvent);
+        movingShapeID = ARROW;
+        createDragAndDrop(mouseEvent, buttonArrow);
     }
 
     public void squareClicked(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(SQUARE);
-        createMovingImage("defaultSquare.png", mouseEvent);
-        createDragAndDrop(mouseEvent);
+        movingShapeID = SQUARE;
+        createDragAndDrop(mouseEvent, buttonSquare);
     }
 
     public void triangleClicked(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(TRIANGLE);
-        createMovingImage("defaultTriangle.png", mouseEvent);
-        createDragAndDrop(mouseEvent);
+        movingShapeID = TRIANGLE;
+        createDragAndDrop(mouseEvent, buttonTriangle);
     }
 
-    public void createMovingImage(String path, MouseEvent mouseEvent){
+    public void createMovingImage(String path){
         Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
-        Button button = (Button) mouseEvent.getSource();
         movingImage = new ImageView(path);
         movingImage.setFitHeight(50);
         movingImage.setFitWidth(50);
-        movingImage.setTranslateX(mouseEvent.getX() + button.getLayoutX());
-        movingImage.setTranslateY(mouseEvent.getY() + button.getLayoutY());
         ((GridPane) root).getChildren().add(movingImage);
     }
 
-
+    /**
+     * This method drop the shape at the position of the mouse
+     * @param event
+     */
     public void handleDragDropped(DragEvent event){
         float x = (float) event.getX();
         float y = (float) event.getY();
-        System.out.println("x: " + x +" y:" + y);
-
         if(movingImage != null) {
             Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
             ((GridPane) root).getChildren().remove(movingImage);
         }
         if(movingShape != null) {
-            movingShape.setPosX(x);
-            movingShape.setPosY(y);
+            float convertedX = (float) ((float)(x/33.17757) - 1.25);
+            float convertedY = (float) (19.75 - (float)(y/33.07393));
+            movingShape.setPosX(convertedX);
+            movingShape.setPosY(convertedY);
             addShape(movingShape);
             movingShape = null;
         }
+        try {
+            compile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * This method create an image of the dragged shape if the mouse enters the PDF area
+     * @param event
+     */
+    public void handleDragEntered(DragEvent event){
+        if(movingShapeID == CIRCLE){
+            createMovingImage("defaultCircle.png");
+        }
+        else if(movingShapeID == RECTANGLE){
+            createMovingImage("defaultRectangle.png");
+        }
+        else if(movingShapeID == LINE){
+            createMovingImage("defaultLine.png");
+        }
+        else if(movingShapeID == CURVED_LINE){
+            createMovingImage("defaultCurvedLine.png");
+        }
+        else if(movingShapeID == ARROW){
+            createMovingImage("defaultArrow.png");
+        }
+        else if(movingShapeID == SQUARE){
+            createMovingImage("defaultSquare.png");
+        }
+        else if(movingShapeID == TRIANGLE){
+            createMovingImage("defaultTriangle.png");
+        }
+    }
+
+    /**
+     * This method remove the image of the dragged shape if the mouse exits the PDF are
+     * @param event
+     */
+    public void handleDragExited(DragEvent event){
+        if(movingImage != null) {
+            Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
+            ((GridPane) root).getChildren().remove(movingImage);
+        }
+    }
+
+    /**
+     * This method shows the accessible zone for the drop
+     * @param event
+     */
     public void handleDragOver(DragEvent event){
         if(movingImage != null) {
-            movingImage.setTranslateX(event.getX()+buttonArrow.getLayoutX()*2);
-            movingImage.setTranslateY(event.getY()+buttonArrow.getLayoutY()*2);
+            movingImage.setTranslateX(event.getX()+buttonArrow.getLayoutX()*1.95);
+            movingImage.setTranslateY(event.getY()-45);
         }
         event.acceptTransferModes(TransferMode.ANY);
     }

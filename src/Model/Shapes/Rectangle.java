@@ -46,4 +46,14 @@ public class Rectangle extends Node {
     public void setWidth(float width) {
         this.width = width;
     }
+
+    @Override
+    public void setPosX(float x) {
+        setXCenter(x);
+    }
+
+    @Override
+    public void setPosY(float y) {
+        setYCenter(y);
+    }
 }
