@@ -38,7 +38,7 @@ public class LatexController {
     /**
      * Compiles current source code to a .pdf file.
      *
-     * @param sourceCode
+     * @param sourceCode Source code to be compiled
      * @return String with error count
      * @throws IOException If reading the log was unsuccessful
      */
@@ -90,7 +90,7 @@ public class LatexController {
     /**
      * Save current source code in .tex file
      *
-     * @param sourceCode
+     * @param sourceCode Source code to be saved
      */
     public void saveTikz(String sourceCode) {
         fileHandler.makeTexFile(Session.getInstance().getUser(), sourceCode);

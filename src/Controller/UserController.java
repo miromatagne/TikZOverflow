@@ -3,31 +3,33 @@ package Controller;
 import Model.FieldChecker;
 import Model.FileHandler;
 import Model.User;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import View.ViewControllers.AccountController;
+import View.ViewControllers.LoginScreenController;
 
 /**
  * Handles all requests regarding the user coming from View.
  */
 public class UserController {
     private User userCurrent = new User();
-    private TextField firstNameField;
-    private TextField lastNameField;
-    private TextField emailField;
-    private PasswordField passwordField;
-    private PasswordField passwordConfirmationField;
-    private TextField usernameField;
+    private AccountController accountController;
+    private LoginScreenController loginScreenController;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+    private String passwordConfirmation;
+    private String username;
 
     /**
      * If all fields are valid, modifies the user's info.
      */
     public void validateModification() {
         if (validateInformation()) {
-            userCurrent.setUsername(usernameField.getText());
-            userCurrent.setLastName(lastNameField.getText());
-            userCurrent.setFirstName(firstNameField.getText());
-            userCurrent.setMail(emailField.getText());
-            userCurrent.setPassword(passwordField.getText());
+            userCurrent.setUsername(username);
+            userCurrent.setLastName(lastName);
+            userCurrent.setFirstName(firstName);
+            userCurrent.setMail(email);
+            userCurrent.setPassword(password);
             Session.getInstance().setUser(userCurrent);
             FileHandler handler = new FileHandler();
             if (!handler.saveUser(userCurrent)) {
@@ -44,81 +46,84 @@ public class UserController {
      */
     public boolean validateInformation() {
         FieldChecker fieldChecker = new FieldChecker();
-        String defaultTextFieldStyle = "-fx-text-inner-color: black;";
-        String redTextFieldStyle = "-fx-text-inner-color: red; -fx-text-box-border: red;";
-        if (!fieldChecker.isValidUsername(usernameField.getText())) usernameField.setStyle(redTextFieldStyle);
-        else usernameField.setStyle(defaultTextFieldStyle);
-        if (!fieldChecker.isValidName(firstNameField.getText())) {
-            firstNameField.setStyle(redTextFieldStyle);
+        if (!fieldChecker.isValidUsername(username)) {
+            accountController.setTextFieldStyle("username", "red");
         } else {
-            firstNameField.setStyle(defaultTextFieldStyle);
+            accountController.setTextFieldStyle("username", "default");
         }
-        if (!fieldChecker.isValidName(lastNameField.getText())) {
-            lastNameField.setStyle(redTextFieldStyle);
+        if (!fieldChecker.isValidName(firstName)) {
+            accountController.setTextFieldStyle("firstName", "red");
         } else {
-            lastNameField.setStyle(defaultTextFieldStyle);
+            accountController.setTextFieldStyle("firstName", "default");
         }
-        if (!fieldChecker.isValidMail(emailField.getText())) {
-            emailField.setStyle(redTextFieldStyle);
+        if (!fieldChecker.isValidName(lastName)) {
+            accountController.setTextFieldStyle("lastName", "red");
         } else {
-            emailField.setStyle(defaultTextFieldStyle);
+            accountController.setTextFieldStyle("lastName", "default");
         }
-        if (!passwordField.getText().equals(passwordConfirmationField.getText()) || passwordField.getText().equals("")) {
-            passwordField.setStyle(redTextFieldStyle);
-            passwordConfirmationField.setStyle(redTextFieldStyle);
+        if (!fieldChecker.isValidMail(email)) {
+            accountController.setTextFieldStyle("email", "red");
         } else {
-            passwordField.setStyle(defaultTextFieldStyle);
-            passwordConfirmationField.setStyle(defaultTextFieldStyle);
+            accountController.setTextFieldStyle("email", "default");
+        }
+        if (!password.equals(passwordConfirmation) || password.equals("")) {
+            accountController.setTextFieldStyle("password", "red");
+            accountController.setTextFieldStyle("passwordConfirmation", "red");
+        } else {
+            accountController.setTextFieldStyle("password", "default");
+            accountController.setTextFieldStyle("passwordConfirmation", "default");
         }
 
-        return fieldChecker.isValidAccount(usernameField.getText(), firstNameField.getText(), lastNameField.getText(), emailField.getText(), passwordField.getText(), passwordConfirmationField.getText());
+        return fieldChecker.isValidAccount(username, firstName, lastName, email, password, passwordConfirmation);
     }
 
     /**
      * Checks if the username and password are correct with the session object. If they are, the user gets to his main screen.
      * If not, the incorrect credentials are highlighted in red.
-     *
-     * @param usernameField Username field on the Login Screen.
-     * @param passwordField Password field on the Login Screen.
      */
-    public void validateLogin(TextField usernameField, PasswordField passwordField) {
+    public void validateLogin() {
         Session session = Session.getInstance();
-        int valid = session.openSession(usernameField.getText(), passwordField.getText());
-        final String redTextFieldStyle = "-fx-text-inner-color: red; -fx-text-box-border: red;";
-        final String defaultTextFieldStyle = "-fx-text-inner-color: black;";
+        int valid = session.openSession(username, password);
         if (valid == Session.CONNECTION_ESTABLISHED) {
             ScreenHandler.changeScene(ScreenHandler.MAIN_PAGE);
         } else if (valid == Session.USER_NOT_REGISTERED) {
-            usernameField.setStyle(redTextFieldStyle);
+            loginScreenController.setTextFieldStyle("username", "red");
         } else if (valid == Session.INVALID_PASSWORD) {
-            passwordField.setStyle(redTextFieldStyle);
-            usernameField.setStyle(defaultTextFieldStyle);
+            loginScreenController.setTextFieldStyle("password", "red");
+            loginScreenController.setTextFieldStyle("username", "default");
         }
     }
 
-    public void setFirstNameField(TextField firstNameField) {
-        this.firstNameField = firstNameField;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setLastNameField(TextField lastNameField) {
-        this.lastNameField = lastNameField;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public void setEmailField(TextField emailField) {
-        this.emailField = emailField;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setPasswordField(PasswordField passwordField) {
-        this.passwordField = passwordField;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setPasswordConfirmationField(PasswordField passwordConfirmationField) {
-        this.passwordConfirmationField = passwordConfirmationField;
+    public void setPasswordConfirmation(String passwordConfirmation) {
+        this.passwordConfirmation = passwordConfirmation;
 
     }
 
-    public void setUsernameField(TextField usernameField) {
-        this.usernameField = usernameField;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
+    public void setAccountController(AccountController accountController) {
+        this.accountController = accountController;
+    }
+
+    public void setLoginScreenController(LoginScreenController loginScreenController) {
+        this.loginScreenController = loginScreenController;
+    }
 }

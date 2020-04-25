@@ -33,7 +33,27 @@ public class LoginScreenController extends ControllerSuperclass implements Initi
      */
     public void login() {
         UserController userController = new UserController();
-        userController.validateLogin(usernameField, passwordField);
+        userController.setUsername(usernameField.getText());
+        userController.setPassword(passwordField.getText());
+        userController.setLoginScreenController(this);
+        userController.validateLogin();
+    }
+
+    /**
+     * Change TextField style. Used when a field is not correct.
+     * @param field Name of the field that must change
+     * @param style New style to be applied. If different from "red",  it's
+     *              considered to be "default".
+     */
+    public void setTextFieldStyle(String field, String style){
+        String textFieldStyle = "-fx-text-inner-color: black;";
+        if(style.equals("red")) {
+            textFieldStyle = "-fx-text-inner-color: red; -fx-text-box-border: red;";
+        }
+        switch (field){
+            case "username": usernameField.setStyle(textFieldStyle);break;
+            case "password": passwordField.setStyle(textFieldStyle);break;
+        }
     }
 
     /**
