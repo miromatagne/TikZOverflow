@@ -52,8 +52,13 @@ public class AccountModificationController extends AccountController implements 
         lastNameField.setText(userCurrent.getLastName());
         emailField.setText(userCurrent.getMail());
         passwordField.setText(userCurrent.getPassword());
-        emailField.setText(userCurrent.getMail());
         passwordConfirmationField.setText("");
+
+        setTextFieldStyle("firstName", "default");
+        setTextFieldStyle("lastName", "default");
+        setTextFieldStyle("email", "default");
+        setTextFieldStyle("password", "default");
+        setTextFieldStyle("passwordConfirmation", "default");
     }
 
 
