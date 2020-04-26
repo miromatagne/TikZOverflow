@@ -72,6 +72,8 @@ public class ShapeMenuController {
 
     /**
      * Add the scenes for all the shape menus to the ArrayList.
+     *
+     * @throws AddSceneException when a scene can not be added
      */
     public void setUpScenes() throws AddSceneException {
         addScene("/View/ShapeMenu/FxmlFiles/rectangleMenu.fxml");
@@ -99,6 +101,7 @@ public class ShapeMenuController {
      * Add a scene to the array list containing all the menus and add its controller to an array too
      *
      * @param scenePath Path to the corresponding fxml file
+     * @throws AddSceneException when the fxml file is not loaded successfully
      */
     private void addScene(String scenePath) throws AddSceneException {
         try {

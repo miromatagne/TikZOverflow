@@ -57,6 +57,7 @@ public class ScreenHandler extends Application {
      * Controller.
      *
      * @param scenePath String containing the path of the fxml file that will be loaded.
+     * @throws AddSceneException when the loading of the fxml is unsuccessful
      */
 
     private void addScene(String scenePath) throws AddSceneException {

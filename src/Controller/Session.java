@@ -38,14 +38,15 @@ public class Session {
      * @return              0 if successful
      *                      -1 if wrong username
      *                      -2 if wrong password
+     * @throws SessionOpeningException when there is a problem while getting a user to open his session
      */
     public int openSession(String username, String password) throws SessionOpeningException {
         try {
             fileHandler.setupSaveUserDirectory("save user");
-            currentUser = fileHandler.getUserFromSave(username);
-            if (currentUser == null) {
+            if (!fileHandler.saveUserExists(username)){
                 return USER_NOT_REGISTERED; //User is not registered
             } else {
+                currentUser = fileHandler.getUserFromSave(username);
                 if (password.equals(currentUser.getPassword())) {
                     System.out.println("Connected user : " + currentUser.getUsername());
                     System.out.println("Connected user password : " + currentUser.getPassword());

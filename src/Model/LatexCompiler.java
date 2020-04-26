@@ -26,7 +26,7 @@ public class LatexCompiler {
      *
      * @param input The inputstream from which the string will be extracted
      * @return The complete string coming from the stream
-     * @throws IOException If the .readLine throw an exception, getLines will throw it to an upper function
+     * @throws IOException If the readLine throw an exception, getLines will throw it to an upper function
      */
     private static String getLines(InputStream input) throws IOException {
         String line;
@@ -48,10 +48,6 @@ public class LatexCompiler {
      *                   - The second one is if an error occur during the compilation
      */
     public static void runProcess(String filePath) throws LatexCompilationException {
-        //Check if the filePath is valid
-        /*if (!isFileValid(filePath)) {
-            throw new Exception("Error in compiling the latex : " + filePath + "is not valid");
-        }*/
         try {
             String command = "pdflatex -file-line-error -interaction=nonstopmode -synctex=1 " +
                     "-output-format=pdf -output-directory " + DEFAULT_OUTPUT_DIRECTORY + " " + filePath;
@@ -64,8 +60,5 @@ public class LatexCompiler {
         } catch (IOException | InterruptedException e){
             throw new LatexCompilationException(e);
         }
-        /*if (pro.exitValue() != 0) {
-            throw new Exception("Error code : " + pro.exitValue());
-        }*/
     }
 }

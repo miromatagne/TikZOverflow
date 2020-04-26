@@ -1,7 +1,8 @@
 package Model.Exceptions;
 
-import java.io.IOException;
-
+/**
+ * Exception of compilation of the latex file
+ */
 public class LatexCompilationException extends Exception {
 
 

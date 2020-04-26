@@ -29,16 +29,14 @@ public class FileHandler {
      * Setups the directory for users' saves.
      *
      * @param saveUserDirectory Path to the directory users' saves
-     * @return TRUE if the setup is made successfully
-     * FALSE otherwise
      */
-    public boolean setupSaveUserDirectory(String saveUserDirectory) {
+    public void setupSaveUserDirectory(String saveUserDirectory) {
         if (saveUserDirectory == null || saveUserDirectory.equals("")) {
-            return false;
+            return;
         }
         this.saveUserDirectory = saveUserDirectory;
         File file = new File(saveUserDirectory);
-        return checkAndCreateSaveDirectory(file);
+        checkAndCreateSaveDirectory(file);
     }
 
     /**
@@ -60,18 +58,12 @@ public class FileHandler {
      * Checks if the directory exists. Otherwise, creates it.
      *
      * @param file File created with path to the save_user directory
-     * @return TRUE if the directory already exists OR if the
-     * creation of the directory is successful
-     * FALSE if the creation of the directory failed
      */
-    private boolean checkAndCreateSaveDirectory(File file) {
-        if (file == null) {
-            return false;
-        }
+    private void checkAndCreateSaveDirectory(File file) {
         if (file.exists() && file.isDirectory()) {
-            return true;
+            return;
         }
-        return file.mkdir();
+        file.mkdir();
     }
 
     /**
@@ -94,6 +86,7 @@ public class FileHandler {
      * Creates a save corresponding to given user.
      *
      * @param user User to be saved in a text file
+     * @throws SaveUserCreationException when the creation of the user save failed
      */
     public void createUserSave(User user) throws SaveUserCreationException {
         if (saveUserDirectory.equals("")) {
@@ -118,6 +111,7 @@ public class FileHandler {
      *
      * @param user       User for whom the .tex file will be created/updated
      * @param sourceCode String from the compiling text area
+     * @throws LatexWritingException when the text has not be written successfully in the tex file
      */
     public void makeTexFile(User user, String sourceCode) throws LatexWritingException {
         try {
@@ -146,6 +140,7 @@ public class FileHandler {
      *
      * @param user User to be saved.
      * @param file File in which to write.
+     * @throws SaveWritingException when the save could not be written
      */
     private void writeSave(User user, File file) throws SaveWritingException {
         try {
@@ -160,6 +155,7 @@ public class FileHandler {
      * Save the user in the user directory
      *
      * @param user user contain all the new data to be saved
+     * @throws SaveUserException when the user save could not be written
      */
     public void saveUser(User user) throws SaveUserException {
         if (saveUserDirectory.equals("")) {
@@ -181,6 +177,7 @@ public class FileHandler {
      *
      * @param file File written
      * @param text Content to write
+     * @throws IOException when a IO error occurs
      */
     public void writeInFile(File file, String text) throws IOException {
         FileWriter fw = new FileWriter(file);
@@ -194,6 +191,7 @@ public class FileHandler {
      * Read the text in a File
      *
      * @param path File path.
+     * @return text in the file
      * @throws IOException if error in IO interactions
      */
     public String readInFile(String path) throws IOException{
@@ -215,6 +213,7 @@ public class FileHandler {
      *
      * @param username Username (identifying users)
      * @return User created
+     * @throws UserFromSaveCreationException when then user can not be created from the save corresponding to the username given
      */
     public User getUserFromSave(String username) throws UserFromSaveCreationException {
         try {
@@ -248,6 +247,7 @@ public class FileHandler {
      * @param file File corresponding to user save file
      * @param flag Flag to extract the information from
      * @return Information needed, or empty string if empty file/flag
+     * @throws IOException if any IO error interaction occurs
      */
     private String getInformation(File file, String flag) throws IOException{
         if (file == null || flag.equals("")) {
@@ -273,6 +273,7 @@ public class FileHandler {
      *
      * @param file File corresponding to user save file
      * @param user User whose last name is set
+     * @throws IOException if any IO error interaction occurs
      */
     private void setUserLastName(File file, User user) throws IOException{
         String temp;
@@ -286,6 +287,7 @@ public class FileHandler {
      *
      * @param file File corresponding to user save file
      * @param user User whose first name is set
+     * @throws IOException if any IO error interaction occurs
      */
     private void setUserFirstName(File file, User user) throws IOException{
         String temp;
@@ -299,6 +301,7 @@ public class FileHandler {
      *
      * @param file File corresponding to user save file
      * @param user User whose mail is set
+     * @throws IOException if any IO error interaction occurs
      */
     private void setUserMail(File file, User user) throws IOException{
         String temp;
@@ -312,6 +315,7 @@ public class FileHandler {
      *
      * @param file File corresponding to user save file
      * @param user User whose password is set
+     * @throws IOException if any IO error interaction occurs
      */
     private void setUserPassword(File file, User user) throws IOException{
         String temp;
