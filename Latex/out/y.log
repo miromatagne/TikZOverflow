@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.3.18)  26 APR 2020 13:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.3.18)  26 APR 2020 13:54
 entering extended mode
 **./Latex/y.tex
 (Latex/y.tex
@@ -438,17 +438,17 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 {C:/Users/Andre/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] (C:\Users\A
 ndre\IdeaProjects\TikzOverflow\Latex\out\y.aux) ) 
 Here is how much of TeX's memory you used:
- 11780 strings out of 481556
- 249257 string characters out of 2913869
+ 11781 strings out of 481556
+ 249276 string characters out of 2913869
  452931 words of memory out of 3000000
- 26853 multiletter control sequences out of 15000+200000
+ 26854 multiletter control sequences out of 15000+200000
  532338 words of font info for 24 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,6n,67p,419b,655s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/Andre/AppData/Local/
 Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
 Output written on C:\Users\Andre\IdeaProjects\TikzOverflow\Latex\out\y.pdf (1 p
-age, 12506 bytes).
+age, 12651 bytes).
 PDF statistics:
  13 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
