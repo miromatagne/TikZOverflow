@@ -7,7 +7,7 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" style="-fx-background-color: #4D4D4D;" minHeight="200" minWidth="500.0"
       prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
-      fx:controller="View.ViewControllers.AccountCreationController">
+      fx:controller="View.ViewControllers.AccountCreationViewController">
     <HBox alignment="TOP_CENTER" prefHeight="370.0" prefWidth="600.0">
         <VBox alignment="CENTER_LEFT" prefHeight="239.0" prefWidth="170.0">
             <Pane prefHeight="72.0" prefWidth="161.0">

@@ -1,5 +1,6 @@
 package View.ViewControllers;
 
+import Controller.AccountCreationController;
 import Controller.ScreenHandler;
 import Controller.Session;
 import Controller.UserController;
@@ -19,7 +20,7 @@ import java.util.ResourceBundle;
 /**
  * Handles account creation interface elements.
  */
-public class AccountCreationController extends AccountController implements Initializable {
+public class AccountCreationViewController extends AccountController implements Initializable {
     @FXML
     TextField usernameField, firstNameField, lastNameField, emailField;
     @FXML
@@ -31,7 +32,7 @@ public class AccountCreationController extends AccountController implements Init
     @FXML
     Button createAccountButton;
 
-    ScreenHandler screenHandler = new ScreenHandler();
+    private AccountCreationViewControllerListener listener;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -115,5 +116,13 @@ public class AccountCreationController extends AccountController implements Init
      */
     private void changeCursorToHand(Text text) {
         text.setCursor(Cursor.HAND);
+    }
+
+    public void setListener(AccountCreationViewControllerListener listener) {
+        this.listener = listener;
+    }
+
+    public interface AccountCreationViewControllerListener{
+
     }
 }

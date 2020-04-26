@@ -4,7 +4,7 @@ import Model.FieldChecker;
 import Model.FileHandler;
 import Model.User;
 import View.ViewControllers.AccountController;
-import View.ViewControllers.LoginScreenController;
+import View.ViewControllers.LoginScreenViewController;
 
 /**
  * Handles all requests regarding the user coming from View.
@@ -12,7 +12,7 @@ import View.ViewControllers.LoginScreenController;
 public class UserController {
     private User userCurrent = new User();
     private AccountController accountController;
-    private LoginScreenController loginScreenController;
+    private LoginScreenViewController loginScreenViewController;
     private String firstName;
     private String lastName;
     private String email;
@@ -77,22 +77,7 @@ public class UserController {
         return fieldChecker.isValidAccount(username, firstName, lastName, email, password, passwordConfirmation);
     }
 
-    /**
-     * Checks if the username and password are correct with the session object. If they are, the user gets to his main screen.
-     * If not, the incorrect credentials are highlighted in red.
-     */
-    public void validateLogin() {
-        Session session = Session.getInstance();
-        int valid = session.openSession(username, password);
-        if (valid == Session.CONNECTION_ESTABLISHED) {
-            ScreenHandler.changeScene(ScreenHandler.MAIN_PAGE);
-        } else if (valid == Session.USER_NOT_REGISTERED) {
-            loginScreenController.setTextFieldStyle("username", "red");
-        } else if (valid == Session.INVALID_PASSWORD) {
-            loginScreenController.setTextFieldStyle("password", "red");
-            loginScreenController.setTextFieldStyle("username", "default");
-        }
-    }
+
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -123,7 +108,7 @@ public class UserController {
         this.accountController = accountController;
     }
 
-    public void setLoginScreenController(LoginScreenController loginScreenController) {
-        this.loginScreenController = loginScreenController;
+    public void setLoginScreenViewController(LoginScreenViewController loginScreenViewController) {
+        this.loginScreenViewController = loginScreenViewController;
     }
 }

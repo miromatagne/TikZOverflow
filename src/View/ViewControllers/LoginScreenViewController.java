@@ -2,7 +2,6 @@ package View.ViewControllers;
 
 
 import Controller.ScreenHandler;
-import Controller.UserController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -16,7 +15,7 @@ import java.util.ResourceBundle;
 /**
  * Handles Login screen interface interactions.
  */
-public class LoginScreenController extends ControllerSuperclass implements Initializable {
+public class LoginScreenViewController extends ControllerSuperclass implements Initializable {
     @FXML
     TextField usernameField;
     @FXML
@@ -24,6 +23,7 @@ public class LoginScreenController extends ControllerSuperclass implements Initi
     @FXML
     Label signUpLabel;
 
+    private LoginScreenViewControllerListener listener;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
@@ -32,11 +32,7 @@ public class LoginScreenController extends ControllerSuperclass implements Initi
      * Tries to login with filled in username and password.
      */
     public void login() {
-        UserController userController = new UserController();
-        userController.setUsername(usernameField.getText());
-        userController.setPassword(passwordField.getText());
-        userController.setLoginScreenController(this);
-        userController.validateLogin();
+        listener.onLoginAttempt(usernameField.getText(), passwordField.getText());
     }
 
     /**
@@ -60,7 +56,7 @@ public class LoginScreenController extends ControllerSuperclass implements Initi
      * Action of "Sign Up" button. Changes from the "Log in" screen to the "Account creation" screen.
      */
     public void newAccount() {
-        ScreenHandler.changeScene(ScreenHandler.ACCOUNT_CREATION);
+        listener.onAccountCreation();
     }
 
     @Override
@@ -73,5 +69,13 @@ public class LoginScreenController extends ControllerSuperclass implements Initi
      */
     public void signUpHand() {
         signUpLabel.setCursor(Cursor.HAND);
+    }
+
+    public void setListener(LoginScreenViewControllerListener listener){
+        this.listener = listener;
+    }
+    public interface LoginScreenViewControllerListener{
+        public void onLoginAttempt(String username, String password);
+        public void onAccountCreation();
     }
 }

@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * method will be called whenever the changeScene method is used.
  */
 
-public class ScreenHandler extends Application {
+public class ScreenHandler extends Application implements LoginScreenController.LoginScreenControllerListener, AccountCreationController.AccountCreationControllerListener {
     // Scene IDs :
     public static int LOGIN_SCREEN = 0;
     public static int MAIN_PAGE = 1;
@@ -33,10 +33,13 @@ public class ScreenHandler extends Application {
     public static int MODIFICATION_SCREEN = 3;
 
     // Attributes
+    /*
     private static ArrayList<Parent> screens = new ArrayList<>();
     static ArrayList<ControllerSuperclass> controllers = new ArrayList<>();
     static Scene scene;
     static int idCurrent = 0; // Allow to see at which screen/scene number we are
+     */
+    private Stage stage;
 
 
     /**
@@ -46,9 +49,11 @@ public class ScreenHandler extends Application {
      * @param idScene this is an int and it is used to choose which screen will be displayed.(Refer to the list above)
      */
     public static void changeScene(int idScene){
+        /*
         scene.setRoot(screens.get(idScene));
         idCurrent = idScene;
         controllers.get(idScene).update();
+         */
     }
 
     /**
@@ -59,6 +64,7 @@ public class ScreenHandler extends Application {
      */
 
     private void addScene(String scenePath) {
+        /*
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(scenePath));
             screens.add(loader.load());
@@ -67,6 +73,8 @@ public class ScreenHandler extends Application {
             System.out.println("Error loading all screens " + scenePath);
             e.printStackTrace();
         }
+
+         */
     }
 
     /**
@@ -77,6 +85,7 @@ public class ScreenHandler extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
+        /*
         addScene("/View/FXML/LoginScreen.fxml");
         addScene("/View/FXML/MainPage.fxml");
         addScene("/View/FXML/accountCreation.fxml");
@@ -84,13 +93,13 @@ public class ScreenHandler extends Application {
         if (screens.isEmpty()) {
             throw new Exception("Failed to add all scenes");
         }
-        scene = new Scene(screens.get(LOGIN_SCREEN));
+         */
         stage.setTitle("TikZOverflow");
         stage.setMaximized(true);
-        stage.setScene(scene);
         stage.setMinWidth(600);
         stage.setMinHeight(400);
-        stage.show();
+        LoginScreenController controller = new LoginScreenController(stage, this);
+        controller.show();
     }
 
     /**
@@ -146,7 +155,20 @@ public class ScreenHandler extends Application {
         tcuFullText.wrappingWidthProperty().bind(tcuScene.widthProperty().subtract(20));
     }
 
+    /*
     public static ArrayList<Parent> getScreens() {
         return screens;
+    }
+
+     */
+
+    @Override
+    public void onSuccessfulLoginRequest() {
+
+    }
+
+    @Override
+    public void onAccountCreationRequest() {
+
     }
 }

@@ -13,7 +13,7 @@
 
 <GridPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
           prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #4D4D4D;"
-          xmlns="http://javafx.com/javafx/11.0.1" fx:controller="View.ViewControllers.LoginScreenController">
+          xmlns="http://javafx.com/javafx/11.0.1" fx:controller="View.ViewControllers.LoginScreenViewController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
