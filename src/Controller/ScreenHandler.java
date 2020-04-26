@@ -1,6 +1,5 @@
 package Controller;
 
-import View.ViewControllers.ControllerSuperclass;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -25,7 +24,8 @@ import java.util.ArrayList;
  * method will be called whenever the changeScene method is used.
  */
 
-public class ScreenHandler extends Application implements LoginScreenController.LoginScreenControllerListener, AccountCreationController.AccountCreationControllerListener {
+public class ScreenHandler extends Application implements LoginScreenController.LoginScreenControllerListener,
+        AccountCreationController.AccountCreationControllerListener, MainPageController.MainPageControllerListener {
     // Scene IDs :
     public static int LOGIN_SCREEN = 0;
     public static int MAIN_PAGE = 1;
@@ -94,10 +94,17 @@ public class ScreenHandler extends Application implements LoginScreenController.
             throw new Exception("Failed to add all scenes");
         }
          */
+
         stage.setTitle("TikZOverflow");
         stage.setMaximized(true);
         stage.setMinWidth(600);
         stage.setMinHeight(400);
+        this.stage = stage;
+        LoginScreenController controller = new LoginScreenController(stage, this);
+        controller.createScene();
+    }
+
+    private void showLoginScreen(Stage stage) {
         LoginScreenController controller = new LoginScreenController(stage, this);
         controller.show();
     }
@@ -108,6 +115,8 @@ public class ScreenHandler extends Application implements LoginScreenController.
      * @param message message to display to user
      * @param success defines if account creation was successful or not
      */
+
+    @Override
     public void createAccountCreationPopup(String message, boolean success) {
         Stage popupStage = new Stage();
         popupStage.setTitle("Account creation");
@@ -120,10 +129,14 @@ public class ScreenHandler extends Application implements LoginScreenController.
         Button button = new Button("OK");
         button.setOnMouseClicked(e -> {
             popupStage.close();
-            if (success) changeScene(LOGIN_SCREEN);
+            if (success) {
+                showLoginScreen(stage);
+            }
         });
         popupStage.setOnCloseRequest(e -> {
-            if (success) changeScene(LOGIN_SCREEN);
+            if (success) {
+                showLoginScreen(stage);
+            }
         });
         vBox.getChildren().add(button);
         Scene scene = new Scene(vBox, width, 75);
@@ -131,44 +144,31 @@ public class ScreenHandler extends Application implements LoginScreenController.
         popupStage.show();
     }
 
-    /**
-     * Creates a pop-up window when user clicks on "I accept terms and conditions".
-     *
-     * @throws IOException when terms and conditions file doesn't exist.
-     */
-    public void tcuWindow() throws IOException {
-        Parent tcuRoot = FXMLLoader.load(getClass().getResource("/View/FXML/termsAndConditions.fxml"));
-        Scene tcuScene = new Scene(tcuRoot);
-        Stage tcuStage = new Stage();
-        tcuStage.initModality(Modality.APPLICATION_MODAL);
-        tcuStage.setTitle("Terms and conditions");
-        File f = new File("tcu.txt");
-        BufferedReader br = new BufferedReader(new FileReader(f));
-        String tmp, text = "";
-        while ((tmp = br.readLine()) != null) {
-            text = text.concat(tmp + '\n');
-        }
-        tcuStage.setScene(tcuScene);
-        tcuStage.show();
-        Text tcuFullText = (Text) tcuRoot.lookup("#tcuFullText");
-        tcuFullText.setText(text);
-        tcuFullText.wrappingWidthProperty().bind(tcuScene.widthProperty().subtract(20));
-    }
 
-    /*
+
+
+
     public static ArrayList<Parent> getScreens() {
-        return screens;
+        return null; //screens;
     }
 
-     */
+
 
     @Override
     public void onSuccessfulLoginRequest() {
+        MainPageController controller = new MainPageController(stage, this);
+        controller.show();
 
     }
 
     @Override
     public void onAccountCreationRequest() {
+        AccountCreationController controller = new AccountCreationController(stage, this);
+        controller.show();
+    }
 
+    @Override
+    public void backToLoginScreenRequest() {
+        showLoginScreen(this.stage);
     }
 }

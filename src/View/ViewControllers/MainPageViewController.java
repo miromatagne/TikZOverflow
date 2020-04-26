@@ -4,17 +4,14 @@ import Controller.*;
 import Model.Shapes.Shape;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.layout.GridPane;
 import javafx.scene.Parent;
@@ -26,7 +23,7 @@ import java.util.ResourceBundle;
 /**
  * Handles main screen interaction, including TikZ compilation, display and shape addition.
  */
-public class MainPageController extends ControllerSuperclass implements Initializable {
+public class MainPageViewController implements Initializable {
 
     public static final int SHAPES_ONLY = 0;
     public static final int FULL_CODE = 1;
@@ -45,8 +42,9 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     private ImageView renderedImageView;
     @FXML
     private ScrollPane imageScrollPane;
-    private ShapeMenuController shapeMenuController = new ShapeMenuController();
-    private LatexController latexController = new LatexController(this);
+    private MainPageViewControllerListener listener;
+    private CodeInterfaceListener codeInterfaceListener;
+    private AddNewShapeButtonListener shapeButtonListener;
 
 
     @FXML
@@ -80,15 +78,29 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     PredefinedShapesPanelController predefinedShapesPanelController;
 
     /**
+     * Initialization of the region where the names of the added shapes will appear
+     * (VBox and ScrollPane).
+     *
+     * @param location  URL (not used)
+     * @param resources ResourceBundle(not used)
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        shapeList.prefWidthProperty().bind(scroll.prefWidthProperty());
+        shapeList.prefHeightProperty().bind(scroll.prefHeightProperty());
+        // TODO : remove ça :shapeButtonListener.setMainPageViewController(this);
+        initializeImageButton();
+
+    }
+
+    /**
      * Update is a function of the ControllerSuperClass and will be called every time the mainPage screen is displayed.
      */
-    public void update() {
+    public void updateText() {
         //update of codeInterface a textArea
         if (textSaved == null) {
-            String textInLatexFile = latexController.getTextInFile();
-            // Display only shapes from .tex file
+            textSaved = codeInterfaceListener.getShapesOnlyText();
             currentCodeDisplay = SHAPES_ONLY;
-            textSaved = latexController.extractShapesSubCode(textInLatexFile, true);
         }
         fillWithTextSaved();
     }
@@ -101,18 +113,19 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     /**
      * Compiles code in text area into pdf file and displays it on UI.
      *
-     * @throws IOException If reading the log was unsuccessful.
      */
     @FXML
-    public void compile() throws IOException {
+    public void compile(){
+        /*
         String sourceCode = "";
         if(currentCodeDisplay == SHAPES_ONLY){
             sourceCode = latexController.buildFullCodeFromShapesOnlyCode(codeInterface.getText());
-        } else if (currentCodeDisplay == FULL_CODE) {
-            sourceCode = codeInterface.getText();
         }
         String errorsButtonText = latexController.compileTikz(sourceCode);
         errorsButton.setText(errorsButtonText);
+
+         */
+        codeInterfaceListener.onCompilationAttempt(codeInterface.getText());
     }
 
     /**
@@ -138,7 +151,7 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      */
     @FXML
     public void showErrors() {
-        int errorsCount = latexController.getFileHandler().getErrorsCounter();
+        int errorsCount = codeInterfaceListener.getErrorsCounter();
         if (errorsButton.getText().equals("Hide errors")) {
             hideErrors(errorsCount);
         } else {
@@ -151,7 +164,7 @@ public class MainPageController extends ControllerSuperclass implements Initiali
             errorsButton.setText("Hide errors");
             codeInterface.setEditable(false);
 
-            String errors = latexController.getFileHandler().getErrors();
+            String errors = codeInterfaceListener.getErrorsText();
 
             codeInterface.setStyle("-fx-border-color: #3A3A3A; -fx-border-insets: 0,0,0,0; -fx-focus-traversable: false; -fx-border-width: 2; -fx-background-color: transparent; -fx-text-fill: #ff1200; -fx-highlight-fill: blue; -fx-highlight-text-fill: red; -fx-control-inner-background: #404040; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;");
             codeInterface.setText("You got " + errorsCount + " errors on the last compilation \n" + errors);
@@ -173,10 +186,10 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      * Shows full LaTeX code. This code cannot be edited.
      */
     private void displayFullCode() {
-        latexController.saveTikz(latexController.buildFullCodeFromShapesOnlyCode(codeInterface.getText()));
+        codeInterfaceListener.saveCodeInterfaceCode(codeInterface.getText());
         currentCodeDisplay = FULL_CODE;
         textSaved = codeInterface.getText();
-        String textInLatexFile = latexController.getTextInFile(); // full code is NEVER saved as textSaved
+        String textInLatexFile = codeInterfaceListener.getFullText(); // full code is NEVER saved as textSaved
         codeInterface.setStyle("-fx-border-color: #3A3A3A; -fx-border-insets: 0,0,0,0; -fx-focus-traversable: false; -fx-border-width: 2; -fx-background-color: transparent; -fx-text-fill: grey; -fx-highlight-fill: blue; -fx-highlight-text-fill: grey; -fx-control-inner-background: #404040; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;");
         codeInterface.setText(textInLatexFile);
         codeInterface.setEditable(false);
@@ -233,34 +246,14 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         codeInterface.appendText(code);
     }
 
-    /**
-     * Initialization of the region where the names of the added shapes will appear
-     * (VBox and ScrollPane).
-     *
-     * @param location  URL (not used)
-     * @param resources ResourceBundle(not used)
-     */
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        shapeList.prefWidthProperty().bind(scroll.prefWidthProperty());
-        shapeList.prefHeightProperty().bind(scroll.prefHeightProperty());
-        shapeMenuController.setMainPageController(this);
-        try {
-            shapeMenuController.popUpInitialize();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        predefinedShapesPanelController = new PredefinedShapesPanelController();
-        initializeImageButton();
-    }
 
     /**
      * Create a pop-up which allows to create a new shape
      */
     @FXML
     public void addShapeMenu() {
-        shapeMenuController.showPopUp();
+        shapeButtonListener.onButtonPressed();
     }
 
     @FXML
@@ -289,7 +282,7 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     private void clearScreen() {
         renderedImageView.setImage(null);
         shapeList.getChildren().clear(); // Clear all the added shapes
-        latexController.getFileHandler().clearErrors(); // Clear all the errors
+        //TODO : resolve with logout button -> latexController.getFileHandler().clearErrors(); // Clear all the errors
         errorsButton.setText("Errors (0)");
         textSaved = null; // Set the textSaved to null in order to display the correct one during the next login
         fillWithTextSaved();
@@ -463,11 +456,8 @@ public class MainPageController extends ControllerSuperclass implements Initiali
             addShape(movingShape);
             movingShape = null;
         }
-        try {
-            compile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        compile();
+
     }
 
     /**
@@ -520,4 +510,43 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         }
         event.acceptTransferModes(TransferMode.ANY);
     }
+
+    public void setListener(MainPageViewControllerListener listener) {
+        this.listener = listener;
+    }
+
+    public void setPredefinedShapesPanelController(PredefinedShapesPanelController predefinedShapesPanelController) {
+        this.predefinedShapesPanelController = predefinedShapesPanelController;
+    }
+
+    public void setShapeButtonListener(AddNewShapeButtonListener shapeButtonListener) {
+        this.shapeButtonListener = shapeButtonListener;
+    }
+
+    public void setErrorButtonText(String errorsButtonText) {
+        errorsButton.setText(errorsButtonText);
+    }
+
+    public void setCodeInterfaceListener(CodeInterfaceListener listener) {
+        this.codeInterfaceListener = listener;
+    }
+
+    public interface MainPageViewControllerListener {
+
+    }
+
+    public interface AddNewShapeButtonListener{
+        void onButtonPressed();
+    }
+
+    public interface CodeInterfaceListener{
+        void onCompilationAttempt(String code);
+        String getShapesOnlyText();
+        int getErrorsCounter();
+        String getFullText();
+        void saveCodeInterfaceCode(String tikzCode);
+        String getErrorsText();
+    }
+
+
 }

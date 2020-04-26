@@ -1,7 +1,7 @@
 package Controller;
 
 import Model.User;
-import View.ViewControllers.MainPageController;
+import View.ViewControllers.MainPageViewController;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -35,7 +35,7 @@ class TestLatexController {
 
     @Test
     void compileTikz() {
-        LatexController latexController = new LatexController(new MainPageController());
+        LatexController latexController = new LatexController(new MainPageViewController());
         User user = new User();
         user.setUsername("test");
         Session.getInstance().setUser(user);
@@ -62,7 +62,7 @@ class TestLatexController {
 
     @Test
     void createImage() {
-        LatexController latexController = new LatexController(new MainPageController());
+        LatexController latexController = new LatexController(new MainPageViewController());
         try {
             latexController.createImage("./Latex/out/test.pdf");
         } catch (NullPointerException e) {
@@ -73,7 +73,7 @@ class TestLatexController {
 
     @Test
     void saveTikz() {
-        LatexController latexController = new LatexController(new MainPageController());
+        LatexController latexController = new LatexController(new MainPageViewController());
         User user = new User();
         user.setUsername("test");
         Session.getInstance().setUser(user);
@@ -94,7 +94,7 @@ class TestLatexController {
 
     @Test
     void extractShapesSubCode() {
-        LatexController latexController = new LatexController(new MainPageController());
+        LatexController latexController = new LatexController(new MainPageViewController());
         User user = new User();
         user.setUsername("test");
         Session.getInstance().setUser(user);
@@ -117,7 +117,7 @@ class TestLatexController {
 
     @Test
     void buildFullCodeFromShapesOnlyCode() {
-        LatexController latexController = new LatexController(new MainPageController());
+        LatexController latexController = new LatexController(new MainPageViewController());
         User user = new User();
         user.setUsername("test");
         Session.getInstance().setUser(user);

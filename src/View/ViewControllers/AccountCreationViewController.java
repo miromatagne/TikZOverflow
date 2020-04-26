@@ -48,23 +48,23 @@ public class AccountCreationViewController extends AccountController implements 
      * Checks every input and highlights wrong ones in red when user clicks on "Create".
      */
     public void createAccount() {
-        if (checkFieldsAndCheckbox()) { // all fields are ok, we can create account
-            if (Session.getInstance().createAccount(usernameField.getText(), firstNameField.getText(), lastNameField.getText(), emailField.getText(), passwordField.getText())) { // popup before going back to login screen
-                screenHandler.createAccountCreationPopup("Account successfully created !", true);
-            } else {
-                screenHandler.createAccountCreationPopup("Error creating a new account. Username already in use.", false);
-            }
-        }
+        listener.onAccountCreationAttempt(
+                usernameField.getText(),
+                firstNameField.getText(),
+                lastNameField.getText(),
+                emailField.getText(),
+                passwordField.getText(),
+                passwordConfirmationField.getText(),
+                termsCheckBox.isSelected());
     }
-
 
     /**
      * Creates a pop-up window when user clicks on "I accept terms and conditions".
      *
      * @throws IOException when terms and conditions file doesn't exist.
      */
-    public void termsAndConditionsWindow() throws IOException {
-        screenHandler.tcuWindow();
+    public void termsAndConditionsWindow() {
+        listener.showTermsAndConditions();
     }
 
     /**
@@ -74,32 +74,13 @@ public class AccountCreationViewController extends AccountController implements 
         changeCursorToHand(termsAndConditionsText);
     }
 
-    /**
-     * Checks if fields and checkbox are well filled.
-     *
-     * @return true if everything is ok, false otherwise
-     */
-    private boolean checkFieldsAndCheckbox() {
-        UserController userController = new UserController();
-        userController.setUsername(usernameField.getText());
-        userController.setEmail(emailField.getText());
-        userController.setFirstName(firstNameField.getText());
-        userController.setLastName(lastNameField.getText());
-        userController.setPasswordConfirmation(passwordConfirmationField.getText());
-        userController.setPassword(passwordField.getText());
-        userController.setAccountController(this);
 
-        boolean validCreation = userController.validateInformation();
-        if (!termsCheckBox.isSelected()) termsAndConditionsText.setStyle("-fx-fill: red;");
-        else termsAndConditionsText.setStyle("-fx-fill: #0077cc");
-        return termsCheckBox.isSelected() && validCreation;
-    }
 
     /**
      * Brings the user back to login screen.
      */
     public void backToLoginScreen() {
-        ScreenHandler.changeScene(ScreenHandler.LOGIN_SCREEN);
+        listener.backToLoginScreen();
     }
 
     /**
@@ -122,7 +103,17 @@ public class AccountCreationViewController extends AccountController implements 
         this.listener = listener;
     }
 
+    public void setTCUStyle(String style) {
+        switch (style) {
+            case "default": termsAndConditionsText.setStyle("-fx-fill: #0077cc");break;
+            case "red" : termsAndConditionsText.setStyle("-fx-fill: red;");
+        }
+    }
+
     public interface AccountCreationViewControllerListener{
 
+        void backToLoginScreen();
+        void onAccountCreationAttempt(String username, String firstName, String lastName, String email, String password, String passwordConfirmation, boolean isBoxChecked);
+        void showTermsAndConditions();
     }
 }

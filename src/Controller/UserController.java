@@ -24,7 +24,7 @@ public class UserController {
      * If all fields are valid, modifies the user's info.
      */
     public void validateModification() {
-        if (validateInformation()) {
+        if (true) {
             userCurrent.setUsername(username);
             userCurrent.setLastName(lastName);
             userCurrent.setFirstName(firstName);
@@ -36,45 +36,6 @@ public class UserController {
                 System.out.println("Error in saving the user");
             }
         }
-    }
-
-    /**
-     * Checks whether all fields are valid, and highlights in red those that are not.
-     *
-     * @return TRUE if all fields are  valid
-     * FALSE otherwise
-     */
-    public boolean validateInformation() {
-        FieldChecker fieldChecker = new FieldChecker();
-        if (!fieldChecker.isValidUsername(username)) {
-            accountController.setTextFieldStyle("username", "red");
-        } else {
-            accountController.setTextFieldStyle("username", "default");
-        }
-        if (!fieldChecker.isValidName(firstName)) {
-            accountController.setTextFieldStyle("firstName", "red");
-        } else {
-            accountController.setTextFieldStyle("firstName", "default");
-        }
-        if (!fieldChecker.isValidName(lastName)) {
-            accountController.setTextFieldStyle("lastName", "red");
-        } else {
-            accountController.setTextFieldStyle("lastName", "default");
-        }
-        if (!fieldChecker.isValidMail(email)) {
-            accountController.setTextFieldStyle("email", "red");
-        } else {
-            accountController.setTextFieldStyle("email", "default");
-        }
-        if (!password.equals(passwordConfirmation) || password.equals("")) {
-            accountController.setTextFieldStyle("password", "red");
-            accountController.setTextFieldStyle("passwordConfirmation", "red");
-        } else {
-            accountController.setTextFieldStyle("password", "default");
-            accountController.setTextFieldStyle("passwordConfirmation", "default");
-        }
-
-        return fieldChecker.isValidAccount(username, firstName, lastName, email, password, passwordConfirmation);
     }
 
 

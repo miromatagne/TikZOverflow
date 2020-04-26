@@ -3,13 +3,12 @@ package Controller;
 import Model.FieldChecker;
 import Model.Shapes.ShapeFactory;
 import Model.Shapes.Shape;
-import View.ViewControllers.MainPageController;
+import View.ViewControllers.MainPageViewController;
 import View.ShapeMenu.AllShapeMenus.MenuController;
 import View.ShapeMenu.ShapeMenuViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -20,18 +19,43 @@ import java.util.ArrayList;
 /**
  * Handles shape creation with popup and adding them to the shape list.
  */
-public class ShapeMenuController {
+public class ShapeMenuController implements MainPageViewController.AddNewShapeButtonListener, ShapeMenuViewController.ShapeMenuViewControllerListener {
     private static ArrayList<MenuController> allControllers = new ArrayList<>();
     private static ArrayList<Parent> allShapes = new ArrayList<>();
-    ShapeMenuViewController shapeMenuViewController;
-    private MainPageController mainPageController;
-    private FieldChecker fieldChecker = new FieldChecker();
+    private ShapeMenuViewController shapeMenuViewController;
+    private MainPageViewController mainPageViewController;
     private Stage popUpStage;
     private int idCurrent;
 
+    /**
+     * Create the Pop Up menu for the shapes and add the menus to it.
+     *
+     * @throws IOException If there was an error while reading the .fxml file
+     */
+    public ShapeMenuController()  {
+        popUpStage = new Stage();
+        popUpStage.setTitle("Add Shape Menu");
+        popUpStage.initModality(Modality.APPLICATION_MODAL);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/ShapeMenu/FxmlFiles/addShapeMenu.fxml"));
+        Parent addShapeMenuRoot = null;
+        try {
+            addShapeMenuRoot = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        shapeMenuViewController = loader.getController();
+        shapeMenuViewController.setListener(this);
+        try {
+            setUpScenes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        changeToMenu(ShapeMenuViewController.ARROW);
+        popUpStage.setScene(new Scene(addShapeMenuRoot));
+    }
 
-    public void setMainPageController(MainPageController mainPageController) {
-        this.mainPageController = mainPageController;
+    public void setMainPageViewController(MainPageViewController mainPageViewController) {
+        this.mainPageViewController = mainPageViewController;
     }
 
     /**
@@ -44,7 +68,7 @@ public class ShapeMenuController {
      */
     public void addShape(int idCurrent, ArrayList<Float> allData, Color color, String label) {
         Shape shape = ShapeFactory.getInstance(idCurrent, allData, color, label);
-        mainPageController.addShape(shape);
+        mainPageViewController.addShape(shape);
         closePopup();
     }
 
@@ -124,6 +148,8 @@ public class ShapeMenuController {
      * Highlight them in red if not.
      */
     public void verifyShape() {
+        boolean canAddShape = true;
+        FieldChecker fieldChecker = new FieldChecker();
         ArrayList<String> allFields = allControllers.get(idCurrent).getAllFields();
         ArrayList<Float> allDataInField = new ArrayList<>();
         String redStyle = "-fx-text-box-border: red";
@@ -131,6 +157,7 @@ public class ShapeMenuController {
         for (int i = 0; i < allFields.size(); i++) {
             String tempStringInField = allFields.get(i);
             if (!fieldChecker.isValidNumber(tempStringInField) || tempStringInField == null) {
+                canAddShape = false;
                 if (i < allControllers.get(idCurrent).getAllTextFields().size()) {
                     allControllers.get(idCurrent).getAllTextFields().get(i).setStyle(redStyle);
                 }
@@ -141,37 +168,26 @@ public class ShapeMenuController {
                 }
             }
         }
+
         String label = allControllers.get(idCurrent).getLabel().getText();
         System.out.println(label);
         if(label.equals("")) {
             allControllers.get(idCurrent).getLabel().setStyle(redStyle);
+            canAddShape=false;
         }
-        addShape(idCurrent, allDataInField, allControllers.get(idCurrent).getColor(), label);
+        if(canAddShape) {
+            addShape(idCurrent, allDataInField, allControllers.get(idCurrent).getColor(), label);
+        }
     }
 
-    /**
-     * Create the Pop Up menu for the shapes and add the menus to it.
-     *
-     * @throws IOException If there was an error while reading the .fxml file
-     */
-    public void popUpInitialize() throws IOException {
-        popUpStage = new Stage();
-        popUpStage.setTitle("Add Shape Menu");
-        popUpStage.initModality(Modality.APPLICATION_MODAL);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/ShapeMenu/FxmlFiles/addShapeMenu.fxml"));
-        Parent addShapeMenuRoot = loader.load();
-        shapeMenuViewController = loader.getController();
-        shapeMenuViewController.setShapeMenuController(this);
-        setUpScenes();
-        changeToMenu(ShapeMenuViewController.ARROW);
-        popUpStage.setScene(new Scene(addShapeMenuRoot));
-    }
+
 
     /**
      * Update and show the Pop Up menu.
      */
     public void showPopUp() {
-        shapeMenuViewController.update();
+        clearShapeMenus();
+        changeToMenu(ShapeMenuViewController.ARROW);
         popUpStage.show();
     }
 
@@ -182,4 +198,14 @@ public class ShapeMenuController {
         popUpStage.hide();
     }
 
+    @Override
+    public void onButtonPressed() {
+        showPopUp();
+    }
+
+    @Override
+    public void onConfirmButtonPressed() {
+        verifyShape();
+
+    }
 }

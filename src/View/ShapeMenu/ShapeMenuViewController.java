@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
  * Controller of the menu to add a new shape. It is linked to the "AddShapeMenuController.fxml" file
  * It handles the behavior of the pop-up window
  */
-public class ShapeMenuViewController extends ControllerSuperclass implements Initializable {
+public class ShapeMenuViewController implements Initializable {
 
     @FXML private SubScene shapeScene;
     @FXML private Text rectangleText;
@@ -31,38 +31,12 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
     @FXML private Text triangleText;
     @FXML private GridPane gridPaneAddShape;
 
-    private ShapeMenuController shapeMenuController;
-
-
+    private ShapeMenuViewControllerListener listener;
 
     private static ArrayList<Text> allTexts = new ArrayList<>();
 
     public final static int ARROW = 4;
     final static int NUMBER_OF_MENUS = 6;
-
-    /**
-     * Setup the texts and add them to an array list
-     */
-    public void setupTexts() {
-        allTexts.add(rectangleText);
-        allTexts.add(circleText);
-        allTexts.add(lineText);
-        allTexts.add(curvedLineText);
-        allTexts.add(arrowText);
-        allTexts.add(triangleText);
-    }
-
-
-    /**
-     * Function called when a change occurs on the window.
-     * Allows to get a clear page when changing between menus
-     */
-    @Override
-    public void update() {
-        shapeMenuController.changeToMenu(ARROW);
-        shapeMenuController.clearShapeMenus();
-    }
-
 
 
     /**
@@ -80,6 +54,17 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
         shapeScene.heightProperty().bind(gridPaneAddShape.heightProperty());
     }
 
+    /**
+     * Setup the texts and add them to an array list
+     */
+    public void setupTexts() {
+        allTexts.add(rectangleText);
+        allTexts.add(circleText);
+        allTexts.add(lineText);
+        allTexts.add(curvedLineText);
+        allTexts.add(arrowText);
+        allTexts.add(triangleText);
+    }
 
     /**
      * The following functions changes the cursor to an hand cursor when we enter the text area
@@ -90,9 +75,6 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
     public void curvedLineTextHand(){this.changeCursorToHand(curvedLineText);}
     public void lineTextHand(){this.changeCursorToHand(lineText);}
     public void triangleTextHand(){this.changeCursorToHand(triangleText);}
-
-
-
 
     /**
      * Change the text color once the menu is selected
@@ -111,7 +93,6 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
         }
     }
 
-    
     /**
      * Changes cursor to hand.
      *
@@ -121,21 +102,17 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
         text.setCursor(Cursor.HAND);
     }
 
-
-
     /**
      * Create a shape once all the fields are valid. It is called from the button "Confirm" in the pop-up window which
      * is used to create a new shape
      */
     public void confirmShape(){
-        //Verify Fields
-        shapeMenuController.verifyShape(); //TODO responsabilities - verifyShape function creates a shape
+        listener.onConfirmButtonPressed();
 
     }
 
-
-    public void setShapeMenuController(ShapeMenuController shapeMenuController) {
-        this.shapeMenuController = shapeMenuController;
+    public void setListener(ShapeMenuViewControllerListener listener){
+        this.listener = listener;
     }
 
     /**
@@ -145,10 +122,15 @@ public class ShapeMenuViewController extends ControllerSuperclass implements Ini
      */
     public void changeMenu(MouseEvent mouseEvent) {
         String data = (String) ((Node) mouseEvent.getSource()).getUserData();
-        shapeMenuController.changeToMenu(Integer.parseInt(data));
+        listener.changeToMenu(Integer.parseInt(data));
     }
 
     public SubScene getShapeScene() {
         return shapeScene;
+    }
+
+    public interface ShapeMenuViewControllerListener{
+        void onConfirmButtonPressed();
+        void changeToMenu(int menuID);
     }
 }

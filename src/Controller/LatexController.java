@@ -3,7 +3,7 @@ package Controller;
 import Model.FileHandler;
 import Model.LatexCompiler;
 import Model.PDFHandler;
-import View.ViewControllers.MainPageController;
+import View.ViewControllers.MainPageViewController;
 import javafx.scene.image.Image;
 
 
@@ -16,13 +16,13 @@ import java.util.regex.Pattern;
 /**
  * Handles all requests regarding the TikZ source code coming from View.
  */
-public class LatexController {
+public class LatexController implements MainPageViewController.CodeInterfaceListener {
 
     FileHandler fileHandler = new FileHandler();
-    private MainPageController mainPageController;
+    private MainPageViewController mainPageViewController;
 
-    public LatexController(MainPageController mainPageController) {
-        this.mainPageController = mainPageController;
+    public LatexController(MainPageViewController mainPageViewController) {
+        this.mainPageViewController = mainPageViewController;
     }
 
     /**
@@ -76,7 +76,7 @@ public class LatexController {
         String imagePath = pdfPath.replace(".pdf", ".jpg");
         try {
             Image renderedImage = new Image(new FileInputStream(imagePath));
-            mainPageController.renderImage(renderedImage);
+            mainPageViewController.renderImage(renderedImage);
         } catch (IOException e) {
             System.err.println("Image file not found");
             e.printStackTrace();
@@ -132,5 +132,48 @@ public class LatexController {
             shapesOnlyCodeBuilder.append("\t").append(line.trim()).append("\n");
         }
         return getTextInFile().replace(Objects.requireNonNull(extractShapesSubCode(getTextInFile(), false)), shapesOnlyCodeBuilder.toString());
+    }
+
+    @Override
+    public void onCompilationAttempt(String code) {
+
+        String sourceCode = buildFullCodeFromShapesOnlyCode(code);
+
+        String errorsButtonText = null;
+        try {
+            errorsButtonText = compileTikz(sourceCode);
+        } catch (IOException e) {
+            System.err.println("LaTeX compilation failed");
+            e.printStackTrace();
+        }
+
+        mainPageViewController.setErrorButtonText(errorsButtonText);
+    }
+
+    @Override
+    public String getShapesOnlyText() {
+        String textInLatexFile = getTextInFile();
+        String textSaved = extractShapesSubCode(textInLatexFile, true);
+        return textSaved;
+    }
+
+    @Override
+    public int getErrorsCounter() {
+        return fileHandler.getErrorsCounter();
+    }
+
+    @Override
+    public String getFullText() {
+        return getTextInFile();
+    }
+
+    @Override
+    public void saveCodeInterfaceCode(String tikzCode) {
+        saveTikz(buildFullCodeFromShapesOnlyCode(tikzCode));
+    }
+
+    @Override
+    public String getErrorsText() {
+        return fileHandler.getErrors();
     }
 }

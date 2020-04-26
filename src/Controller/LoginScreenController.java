@@ -15,12 +15,9 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
         this.listener = listener;
     }
 
-    public void show(){
+    public void createScene(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/LoginScreen.fxml"));
-            loader.load();
-            controller = loader.getController();
-            controller.setListener(this);
+            FXMLLoader loader = getLoader();
             stage.setScene(new Scene(loader.getRoot()));
             stage.show();
         } catch (Exception e) {
@@ -29,6 +26,24 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
         }
     }
 
+    public void show(){
+        try {
+            FXMLLoader loader = getLoader();
+            stage.getScene().setRoot(loader.getRoot());
+            stage.show();
+        } catch (Exception e) {
+            System.out.println("Error loading /View/FXML/LoginScreen.fxml");
+            e.printStackTrace();
+        }
+    }
+
+    private FXMLLoader getLoader() throws java.io.IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/LoginScreen.fxml"));
+        loader.load();
+        controller = loader.getController();
+        controller.setListener(this);
+        return loader;
+    }
     /**
      * Checks if the username and password are correct with the session object. If they are, the user gets to his main screen.
      * If not, the incorrect credentials are highlighted in red.
