@@ -13,19 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class TestFileHandler {
 
     @Test
-    public void setupSaveUserDirectory(){
-        FileHandler fh = new FileHandler();
-        if (fh.setupSaveUserDirectory("save user")){
-            System.out.println("OK");
-        }
-        else {
-            System.out.println("KO");
-        }
-        //Check if the directory is made (if not already made)
-    }
-
-
-    @Test
     public void test() throws UserFromSaveCreationException, IOException, SaveUserException {
         /* After execution, a folder should be made containing
          * a save file of "ftrouill" user
