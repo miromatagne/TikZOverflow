@@ -383,6 +383,10 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         createDragAndDrop(mouseEvent, buttonTriangle);
     }
 
+    /**
+     * This method generates the image that follows the mouse during the drag and drop gesture
+     * @param path                  path of the image to create
+     */
     public void createMovingImage(String path){
         Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
         movingImage = new ImageView(path);
@@ -391,6 +395,11 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         ((GridPane) root).getChildren().add(movingImage);
     }
 
+    /**
+     * Convert the position x of the mouse to the position x of the PDF
+     * @param x                 x position to convert
+     * @return
+     */
     public float xMouseToPdf(double x){
         double scrollPaneWidth = imageScrollPane.getWidth();
         double pdfWidth =  21.4;
@@ -400,6 +409,11 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         return (float) ((x/widthConvert) + xOffset);
     }
 
+    /**
+     * Convert the position y of the mouse to the position y of the PDF
+     * @param y                 y position to convert
+     * @return
+     */
     public float yMouseToPdf(double y){
         double scrollPaneHeight = imageScrollPane.getHeight();
         double pdfHeight =  25.7;
@@ -416,7 +430,6 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     public void handleDragDropped(DragEvent event){
         double x = event.getX();
         double y = event.getY();
-        System.out.println(renderedImageView.getFitWidth() + " : " + imageScrollPane.getWidth());
         if(movingImage != null) {
             Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
             ((GridPane) root).getChildren().remove(movingImage);
