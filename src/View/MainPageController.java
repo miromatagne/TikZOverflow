@@ -391,20 +391,40 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         ((GridPane) root).getChildren().add(movingImage);
     }
 
+    public float xMouseToPdf(double x){
+        double scrollPaneWidth = imageScrollPane.getWidth();
+        double pdfWidth =  21.4;
+        double widthConvert = scrollPaneWidth/pdfWidth;
+        double xOffset = -1.25;
+
+        return (float) ((x/widthConvert) + xOffset);
+    }
+
+    public float yMouseToPdf(double y){
+        double scrollPaneHeight = imageScrollPane.getHeight();
+        double pdfHeight =  25.7;
+        double heightConvert = scrollPaneHeight/pdfHeight;
+        double yOffset = 19.75;
+
+        return (float) (yOffset - (y/heightConvert));
+    }
+
     /**
      * This method drop the shape at the position of the mouse
      * @param event
      */
     public void handleDragDropped(DragEvent event){
-        float x = (float) event.getX();
-        float y = (float) event.getY();
+        double x = event.getX();
+        double y = event.getY();
+        System.out.println(renderedImageView.getFitWidth() + " : " + imageScrollPane.getWidth());
         if(movingImage != null) {
             Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
             ((GridPane) root).getChildren().remove(movingImage);
         }
         if(movingShape != null) {
-            float convertedX = (float) ((float)(x/33.17757) - 1.25);
-            float convertedY = (float) (19.75 - (float)(y/33.07393));
+
+            float convertedX = xMouseToPdf(x);
+            float convertedY = yMouseToPdf(y);
             movingShape.setPosX(convertedX);
             movingShape.setPosY(convertedY);
             addShape(movingShape);
