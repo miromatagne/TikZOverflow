@@ -415,12 +415,27 @@ public class MainPageController extends ControllerSuperclass implements Initiali
      * @return
      */
     public float yMouseToPdf(double y){
-        double scrollPaneHeight = imageScrollPane.getHeight();
         double pdfHeight =  25.7;
-        double heightConvert = scrollPaneHeight/pdfHeight;
         double yOffset = 19.75;
 
-        return (float) (yOffset - (y/heightConvert));
+        double scrollPaneHeight = imageScrollPane.getHeight();
+        double imageMaxHeight = 0;
+        double imageWidth = 0;
+        double imageHeight = 0;
+        if(renderedImageView.getImage() != null) {
+            imageWidth = renderedImageView.getImage().getWidth();
+            imageHeight = renderedImageView.getImage().getHeight();
+            imageMaxHeight = (imageScrollPane.getWidth() / imageWidth) * imageHeight;
+        }
+
+        double heightConvert = imageMaxHeight/pdfHeight;
+        double pdfNotShown = 0;
+        if(scrollPaneHeight < imageMaxHeight) {
+            pdfNotShown = (imageMaxHeight - scrollPaneHeight);
+        }
+        double scroll = imageScrollPane.getVvalue();
+
+        return (float) (yOffset - (y+(scroll*pdfNotShown))/heightConvert);
     }
 
     /**
