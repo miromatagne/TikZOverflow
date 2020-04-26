@@ -24,7 +24,7 @@ public class Arrow extends Link {
     @Override
     public String generateAndGetTikzCode() {
 
-      //  \draw [arrows={->[length=5mm,width=5mm]}, line width=1mm,
+        //  \draw [arrows={->[length=5mm,width=5mm]}, line width=1mm,
         // color={rgb:red,2;green,0;blue,5}] (0.0,0.0) -- (5.0,5.0);
         String code = "\\draw";
 
