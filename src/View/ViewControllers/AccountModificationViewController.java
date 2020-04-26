@@ -1,8 +1,6 @@
 package View.ViewControllers;
 
-import Controller.ScreenHandler;
 import Controller.Session;
-import Controller.UserController;
 import Model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

@@ -1,9 +1,5 @@
 package View.ViewControllers;
 
-import Controller.AccountCreationController;
-import Controller.ScreenHandler;
-import Controller.Session;
-import Controller.UserController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
