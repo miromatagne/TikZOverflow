@@ -155,6 +155,7 @@ public class MainPageController extends ControllerSuperclass implements Initiali
             String errors = latexController.getFileHandler().getErrors();
 
             codeInterface.setStyle("-fx-border-color: #3A3A3A; -fx-border-insets: 0,0,0,0; -fx-focus-traversable: false; -fx-border-width: 2; -fx-background-color: transparent; -fx-text-fill: #ff1200; -fx-highlight-fill: blue; -fx-highlight-text-fill: red; -fx-control-inner-background: #404040; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;");
+            codeInterface.setText("You got " + errorsCount + " errors on the last compilation \n" + errors);
         }
     }
 
