@@ -45,7 +45,7 @@ public class ScreenHandler extends Application {
      *
      * @param idScene this is an int and it is used to choose which screen will be displayed.(Refer to the list above)
      */
-    public static void changeScene(int idScene) {
+    public static void changeScene(int idScene){
         scene.setRoot(screens.get(idScene));
         idCurrent = idScene;
         controllers.get(idScene).update();

@@ -418,7 +418,6 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     public float yMouseToPdf(double y){
         double pdfHeight =  25.7;
         double yOffset = 19.75;
-
         double scrollPaneHeight = imageScrollPane.getHeight();
         double imageMaxHeight = 0;
 
@@ -429,7 +428,7 @@ public class MainPageController extends ControllerSuperclass implements Initiali
             imageMaxHeight = (imageScrollPane.getWidth() / imageWidth) * imageHeight;
         }
 
-        double correctionFactor = 5*(imageMaxHeight/1415); //Empirical value
+        double correctionFactor = 4*(imageMaxHeight/1415); //Empirical value
         double heightConvert = imageMaxHeight/pdfHeight - correctionFactor ;
         double pdfNotShown = 0;
         if(scrollPaneHeight < imageMaxHeight) {
