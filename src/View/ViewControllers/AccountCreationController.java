@@ -1,4 +1,4 @@
-package View;
+package View.ViewControllers;
 
 import Controller.ScreenHandler;
 import Controller.Session;
@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 /**
  * Handles account creation interface elements.
  */
-public class AccountCreationController extends ControllerSuperclass implements Initializable {
+public class AccountCreationController extends AccountController implements Initializable {
     @FXML
     TextField usernameField, firstNameField, lastNameField, emailField;
     @FXML
@@ -80,12 +80,13 @@ public class AccountCreationController extends ControllerSuperclass implements I
      */
     private boolean checkFieldsAndCheckbox() {
         UserController userController = new UserController();
-        userController.setUsernameField(usernameField);
-        userController.setEmailField(emailField);
-        userController.setFirstNameField(firstNameField);
-        userController.setLastNameField(lastNameField);
-        userController.setPasswordConfirmationField(passwordConfirmationField);
-        userController.setPasswordField(passwordField);
+        userController.setUsername(usernameField.getText());
+        userController.setEmail(emailField.getText());
+        userController.setFirstName(firstNameField.getText());
+        userController.setLastName(lastNameField.getText());
+        userController.setPasswordConfirmation(passwordConfirmationField.getText());
+        userController.setPassword(passwordField.getText());
+        userController.setAccountController(this);
 
         boolean validCreation = userController.validateInformation();
         if (!termsCheckBox.isSelected()) termsAndConditionsText.setStyle("-fx-fill: red;");

@@ -84,7 +84,9 @@ public class FieldChecker {
         }
         int arobaseCounter = 0;
         for (int i = 0; i < mail.length(); i++) {
-            if (mail.charAt(i) == ' ') return false;
+            if (mail.charAt(i) == ' ') {
+                return false;
+            }
             else if (mail.charAt(i) == '@') {
                 arobaseCounter++;
             }
@@ -106,8 +108,9 @@ public class FieldChecker {
      */
     public boolean isValidAccount(String username, String firstName, String lastName,
                                   String mail, String password, String passwordConfirmation) {
-        if (isValidUsername(username) && isValidName(firstName) && isValidName(lastName) && isValidMail(mail))
+        if (isValidUsername(username) && isValidName(firstName) && isValidName(lastName) && isValidMail(mail)) {
             return password.equals(passwordConfirmation) && !password.equals("");
+        }
         return false;
     }
 
