@@ -40,6 +40,7 @@ public class MainPageViewController implements Initializable {
     private Button addShapeButton;
     @FXML
     private ImageView renderedImageView;
+
     @FXML
     private ScrollPane imageScrollPane;
     private MainPageViewControllerListener listener;
@@ -235,17 +236,6 @@ public class MainPageViewController implements Initializable {
         listener.onLogoutRequest(); //requesting logout
     }
 
-    /**
-     * Adds shape code to the coding interface according to the shape received as a parameter
-     *
-     * @param shape Shape whose code has to be generated in the coding interface
-     */
-    public void addShape(Shape shape) {
-        String code = shape.generateAndGetTikzCode();
-        codeInterface.appendText(code);
-    }
-
-
 
     /**
      * Create a pop-up which allows to create a new shape
@@ -380,60 +370,16 @@ public class MainPageViewController implements Initializable {
      * @param path                  path of the image to create
      */
     public void createMovingImage(String path){
-        Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
+        Parent root = listener.getRoot();
         movingImage = new ImageView(path);
         movingImage.setFitHeight(50);
         movingImage.setFitWidth(50);
         ((GridPane) root).getChildren().add(movingImage);
     }
 
-    /**
-     * Convert the position x of the mouse to the position x of the PDF
-     * @param x                 x position to convert
-     * @return
-     */
-    public float xMouseToPdf(double x){
-        double scrollPaneWidth = imageScrollPane.getWidth();
-        double pdfWidth =  21.4;
-        double widthConvert = scrollPaneWidth/pdfWidth;
-        double xOffset = -1.25;
 
-        return (float) ((x/widthConvert) + xOffset);
-    }
 
-    /**
-     * Convert the position y of the mouse to the position y of the PDF
-     * @param y                 y position to convert
-     * @return
-     */
-    public float yMouseToPdf(double y){
-        double pdfHeight =  25.7;
-        double yOffset = 19.75;
-        double scrollPaneHeight = imageScrollPane.getHeight();
-        double imageMaxHeight = 0;
 
-        Image image = renderedImageView.getImage();
-        if(image != null) {
-            double imageWidth = image.getWidth();
-            double imageHeight = image.getHeight();
-            imageMaxHeight = (imageScrollPane.getWidth() / imageWidth) * imageHeight;
-        }
-
-        double correctionFactor = 4*(imageMaxHeight/1415); //Empirical value
-        double heightConvert = imageMaxHeight/pdfHeight - correctionFactor ;
-        double pdfNotShown = 0;
-        if(scrollPaneHeight < imageMaxHeight) {
-            pdfNotShown = (imageMaxHeight - scrollPaneHeight);
-        }
-        double scroll = imageScrollPane.getVvalue();
-
-        float valueToReturn = 0;
-        if(heightConvert != 0){
-            valueToReturn = (float) (yOffset - (y+(scroll*pdfNotShown))/heightConvert);
-        }
-
-        return valueToReturn;
-    }
 
     /**
      * This method drop the shape at the position of the mouse
@@ -443,17 +389,11 @@ public class MainPageViewController implements Initializable {
         double x = event.getX();
         double y = event.getY();
         if(movingImage != null) {
-            Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
+            Parent root = listener.getRoot();
             ((GridPane) root).getChildren().remove(movingImage);
         }
         if(movingShape != null) {
-
-            float convertedX = xMouseToPdf(x);
-            float convertedY = yMouseToPdf(y);
-            movingShape.setPosX(convertedX);
-            movingShape.setPosY(convertedY);
-            addShape(movingShape);
-            movingShape = null;
+            listener.onReleaseShape(x, y, movingShape);
         }
         compile();
 
@@ -493,7 +433,7 @@ public class MainPageViewController implements Initializable {
      */
     public void handleDragExited(DragEvent event){
         if(movingImage != null) {
-            Parent root = ScreenHandler.getScreens().get(ScreenHandler.MAIN_PAGE);
+            Parent root = listener.getRoot();
             ((GridPane) root).getChildren().remove(movingImage);
         }
     }
@@ -530,9 +470,25 @@ public class MainPageViewController implements Initializable {
         this.codeInterfaceListener = listener;
     }
 
+
+    public ImageView getRenderedImageView() {
+        return renderedImageView;
+    }
+
+    public ScrollPane getImageScrollPane() {
+        return imageScrollPane;
+    }
+
+    public void addShape(Shape shape) {
+        listener.addShape(shape);
+    }
+
     public interface MainPageViewControllerListener {
         void onLogoutRequest();
         void accountModificationRequest();
+        void onReleaseShape(double x, double y, Shape movingShape);
+        void addShape(Shape shape);
+        Parent getRoot();
     }
 
     public interface AddNewShapeButtonListener{
