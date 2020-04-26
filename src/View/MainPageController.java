@@ -428,7 +428,7 @@ public class MainPageController extends ControllerSuperclass implements Initiali
             imageMaxHeight = (imageScrollPane.getWidth() / imageWidth) * imageHeight;
         }
 
-        double correctionFactor = 4*(imageMaxHeight/1415); //Empirical value
+        double correctionFactor = 4*(scrollPaneHeight/849)*(imageMaxHeight/1415); //Empirical value
         double heightConvert = imageMaxHeight/pdfHeight - correctionFactor ;
         double pdfNotShown = 0;
         if(scrollPaneHeight < imageMaxHeight) {
