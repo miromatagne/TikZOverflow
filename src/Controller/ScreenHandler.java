@@ -81,8 +81,9 @@ public class ScreenHandler extends Application {
         addScene("/View/FXML/MainPage.fxml");
         addScene("/View/FXML/accountCreation.fxml");
         addScene("/View/FXML/accountModification.fxml");
-        if (screens.isEmpty())
+        if (screens.isEmpty()) {
             throw new Exception("Failed to add all scenes");
+        }
         scene = new Scene(screens.get(LOGIN_SCREEN));
         stage.setTitle("TikZOverflow");
         stage.setMaximized(true);

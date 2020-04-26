@@ -55,11 +55,8 @@ public class ShapeMenuController {
      */
     public String createString(Shape shape) {
         String returnString = "Added ";
-
         returnString += shape.getDescription();
-
         returnString += " Color : " + shape.getColor() + ".";
-
         return returnString;
     }
 

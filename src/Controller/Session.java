@@ -72,8 +72,9 @@ public class Session {
      */
     public boolean createAccount(String username, String firstName, String lastName,
                                  String mail, String password){
-        if(fileHandler.getUserFromSave(username) != null)//User already exists
+        if(fileHandler.getUserFromSave(username) != null) {//User already exists
             return false;
+        }
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setFirstName(firstName);
