@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 /**
  * Controller for the modification screen that contains the methods used by the buttons and to update the textfields.
  */
-public class AccountModificationController extends AccountController implements Initializable {
+public class AccountModificationViewController extends AccountController implements Initializable {
 
     //Attribut
     @FXML
@@ -32,12 +32,12 @@ public class AccountModificationController extends AccountController implements 
     @FXML
     private PasswordField passwordConfirmationField;
 
-    private UserController userController = new UserController();
+    private AccountModificationViewControllerListener listener;
 
     //Method
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        update();
     }
 
     /**
@@ -68,15 +68,14 @@ public class AccountModificationController extends AccountController implements 
      */
     @FXML
     public void validateButtonAction() {
-        userController.setUsername(usernameField.getText());
-        userController.setFirstName(firstNameField.getText());
-        userController.setLastName(lastNameField.getText());
-        userController.setEmail(emailField.getText());
-        userController.setPassword(passwordField.getText());
-        userController.setPasswordConfirmation(passwordConfirmationField.getText());
-        userController.setAccountController(this);
-        userController.validateModification();
+        listener.onValidation(firstNameField.getText(),
+                lastNameField.getText(),
+                emailField.getText(),
+                passwordField.getText(),
+                passwordConfirmationField.getText());
     }
+
+
 
 
     /**
@@ -84,6 +83,14 @@ public class AccountModificationController extends AccountController implements 
      */
     @FXML
     public void returnButtonAction() {
-        ScreenHandler.changeScene(ScreenHandler.MAIN_PAGE);
+        listener.onReturnButtonPressed();
+    }
+
+    public void setListener(AccountModificationViewControllerListener listener){
+        this.listener = listener;
+    }
+    public interface AccountModificationViewControllerListener {
+        void onValidation(String firstName, String lastName, String email, String password, String passwordConfirmation);
+        void onReturnButtonPressed();
     }
 }

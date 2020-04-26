@@ -25,21 +25,19 @@ import java.util.ArrayList;
  */
 
 public class ScreenHandler extends Application implements LoginScreenController.LoginScreenControllerListener,
-        AccountCreationController.AccountCreationControllerListener, MainPageController.MainPageControllerListener {
+        AccountCreationController.AccountCreationControllerListener, MainPageController.MainPageControllerListener,
+        AccountModificationController.AccountModificationControllerListener {
     // Scene IDs :
     public static int LOGIN_SCREEN = 0;
     public static int MAIN_PAGE = 1;
     public static int ACCOUNT_CREATION = 2;
     public static int MODIFICATION_SCREEN = 3;
 
-    // Attributes
-    /*
-    private static ArrayList<Parent> screens = new ArrayList<>();
-    static ArrayList<ControllerSuperclass> controllers = new ArrayList<>();
-    static Scene scene;
-    static int idCurrent = 0; // Allow to see at which screen/scene number we are
-     */
     private Stage stage;
+    private LoginScreenController loginScreenController;
+    private AccountCreationController accountCreationController;
+    private AccountModificationController accountModificationController;
+    private MainPageController mainPageController;
 
 
     /**
@@ -100,13 +98,13 @@ public class ScreenHandler extends Application implements LoginScreenController.
         stage.setMinWidth(600);
         stage.setMinHeight(400);
         this.stage = stage;
-        LoginScreenController controller = new LoginScreenController(stage, this);
-        controller.createScene();
+        loginScreenController = new LoginScreenController(stage, this);
+        loginScreenController.createScene();
     }
 
-    private void showLoginScreen(Stage stage) {
-        LoginScreenController controller = new LoginScreenController(stage, this);
-        controller.show();
+    private void showLoginScreen() {
+        loginScreenController = new LoginScreenController(stage, this);
+        loginScreenController.show();
     }
 
     /**
@@ -130,12 +128,12 @@ public class ScreenHandler extends Application implements LoginScreenController.
         button.setOnMouseClicked(e -> {
             popupStage.close();
             if (success) {
-                showLoginScreen(stage);
+                showLoginScreen();
             }
         });
         popupStage.setOnCloseRequest(e -> {
             if (success) {
-                showLoginScreen(stage);
+                showLoginScreen();
             }
         });
         vBox.getChildren().add(button);
@@ -156,19 +154,39 @@ public class ScreenHandler extends Application implements LoginScreenController.
 
     @Override
     public void onSuccessfulLoginRequest() {
-        MainPageController controller = new MainPageController(stage, this);
-        controller.show();
+        goToMainPage();
+    }
 
+    private void goToMainPage() {
+        mainPageController = new MainPageController(stage, this);
+        mainPageController.show();
     }
 
     @Override
     public void onAccountCreationRequest() {
-        AccountCreationController controller = new AccountCreationController(stage, this);
-        controller.show();
+        accountCreationController = new AccountCreationController(stage, this);
+        accountCreationController.show();
     }
 
     @Override
     public void backToLoginScreenRequest() {
-        showLoginScreen(this.stage);
+        showLoginScreen();
+    }
+
+    @Override
+    public void logout() {
+        Session.getInstance().logOut();
+        showLoginScreen();
+    }
+
+    @Override
+    public void accountModificationRequest() {
+        accountModificationController = new AccountModificationController(stage, this);
+        accountModificationController.show();
+    }
+
+    @Override
+    public void onModificationDone() {
+        goToMainPage();
     }
 }

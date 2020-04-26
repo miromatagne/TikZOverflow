@@ -12,6 +12,8 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     private Stage stage;
     private MainPageControllerListener listener;
     private MainPageViewController controller;
+    private ShapeMenuController shapeMenuController;
+    private LatexController latexController;
 
     public MainPageController(Stage stage, MainPageControllerListener listener){
         this.stage = stage;
@@ -25,8 +27,8 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
             controller = loader.getController();
             controller.setListener(this);
             PredefinedShapesPanelController predefinedShapesPanelController = new PredefinedShapesPanelController();
-            ShapeMenuController shapeMenuController = new ShapeMenuController();
-            LatexController latexController = new LatexController(controller);
+            shapeMenuController = new ShapeMenuController();
+            latexController = new LatexController(controller);
             shapeMenuController.setMainPageViewController(controller);
 
             controller.setPredefinedShapesPanelController(predefinedShapesPanelController);
@@ -43,8 +45,19 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
 
     }
 
+    @Override
+    public void onLogoutRequest() {
+        listener.logout();
+    }
+
+    @Override
+    public void accountModificationRequest() {
+        listener.accountModificationRequest();
+    }
+
 
     public interface MainPageControllerListener{
-
+        void logout();
+        void accountModificationRequest();
     }
 }

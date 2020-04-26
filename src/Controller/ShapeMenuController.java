@@ -20,8 +20,8 @@ import java.util.ArrayList;
  * Handles shape creation with popup and adding them to the shape list.
  */
 public class ShapeMenuController implements MainPageViewController.AddNewShapeButtonListener, ShapeMenuViewController.ShapeMenuViewControllerListener {
-    private static ArrayList<MenuController> allControllers = new ArrayList<>();
-    private static ArrayList<Parent> allShapes = new ArrayList<>();
+    private ArrayList<MenuController> allControllers;
+    private ArrayList<Parent> allShapes;
     private ShapeMenuViewController shapeMenuViewController;
     private MainPageViewController mainPageViewController;
     private Stage popUpStage;
@@ -45,6 +45,9 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
         }
         shapeMenuViewController = loader.getController();
         shapeMenuViewController.setListener(this);
+
+        allControllers = new ArrayList<>();
+        allShapes = new ArrayList<>();
         try {
             setUpScenes();
         } catch (IOException e) {

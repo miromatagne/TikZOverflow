@@ -20,23 +20,7 @@ public class UserController {
     private String passwordConfirmation;
     private String username;
 
-    /**
-     * If all fields are valid, modifies the user's info.
-     */
-    public void validateModification() {
-        if (true) {
-            userCurrent.setUsername(username);
-            userCurrent.setLastName(lastName);
-            userCurrent.setFirstName(firstName);
-            userCurrent.setMail(email);
-            userCurrent.setPassword(password);
-            Session.getInstance().setUser(userCurrent);
-            FileHandler handler = new FileHandler();
-            if (!handler.saveUser(userCurrent)) {
-                System.out.println("Error in saving the user");
-            }
-        }
-    }
+
 
 
 

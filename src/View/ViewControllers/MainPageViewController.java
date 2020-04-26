@@ -223,17 +223,16 @@ public class MainPageViewController implements Initializable {
      */
     @FXML
     public void modificationButtonAction() {
-        textSaved = codeInterface.getText(); // Save the text
-        ScreenHandler.changeScene(ScreenHandler.MODIFICATION_SCREEN);
+        codeInterfaceListener.saveCodeInterfaceCode(codeInterface.getText());
+        listener.accountModificationRequest();
     }
 
     /**
      * Action of "Log Out" button. Logs current user out and goes back to LoginScreen.
      */
     public void logout() {
-        Session.getInstance().logOut();
-        clearScreen();
-        ScreenHandler.changeScene(ScreenHandler.LOGIN_SCREEN);
+        codeInterfaceListener.saveCodeInterfaceCode(codeInterface.getText()); //saving code
+        listener.onLogoutRequest(); //requesting logout
     }
 
     /**
@@ -532,7 +531,8 @@ public class MainPageViewController implements Initializable {
     }
 
     public interface MainPageViewControllerListener {
-
+        void onLogoutRequest();
+        void accountModificationRequest();
     }
 
     public interface AddNewShapeButtonListener{

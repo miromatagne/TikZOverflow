@@ -33,7 +33,7 @@ public class ShapeMenuViewController implements Initializable {
 
     private ShapeMenuViewControllerListener listener;
 
-    private static ArrayList<Text> allTexts = new ArrayList<>();
+    private ArrayList<Text> allTexts = new ArrayList<>();
 
     public final static int ARROW = 4;
     final static int NUMBER_OF_MENUS = 6;
