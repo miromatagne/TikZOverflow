@@ -435,7 +435,12 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         }
         double scroll = imageScrollPane.getVvalue();
 
-        return (float) (yOffset - (y+(scroll*pdfNotShown))/heightConvert);
+        float valueToReturn = 0;
+        if(heightConvert != 0){
+            valueToReturn = (float) (yOffset - (y+(scroll*pdfNotShown))/heightConvert);
+        }
+
+        return valueToReturn;
     }
 
     /**
