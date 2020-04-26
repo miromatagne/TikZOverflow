@@ -1,5 +1,6 @@
 package Controller;
 
+import Controller.Exceptions.AddSceneException;
 import Model.FieldChecker;
 import Model.Shapes.ShapeFactory;
 import Model.Shapes.Shape;
@@ -71,18 +72,13 @@ public class ShapeMenuController {
 
     /**
      * Add the scenes for all the shape menus to the ArrayList.
-     *
-     * @throws IOException If there was an error while reading a .fxml file
      */
-    public void setUpScenes() throws IOException {
+    public void setUpScenes() throws AddSceneException {
         addScene("/View/ShapeMenu/FxmlFiles/rectangleMenu.fxml");
         addScene("/View/ShapeMenu/FxmlFiles/circleMenu.fxml");
         addScene("/View/ShapeMenu/FxmlFiles/lineMenu.fxml");
         addScene("/View/ShapeMenu/FxmlFiles/curvedLineMenu.fxml");
         addScene("/View/ShapeMenu/FxmlFiles/arrowMenu.fxml");
-        if (allShapes.isEmpty()) {
-            throw new IOException();
-        }
     }
 
     /**
@@ -104,14 +100,13 @@ public class ShapeMenuController {
      *
      * @param scenePath Path to the corresponding fxml file
      */
-    private void addScene(String scenePath) {
+    private void addScene(String scenePath) throws AddSceneException {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(scenePath));
             allShapes.add(loader.load());
             allControllers.add(loader.getController());
-        } catch (Exception exc) {
-            System.out.println("Error loading scene " + scenePath);
-            exc.printStackTrace();
+        } catch (IOException e) {
+            throw new AddSceneException(e);
         }
     }
 
@@ -142,20 +137,28 @@ public class ShapeMenuController {
 
     /**
      * Create the Pop Up menu for the shapes and add the menus to it.
-     *
-     * @throws IOException If there was an error while reading the .fxml file
      */
-    public void popUpInitialize() throws IOException {
-        popUpStage = new Stage();
-        popUpStage.setTitle("Add Shape Menu");
-        popUpStage.initModality(Modality.APPLICATION_MODAL);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/ShapeMenu/FxmlFiles/addShapeMenu.fxml"));
-        Parent addShapeMenuRoot = loader.load();
-        shapeMenuViewController = loader.getController();
-        shapeMenuViewController.setShapeMenuController(this);
-        setUpScenes();
-        changeToMenu(ShapeMenuViewController.ARROW);
-        popUpStage.setScene(new Scene(addShapeMenuRoot));
+    public void popUpInitialize(){
+        try {
+            popUpStage = new Stage();
+            popUpStage.setTitle("Add Shape Menu");
+            popUpStage.initModality(Modality.APPLICATION_MODAL);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/ShapeMenu/FxmlFiles/addShapeMenu.fxml"));
+            Parent addShapeMenuRoot = loader.load();
+            shapeMenuViewController = loader.getController();
+            shapeMenuViewController.setShapeMenuController(this);
+            setUpScenes();
+            changeToMenu(ShapeMenuViewController.ARROW);
+            popUpStage.setScene(new Scene(addShapeMenuRoot));
+        } catch (IOException e) {
+            System.err.println("Error while charging fxml file");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
+        } catch (AddSceneException e) {
+            System.err.println("Error while adding all the scenes");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
+        }
     }
 
     /**

@@ -18,7 +18,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -81,10 +80,9 @@ public class MainPageController extends ControllerSuperclass implements Initiali
     /**
      * Compiles code in text area into pdf file and displays it on UI.
      *
-     * @throws IOException If reading the log was unsuccessful.
      */
     @FXML
-    public void compile() throws IOException {
+    public void compile() {
         String sourceCode = "";
         if(currentCodeDisplay == SHAPES_ONLY){
             sourceCode = latexController.buildFullCodeFromShapesOnlyCode(codeInterface.getText());
@@ -231,11 +229,7 @@ public class MainPageController extends ControllerSuperclass implements Initiali
         shapeList.prefWidthProperty().bind(scroll.prefWidthProperty());
         shapeList.prefHeightProperty().bind(scroll.prefHeightProperty());
         shapeMenuController.setMainPageController(this);
-        try {
-            shapeMenuController.popUpInitialize();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        shapeMenuController.popUpInitialize();
     }
 
     /**

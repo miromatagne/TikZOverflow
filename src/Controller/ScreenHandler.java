@@ -1,5 +1,6 @@
 package Controller;
 
+import Controller.Exceptions.AddSceneException;
 import View.ViewControllers.ControllerSuperclass;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -58,14 +59,13 @@ public class ScreenHandler extends Application {
      * @param scenePath String containing the path of the fxml file that will be loaded.
      */
 
-    private void addScene(String scenePath) {
+    private void addScene(String scenePath) throws AddSceneException {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(scenePath));
             screens.add(loader.load());
             controllers.add(loader.getController());
-        } catch (Exception e) {
-            System.out.println("Error loading all screens " + scenePath);
-            e.printStackTrace();
+        } catch (IOException e) {
+            throw new AddSceneException(e);
         }
     }
 
@@ -73,22 +73,24 @@ public class ScreenHandler extends Application {
      * At first, start() adds all scenes to screens attribute.
      *
      * @param stage Stage for the application.
-     * @throws Exception If all scenes were not successfully added to the stage.
      */
     @Override
-    public void start(Stage stage) throws Exception {
-        addScene("/View/FXML/LoginScreen.fxml");
-        addScene("/View/FXML/MainPage.fxml");
-        addScene("/View/FXML/accountCreation.fxml");
-        addScene("/View/FXML/accountModification.fxml");
-        if (screens.isEmpty()) {
-            throw new Exception("Failed to add all scenes");
+    public void start(Stage stage){
+        try {
+            addScene("/View/FXML/LoginScreen.fxml");
+            addScene("/View/FXML/MainPage.fxml");
+            addScene("/View/FXML/accountCreation.fxml");
+            addScene("/View/FXML/accountModification.fxml");
+            scene = new Scene(screens.get(LOGIN_SCREEN));
+            stage.setTitle("TikZOverflow");
+            stage.setMaximized(true);
+            stage.setScene(scene);
+            stage.show();
+        } catch (AddSceneException e){
+            System.err.println("Error while charging all the scenes");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
         }
-        scene = new Scene(screens.get(LOGIN_SCREEN));
-        stage.setTitle("TikZOverflow");
-        stage.setMaximized(true);
-        stage.setScene(scene);
-        stage.show();
     }
 
     /**
@@ -122,25 +124,28 @@ public class ScreenHandler extends Application {
 
     /**
      * Creates a pop-up window when user clicks on "I accept terms and conditions".
-     *
-     * @throws IOException when terms and conditions file doesn't exist.
      */
-    public void tcuWindow() throws IOException {
-        Parent tcuRoot = FXMLLoader.load(getClass().getResource("/View/FXML/termsAndConditions.fxml"));
-        Scene tcuScene = new Scene(tcuRoot);
-        Stage tcuStage = new Stage();
-        tcuStage.initModality(Modality.APPLICATION_MODAL);
-        tcuStage.setTitle("Terms and conditions");
-        File f = new File("tcu.txt");
-        BufferedReader br = new BufferedReader(new FileReader(f));
-        String tmp, text = "";
-        while ((tmp = br.readLine()) != null) {
-            text = text.concat(tmp + '\n');
+    public void tcuWindow(){
+        try {
+            Parent tcuRoot = FXMLLoader.load(getClass().getResource("/View/FXML/termsAndConditions.fxml"));
+            Scene tcuScene = new Scene(tcuRoot);
+            Stage tcuStage = new Stage();
+            tcuStage.initModality(Modality.APPLICATION_MODAL);
+            tcuStage.setTitle("Terms and conditions");
+            File f = new File("tcu.txt");
+            BufferedReader br = new BufferedReader(new FileReader(f));
+            String tmp, text = "";
+            while ((tmp = br.readLine()) != null) {
+                text = text.concat(tmp + '\n');
+            }
+            tcuStage.setScene(tcuScene);
+            tcuStage.show();
+            Text tcuFullText = (Text) tcuRoot.lookup("#tcuFullText");
+            tcuFullText.setText(text);
+            tcuFullText.wrappingWidthProperty().bind(tcuScene.widthProperty().subtract(20));
+        } catch(IOException e){
+            System.err.println("Error while loading the TCU file");
+            e.printStackTrace();
         }
-        tcuStage.setScene(tcuScene);
-        tcuStage.show();
-        Text tcuFullText = (Text) tcuRoot.lookup("#tcuFullText");
-        tcuFullText.setText(text);
-        tcuFullText.wrappingWidthProperty().bind(tcuScene.widthProperty().subtract(20));
     }
 }

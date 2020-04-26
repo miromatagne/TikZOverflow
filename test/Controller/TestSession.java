@@ -1,5 +1,6 @@
 package Controller;
 
+import Controller.Exceptions.SessionOpeningException;
 import Model.FileHandler;
 import Model.User;
 import org.junit.jupiter.api.Test;
@@ -20,24 +21,23 @@ class TestSession {
         testUser.setFirstName("Franck");
         testUser.setMail("ftrouill@ulb.ac.be");
         testUser.setPassword("123456789");
-        System.out.println(fh.createUserSave(testUser));
     }
     @Test
-    public void userNotRegisteredTest(){
+    public void userNotRegisteredTest() throws SessionOpeningException {
         testSetup();
         int res1 = Session.getInstance().openSession("ftrouuuuil", "123456789");
         assertEquals(res1, Session.USER_NOT_REGISTERED);
     }
 
     @Test
-    public void wrongPasswordTest(){
+    public void wrongPasswordTest() throws SessionOpeningException {
         testSetup();
         int res2 = Session.getInstance().openSession("ftrouill", "oups");
         assertEquals(res2, Session.INVALID_PASSWORD);
     }
 
     @Test
-    public void successfulConnectionTest(){
+    public void successfulConnectionTest() throws SessionOpeningException {
         testSetup();
         int res3 = Session.getInstance().openSession("ftrouill", "123456789");
         assertEquals(res3, Session.CONNECTION_ESTABLISHED);

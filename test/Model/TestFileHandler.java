@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Exceptions.*;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -25,7 +26,7 @@ class TestFileHandler {
 
 
     @Test
-    public void test() {
+    public void test() throws UserFromSaveCreationException, IOException, SaveUserException {
         /* After execution, a folder should be made containing
          * a save file of "ftrouill" user
          */
@@ -37,7 +38,6 @@ class TestFileHandler {
         user1.setFirstName("Franck");
         user1.setMail("ftrouill@ulb.ac.be");
         user1.setPassword("123456789");
-        System.out.println(fh.createUserSave(user1)); //Indicate if the save was already existing
         User user2 = fh.getUserFromSave("ftrouill");
         assertEquals("ftrouill", user2.getUsername());
         assertEquals("Franck", user2.getFirstName());
@@ -55,7 +55,7 @@ class TestFileHandler {
         assertEquals("Franck2", user2.getFirstName());
     }
     @Test
-    public void makeTexFile(){
+    public void makeTexFile() throws SaveUserCreationException, IOException, LatexWritingException {
         User user = new User();
         user.setUsername("test1");
         FileHandler fh = new FileHandler();
@@ -80,7 +80,7 @@ class TestFileHandler {
     }
 
     @Test
-    void errorLogs() throws IOException {
+    void errorLogs() throws LogErrorException {
         User user = new User();
         user.setUsername("logFileTest");
         FileHandler fileHandler = new FileHandler();

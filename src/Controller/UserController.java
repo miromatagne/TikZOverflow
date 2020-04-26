@@ -1,5 +1,7 @@
 package Controller;
 
+import Controller.Exceptions.SessionOpeningException;
+import Model.Exceptions.SaveUserException;
 import Model.FieldChecker;
 import Model.FileHandler;
 import Model.User;
@@ -25,16 +27,21 @@ public class UserController {
      */
     public void validateModification() {
         if (validateInformation()) {
-            userCurrent.setUsername(username);
-            userCurrent.setLastName(lastName);
-            userCurrent.setFirstName(firstName);
-            userCurrent.setMail(email);
-            userCurrent.setPassword(password);
-            Session.getInstance().setUser(userCurrent);
-            FileHandler handler = new FileHandler();
-            if (!handler.saveUser(userCurrent)) {
-                System.out.println("Error in saving the user");
+            try {
+                userCurrent.setUsername(username);
+                userCurrent.setLastName(lastName);
+                userCurrent.setFirstName(firstName);
+                userCurrent.setMail(email);
+                userCurrent.setPassword(password);
+                Session.getInstance().setUser(userCurrent);
+                FileHandler handler = new FileHandler();
+                handler.saveUser(userCurrent);
+            } catch (SaveUserException e) {
+                System.err.println("Error in saving the user");
+                e.printStackTrace();
+                e.getCause().printStackTrace();
             }
+
         }
     }
 
@@ -82,15 +89,21 @@ public class UserController {
      * If not, the incorrect credentials are highlighted in red.
      */
     public void validateLogin() {
-        Session session = Session.getInstance();
-        int valid = session.openSession(username, password);
-        if (valid == Session.CONNECTION_ESTABLISHED) {
-            ScreenHandler.changeScene(ScreenHandler.MAIN_PAGE);
-        } else if (valid == Session.USER_NOT_REGISTERED) {
-            loginScreenController.setTextFieldStyle("username", "red");
-        } else if (valid == Session.INVALID_PASSWORD) {
-            loginScreenController.setTextFieldStyle("password", "red");
-            loginScreenController.setTextFieldStyle("username", "default");
+        try {
+            Session session = Session.getInstance();
+            int valid = session.openSession(username, password);
+            if (valid == Session.CONNECTION_ESTABLISHED) {
+                ScreenHandler.changeScene(ScreenHandler.MAIN_PAGE);
+            } else if (valid == Session.USER_NOT_REGISTERED) {
+                loginScreenController.setTextFieldStyle("username", "red");
+            } else if (valid == Session.INVALID_PASSWORD) {
+                loginScreenController.setTextFieldStyle("password", "red");
+                loginScreenController.setTextFieldStyle("username", "default");
+            }
+        } catch (SessionOpeningException e) {
+            System.err.println("Error while opening a session");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
         }
     }
 

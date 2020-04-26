@@ -59,10 +59,8 @@ public class AccountCreationController extends AccountController implements Init
 
     /**
      * Creates a pop-up window when user clicks on "I accept terms and conditions".
-     *
-     * @throws IOException when terms and conditions file doesn't exist.
      */
-    public void termsAndConditionsWindow() throws IOException {
+    public void termsAndConditionsWindow(){
         screenHandler.tcuWindow();
     }
 

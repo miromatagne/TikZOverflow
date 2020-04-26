@@ -1,5 +1,8 @@
 package Controller;
 
+import Model.Exceptions.LatexCompilationException;
+import Model.Exceptions.LatexWritingException;
+import Model.Exceptions.LogErrorException;
 import Model.FileHandler;
 import Model.LatexCompiler;
 import Model.PDFHandler;
@@ -31,8 +34,15 @@ public class LatexController {
      * @return Source code
      */
     public String getTextInFile() {
-        String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
-        return fileHandler.readInFile(filePath);
+        try {
+            String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
+            return fileHandler.readInFile(filePath);
+        } catch (IOException e) {
+            System.err.println("Error while getting source code");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
+        }
+        return "";
     }
 
     /**
@@ -40,24 +50,29 @@ public class LatexController {
      *
      * @param sourceCode Source code to be compiled
      * @return String with error count
-     * @throws IOException If reading the log was unsuccessful
      */
-    public String compileTikz(String sourceCode) throws IOException {
-        saveTikz(sourceCode);
-        String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
-
+    public String compileTikz(String sourceCode){
         try {
+            saveTikz(sourceCode);
+            String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
             LatexCompiler.runProcess(filePath);
             String pdfPath = "./Latex/out/" + Session.getInstance().getUser().getUsername() + ".pdf";
             createImage(pdfPath);
-        } catch (Exception e) {
-            System.err.println("Error in compilation :  " + e.toString());
             fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log", Session.getInstance().getUser().getUsername());
+            int errorsCount = fileHandler.getErrorsCounter();
+            System.out.println("You got " + errorsCount + " errors on the last compilation \n" + fileHandler.getErrors());
+            return "Errors (" + errorsCount + ")";
+        } catch (LatexCompilationException e) {
+            System.err.println("Error in compilation");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
+        } catch (LogErrorException e){
+            System.err.println("Error while writing log");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
         }
-        fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log", Session.getInstance().getUser().getUsername());
-        int errorsCount = fileHandler.getErrorsCounter();
-        System.out.println("You got " + errorsCount + " errors on the last compilation \n" + fileHandler.getErrors());
-        return "Errors (" + errorsCount + ")";
+        return "";
+
     }
 
     /**
@@ -69,7 +84,7 @@ public class LatexController {
         PDFHandler pdfHandler = new PDFHandler(pdfPath);
         try {
             pdfHandler.convertPdfToImageOnDisk();
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.err.println("Error converting " + pdfPath + " to image");
             e.printStackTrace();
         }
@@ -93,7 +108,13 @@ public class LatexController {
      * @param sourceCode Source code to be saved
      */
     public void saveTikz(String sourceCode) {
-        fileHandler.makeTexFile(Session.getInstance().getUser(), sourceCode);
+        try {
+            fileHandler.makeTexFile(Session.getInstance().getUser(), sourceCode);
+        } catch (LatexWritingException e){
+            System.err.println("Error while writing in tex file");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
+        }
     }
 
     /**
