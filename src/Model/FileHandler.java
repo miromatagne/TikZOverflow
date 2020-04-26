@@ -370,13 +370,16 @@ public class FileHandler {
                 if (word.equals(input)) {
                     ERRORS_COUNTER++;
                     for (int i = 1; i < words.length; i++) {
-                        if (i == 1)
+                        if (i == 1) {
                             ERRORS += "line ";
+                        }
                         ERRORS += words[i];
-                        if (i < words.length - 1)
+                        if (i < words.length - 1) {
                             ERRORS += ":";
-                        else
+                        }
+                        else {
                             ERRORS += "\n";
+                        }
                     }
                 } else if (word.equals("*** (job aborted, no legal \\end found)")) {
                     ERRORS_COUNTER++;

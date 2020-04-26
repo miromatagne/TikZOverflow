@@ -1,6 +1,5 @@
 package Model;
 
-import Controller.Session;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -49,6 +48,11 @@ class TestFileHandler {
         String readerTest = fh.readInFile("./save user/ftrouill.txt");
         assertEquals("last:Trouillez" + "\n" + "first:Franck" + "\n" + "username:ftrouill" + "\n" +
                               "mail:ftrouill@ulb.ac.be" + "\n" + "password:123456789" + "\n", readerTest);
+
+        user1.setFirstName("Franck2");
+        fh.saveUser(user1);
+        user2 = fh.getUserFromSave("ftrouill");
+        assertEquals("Franck2", user2.getFirstName());
     }
     @Test
     public void makeTexFile(){

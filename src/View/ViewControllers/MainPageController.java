@@ -1,4 +1,4 @@
-package View;
+package View.ViewControllers;
 
 import Controller.*;
 import Model.Shapes.Shape;
@@ -21,7 +21,6 @@ import javafx.scene.Parent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 /**

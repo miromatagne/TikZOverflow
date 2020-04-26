@@ -1,4 +1,4 @@
-package View;
+package View.ViewControllers;
 
 /**
  * ControllerSuperclass is an abstract class and the Mother class of all view related controllers it only contain the

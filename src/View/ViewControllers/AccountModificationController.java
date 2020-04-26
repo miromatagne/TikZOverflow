@@ -1,4 +1,4 @@
-package View;
+package View.ViewControllers;
 
 import Controller.ScreenHandler;
 import Controller.Session;
@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 /**
  * Controller for the modification screen that contains the methods used by the buttons and to update the textfields.
  */
-public class ModificationController extends ControllerSuperclass implements Initializable {
+public class AccountModificationController extends AccountController implements Initializable {
 
     //Attribut
     @FXML
@@ -52,8 +52,13 @@ public class ModificationController extends ControllerSuperclass implements Init
         lastNameField.setText(userCurrent.getLastName());
         emailField.setText(userCurrent.getMail());
         passwordField.setText(userCurrent.getPassword());
-        emailField.setText(userCurrent.getMail());
         passwordConfirmationField.setText("");
+
+        setTextFieldStyle("firstName", "default");
+        setTextFieldStyle("lastName", "default");
+        setTextFieldStyle("email", "default");
+        setTextFieldStyle("password", "default");
+        setTextFieldStyle("passwordConfirmation", "default");
     }
 
 
@@ -63,12 +68,13 @@ public class ModificationController extends ControllerSuperclass implements Init
      */
     @FXML
     public void validateButtonAction() {
-        userController.setUsernameField(usernameField);
-        userController.setFirstNameField(firstNameField);
-        userController.setLastNameField(lastNameField);
-        userController.setEmailField(emailField);
-        userController.setPasswordField(passwordField);
-        userController.setPasswordConfirmationField(passwordConfirmationField);
+        userController.setUsername(usernameField.getText());
+        userController.setFirstName(firstNameField.getText());
+        userController.setLastName(lastNameField.getText());
+        userController.setEmail(emailField.getText());
+        userController.setPassword(passwordField.getText());
+        userController.setPasswordConfirmation(passwordConfirmationField.getText());
+        userController.setAccountController(this);
         userController.validateModification();
     }
 
