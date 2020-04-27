@@ -14,19 +14,28 @@ import java.util.ResourceBundle;
  * This controller is used to handle the arrow menu, get the inputs from the texts fields and clear them when it has to
  */
 
-public class ArrowMenuController extends MenuController implements Initializable{
+public class ArrowMenuController extends MenuController implements Initializable {
 
-    @FXML private TextField xOriginTextField;
-    @FXML private TextField yOriginTextField;
-    @FXML private TextField xDestinationTextField;
-    @FXML private TextField yDestinationTextField;
-    @FXML private TextField strokeWidthTextField;
-    @FXML private TextField headLengthTextField;
-    @FXML private TextField headWidthTextField;
-    @FXML private ColorPicker colorPicker;
-    @FXML private TextField labelTextField;
+    @FXML
+    private TextField xOriginTextField;
+    @FXML
+    private TextField yOriginTextField;
+    @FXML
+    private TextField xDestinationTextField;
+    @FXML
+    private TextField yDestinationTextField;
+    @FXML
+    private TextField strokeWidthTextField;
+    @FXML
+    private TextField headLengthTextField;
+    @FXML
+    private TextField headWidthTextField;
+    @FXML
+    private ColorPicker colorPicker;
+    @FXML
+    private TextField labelTextField;
 
-    private static ArrayList<TextField> allTextFields = new ArrayList<>();
+    private static final ArrayList<TextField> allTextFields = new ArrayList<>();
 
 
     /**
@@ -46,8 +55,9 @@ public class ArrowMenuController extends MenuController implements Initializable
 
     /**
      * Initialization by adding the different textfield to an array list
-     * @param url               URL (not used)
-     * @param resourceBundle    ResourceBundle(not used)
+     *
+     * @param url            URL (not used)
+     * @param resourceBundle ResourceBundle(not used)
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -62,7 +72,8 @@ public class ArrowMenuController extends MenuController implements Initializable
 
     /**
      * Get information from all fields
-     * @return  list of all information
+     *
+     * @return list of all information
      */
     @Override
     public ArrayList<String> getAllFields() {
@@ -84,5 +95,7 @@ public class ArrowMenuController extends MenuController implements Initializable
     }
 
     @Override
-    public TextField getLabel() { return labelTextField; }
+    public TextField getLabel() {
+        return labelTextField;
+    }
 }

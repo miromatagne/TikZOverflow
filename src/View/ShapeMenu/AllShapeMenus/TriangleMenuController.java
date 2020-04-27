@@ -15,18 +15,28 @@ import java.util.ResourceBundle;
  * This controller is used to handle the rectangle menu, get the inputs from the texts fields and clear them when it has to
  */
 
-public class TriangleMenuController extends MenuController implements Initializable{
-    @FXML private TextField x1PositionTextField;
-    @FXML private TextField y1PositionTextField;
-    @FXML private TextField x2PositionTextField;
-    @FXML private TextField y2PositionTextField;
-    @FXML private TextField x3PositionTextField;
-    @FXML private TextField y3PositionTextField;
-    @FXML private Slider thicknessSlider;
-    @FXML private TextField thicknessValue;
-    @FXML private ColorPicker colorPicker;
-    @FXML private TextField labelTextField;
-    private ArrayList<TextField> allTextFields = new ArrayList<>();
+public class TriangleMenuController extends MenuController implements Initializable {
+    @FXML
+    private TextField x1PositionTextField;
+    @FXML
+    private TextField y1PositionTextField;
+    @FXML
+    private TextField x2PositionTextField;
+    @FXML
+    private TextField y2PositionTextField;
+    @FXML
+    private TextField x3PositionTextField;
+    @FXML
+    private TextField y3PositionTextField;
+    @FXML
+    private Slider thicknessSlider;
+    @FXML
+    private TextField thicknessValue;
+    @FXML
+    private ColorPicker colorPicker;
+    @FXML
+    private TextField labelTextField;
+    private final ArrayList<TextField> allTextFields = new ArrayList<>();
 
     private static final double THICKNESS_DEFAULT_VALUE = 50;
 
@@ -48,8 +58,9 @@ public class TriangleMenuController extends MenuController implements Initializa
     /**
      * Initialization by adding the different textfield to an array list and adding a listener for slider to see
      * it value
-     * @param url               URL (not used)
-     * @param resourceBundle    ResourceBundle(not used)
+     *
+     * @param url            URL (not used)
+     * @param resourceBundle ResourceBundle(not used)
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -60,12 +71,13 @@ public class TriangleMenuController extends MenuController implements Initializa
         allTextFields.add(x3PositionTextField);
         allTextFields.add(y3PositionTextField);
         thicknessValue.setText(String.format("%.1f", thicknessSlider.getValue()));
-        thicknessSlider.valueProperty().addListener((ov, old_val, new_val) -> thicknessValue.setText(String.format("%.1f", (float)new_val)));
+        thicknessSlider.valueProperty().addListener((ov, old_val, new_val) -> thicknessValue.setText(String.format("%.1f", (float) new_val)));
     }
 
     /**
      * Get information from all fields
-     * @return  list of all information
+     *
+     * @return list of all information
      */
     @Override
     public ArrayList<String> getAllFields() {
@@ -88,5 +100,7 @@ public class TriangleMenuController extends MenuController implements Initializa
     }
 
     @Override
-    public TextField getLabel() { return labelTextField; }
+    public TextField getLabel() {
+        return labelTextField;
+    }
 }

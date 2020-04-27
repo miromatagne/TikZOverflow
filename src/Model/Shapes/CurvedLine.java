@@ -15,12 +15,18 @@ public class CurvedLine extends Link {
     public void setCurveOutAngle(float curveOutAngle) {
         this.curveOutAngle = curveOutAngle;
     }
-    public void setCurveInAngle(float curveInAngle) { this.curveInAngle = curveInAngle; }
+
+    public void setCurveInAngle(float curveInAngle) {
+        this.curveInAngle = curveInAngle;
+    }
 
     public float getCurvedOutAngle() {
         return curveOutAngle;
     }
-    public float getCurvedInAngle() { return curveInAngle; }
+
+    public float getCurvedInAngle() {
+        return curveInAngle;
+    }
 
     @Override
     public String generateAndGetTikzCode() {

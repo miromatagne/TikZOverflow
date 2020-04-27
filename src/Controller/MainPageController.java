@@ -15,14 +15,14 @@ import java.io.IOException;
  * Controller of the main page which handles interactions on the main page
  */
 public class MainPageController implements MainPageViewController.MainPageViewControllerListener {
-    private Stage stage;
-    private MainPageControllerListener listener;
+    private final Stage stage;
+    private final MainPageControllerListener listener;
     private MainPageViewController controller;
     private ShapeMenuController shapeMenuController;
     private LatexController latexController;
     private Parent root;
 
-    public MainPageController(Stage stage, MainPageControllerListener listener){
+    public MainPageController(Stage stage, MainPageControllerListener listener) {
         this.stage = stage;
         this.listener = listener;
     }
@@ -78,8 +78,9 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
 
     /**
      * Create a shape when the shape is released (drag and drop)
-     * @param x x-position
-     * @param y y-position
+     *
+     * @param x           x-position
+     * @param y           y-position
      * @param movingShape Shape to create
      */
     @Override
@@ -93,47 +94,49 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
 
     /**
      * Convert the position x of the mouse to the position x of the PDF
-     * @param x                 x position to convert
+     *
+     * @param x x position to convert
      * @return posXTikz         a float number for Tikz Language
      */
-    public float xMouseToPdf(double x){
+    public float xMouseToPdf(double x) {
         double scrollPaneWidth = controller.getImageScrollPane().getWidth();
-        double pdfWidth =  21.4; //Size of pdf in Tikz language
-        double widthConvert = scrollPaneWidth/pdfWidth;
+        double pdfWidth = 21.4; //Size of pdf in Tikz language
+        double widthConvert = scrollPaneWidth / pdfWidth;
         double xOffset = -1.25; // x = 0.0 in Tikz language
 
-        return (float) ((x/widthConvert) + xOffset);
+        return (float) ((x / widthConvert) + xOffset);
     }
 
     /**
      * Convert the position y of the mouse to the position y of the PDF
-     * @param y                 y position to convert
+     *
+     * @param y y position to convert
      * @return posYTikz         a float number for Tikz language
      */
-    public float yMouseToPdf(double y){
-        double pdfHeight =  25.7; //Size of pdf in Tikz language
+    public float yMouseToPdf(double y) {
+        double pdfHeight = 25.7; //Size of pdf in Tikz language
         double yOffset = 19.75; // y = 0.0 in Tikz language
         double scrollPaneHeight = controller.getImageScrollPane().getHeight();
         double imageMaxHeight = 0;
 
         Image image = controller.getRenderedImageView().getImage();
-        if(image != null) {
+        if (image != null) {
             double imageWidth = image.getWidth();
             double imageHeight = image.getHeight();
             imageMaxHeight = (controller.getImageScrollPane().getWidth() / imageWidth) * imageHeight; //Total height of the re-sized image(PDF)
         }
 
-        double correctionFactor = 4*(imageMaxHeight/1415); //Empirical value
-        double heightConvert = imageMaxHeight/pdfHeight - correctionFactor ;
+        double correctionFactor = 4 * (imageMaxHeight / 1415); //Empirical value
+        double heightConvert = imageMaxHeight / pdfHeight - correctionFactor;
         double pdfNotShown = 0;
-        if(scrollPaneHeight < imageMaxHeight) {
+        if (scrollPaneHeight < imageMaxHeight) {
             pdfNotShown = (imageMaxHeight - scrollPaneHeight);
         }
         double scroll = controller.getImageScrollPane().getVvalue();
 
         float posYTikz = 0;
-        if(heightConvert != 0){
-            posYTikz = (float) (yOffset - (y+(scroll*pdfNotShown))/heightConvert);
+        if (heightConvert != 0) {
+            posYTikz = (float) (yOffset - (y + (scroll * pdfNotShown)) / heightConvert);
         }
 
         return posYTikz;
@@ -157,8 +160,9 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     }
 
 
-    public interface MainPageControllerListener{
+    public interface MainPageControllerListener {
         void logout();
+
         void accountModificationRequest();
     }
 }

@@ -1,7 +1,8 @@
 package Model.Shapes;
 
-public class Triangle extends Node{
+public class Triangle extends Node {
     private float x1, y1, x2, y2, x3, y3;
+
     public Triangle(float x1, float y1, float x2, float y2, float x3, float y3) {
         super(x1, y1);
         this.x1 = x1;
@@ -16,7 +17,7 @@ public class Triangle extends Node{
     public String generateAndGetTikzCode() {
         String code = "\\filldraw";
         code += "[fill={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() + ";blue," + getColor().getBlue() + "}," +
-                "line width=" + getOutlineThickness()/20 + "] ";
+                "line width=" + getOutlineThickness() / 20 + "] ";
         code += "(" + getX1() + "," + getY1() + ") --";
         code += "(" + getX2() + "," + getY2() + ") --";
         code += "(" + getX3() + "," + getY3() + ") -- cycle;\n";

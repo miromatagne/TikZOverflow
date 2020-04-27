@@ -69,14 +69,15 @@ public abstract class Link extends Shape {
         this.strokeWidth = strokeWidth;
     }
 
-    public void setPosX(float x){
+    public void setPosX(float x) {
         float distanceX = getxDestination() - getxOrigin();
         setxOrigin(x);
-        setxDestination(x+distanceX);
+        setxDestination(x + distanceX);
     }
-    public void setPosY(float y){
+
+    public void setPosY(float y) {
         float distanceY = getyDestination() - getyOrigin();
         setyOrigin(y);
-        setyDestination(y+distanceY);
+        setyDestination(y + distanceY);
     }
 }

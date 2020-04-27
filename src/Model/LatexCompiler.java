@@ -10,7 +10,11 @@ import java.io.*;
 public class LatexCompiler {
 
     private static final String DEFAULT_OUTPUT_DIRECTORY = "./Latex/out";
-    private static final LatexCompiler compiler = new LatexCompiler();
+    private static final LatexCompiler compiler;
+
+    static {
+        compiler = new LatexCompiler();
+    }
 
     /* Singleton class */
     private LatexCompiler() {
@@ -42,7 +46,7 @@ public class LatexCompiler {
      *
      * @param filePath String corresponding to the location of .tex file
      * @throws LatexCompilationException Two Exception can be thrown : - The first one if the file is not valid(check isValid())
-     *                   - The second one is if an error occur during the compilation
+     *                                   - The second one is if an error occur during the compilation
      */
     public static void runProcess(String filePath) throws LatexCompilationException {
         try {
@@ -52,10 +56,10 @@ public class LatexCompiler {
             clearStream(pro.getInputStream());
             clearStream(pro.getErrorStream());
             pro.waitFor();
-            if (pro.exitValue() != 0){
+            if (pro.exitValue() != 0) {
                 throw new LatexCompilationException();
             }
-        } catch (IOException | InterruptedException e){
+        } catch (IOException | InterruptedException e) {
             throw new LatexCompilationException(e);
         }
     }

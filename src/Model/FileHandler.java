@@ -15,13 +15,14 @@ public class FileHandler {
     private static String ERRORS = "";
     private String saveUserDirectory = "";
     private String saveProjectDirectory = "";
-    private String saveUserFormat = ".txt";
+    private final String saveUserFormat = ".txt";
 
     /**
      * Create a new instance of file handler
+     *
      * @throws FileHandlerConstructorException if construction failed
      */
-    public FileHandler() throws FileHandlerConstructorException{
+    public FileHandler() throws FileHandlerConstructorException {
         try {
             setupSaveUserDirectory(DEFAULT_DIRECTORY);
         } catch (SetupDirectoryException e) {
@@ -31,9 +32,10 @@ public class FileHandler {
 
     /**
      * Create a new instance of file handler
+     *
      * @throws FileHandlerConstructorException if construction failed
      */
-    public FileHandler(String saveUserDirectory) throws FileHandlerConstructorException{
+    public FileHandler(String saveUserDirectory) throws FileHandlerConstructorException {
         try {
             setupSaveUserDirectory(saveUserDirectory);
         } catch (SetupDirectoryException e) {
@@ -45,7 +47,7 @@ public class FileHandler {
      * Setups the directory for users' saves.
      *
      * @param saveUserDirectory Path to the directory users' saves
-     * @throws SetupDirectoryException  if setup failed
+     * @throws SetupDirectoryException if setup failed
      */
     public void setupSaveUserDirectory(String saveUserDirectory) throws SetupDirectoryException {
         try {
@@ -64,10 +66,10 @@ public class FileHandler {
      * Setups the directory for projects' saves
      *
      * @param saveProjectDirectory Path to the directory projects's saves
-     * @throws SetupDirectoryException  if setup failed
+     * @throws SetupDirectoryException if setup failed
      */
 
-    public void setupSaveProjectDirectory(String saveProjectDirectory) throws SetupDirectoryException{
+    public void setupSaveProjectDirectory(String saveProjectDirectory) throws SetupDirectoryException {
         try {
             if (saveProjectDirectory.equals("")) {
                 return;
@@ -86,11 +88,11 @@ public class FileHandler {
      * @param file File created with path to the save_user directory
      * @throws DirectoryCreationException if directory creation failed
      */
-    private void checkAndCreateSaveDirectory(File file) throws DirectoryCreationException{
+    private void checkAndCreateSaveDirectory(File file) throws DirectoryCreationException {
         if (file.exists() && file.isDirectory()) {
             return;
         }
-        if (!file.mkdir()){
+        if (!file.mkdir()) {
             throw new DirectoryCreationException();
         }
     }
@@ -129,7 +131,7 @@ public class FileHandler {
             }
             makeTexFile(user, "");
             writeSave(user, saveFile);
-        } catch (LatexWritingException | SaveWritingException e){
+        } catch (LatexWritingException | SaveWritingException e) {
             throw new SaveUserCreationException(e);
         }
     }
@@ -158,8 +160,7 @@ public class FileHandler {
                 }
                 writeInFile(texFile, text);
             }
-        }
-        catch (IOException | SetupDirectoryException e) {
+        } catch (IOException | SetupDirectoryException e) {
             throw new LatexWritingException(e);
         }
     }
@@ -223,7 +224,7 @@ public class FileHandler {
      * @return text in the file
      * @throws IOException if error in IO interactions
      */
-    public String readInFile(String path) throws IOException{
+    public String readInFile(String path) throws IOException {
         File file = new File(path);
         String textInFile;
         StringBuilder builder = new StringBuilder();
@@ -254,7 +255,7 @@ public class FileHandler {
             setUserMail(file, user);
             setUserPassword(file, user);
             return user;
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new UserFromSaveCreationException(e);
         }
     }
@@ -262,10 +263,10 @@ public class FileHandler {
     /**
      * Check if the save user file exists
      *
-     * @param username  username of the user
-     * @return          TRUE if file exists, FALSE otherwise
+     * @param username username of the user
+     * @return TRUE if file exists, FALSE otherwise
      */
-    public boolean saveUserExists(String username){
+    public boolean saveUserExists(String username) {
         File file = new File(saveUserDirectory + "/" + username + saveUserFormat);
         return file.exists();
     }
@@ -278,7 +279,7 @@ public class FileHandler {
      * @return Information needed, or empty string if empty file/flag
      * @throws IOException if any IO error interaction occurs
      */
-    private String getInformation(File file, String flag) throws IOException{
+    private String getInformation(File file, String flag) throws IOException {
         if (file == null || flag.equals("")) {
             return "";
         }
@@ -304,7 +305,7 @@ public class FileHandler {
      * @param user User whose last name is set
      * @throws IOException if any IO error interaction occurs
      */
-    private void setUserLastName(File file, User user) throws IOException{
+    private void setUserLastName(File file, User user) throws IOException {
         String temp;
         if (!(temp = getInformation(file, "last")).equals("")) {
             user.setLastName(temp);
@@ -318,7 +319,7 @@ public class FileHandler {
      * @param user User whose first name is set
      * @throws IOException if any IO error interaction occurs
      */
-    private void setUserFirstName(File file, User user) throws IOException{
+    private void setUserFirstName(File file, User user) throws IOException {
         String temp;
         if (!(temp = getInformation(file, "first")).equals("")) {
             user.setFirstName(temp);
@@ -332,7 +333,7 @@ public class FileHandler {
      * @param user User whose mail is set
      * @throws IOException if any IO error interaction occurs
      */
-    private void setUserMail(File file, User user) throws IOException{
+    private void setUserMail(File file, User user) throws IOException {
         String temp;
         if (!(temp = getInformation(file, "mail")).equals("")) {
             user.setMail(temp);
@@ -346,7 +347,7 @@ public class FileHandler {
      * @param user User whose password is set
      * @throws IOException if any IO error interaction occurs
      */
-    private void setUserPassword(File file, User user) throws IOException{
+    private void setUserPassword(File file, User user) throws IOException {
         String temp;
         if (!(temp = getInformation(file, "password")).equals("")) {
             user.setPassword(temp);

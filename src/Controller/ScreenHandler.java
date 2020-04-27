@@ -37,7 +37,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
         stage.setMinWidth(600);
         stage.setMinHeight(400);
         this.stage = stage;
-        loginScreenController = new LoginScreenController(stage,this);
+        loginScreenController = new LoginScreenController(stage, this);
         loginScreenController.createScene();
     }
 

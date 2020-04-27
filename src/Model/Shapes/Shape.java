@@ -17,6 +17,7 @@ public abstract class Shape {
         this.posX = posX;
         this.posY = posY;
     }
+
     public float getPosX() {
         return posX;
     }
@@ -48,7 +49,11 @@ public abstract class Shape {
         color = c;
     }
 
-    public String getLabel() { return label; }
+    public String getLabel() {
+        return label;
+    }
 
-    public void setLabel(String label) { this.label = label; }
+    public void setLabel(String label) {
+        this.label = label;
+    }
 }

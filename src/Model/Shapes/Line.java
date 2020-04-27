@@ -27,7 +27,7 @@ public class Line extends Link {
         code += " (" + getxOrigin() + "," + getyOrigin() + ")";
         code += " --";
         code += " (" + getxDestination() + "," + getyDestination() + ");\n";
-        return code ;
+        return code;
     }
 
 }

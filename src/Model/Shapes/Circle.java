@@ -15,7 +15,7 @@ public class Circle extends Node {
     public String generateAndGetTikzCode() {
         String code = "\\filldraw";
         code += "[fill={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() + ";blue," + getColor().getBlue() + "}," +
-                "line width=" + getOutlineThickness()/20 + "] ";
+                "line width=" + getOutlineThickness() / 20 + "] ";
         code += "(" + getPosX() + "," + getPosY() + ") circle ";
         code += "(" + radius + ");\n";
         return code;
@@ -31,11 +31,11 @@ public class Circle extends Node {
 
     @Override
     public void setPosX(float x) {
-        setXCenter((float) (x+radius*0.7));
+        setXCenter((float) (x + radius * 0.7));
     }
 
     @Override
     public void setPosY(float y) {
-        setYCenter((float) (y+radius*0.7));
+        setYCenter((float) (y + radius * 0.7));
     }
 }
