@@ -88,6 +88,9 @@ public class AccountModificationViewController extends AccountViewController imp
     public void setListener(AccountModificationViewControllerListener listener){
         this.listener = listener;
     }
+    /**
+     * Interface used to relay information to corresponding controller
+     */
     public interface AccountModificationViewControllerListener {
         void onValidation(String username, String firstName, String lastName, String email, String password, String passwordConfirmation);
         void onReturnButtonPressed();

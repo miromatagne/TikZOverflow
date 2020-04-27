@@ -10,9 +10,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * Class used to contain all the FXML files in an ArrayList in order to switch between screens using a static method.
- * All the Controllers linked to the screens will be contained in a Array of ControllerSuperclass and their update
- * method will be called whenever the changeScene method is used.
+ * Main controller class used to decide which screen to show depending on the
+ * notifications received from lower tier controllers using interfaces
  */
 
 public class ScreenHandler extends Application implements LoginScreenController.LoginScreenControllerListener,
@@ -93,7 +92,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
     }
 
     /**
-     * Change the scene for the main page (PDF and code creation page)
+     * Change the scene to the main page (PDF and code creation page)
      */
     private void goToMainPage() {
         mainPageController = new MainPageController(stage, this);
@@ -101,7 +100,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
     }
 
     /**
-     * Change the scene when guest wants to create an account
+     * Change the scene when user wants to create an account
      */
     @Override
     public void onAccountCreationRequest() {
@@ -110,7 +109,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
     }
 
     /**
-     * Change the scene for login screen when request is received
+     * Change the scene to login screen when request is received
      */
     @Override
     public void backToLoginScreenRequest() {
@@ -137,7 +136,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
 
 
     /**
-     * Change scene for main page screen when request is received
+     * Notification from the main page modification button
      */
     @Override
     public void onModificationDone() {

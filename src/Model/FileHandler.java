@@ -5,7 +5,7 @@ import Model.Exceptions.*;
 import java.io.*;
 
 /**
- * This class is used to handle interactions with files. It creates directories and write the saves
+ * This class is used to handle interactions with files. It creates directories and writes the saves
  */
 
 public class FileHandler {

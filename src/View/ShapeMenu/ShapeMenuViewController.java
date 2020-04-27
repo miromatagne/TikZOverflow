@@ -91,7 +91,7 @@ public class ShapeMenuViewController implements Initializable {
     }
 
     /**
-     * Create a shape once all the fields are valid. It is called from the button "Confirm" in the pop-up window which
+     * Mehtod called from the button "Confirm" in the pop-up window which
      * is used to create a new shape
      */
     public void confirmShape() {

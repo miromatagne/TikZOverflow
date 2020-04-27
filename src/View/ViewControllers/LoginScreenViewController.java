@@ -63,7 +63,9 @@ public class LoginScreenViewController extends ControllerSuperclass {
     public void setListener(LoginScreenViewControllerListener listener){
         this.listener = listener;
     }
-
+    /**
+     * Interface used to relay information to corresponding controller
+     */
     public interface LoginScreenViewControllerListener{
         void onLoginAttempt(String username, String password);
         void onAccountCreation();

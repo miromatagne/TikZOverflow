@@ -93,7 +93,9 @@ public class AccountCreationViewController extends AccountViewController {
             case "red" : termsAndConditionsText.setStyle("-fx-fill: red;");
         }
     }
-
+    /**
+     * Interface used to relay view information to a controller
+     */
     public interface AccountCreationViewControllerListener{
 
         void backToLoginScreen();

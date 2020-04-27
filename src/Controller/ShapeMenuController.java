@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Handles shape creation with popup and adding them to the shape list.
+ * Handles shape creation using a popup, and controls interactions with the popup
  */
 public class ShapeMenuController implements MainPageViewController.AddNewShapeButtonListener, ShapeMenuViewController.ShapeMenuViewControllerListener {
     private final ArrayList<MenuController> allControllers;

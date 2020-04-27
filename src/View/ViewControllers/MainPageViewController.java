@@ -90,7 +90,7 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * Update is a function of the ControllerSuperClass and will be called every time the mainPage screen is displayed.
+     * Updates the text of the code interface area
      */
     public void updateText() {
         //update of codeInterface a textArea
@@ -110,7 +110,7 @@ public class MainPageViewController implements Initializable {
 
 
     /**
-     * Compiles code in text area into pdf file and displays it on UI.
+     * Relays action of the compile button (sends code interface text needed for compilation)
      */
     @FXML
     public void compile() {
@@ -118,7 +118,7 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * when clicking on 'Hide errors' button, the user is sent back on the code interface
+     * When clicking on 'Hide errors' button, the user is sent back on the code interface
      *
      * @param errorsCount number of errors
      */
@@ -136,7 +136,7 @@ public class MainPageViewController implements Initializable {
 
     /**
      * when clicking on "errors (..)" button, the user is sent on a screen which shows him the errors after the last
-     * compile
+     * compilation
      */
     @FXML
     public void showErrors() {
