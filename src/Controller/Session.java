@@ -66,8 +66,6 @@ public class Session {
             } else {
                 currentUser = fileHandler.getUserFromSave(username);
                 if (password.equals(currentUser.getPassword())) {
-                    System.out.println("Connected user : " + currentUser.getUsername());
-                    System.out.println("Connected user password : " + currentUser.getPassword());
                     return CONNECTION_ESTABLISHED;
                 } else {
                     return INVALID_PASSWORD;
