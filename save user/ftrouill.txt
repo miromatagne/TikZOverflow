@@ -1,5 +1,5 @@
 last:Trouillez
-first:Franck2
+first:Franck
 username:ftrouill
 mail:ftrouill@ulb.ac.be
 password:123456789
