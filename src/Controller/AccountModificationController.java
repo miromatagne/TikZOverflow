@@ -47,8 +47,14 @@ public class AccountModificationController extends AccountController implements 
     }
 
     /**
-     * Checks whether all fields are valid, and highlights in red those that are not.
+     *Checks whether all fields are valid, and highlights in red those that are not.
      *
+     * @param username             username that needs to be checked
+     * @param firstName            first name that needs to be checked
+     * @param lastName             last name that needs to be checked
+     * @param email                email that needs to be checked
+     * @param password             password that needs to be checked
+     * @param passwordConfirmation password confirmation that needs to be checked
      * @return TRUE if all fields are  valid
      * FALSE otherwise
      */
@@ -59,11 +65,14 @@ public class AccountModificationController extends AccountController implements 
     /**
      * If all fields are valid, modifies the user's info.
      *
+     * @param username             username
      * @param firstName            first name
      * @param lastName             last name
      * @param email                email address
      * @param password             password
      * @param passwordConfirmation password confirmation
+     * @return TRUE if all fields are valid
+     * False otherwise
      */
     public boolean validateModification(String username, String firstName, String lastName, String email, String password, String passwordConfirmation) {
         if (validateInformation(username, firstName, lastName, email, password, passwordConfirmation)) {

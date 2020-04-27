@@ -106,7 +106,7 @@
             <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <children>
-            <Button fx:id="buttonCircle" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#circleClicked" prefHeight="51.0" prefWidth="47.0">
+            <Button fx:id="buttonCircle" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#circleDragged" prefHeight="51.0" prefWidth="47.0">
                 <graphic>
                     <ImageView fx:id="imageCircle" fitHeight="62.0" fitWidth="57.0" preserveRatio="true" smooth="true">
                         <image>
@@ -117,7 +117,7 @@
                 <cursor>
                     <Cursor fx:constant="HAND" />
                 </cursor></Button>
-            <Button fx:id="buttonRectangle" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#rectangleClicked" prefHeight="42.0" prefWidth="64.0" GridPane.rowIndex="1">
+            <Button fx:id="buttonRectangle" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#rectangleDragged" prefHeight="42.0" prefWidth="64.0" GridPane.rowIndex="1">
                 <graphic>
                     <ImageView fx:id="imageRectangle" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
                         <image>
@@ -129,7 +129,7 @@
                     <Cursor fx:constant="HAND" />
                 </cursor>
             </Button>
-            <Button fx:id="buttonTriangle" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#triangleClicked" prefHeight="43.0" prefWidth="57.0" GridPane.rowIndex="2">
+            <Button fx:id="buttonTriangle" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#triangleDragged" prefHeight="43.0" prefWidth="57.0" GridPane.rowIndex="2">
                 <graphic>
                     <ImageView fx:id="imageTriangle" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
                         <image>
@@ -141,7 +141,7 @@
                     <Cursor fx:constant="HAND" />
                 </cursor>
             </Button>
-            <Button fx:id="buttonLine" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#lineClicked" prefHeight="44.0" prefWidth="58.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="buttonLine" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#lineDragged" prefHeight="44.0" prefWidth="58.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <graphic>
                     <ImageView fx:id="imageLine" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
                         <image>
@@ -153,7 +153,7 @@
                     <Cursor fx:constant="HAND" />
                 </cursor>
             </Button>
-            <Button fx:id="buttonArrow" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#arrowClicked" prefHeight="45.0" prefWidth="54.0" GridPane.columnIndex="1">
+            <Button fx:id="buttonArrow" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#arrowDragged" prefHeight="45.0" prefWidth="54.0" GridPane.columnIndex="1">
                 <graphic>
                     <ImageView fx:id="imageArrow" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
                         <image>
@@ -165,7 +165,7 @@
                     <Cursor fx:constant="HAND" />
                 </cursor>
             </Button>
-            <Button fx:id="buttonCurvedLine" layoutX="78.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#curvedLineClicked" prefHeight="45.0" prefWidth="54.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Button fx:id="buttonCurvedLine" layoutX="78.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#curvedLineDragged" prefHeight="45.0" prefWidth="54.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                 <graphic>
                     <ImageView fx:id="imageCurvedLine" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
                         <image>
@@ -177,7 +177,7 @@
                     <Cursor fx:constant="HAND" />
                 </cursor>
             </Button>
-            <Button fx:id="buttonSquare" layoutX="78.0" layoutY="128.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#squareClicked" prefHeight="45.0" prefWidth="54.0" GridPane.rowIndex="3">
+            <Button fx:id="buttonSquare" layoutX="78.0" layoutY="128.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#squareDragged" prefHeight="45.0" prefWidth="54.0" GridPane.rowIndex="3">
                 <graphic>
                     <ImageView fx:id="imageSquare" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
                         <image>

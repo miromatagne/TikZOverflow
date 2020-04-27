@@ -290,45 +290,84 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * The following methods send a message to the controller to create the corresponding shape when the button is clicked
+     *  Called when a drag motion is detected on the circle button. Decides that a circle shape is
+     *  going to move
+     *
+     * @param mouseEvent mouse event  for the drag motion
      */
-    public void circleClicked(MouseEvent mouseEvent) {
+    public void circleDragged(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(CIRCLE);
         movingShapeID = CIRCLE;
         createDragAndDrop(mouseEvent, buttonCircle);
     }
 
-    public void rectangleClicked(MouseEvent mouseEvent) {
+    /**
+     *  Called when a drag motion is detected on the rectangle button. Decides that a rectangle shape is
+     *  going to move
+     *
+     * @param mouseEvent mouse event  for the drag motion
+     */
+    public void rectangleDragged(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(RECTANGLE);
         movingShapeID = RECTANGLE;
         createDragAndDrop(mouseEvent, buttonRectangle);
     }
 
-    public void lineClicked(MouseEvent mouseEvent) {
+    /**
+     *  Called when a drag motion is detected on the line button. Decides that a line shape is
+     *  going to move
+     *
+     * @param mouseEvent mouse event  for the drag motion
+     */
+    public void lineDragged(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(LINE);
         movingShapeID = LINE;
         createDragAndDrop(mouseEvent, buttonLine);
     }
 
-    public void curvedLineClicked(MouseEvent mouseEvent) {
+    /**
+     *  Called when a drag motion is detected on the curved line button. Decides that a curved line shape is
+     *  going to move
+     *
+     * @param mouseEvent mouse event  for the drag motion
+     */
+    public void curvedLineDragged(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(CURVED_LINE);
         movingShapeID = CURVED_LINE;
         createDragAndDrop(mouseEvent, buttonCurvedLine);
     }
 
-    public void arrowClicked(MouseEvent mouseEvent) {
+    /**
+     *  Called when a drag motion is detected on the arrow button. Decides that an arrow shape is
+     *  going to move
+     *
+     * @param mouseEvent mouse event  for the drag motion
+     */
+    public void arrowDragged(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(ARROW);
         movingShapeID = ARROW;
         createDragAndDrop(mouseEvent, buttonArrow);
     }
 
-    public void squareClicked(MouseEvent mouseEvent) {
+    /**
+     *  Called when a drag motion is detected on the square button. Decides that a square shape is
+     *  going to move
+     *
+     * @param mouseEvent mouse event  for the drag motion
+     */
+    public void squareDragged(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(SQUARE);
         movingShapeID = SQUARE;
         createDragAndDrop(mouseEvent, buttonSquare);
     }
 
-    public void triangleClicked(MouseEvent mouseEvent) {
+    /**
+     *  Called when a drag motion is detected on the triangle button. Decides that a triangle shape is
+     *  going to move
+     *
+     * @param mouseEvent mouse event  for the drag motion
+     */
+    public void triangleDragged(MouseEvent mouseEvent) {
         movingShape = predefinedShapesPanelController.createShape(TRIANGLE);
         movingShapeID = TRIANGLE;
         createDragAndDrop(mouseEvent, buttonTriangle);

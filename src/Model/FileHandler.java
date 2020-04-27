@@ -33,6 +33,7 @@ public class FileHandler {
     /**
      * Create a new instance of file handler
      *
+     * @param saveUserDirectory path of the directory where users will be saved
      * @throws FileHandlerConstructorException if construction failed
      */
     public FileHandler(String saveUserDirectory) throws FileHandlerConstructorException {

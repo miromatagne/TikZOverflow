@@ -49,8 +49,15 @@ public class AccountCreationController extends AccountController implements Acco
     }
 
     /**
-     * Checks whether all fields are valid, and highlights in red those that are not.
+     *Checks whether all fields are valid, and highlights in red those that are not.
      *
+     * @param username             username that needs to be checked
+     * @param firstName            first name that needs to be checked
+     * @param lastName             last name that needs to be checked
+     * @param email                email that needs to be checked
+     * @param password             password that needs to be checked
+     * @param passwordConfirmation password confirmation that needs to be checked
+     * @param isBoxChecked         whether the TCU CheckBox is checked
      * @return TRUE if all fields are  valid
      * FALSE otherwise
      */
