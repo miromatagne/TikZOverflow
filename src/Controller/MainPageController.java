@@ -71,25 +71,27 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     /**
      * Convert the position x of the mouse to the position x of the PDF
      * @param x                 x position to convert
-     * @return
+     * @return posXTikz         a float number for Tikz Language
      */
     public float xMouseToPdf(double x){
         double scrollPaneWidth = controller.getImageScrollPane().getWidth();
-        double pdfWidth =  21.4;
+        double pdfWidth =  21.4; //Size of pdf in Tikz language
         double widthConvert = scrollPaneWidth/pdfWidth;
-        double xOffset = -1.25;
+        double xOffset = -1.25; // x = 0.0 in Tikz language
 
-        return (float) ((x/widthConvert) + xOffset);
+        float posXTikz = (float) ((x/widthConvert) + xOffset);
+
+        return posXTikz;
     }
 
     /**
      * Convert the position y of the mouse to the position y of the PDF
      * @param y                 y position to convert
-     * @return
+     * @return posYTikz         a float number for Tikz language
      */
     public float yMouseToPdf(double y){
-        double pdfHeight =  25.7;
-        double yOffset = 19.75;
+        double pdfHeight =  25.7; //Size of pdf in Tikz language
+        double yOffset = 19.75; // y = 0.0 in Tikz language
         double scrollPaneHeight = controller.getImageScrollPane().getHeight();
         double imageMaxHeight = 0;
 
@@ -97,7 +99,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         if(image != null) {
             double imageWidth = image.getWidth();
             double imageHeight = image.getHeight();
-            imageMaxHeight = (controller.getImageScrollPane().getWidth() / imageWidth) * imageHeight;
+            imageMaxHeight = (controller.getImageScrollPane().getWidth() / imageWidth) * imageHeight; //Total height of the re-sized image(PDF)
         }
 
         double correctionFactor = 4*(imageMaxHeight/1415); //Empirical value
@@ -108,13 +110,14 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         }
         double scroll = controller.getImageScrollPane().getVvalue();
 
-        float valueToReturn = 0;
+        float posYTikz = 0;
         if(heightConvert != 0){
-            valueToReturn = (float) (yOffset - (y+(scroll*pdfNotShown))/heightConvert);
+            posYTikz = (float) (yOffset - (y+(scroll*pdfNotShown))/heightConvert);
         }
 
-        return valueToReturn;
+        return posYTikz;
     }
+
 
     /**
      * Adds shape code to the coding interface according to the shape received as a parameter

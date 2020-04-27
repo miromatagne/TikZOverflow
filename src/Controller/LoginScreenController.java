@@ -26,6 +26,7 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
         }
     }
 
+
     public void show(){
         try {
             FXMLLoader loader = getLoader();
@@ -72,8 +73,8 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
     }
 
     public interface LoginScreenControllerListener {
-        public void onSuccessfulLoginRequest();
-        public void onAccountCreationRequest();
+         void onSuccessfulLoginRequest();
+         void onAccountCreationRequest();
     }
 
 }

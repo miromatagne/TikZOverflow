@@ -27,11 +27,6 @@ import java.util.ArrayList;
 public class ScreenHandler extends Application implements LoginScreenController.LoginScreenControllerListener,
         AccountCreationController.AccountCreationControllerListener, MainPageController.MainPageControllerListener,
         AccountModificationController.AccountModificationControllerListener {
-    // Scene IDs :
-    public static int LOGIN_SCREEN = 0;
-    public static int MAIN_PAGE = 1;
-    public static int ACCOUNT_CREATION = 2;
-    public static int MODIFICATION_SCREEN = 3;
 
     private Stage stage;
     private LoginScreenController loginScreenController;
@@ -39,69 +34,25 @@ public class ScreenHandler extends Application implements LoginScreenController.
     private AccountModificationController accountModificationController;
     private MainPageController mainPageController;
 
-
     /**
-     * changeScene is a static function and will be used by other object such as Controller in order to change the root
-     * of the active scene.
-     *
-     * @param idScene this is an int and it is used to choose which screen will be displayed.(Refer to the list above)
-     */
-    public static void changeScene(int idScene){
-        /*
-        scene.setRoot(screens.get(idScene));
-        idCurrent = idScene;
-        controllers.get(idScene).update();
-         */
-    }
-
-    /**
-     * Method used to add a fxml file to the ArrayList and add the Controller link to that fxml in the ArrayList of
-     * Controller.
-     *
-     * @param scenePath String containing the path of the fxml file that will be loaded.
-     */
-
-    private void addScene(String scenePath) {
-        /*
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(scenePath));
-            screens.add(loader.load());
-            controllers.add(loader.getController());
-        } catch (Exception e) {
-            System.out.println("Error loading all screens " + scenePath);
-            e.printStackTrace();
-        }
-
-         */
-    }
-
-    /**
-     * At first, start() adds all scenes to screens attribute.
+     * At first, start() loads the login screen
      *
      * @param stage Stage for the application.
-     * @throws Exception If all scenes were not successfully added to the stage.
      */
     @Override
-    public void start(Stage stage) throws Exception {
-        /*
-        addScene("/View/FXML/LoginScreen.fxml");
-        addScene("/View/FXML/MainPage.fxml");
-        addScene("/View/FXML/accountCreation.fxml");
-        addScene("/View/FXML/accountModification.fxml");
-        if (screens.isEmpty()) {
-            throw new Exception("Failed to add all scenes");
-        }
-         */
-
+    public void start(Stage stage) {
         stage.setTitle("TikZOverflow");
         stage.setMaximized(true);
         stage.setMinWidth(600);
         stage.setMinHeight(400);
         this.stage = stage;
-        loginScreenController = new LoginScreenController(stage, this);
+        loginScreenController = new LoginScreenController(stage,this);
         loginScreenController.createScene();
     }
 
+    /**
+     * Change the scene for the login screen
+     */
     private void showLoginScreen() {
         loginScreenController = new LoginScreenController(stage, this);
         loginScreenController.show();
@@ -142,49 +93,61 @@ public class ScreenHandler extends Application implements LoginScreenController.
         popupStage.show();
     }
 
-
-
-
-
-    public static ArrayList<Parent> getScreens() {
-        return null; //screens;
-    }
-
-
-
+    /**
+     * Call when the identification is correct and change the scene
+     */
     @Override
     public void onSuccessfulLoginRequest() {
         goToMainPage();
     }
 
+    /**
+     * Change the scene for the main page (PDF and code creation page)
+     */
     private void goToMainPage() {
         mainPageController = new MainPageController(stage, this);
         mainPageController.show();
     }
 
+    /**
+     * Change the scene when guest wants to create an account
+     */
     @Override
     public void onAccountCreationRequest() {
         accountCreationController = new AccountCreationController(stage, this);
         accountCreationController.show();
     }
 
+    /**
+     * Change the scene for login screen when request is received
+     */
     @Override
     public void backToLoginScreenRequest() {
         showLoginScreen();
     }
 
+    /**
+     * Disconnect the user and the login screen is loaded
+     */
     @Override
     public void logout() {
         Session.getInstance().logOut();
         showLoginScreen();
     }
 
+    /**
+     * Change the scene for account modification screen when request is received
+     */
     @Override
     public void accountModificationRequest() {
         accountModificationController = new AccountModificationController(stage, this);
         accountModificationController.show();
     }
 
+
+    /**
+     * Change scene for main page screen when request is received
+     */
     @Override
     public void onModificationDone() {
         goToMainPage();

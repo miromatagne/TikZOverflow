@@ -108,7 +108,6 @@ public class ShapeMenuViewController implements Initializable {
      */
     public void confirmShape(){
         listener.onConfirmButtonPressed();
-
     }
 
     public void setListener(ShapeMenuViewControllerListener listener){
