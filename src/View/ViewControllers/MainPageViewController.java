@@ -4,7 +4,6 @@ import Controller.*;
 import Model.Shapes.Shape;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -16,12 +15,11 @@ import javafx.scene.text.Text;
 import javafx.scene.layout.GridPane;
 import javafx.scene.Parent;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Handles main screen interaction, including TikZ compilation, display and shape addition.
+ * Handles the main page screen interaction, including TikZ compilation, display and shape addition.
  */
 public class MainPageViewController implements Initializable {
 
@@ -36,8 +34,6 @@ public class MainPageViewController implements Initializable {
     private VBox shapeList;
     @FXML
     private ScrollPane scroll;
-    @FXML
-    private Button addShapeButton;
     @FXML
     private ImageView renderedImageView;
 
@@ -61,7 +57,7 @@ public class MainPageViewController implements Initializable {
     private Text codeTitle;
 
     @FXML
-    private Button buttonCircle, buttonRectangle, buttonTriangle, buttonArrow, buttonLine,buttonCurvedLine, buttonSquare;
+    private Button buttonCircle, buttonRectangle, buttonTriangle, buttonArrow, buttonLine, buttonCurvedLine, buttonSquare;
     @FXML
     private ImageView imageCircle, imageRectangle, imageTriangle, imageArrow, imageLine, imageCurvedLine, imageSquare;
     private ImageView movingImage;
@@ -105,6 +101,9 @@ public class MainPageViewController implements Initializable {
         fillWithTextSaved();
     }
 
+    /**
+     * Fill the code interface with the text saved
+     */
     private void fillWithTextSaved() {
         codeInterface.setText(this.textSaved);
     }
@@ -112,10 +111,9 @@ public class MainPageViewController implements Initializable {
 
     /**
      * Compiles code in text area into pdf file and displays it on UI.
-     *
      */
     @FXML
-    public void compile(){
+    public void compile() {
         codeInterfaceListener.onCompilationAttempt(codeInterface.getText());
     }
 
@@ -166,9 +164,9 @@ public class MainPageViewController implements Initializable {
      * Switches between editable, shapes-only display and uneditable full code display.
      */
     public void switchCodeDisplay() {
-        if(currentCodeDisplay == SHAPES_ONLY){
+        if (currentCodeDisplay == SHAPES_ONLY) {
             displayFullCode();
-        } else if(currentCodeDisplay == FULL_CODE){
+        } else if (currentCodeDisplay == FULL_CODE) {
             displayShapesOnly();
         }
     }
@@ -235,12 +233,6 @@ public class MainPageViewController implements Initializable {
         shapeButtonListener.onButtonPressed();
     }
 
-    @FXML
-    public void changeMouseToHand() {
-        addShapeButton.setCursor(Cursor.HAND);
-    }
-
-
     public TextArea getCodeInterface() {
         return codeInterface;
     }
@@ -255,21 +247,6 @@ public class MainPageViewController implements Initializable {
         renderedImageView.setFitWidth(imageScrollPane.getWidth());
     }
 
-    /**
-     * Clear the main page screen. Useful when the user logs out
-     */
-    private void clearScreen() {
-        renderedImageView.setImage(null);
-        shapeList.getChildren().clear(); // Clear all the added shapes
-        //TODO : resolve with logout button -> latexController.getFileHandler().clearErrors(); // Clear all the errors
-        errorsButton.setText("Errors (0)");
-        textSaved = null; // Set the textSaved to null in order to display the correct one during the next login
-        fillWithTextSaved();
-    }
-
-    public int getCurrentCodeDisplay() {
-        return currentCodeDisplay;
-    }
     /**
      * Initialize the image buttons for the predefined shapes
      */
@@ -287,8 +264,9 @@ public class MainPageViewController implements Initializable {
 
     /**
      * Bind the image and the button to keep a scale between them.
-     * @param imageButton       Image to bind
-     * @param button            Button to bind
+     *
+     * @param imageButton Image to bind
+     * @param button      Button to bind
      */
     private void bindImageButton(ImageView imageButton, Button button) {
         //0.6 is an empirical value
@@ -298,10 +276,11 @@ public class MainPageViewController implements Initializable {
 
     /**
      * This method creates the drag of the mouse
-     * @param event             Mouse event
-     * @param button            The source of the drag
+     *
+     * @param event  Mouse event
+     * @param button The source of the drag
      */
-    private void createDragAndDrop(MouseEvent event, Button button){
+    private void createDragAndDrop(MouseEvent event, Button button) {
         Dragboard db = button.startDragAndDrop(TransferMode.ANY);
         ClipboardContent cb = new ClipboardContent();
         cb.putString("shapeTransfer");
@@ -357,9 +336,10 @@ public class MainPageViewController implements Initializable {
 
     /**
      * This method generates the image that follows the mouse during the drag and drop gesture
-     * @param path                  path of the image to create
+     *
+     * @param path path of the image to create
      */
-    public void createMovingImage(String path){
+    public void createMovingImage(String path) {
         Parent root = listener.getRoot();
         movingImage = new ImageView(path);
         movingImage.setFitHeight(50);
@@ -368,24 +348,22 @@ public class MainPageViewController implements Initializable {
     }
 
 
-
-
-
     /**
      * This method drop the shape at the position of the mouse
-     * @param event
+     *
+     * @param event drag event
      */
-    public void handleDragDropped(DragEvent event){
+    public void handleDragDropped(DragEvent event) {
         double x = event.getX();
         double y = event.getY();
-        if(errorsButton.getText() == "Hide errors"){
+        if (errorsButton.getText().equals("Hide errors")) {
             hideErrors(codeInterfaceListener.getErrorsCounter());
         }
-        if(movingImage != null) {
+        if (movingImage != null) {
             Parent root = listener.getRoot();
             ((GridPane) root).getChildren().remove(movingImage);
         }
-        if(movingShape != null) {
+        if (movingShape != null) {
             listener.onReleaseShape(x, y, movingShape);
         }
         compile();
@@ -394,38 +372,30 @@ public class MainPageViewController implements Initializable {
 
     /**
      * This method create an image of the dragged shape if the mouse enters the PDF area
-     * @param event
      */
-    public void handleDragEntered(DragEvent event){
-        if(movingShapeID == CIRCLE){
+    public void handleDragEntered() {
+        if (movingShapeID == CIRCLE) {
             createMovingImage("defaultCircle.png");
-        }
-        else if(movingShapeID == RECTANGLE){
+        } else if (movingShapeID == RECTANGLE) {
             createMovingImage("defaultRectangle.png");
-        }
-        else if(movingShapeID == LINE){
+        } else if (movingShapeID == LINE) {
             createMovingImage("defaultLine.png");
-        }
-        else if(movingShapeID == CURVED_LINE){
+        } else if (movingShapeID == CURVED_LINE) {
             createMovingImage("defaultCurvedLine.png");
-        }
-        else if(movingShapeID == ARROW){
+        } else if (movingShapeID == ARROW) {
             createMovingImage("defaultArrow.png");
-        }
-        else if(movingShapeID == SQUARE){
+        } else if (movingShapeID == SQUARE) {
             createMovingImage("defaultSquare.png");
-        }
-        else if(movingShapeID == TRIANGLE){
+        } else if (movingShapeID == TRIANGLE) {
             createMovingImage("defaultTriangle.png");
         }
     }
 
     /**
-     * This method remove the image of the dragged shape if the mouse exits the PDF are
-     * @param event
+     * This method remove the image of the dragged shape if the mouse exits the PDF area
      */
-    public void handleDragExited(DragEvent event){
-        if(movingImage != null) {
+    public void handleDragExited() {
+        if (movingImage != null) {
             Parent root = listener.getRoot();
             ((GridPane) root).getChildren().remove(movingImage);
         }
@@ -433,12 +403,13 @@ public class MainPageViewController implements Initializable {
 
     /**
      * This method shows the accessible zone for the drop
-     * @param event
+     *
+     * @param event drag event
      */
-    public void handleDragOver(DragEvent event){
-        if(movingImage != null) {
-            movingImage.setTranslateX(event.getX()+buttonArrow.getLayoutX()*1.95);
-            movingImage.setTranslateY(event.getY()-45);
+    public void handleDragOver(DragEvent event) {
+        if (movingImage != null) {
+            movingImage.setTranslateX(event.getX() + buttonArrow.getLayoutX() * 1.95);
+            movingImage.setTranslateY(event.getY() - 45);
         }
         event.acceptTransferModes(TransferMode.ANY);
     }
@@ -472,28 +443,42 @@ public class MainPageViewController implements Initializable {
         return imageScrollPane;
     }
 
+    /**
+     * Send a request to the listener to create a shape
+     *
+     * @param shape shape to be created
+     */
     public void addShape(Shape shape) {
-        listener.addShape(shape);
+        listener.addShapeRequest(shape);
     }
 
     public interface MainPageViewControllerListener {
         void onLogoutRequest();
+
         void accountModificationRequest();
+
         void onReleaseShape(double x, double y, Shape movingShape);
-        void addShape(Shape shape);
+
+        void addShapeRequest(Shape shape);
+
         Parent getRoot();
     }
 
-    public interface AddNewShapeButtonListener{
+    public interface AddNewShapeButtonListener {
         void onButtonPressed();
     }
 
-    public interface CodeInterfaceListener{
+    public interface CodeInterfaceListener {
         void onCompilationAttempt(String code);
+
         String getShapesOnlyText();
+
         int getErrorsCounter();
+
         String getFullText();
+
         void saveCodeInterfaceCode(String tikzCode);
+
         String getErrorsText();
     }
 

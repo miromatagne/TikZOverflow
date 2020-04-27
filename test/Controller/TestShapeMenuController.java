@@ -1,27 +1,10 @@
 package Controller;
 
-
-
-import Controller.Exceptions.ShapeMenuControllerConstructorException;
-import Model.Shapes.Circle;
-import Model.Shapes.Rectangle;
-import javafx.scene.paint.Color;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * This class is not testable because we need a stage when we create it, so, it is out of the model and view only and
+ * it can not be considered as a unit test
+ */
 class TestShapeMenuController {
-
-    @Test
-    public void createString() throws ShapeMenuControllerConstructorException {
-        ShapeMenuController shapeMenuController = new ShapeMenuController();
-        Circle circle = new Circle(3, 1);
-        Rectangle rectangle = new Rectangle(4, 6);
-        rectangle.setHeight(3);
-        rectangle.setColor(Color.BLUE);
-        assertEquals("Added Circle of radius 0.0 , center (3.0,1.0) and thickness 0.0. Color : null.", shapeMenuController.createString(circle));
-        assertEquals("Added Rectangle of height 3.0 and width 0.0 with a thickness of 0.0. Color : 0x0000ffff.", shapeMenuController.createString(rectangle));
-    }
 
 
 }

@@ -15,15 +15,22 @@ import java.util.ResourceBundle;
  */
 
 public class LineMenuController extends MenuController implements Initializable {
-    @FXML private TextField xOriginTextField;
-    @FXML private TextField yOriginTextField;
-    @FXML private TextField xDestinationTextField;
-    @FXML private TextField yDestinationTextField;
-    @FXML private TextField strokeWidthTextField;
-    @FXML private ColorPicker colorPicker;
-    @FXML private TextField labelTextField;
+    @FXML
+    private TextField xOriginTextField;
+    @FXML
+    private TextField yOriginTextField;
+    @FXML
+    private TextField xDestinationTextField;
+    @FXML
+    private TextField yDestinationTextField;
+    @FXML
+    private TextField strokeWidthTextField;
+    @FXML
+    private ColorPicker colorPicker;
+    @FXML
+    private TextField labelTextField;
 
-    private static ArrayList<TextField> allTextFields = new ArrayList<>();
+    private static final ArrayList<TextField> allTextFields = new ArrayList<>();
 
     /**
      * Function called when a new menu is selected. It clears the different fields
@@ -42,8 +49,9 @@ public class LineMenuController extends MenuController implements Initializable 
 
     /**
      * Initialization by adding the different textfield to an array list
-     * @param url               URL (not used)
-     * @param resourceBundle    ResourceBundle(not used)
+     *
+     * @param url            URL (not used)
+     * @param resourceBundle ResourceBundle(not used)
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -55,6 +63,11 @@ public class LineMenuController extends MenuController implements Initializable 
     }
 
 
+    /**
+     * Get information from all fields
+     *
+     * @return list of all information
+     */
     @Override
     public ArrayList<String> getAllFields() {
         ArrayList<String> returnValue = new ArrayList<>();
@@ -75,6 +88,8 @@ public class LineMenuController extends MenuController implements Initializable 
     }
 
     @Override
-    public TextField getLabel() { return labelTextField; }
+    public TextField getLabel() {
+        return labelTextField;
+    }
 
 }

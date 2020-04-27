@@ -1,7 +1,6 @@
 package View.ViewControllers;
 
 
-import Controller.ScreenHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -64,16 +63,10 @@ public class LoginScreenViewController extends ControllerSuperclass implements I
         //No need to update login Screen
     }
 
-    /**
-     * Changes the cursor to a hand when the mouse hovers over the "Sign Up" button.
-     */
-    public void signUpHand() {
-        signUpLabel.setCursor(Cursor.HAND);
-    }
-
     public void setListener(LoginScreenViewControllerListener listener){
         this.listener = listener;
     }
+
     public interface LoginScreenViewControllerListener{
         void onLoginAttempt(String username, String password);
         void onAccountCreation();

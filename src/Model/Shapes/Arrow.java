@@ -17,15 +17,8 @@ public class Arrow extends Link {
     }
 
     @Override
-    public String getDescription() {
-        return "Arrow from (" + this.getxOrigin() + "," + this.getyOrigin() + ") to (" + this.getxDestination() + "," + this.getyDestination() + "), with a stroke width of " + this.getStrokeWidth() + " , a head length of " + this.getArrowHeadLength() + " and a head width of " + this.getArrowHeadWidth() + "." ;
-    }
-
-    @Override
     public String generateAndGetTikzCode() {
 
-        //  \draw [arrows={->[length=5mm,width=5mm]}, line width=1mm,
-        // color={rgb:red,2;green,0;blue,5}] (0.0,0.0) -- (5.0,5.0);
         String code = "\\draw";
 
         //Arrow
@@ -43,7 +36,7 @@ public class Arrow extends Link {
         code += " (" + getxOrigin() + "," + getyOrigin() + ")";
         code += " --";
         code += " (" + getxDestination() + "," + getyDestination() + ");\n";
-        return code ;
+        return code;
     }
 
     public float getArrowHeadLength() {

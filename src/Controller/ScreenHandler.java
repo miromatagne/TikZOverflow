@@ -1,22 +1,13 @@
 package Controller;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Class used to contain all the FXML files in an ArrayList in order to switch between screens using a static method.
@@ -46,7 +37,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
         stage.setMinWidth(600);
         stage.setMinHeight(400);
         this.stage = stage;
-        loginScreenController = new LoginScreenController(stage,this);
+        loginScreenController = new LoginScreenController(stage, this);
         loginScreenController.createScene();
     }
 

@@ -86,8 +86,7 @@ public class FieldChecker {
         for (int i = 0; i < mail.length(); i++) {
             if (mail.charAt(i) == ' ') {
                 return false;
-            }
-            else if (mail.charAt(i) == '@') {
+            } else if (mail.charAt(i) == '@') {
                 arobaseCounter++;
             }
         }

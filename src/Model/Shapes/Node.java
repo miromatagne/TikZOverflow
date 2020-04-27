@@ -26,7 +26,9 @@ public abstract class Node extends Shape {
         super.setPosX(xCenter);
     }
 
-    public float getYCenter() { return yCenter; }
+    public float getYCenter() {
+        return yCenter;
+    }
 
     public void setYCenter(float yCenter) {
         this.yCenter = yCenter;

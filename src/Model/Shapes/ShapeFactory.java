@@ -25,7 +25,7 @@ public class ShapeFactory {
      * @param id    Identify the type of shape
      * @param data  Data needed to create the shape
      * @param color Color of the shape
-     * @param label
+     * @param label Label of the shape
      * @return Instance of shape
      */
     public static Shape getInstance(int id, ArrayList<Float> data, Color color, String label) {
@@ -91,25 +91,31 @@ public class ShapeFactory {
         return instance;
     }
 
+    /**
+     * Get a default instance of a shape
+     *
+     * @param id Identify the type of shape
+     * @return default instance of shape
+     */
     public static Shape getDefaultInstance(int id) {
         Shape instance = null;
         ArrayList<Float> data = new ArrayList<>();
 
-        switch(id) {
+        switch (id) {
             case RECTANGLE:
                 data.add(Float.parseFloat("0"));
                 data.add(Float.parseFloat("0"));
                 data.add(Float.parseFloat("3"));
                 data.add(Float.parseFloat("4"));
                 data.add(Float.parseFloat("3"));
-                instance = getInstance(RECTANGLE, data, Color.GREY,"Rectangle");
+                instance = getInstance(RECTANGLE, data, Color.GREY, "Rectangle");
                 break;
             case CIRCLE:
                 data.add(Float.parseFloat("0"));
                 data.add(Float.parseFloat("0"));
                 data.add(Float.parseFloat("2"));
                 data.add(Float.parseFloat("3"));
-                instance = getInstance(CIRCLE, data, Color.GREY,"Circle");
+                instance = getInstance(CIRCLE, data, Color.GREY, "Circle");
                 break;
             case LINE:
                 data.add(Float.parseFloat("0"));
@@ -137,7 +143,7 @@ public class ShapeFactory {
                 data.add(Float.parseFloat("1"));
                 data.add(Float.parseFloat("5"));
                 data.add(Float.parseFloat("5"));
-                instance = getInstance(ARROW, data, Color.GREY,"Arrow");
+                instance = getInstance(ARROW, data, Color.GREY, "Arrow");
                 break;
             case SQUARE:
                 data.add(Float.parseFloat("0"));
@@ -145,7 +151,7 @@ public class ShapeFactory {
                 data.add(Float.parseFloat("4"));
                 data.add(Float.parseFloat("4"));
                 data.add(Float.parseFloat("3"));
-                instance = getInstance(RECTANGLE, data, Color.GREY,"Square");
+                instance = getInstance(RECTANGLE, data, Color.GREY, "Square");
                 break;
             case TRIANGLE:
                 data.add(Float.parseFloat("0"));
@@ -155,7 +161,7 @@ public class ShapeFactory {
                 data.add(Float.parseFloat("5"));
                 data.add(Float.parseFloat("0"));
                 data.add(Float.parseFloat("3"));
-                instance = getInstance(TRIANGLE, data, Color.GREY,"Triangle");
+                instance = getInstance(TRIANGLE, data, Color.GREY, "Triangle");
                 break;
         }
         return instance;

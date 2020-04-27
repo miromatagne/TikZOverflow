@@ -14,20 +14,28 @@ import java.util.ResourceBundle;
  * This controller is used to handle the arrow menu, get the inputs from the texts fields and clear them when it has to
  */
 
-public class CurvedLineMenuController extends MenuController implements Initializable{
+public class CurvedLineMenuController extends MenuController implements Initializable {
 
-    @FXML private TextField xOriginTextField;
-    @FXML private TextField yOriginTextField;
-    @FXML private TextField xDestinationTextField;
-    @FXML private TextField yDestinationTextField;
-    @FXML private TextField strokeWidthTextField;
-    @FXML private TextField curveOutAngleTextField;
-    @FXML private TextField curveInAngleTextField;
-    @FXML private ColorPicker colorPicker;
-    @FXML private TextField labelTextField;
+    @FXML
+    private TextField xOriginTextField;
+    @FXML
+    private TextField yOriginTextField;
+    @FXML
+    private TextField xDestinationTextField;
+    @FXML
+    private TextField yDestinationTextField;
+    @FXML
+    private TextField strokeWidthTextField;
+    @FXML
+    private TextField curveOutAngleTextField;
+    @FXML
+    private TextField curveInAngleTextField;
+    @FXML
+    private ColorPicker colorPicker;
+    @FXML
+    private TextField labelTextField;
 
-    private static ArrayList<TextField> allTextFields = new ArrayList<>();
-
+    private static final ArrayList<TextField> allTextFields = new ArrayList<>();
 
 
     /**
@@ -47,8 +55,9 @@ public class CurvedLineMenuController extends MenuController implements Initiali
 
     /**
      * Initialization by adding the different textfield to an array list
-     * @param url               URL (not used)
-     * @param resourceBundle    ResourceBundle(not used)
+     *
+     * @param url            URL (not used)
+     * @param resourceBundle ResourceBundle(not used)
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -62,6 +71,11 @@ public class CurvedLineMenuController extends MenuController implements Initiali
         allTextFields.add(labelTextField);
     }
 
+    /**
+     * Get information from all fields
+     *
+     * @return list of all information
+     */
     @Override
     public ArrayList<String> getAllFields() {
         ArrayList<String> returnValue = new ArrayList<>();
@@ -82,6 +96,8 @@ public class CurvedLineMenuController extends MenuController implements Initiali
     }
 
     @Override
-    public TextField getLabel() { return labelTextField; }
+    public TextField getLabel() {
+        return labelTextField;
+    }
 
 }

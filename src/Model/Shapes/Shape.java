@@ -17,6 +17,7 @@ public abstract class Shape {
         this.posX = posX;
         this.posY = posY;
     }
+
     public float getPosX() {
         return posX;
     }
@@ -34,11 +35,10 @@ public abstract class Shape {
     }
 
     /**
-     * Get the description of the shape (type et general attributes)
+     * Generate the TikZCode for the shape
      *
-     * @return String containing the description of the shape
+     * @return Tikz code
      */
-    public abstract String getDescription();
     public abstract String generateAndGetTikzCode();
 
     public Color getColor() {
@@ -49,7 +49,11 @@ public abstract class Shape {
         color = c;
     }
 
-    public String getLabel() { return label; }
+    public String getLabel() {
+        return label;
+    }
 
-    public void setLabel(String label) { this.label = label; }
+    public void setLabel(String label) {
+        this.label = label;
+    }
 }

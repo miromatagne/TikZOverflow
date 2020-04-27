@@ -22,11 +22,11 @@ import java.util.ArrayList;
  * Handles shape creation with popup and adding them to the shape list.
  */
 public class ShapeMenuController implements MainPageViewController.AddNewShapeButtonListener, ShapeMenuViewController.ShapeMenuViewControllerListener {
-    private ArrayList<MenuController> allControllers;
-    private ArrayList<Parent> allShapes;
-    private ShapeMenuViewController shapeMenuViewController;
+    private final ArrayList<MenuController> allControllers;
+    private final ArrayList<Parent> allShapes;
+    private final ShapeMenuViewController shapeMenuViewController;
     private MainPageViewController mainPageViewController;
-    private Stage popUpStage;
+    private final Stage popUpStage;
     private int idCurrent;
 
     /**
@@ -34,7 +34,7 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
      *
      * @throws ShapeMenuControllerConstructorException If there was an error while constructing the instance
      */
-    public ShapeMenuController()  throws ShapeMenuControllerConstructorException {
+    public ShapeMenuController() throws ShapeMenuControllerConstructorException {
         try {
             popUpStage = new Stage();
             popUpStage.setTitle("Add Shape Menu");
@@ -69,20 +69,6 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
         Shape shape = ShapeFactory.getInstance(idCurrent, allData, color, label);
         mainPageViewController.addShape(shape);
         closePopup();
-    }
-
-    /**
-     * Creation of the String to insert into the label when a new shape has been added.
-     * This String is different depending on the shape added.
-     *
-     * @param shape Shape which has to be converted in a string
-     * @return returnString     String which describes the shape given in parameter
-     */
-    public String createString(Shape shape) {
-        String returnString = "Added ";
-        returnString += shape.getDescription();
-        returnString += " Color : " + shape.getColor() + ".";
-        return returnString;
     }
 
     /**
@@ -166,15 +152,14 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
         }
 
         String label = allControllers.get(idCurrent).getLabel().getText();
-        if(label.equals("")) {
+        if (label.equals("")) {
             allControllers.get(idCurrent).getLabel().setStyle(redStyle);
-            canAddShape=false;
+            canAddShape = false;
         }
-        if(canAddShape) {
+        if (canAddShape) {
             addShape(idCurrent, allDataInField, allControllers.get(idCurrent).getColor(), label);
         }
     }
-
 
 
     /**
