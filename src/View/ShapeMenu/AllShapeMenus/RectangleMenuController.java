@@ -66,7 +66,7 @@ public class RectangleMenuController extends MenuController implements Initializ
         allTextFields.add(heightTextField);
         allTextFields.add(widthTextField);
         thicknessValue.setText(String.format("%.1f", thicknessSlider.getValue()));
-        thicknessSlider.valueProperty().addListener((ov, old_val, new_val) -> thicknessValue.setText(String.format("%.1f", (float) new_val)));
+        thicknessSlider.valueProperty().addListener((ov, old_val, new_val) -> thicknessValue.setText(String.format("%.1f", new_val.floatValue())));
     }
 
     /**

@@ -71,7 +71,7 @@ public class TriangleMenuController extends MenuController implements Initializa
         allTextFields.add(x3PositionTextField);
         allTextFields.add(y3PositionTextField);
         thicknessValue.setText(String.format("%.1f", thicknessSlider.getValue()));
-        thicknessSlider.valueProperty().addListener((ov, old_val, new_val) -> thicknessValue.setText(String.format("%.1f", (float) new_val)));
+        thicknessSlider.valueProperty().addListener((ov, old_val, new_val) -> thicknessValue.setText(String.format("%.1f", new_val.floatValue())));
     }
 
     /**
