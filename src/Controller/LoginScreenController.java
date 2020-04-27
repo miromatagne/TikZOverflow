@@ -71,6 +71,9 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
     /**
      * Checks if the username and password are correct with the session object. If they are, the user gets to his main screen.
      * If not, the incorrect credentials are highlighted in red.
+     *
+     * @param username username that needs to be checked
+     * @param password password that needs to be checked
      */
     public void validateLogin(String username, String password) {
         try {

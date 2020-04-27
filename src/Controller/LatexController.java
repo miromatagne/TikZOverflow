@@ -45,6 +45,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      * Gets the source code from a previous save.
      *
      * @return Source code
+     * @throws GetTextInFileException if an IOException occurs while reading the text from the file
      */
     public String getTextInFile() throws GetTextInFileException {
         try {
@@ -146,6 +147,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      *
      * @param shapesOnlyCode shapes-only TikZ code
      * @return full LaTeX code
+     * @throws BuildFullCodeFromShapesOnlyException if an IOException occurs while reading the text from the file
      */
     public String buildFullCodeFromShapesOnlyCode(String shapesOnlyCode) throws BuildFullCodeFromShapesOnlyException {
         try {

@@ -1,6 +1,6 @@
 package Model.Exceptions;
 /**
- * Exception occurs when there is a problem while creating a directory
+ * Exception when creating a new directory
  */
 public class DirectoryCreationException extends Exception {
 }

@@ -15,6 +15,7 @@ public class PredefinedShapesPanelController {
      * Create a shape from the id given
      *
      * @param shapeId id of the shape
+     * @return created shape
      */
     public Shape createShape(int shapeId) {
         return ShapeFactory.getDefaultInstance(shapeId);

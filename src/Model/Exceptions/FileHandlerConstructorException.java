@@ -1,6 +1,7 @@
 package Model.Exceptions;
+
 /**
- * Exception occurs when there is a problem with a FileHandler instance creation
+ * Exception when instanciating a new File Handler object
  */
 public class FileHandlerConstructorException extends Exception {
     public FileHandlerConstructorException(Exception e) {

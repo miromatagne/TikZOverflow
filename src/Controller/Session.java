@@ -66,8 +66,6 @@ public class Session {
             } else {
                 currentUser = fileHandler.getUserFromSave(username);
                 if (password.equals(currentUser.getPassword())) {
-                    System.out.println("Connected user : " + currentUser.getUsername());
-                    System.out.println("Connected user password : " + currentUser.getPassword());
                     return CONNECTION_ESTABLISHED;
                 } else {
                     return INVALID_PASSWORD;
@@ -93,6 +91,8 @@ public class Session {
      * @param lastName  last name
      * @param mail      mail
      * @param password  password
+     * @return TRUE if account creation was successful
+     * FALSE otherwise
      */
     public boolean createAccount(String username, String firstName, String lastName,
                                  String mail, String password) {

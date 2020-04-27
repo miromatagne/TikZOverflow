@@ -15,7 +15,7 @@ Un point correspond à une heure de travail par binôme (approximatif).  Par it�
 | 2 | 2 | Histoire 2 | 1 | | 26 |
 |   | 3 | Histoire 3 | 2 | | 15 |
 |   | 6 | Histoire 6 | 2 | | 4 |
-|   | 7 | Histoires 7.1 et 7.2 | 3 | 26 | 10 |
+|   | 7 | Histoires 7.1 et 7.2 | 3 | 24 | 10 |
 |   | 10 | Histoire 10 | 2 | | 32 |
 | 3 | 5 | Histoire 5 | 2 | | 10 |
 |   | 8 | Histoire 8 | 1 | | 19 |
