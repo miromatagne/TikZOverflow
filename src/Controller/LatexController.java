@@ -45,7 +45,6 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     public String compileTikz(String sourceCode) throws IOException {
         saveTikz(sourceCode);
         String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
-
         try {
             LatexCompiler.runProcess(filePath);
             String pdfPath = "./Latex/out/" + Session.getInstance().getUser().getUsername() + ".pdf";
@@ -75,6 +74,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
         String imagePath = pdfPath.replace(".pdf", ".jpg");
         try {
             Image renderedImage = new Image(new FileInputStream(imagePath));
+            System.out.println(imagePath);
             mainPageViewController.renderImage(renderedImage);
         } catch (IOException e) {
             System.err.println("Image file not found");
@@ -135,7 +135,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
 
     @Override
     public void onCompilationAttempt(String code) {
-
+        System.out.println(code);
         String sourceCode = buildFullCodeFromShapesOnlyCode(code);
 
         String errorsButtonText = null;

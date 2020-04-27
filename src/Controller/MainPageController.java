@@ -13,6 +13,7 @@ import java.io.IOException;
 public class MainPageController implements MainPageViewController.MainPageViewControllerListener {
     private Stage stage;
     private MainPageControllerListener listener;
+
     private MainPageViewController controller;
     private ShapeMenuController shapeMenuController;
     private LatexController latexController;
@@ -27,25 +28,21 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/MainPage.fxml"));
             root = loader.load();
+            stage.getScene().setRoot(root);
             controller = loader.getController();
             controller.setListener(this);
             PredefinedShapesPanelController predefinedShapesPanelController = new PredefinedShapesPanelController();
             shapeMenuController = new ShapeMenuController();
             latexController = new LatexController(controller);
             shapeMenuController.setMainPageViewController(controller);
-
             controller.setPredefinedShapesPanelController(predefinedShapesPanelController);
             controller.setShapeButtonListener(shapeMenuController);
             controller.setCodeInterfaceListener(latexController);
             controller.updateText();
-
-            stage.getScene().setRoot(loader.getRoot());
-            stage.show();
         } catch (Exception e) {
-            System.out.println("Error loading /View/FXML/accountCreation.fxml");
+            System.err.println("Error loading /View/FXML/accountCreation.fxml");
             e.printStackTrace();
         }
-
     }
 
     @Override

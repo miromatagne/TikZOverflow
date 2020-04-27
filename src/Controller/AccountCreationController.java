@@ -16,16 +16,27 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Controller class used to handle account creation screen behaviour.
+ */
 public class AccountCreationController implements AccountCreationViewController.AccountCreationViewControllerListener {
-    private Stage stage;
-    private AccountCreationControllerListener listener;
+    private final Stage stage;
+    private final AccountCreationControllerListener listener;
     private AccountCreationViewController controller;
 
+    /**
+     * Constructor.
+     * @param stage stage this screen needs to be in.
+     * @param listener listener used to communicate with ScreenHandler
+     */
     public AccountCreationController(Stage stage, AccountCreationControllerListener listener){
         this.stage = stage;
         this.listener = listener;
     }
 
+    /**
+     * Method used when opening account creation screen.
+     */
     public void show(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/accountCreation.fxml"));
@@ -85,11 +96,24 @@ public class AccountCreationController implements AccountCreationViewController.
         return fieldChecker.isValidAccount(username, firstName, lastName, email, password, passwordConfirmation) && isBoxChecked;
     }
 
+    /**
+     * Requests ScreenHandler to go back to login screen.
+     */
     @Override
     public void backToLoginScreen() {
         listener.backToLoginScreenRequest();
     }
 
+    /**
+     *
+     * @param username
+     * @param firstName
+     * @param lastName
+     * @param email
+     * @param password
+     * @param passwordConfirmation
+     * @param isBoxChecked
+     */
     @Override
     public void onAccountCreationAttempt(String username, String firstName, String lastName, String email, String password, String passwordConfirmation, boolean isBoxChecked) {
         if (validateInformation(username, firstName, lastName, email, password, passwordConfirmation, isBoxChecked)){

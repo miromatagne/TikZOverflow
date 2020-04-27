@@ -91,7 +91,6 @@ public class MainPageViewController implements Initializable {
         shapeList.prefHeightProperty().bind(scroll.prefHeightProperty());
         // TODO : remove ça :shapeButtonListener.setMainPageViewController(this);
         initializeImageButton();
-
     }
 
     /**
@@ -252,8 +251,8 @@ public class MainPageViewController implements Initializable {
      * @param renderedImage Image from the compilation of the source code.
      */
     public void renderImage(Image renderedImage) {
-        renderedImageView.setFitWidth(imageScrollPane.getWidth());
         renderedImageView.setImage(renderedImage);
+        renderedImageView.setFitWidth(imageScrollPane.getWidth());
     }
 
     /**
