@@ -1,5 +1,6 @@
 package Controller;
 
+import Controller.Exceptions.LatexControllerConstructorException;
 import Controller.Exceptions.ShapeMenuControllerConstructorException;
 import Controller.Exceptions.ShowMainPageException;
 import Model.Shapes.Shape;
@@ -49,6 +50,10 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
             e.getCause().printStackTrace();
         } catch (IOException e) {
             System.err.println("Error while loading the fxml file");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
+        } catch (LatexControllerConstructorException e) {
+            System.err.println("Error while creating the latex controller");
             e.printStackTrace();
             e.getCause().printStackTrace();
         }

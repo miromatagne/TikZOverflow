@@ -1,9 +1,10 @@
 package Controller;
 
+import Controller.Exceptions.BuildFullCodeFromShapesOnlyException;
+import Controller.Exceptions.GetTextInFileException;
+import Controller.Exceptions.LatexControllerConstructorException;
 import Controller.Exceptions.TikzCompilationException;
-import Model.Exceptions.LatexCompilationException;
-import Model.Exceptions.LatexWritingException;
-import Model.Exceptions.LogErrorException;
+import Model.Exceptions.*;
 import Model.FileHandler;
 import Model.LatexCompiler;
 import Model.PDFHandler;
@@ -22,11 +23,16 @@ import java.util.regex.Pattern;
  */
 public class LatexController implements MainPageViewController.CodeInterfaceListener {
 
-    FileHandler fileHandler = new FileHandler();
+    FileHandler fileHandler;
     private MainPageViewController mainPageViewController;
 
-    public LatexController(MainPageViewController mainPageViewController) {
-        this.mainPageViewController = mainPageViewController;
+    public LatexController(MainPageViewController mainPageViewController) throws LatexControllerConstructorException {
+        try {
+            this.fileHandler = new FileHandler();
+            this.mainPageViewController = mainPageViewController;
+        } catch (FileHandlerConstructorException e) {
+            throw new LatexControllerConstructorException(e);
+        }
     }
 
     /**
@@ -34,16 +40,13 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      *
      * @return Source code
      */
-    public String getTextInFile() {
+    public String getTextInFile() throws GetTextInFileException {
         try {
             String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
             return fileHandler.readInFile(filePath);
         } catch (IOException e) {
-            System.err.println("Error while getting source code");
-            e.printStackTrace();
-            e.getCause().printStackTrace();
+            throw new GetTextInFileException(e);
         }
-        return "";
     }
 
     /**
@@ -140,12 +143,17 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      * @param shapesOnlyCode shapes-only TikZ code
      * @return full LaTeX code
      */
-    public String buildFullCodeFromShapesOnlyCode(String shapesOnlyCode) {
-        StringBuilder shapesOnlyCodeBuilder = new StringBuilder();
-        for (String line : shapesOnlyCode.split("\n")) {
-            shapesOnlyCodeBuilder.append("\t").append(line.trim()).append("\n");
+    public String buildFullCodeFromShapesOnlyCode(String shapesOnlyCode) throws BuildFullCodeFromShapesOnlyException {
+        try {
+            StringBuilder shapesOnlyCodeBuilder = new StringBuilder();
+            for (String line : shapesOnlyCode.split("\n")) {
+                shapesOnlyCodeBuilder.append("\t").append(line.trim()).append("\n");
+            }
+            return getTextInFile().replace(Objects.requireNonNull(extractShapesSubCode(getTextInFile(), false)), shapesOnlyCodeBuilder.toString());
+        } catch (GetTextInFileException e) {
+            throw new BuildFullCodeFromShapesOnlyException(e);
         }
-        return getTextInFile().replace(Objects.requireNonNull(extractShapesSubCode(getTextInFile(), false)), shapesOnlyCodeBuilder.toString());
+
     }
 
     @Override
@@ -159,14 +167,25 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             System.err.println("TikZ/LaTeX compilation failed");
             e.printStackTrace();
             e.getCause().printStackTrace();
+        } catch (BuildFullCodeFromShapesOnlyException e) {
+            System.err.println("Building code from shapes only failed");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
         }
     }
 
     @Override
     public String getShapesOnlyText() {
-        String textInLatexFile = getTextInFile();
-        String textSaved = extractShapesSubCode(textInLatexFile, true);
-        return textSaved;
+        try {
+            String textInLatexFile = getTextInFile();
+            String textSaved = extractShapesSubCode(textInLatexFile, true);
+            return textSaved;
+        } catch (GetTextInFileException e) {
+            System.err.println("Error while getting the source code");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
+        }
+        return "";
     }
 
     @Override
@@ -176,12 +195,26 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
 
     @Override
     public String getFullText() {
-        return getTextInFile();
+        try {
+            return getTextInFile();
+        } catch (GetTextInFileException e) {
+            System.err.println("Error while getting the full text");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
+        }
+        return "";
     }
 
     @Override
     public void saveCodeInterfaceCode(String tikzCode) {
-        saveTikz(buildFullCodeFromShapesOnlyCode(tikzCode));
+        try {
+            saveTikz(buildFullCodeFromShapesOnlyCode(tikzCode));
+        } catch (BuildFullCodeFromShapesOnlyException e) {
+            System.err.println("Error while getting the full code");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
+        }
+
     }
 
     @Override

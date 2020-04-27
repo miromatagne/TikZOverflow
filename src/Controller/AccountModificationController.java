@@ -1,22 +1,15 @@
 package Controller;
 
+import Model.Exceptions.FileHandlerConstructorException;
 import Model.Exceptions.SaveUserException;
+import Model.Exceptions.SetupDirectoryException;
 import Model.FieldChecker;
 import Model.FileHandler;
 import Model.User;
-import View.ViewControllers.AccountCreationViewController;
 import View.ViewControllers.AccountModificationViewController;
-import View.ViewControllers.LoginScreenViewController;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
 public class AccountModificationController implements AccountModificationViewController.AccountModificationViewControllerListener {
@@ -101,7 +94,10 @@ public class AccountModificationController implements AccountModificationViewCon
                 System.err.println("Error in saving the user");
                 e.printStackTrace();
                 e.getCause().printStackTrace();
-
+            } catch (FileHandlerConstructorException e) {
+                System.err.println("Error while creating the file handler");
+                e.printStackTrace();
+                e.getCause().printStackTrace();
             }
             return true;
         }

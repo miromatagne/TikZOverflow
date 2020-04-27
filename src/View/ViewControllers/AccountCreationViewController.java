@@ -56,8 +56,6 @@ public class AccountCreationViewController extends AccountController implements 
 
     /**
      * Creates a pop-up window when user clicks on "I accept terms and conditions".
-     *
-     * @throws IOException when terms and conditions file doesn't exist.
      */
     public void termsAndConditionsWindow() {
         listener.showTermsAndConditions();

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2020.3.18)  27 APR 2020 13:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2020.3.18)  27 APR 2020 13:44
 entering extended mode
 **./Latex/a.tex
 (Latex/a.tex
@@ -482,7 +482,7 @@ Missing character: There is no s in font nullfont!
 Missing character: There is no t in font nullfont!
 
 
-Latex/a.tex:20: Package pgfkeys Error: I do not know the key 'length', to which
+Latex/a.tex:22: Package pgfkeys Error: I do not know the key 'length', to which
  you passed '5.0mm', and I am going to ignore it. Perhaps you misspelled it.
 
 See the pgfkeys package documentation for explanation.
@@ -493,7 +493,7 @@ Pretend that you're Hercule Poirot: Examine all clues,
 and deduce the truth by order and method.
 
 
-Latex/a.tex:20: Package pgfkeys Error: I do not know the key 'width', to which 
+Latex/a.tex:22: Package pgfkeys Error: I do not know the key 'width', to which 
 you passed '5.0mm', and I am going to ignore it. Perhaps you misspelled it.
 
 See the pgfkeys package documentation for explanation.
@@ -501,9 +501,20 @@ Type  H <return>  for immediate help
 (That was another \errmessage.)
 
 
-Overfull \hbox (206.80556pt too wide) in paragraph at lines 29--30
-[][] 
- []
+Latex/a.tex:23: Package pgfkeys Error: I do not know the key 'length', to which
+ you passed '5.0mm', and I am going to ignore it. Perhaps you misspelled it.
+
+See the pgfkeys package documentation for explanation.
+Type  H <return>  for immediate help
+(That was another \errmessage.)
+
+
+Latex/a.tex:23: Package pgfkeys Error: I do not know the key 'width', to which 
+you passed '5.0mm', and I am going to ignore it. Perhaps you misspelled it.
+
+See the pgfkeys package documentation for explanation.
+Type  H <return>  for immediate help
+(That was another \errmessage.)
 
 [1
 
@@ -511,17 +522,17 @@ Overfull \hbox (206.80556pt too wide) in paragraph at lines 29--30
 ("C:\Users\franc\Desktop\ULB\BA3\genie logiciel et gestion de projets\TikZProje
 ct\Latex\out\a.aux") ) 
 Here is how much of TeX's memory you used:
- 11743 strings out of 493312
- 245021 string characters out of 3129827
+ 11739 strings out of 493312
+ 244917 string characters out of 3129827
  269045 words of memory out of 3000000
- 15094 multiletter control sequences out of 15000+200000
+ 15090 multiletter control sequences out of 15000+200000
  3940 words of font info for 15 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,6n,63p,391b,602s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Users/franc/AppData/Local/Programs/MiKTeX 2.9/fonts/t
 ype1/public/amsfonts/cm/cmr10.pfb>
 Output written on "C:\Users\franc\Desktop\ULB\BA3\genie logiciel et gestion de 
-projets\TikZProject\Latex\out\a.pdf" (1 page, 13003 bytes).
+projets\TikZProject\Latex\out\a.pdf" (1 page, 12723 bytes).
 PDF statistics:
  13 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

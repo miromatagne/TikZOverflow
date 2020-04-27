@@ -17,12 +17,20 @@ public class FileHandler {
     private String saveProjectDirectory = "";
     private String saveUserFormat = ".txt";
 
-    public FileHandler() {
-        setupSaveUserDirectory(DEFAULT_DIRECTORY);
+    public FileHandler() throws FileHandlerConstructorException{
+        try {
+            setupSaveUserDirectory(DEFAULT_DIRECTORY);
+        } catch (SetupDirectoryException e) {
+            throw new FileHandlerConstructorException(e);
+        }
     }
 
-    public FileHandler(String saveUserDirectory) {
-        setupSaveUserDirectory(saveUserDirectory);
+    public FileHandler(String saveUserDirectory) throws FileHandlerConstructorException{
+        try {
+            setupSaveUserDirectory(saveUserDirectory);
+        } catch (SetupDirectoryException e) {
+            throw new FileHandlerConstructorException(e);
+        }
     }
 
     /**
@@ -30,13 +38,17 @@ public class FileHandler {
      *
      * @param saveUserDirectory Path to the directory users' saves
      */
-    public void setupSaveUserDirectory(String saveUserDirectory) {
-        if (saveUserDirectory == null || saveUserDirectory.equals("")) {
-            return;
+    public void setupSaveUserDirectory(String saveUserDirectory) throws SetupDirectoryException {
+        try {
+            if (saveUserDirectory == null || saveUserDirectory.equals("")) {
+                return;
+            }
+            this.saveUserDirectory = saveUserDirectory;
+            File file = new File(saveUserDirectory);
+            checkAndCreateSaveDirectory(file);
+        } catch (DirectoryCreationException e) {
+            throw new SetupDirectoryException(e);
         }
-        this.saveUserDirectory = saveUserDirectory;
-        File file = new File(saveUserDirectory);
-        checkAndCreateSaveDirectory(file);
     }
 
     /**
@@ -45,13 +57,17 @@ public class FileHandler {
      * @param saveProjectDirectory Path to the directory projects's saves
      */
 
-    public void setupSaveProjectDirectory(String saveProjectDirectory) {
-        if (saveProjectDirectory.equals("")) {
-            return;
+    public void setupSaveProjectDirectory(String saveProjectDirectory) throws SetupDirectoryException{
+        try {
+            if (saveProjectDirectory.equals("")) {
+                return;
+            }
+            this.saveProjectDirectory = saveProjectDirectory;
+            File file = new File(saveProjectDirectory);
+            checkAndCreateSaveDirectory(file);
+        } catch (DirectoryCreationException e) {
+            throw new SetupDirectoryException(e);
         }
-        this.saveProjectDirectory = saveProjectDirectory;
-        File file = new File(saveProjectDirectory);
-        checkAndCreateSaveDirectory(file);
     }
 
     /**
@@ -59,11 +75,13 @@ public class FileHandler {
      *
      * @param file File created with path to the save_user directory
      */
-    private void checkAndCreateSaveDirectory(File file) {
+    private void checkAndCreateSaveDirectory(File file) throws DirectoryCreationException{
         if (file.exists() && file.isDirectory()) {
             return;
         }
-        file.mkdir();
+        if (!file.mkdir()){
+            throw new DirectoryCreationException();
+        }
     }
 
     /**
@@ -130,7 +148,7 @@ public class FileHandler {
                 writeInFile(texFile, text);
             }
         }
-        catch (IOException e) {
+        catch (IOException | SetupDirectoryException e) {
             throw new LatexWritingException(e);
         }
     }

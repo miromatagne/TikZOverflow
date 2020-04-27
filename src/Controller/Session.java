@@ -1,7 +1,9 @@
 package Controller;
 
 import Controller.Exceptions.SessionOpeningException;
+import Model.Exceptions.FileHandlerConstructorException;
 import Model.Exceptions.SaveUserCreationException;
+import Model.Exceptions.SetupDirectoryException;
 import Model.Exceptions.UserFromSaveCreationException;
 import Model.FileHandler;
 import Model.User;
@@ -21,7 +23,13 @@ public class Session {
 
     /* Singleton class */
     private Session(){
-        fileHandler = new FileHandler();
+        try {
+            fileHandler = new FileHandler();
+        } catch (FileHandlerConstructorException e) {
+            System.err.println("Error while creating the session");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
+        }
     }
 
     public static Session getInstance() {
@@ -55,7 +63,7 @@ public class Session {
                     return INVALID_PASSWORD;
                 }
             }
-        } catch (UserFromSaveCreationException e) {
+        } catch (UserFromSaveCreationException | SetupDirectoryException e) {
             throw new SessionOpeningException(e);
         }
     }

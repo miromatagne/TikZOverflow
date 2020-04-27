@@ -106,9 +106,8 @@ public class AccountCreationController implements AccountCreationViewController.
      */
     @Override
     public void showTermsAndConditions() {
-        Parent tcuRoot = null;
         try {
-            tcuRoot = FXMLLoader.load(getClass().getResource("/View/FXML/termsAndConditions.fxml"));
+            Parent tcuRoot = FXMLLoader.load(getClass().getResource("/View/FXML/termsAndConditions.fxml"));
             Scene tcuScene = new Scene(tcuRoot);
             Stage tcuStage = new Stage();
             tcuStage.initModality(Modality.APPLICATION_MODAL);
