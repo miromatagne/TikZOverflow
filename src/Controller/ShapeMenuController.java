@@ -42,6 +42,7 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
             addShapeMenuRoot = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("Loader problem");
         }
         shapeMenuViewController = loader.getController();
         shapeMenuViewController.setListener(this);
@@ -52,9 +53,10 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
             setUpScenes();
         } catch (IOException e) {
             e.printStackTrace();
+            System.err.println("Setup problem");
         }
-        changeToMenu(ShapeMenuViewController.ARROW);
         popUpStage.setScene(new Scene(addShapeMenuRoot));
+        changeToMenu(ShapeMenuViewController.ARROW);
     }
 
     public void setMainPageViewController(MainPageViewController mainPageViewController) {
@@ -204,6 +206,7 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
     public void onButtonPressed() {
         showPopUp();
     }
+
 
     @Override
     public void onConfirmButtonPressed() {
