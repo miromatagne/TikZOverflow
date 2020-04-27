@@ -15,7 +15,7 @@ Un point correspond à une heure de travail par binôme (approximatif).  Par it�
 | 2 | 2 | Histoire 2 | 1 | | 26 |
 |   | 3 | Histoire 3 | 2 | | 15 |
 |   | 6 | Histoire 6 | 2 | | 4 |
-|   | 7 | Histoire 7.1 et 7.2 | 3 | | 10 |
+|   | 7 | Histoires 7.1 et 7.2 | 3 | | 10 |
 |   | 10 | Histoire 10 | 2 | | 32 |
 | 3 | 5 | Histoire 5 | 2 | | 10 |
 |   | 8 | Histoire 8 | 1 | | 19 |
@@ -150,7 +150,7 @@ son code, le cadre contenant le canevas produira le dessin du diagramme automati
 
 ### Introduit dans l'itération : 
 
-### Etat : Abandonnée car scindée en les histoires 4.1, 4.2 et 4.3
+### Etat : Scindée en les histoires 4.1, 4.2 et 4.3
 
 ### Points :
 TOTAL : 51 points
@@ -301,7 +301,7 @@ prévue à cet effet.
 
 ### Introduit dans l'itération : 
 
-### Etat : Abandonée car scindée en les histoires 7.1 et 7.2 
+### Etat : Scindée en les histoires 7.1 et 7.2 
 
 ### Points :
 
@@ -337,7 +337,7 @@ TOTAL : 9 points
 
 ## Histoire 7.2
 
-### Titre : Drag & Drop (Glisser-déposer)
+### Titre : Drag & Drop (Glisser-déposer) - Ajout du mode gaucher
 
 ### Description
 Lorsque l'utilisateur désire cliquer sur un élément graphique avec la souris il peut le faire avec le bouton principal gauche en mode
