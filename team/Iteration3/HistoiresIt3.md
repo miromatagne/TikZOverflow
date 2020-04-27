@@ -29,9 +29,9 @@ Cette action a pour effet de déposer l’élément sur le canevas et en même t
 - Documentation : 4 points
 - Travail d'équipe : 3 points
 
-TOTAL : 14 points
+TOTAL : 19 points
 
-Cette histoire a été réalisée en 6 points. Ceci est dû notamment au fait que le client ait décidé de retirer le point-and-click, comme précisé dans les notes ci-dessous.
+Cette histoire a été réalisée en 6 points. Ceci est dû notamment au fait que le client ait décidé de retirer le point-and-click, comme précisé dans les notes ci-dessous. D'autre part, lors de l'itération 2, quelques points supplémentaires avaient été nécessaires, principalement au niveau de la documentation, afin d'impléménter ce qui était alors demandé. Ceci a également accéléré la réalisation de cette histoire.
 
 ### Notes :
 
