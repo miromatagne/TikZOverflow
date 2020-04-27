@@ -2,7 +2,6 @@ package Controller;
 
 import Model.Exceptions.FileHandlerConstructorException;
 import Model.Exceptions.SaveUserException;
-import Model.Exceptions.SetupDirectoryException;
 import Model.FieldChecker;
 import Model.FileHandler;
 import Model.User;
@@ -12,25 +11,36 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Handles account modification screen behaviour.
+ */
 public class AccountModificationController implements AccountModificationViewController.AccountModificationViewControllerListener {
-    private Stage stage;
-    private AccountModificationControllerListener listener;
+    private final Stage stage;
+    private final AccountModificationControllerListener listener;
     private AccountModificationViewController controller;
 
 
-    public AccountModificationController(Stage stage, AccountModificationControllerListener listener){
+    /**
+     * Constructor.
+     *
+     * @param stage    stage this screen needs to be in
+     * @param listener listener used to communicate with ScreenHandler
+     */
+    public AccountModificationController(Stage stage, AccountModificationControllerListener listener) {
         this.stage = stage;
         this.listener = listener;
     }
 
-    public void show(){
+    /**
+     * Method used when entering account modification screen.
+     */
+    public void show() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/accountModification.fxml"));
             loader.load();
             controller = loader.getController();
             controller.setListener(this);
             stage.getScene().setRoot(loader.getRoot());
-            stage.show();
         } catch (IOException e) {
             System.out.println("Error loading /View/FXML/accountModification.fxml");
             e.printStackTrace();
@@ -72,13 +82,15 @@ public class AccountModificationController implements AccountModificationViewCon
 
         return fieldChecker.isValidAccount(Session.getInstance().getUser().getUsername(), firstName, lastName, email, password, passwordConfirmation);
     }
+
     /**
      * If all fields are valid, modifies the user's info.
-     * @param firstName
-     * @param lastName
-     * @param email
-     * @param password
-     * @param passwordConfirmation
+     *
+     * @param firstName            first name
+     * @param lastName             last name
+     * @param email                email address
+     * @param password             password
+     * @param passwordConfirmation password confirmation
      */
     public boolean validateModification(String firstName, String lastName, String email, String password, String passwordConfirmation) {
         if (validateInformation(firstName, lastName, email, password, passwordConfirmation)) {
@@ -104,21 +116,37 @@ public class AccountModificationController implements AccountModificationViewCon
         }
         return false;
     }
+
+    /**
+     * Informs the ScreenHandler that modification is done after saving user's info when clicking on "Validate" button.
+     *
+     * @param firstName            first name
+     * @param lastName             last name
+     * @param email                email address
+     * @param password             password
+     * @param passwordConfirmation password confirmation
+     */
     @Override
     public void onValidation(String firstName, String lastName, String email, String password, String passwordConfirmation) {
-        if(validateModification(firstName, lastName, email, password, passwordConfirmation)){
+        if (validateModification(firstName, lastName, email, password, passwordConfirmation)) {
             listener.onModificationDone();
         }
 
     }
 
+    /**
+     * Informs the ScreenHandler that modification is done when clicking on "Return" button.
+     */
     @Override
     public void onReturnButtonPressed() {
         listener.onModificationDone();
     }
 
 
-    public interface AccountModificationControllerListener{
+    /**
+     * Interface used to communicate with ScreenHandler.
+     */
+    public interface AccountModificationControllerListener {
         void onModificationDone();
     }
 }
