@@ -3,7 +3,6 @@ package Controller;
 import Controller.Exceptions.BuildFullCodeFromShapesOnlyException;
 import Controller.Exceptions.GetTextInFileException;
 import Controller.Exceptions.LatexControllerConstructorException;
-import Controller.Exceptions.TikzCompilationException;
 import Model.User;
 import View.ViewControllers.MainPageViewController;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,7 @@ import java.io.File;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class TestLatexController {
+class LatexControllerTest {
 
     @Test
     void getTextInFile() throws LatexControllerConstructorException, GetTextInFileException {
@@ -35,28 +34,6 @@ class TestLatexController {
                 "    \\end{tikzpicture}\n" +
                 "\\end{document}\n",
                 stringTest);
-    }
-
-    @Test
-    void compileTikz() throws TikzCompilationException, LatexControllerConstructorException, GetTextInFileException {
-        LatexController latexController = new LatexController(new MainPageViewController());
-        User user = new User();
-        user.setUsername("test");
-        Session.getInstance().setUser(user);
-        String sourceCode = "\\documentclass{standalone}\n" +
-                "\n" +
-                "\\usepackage{tikz}\n" +
-                "\n" +
-                "\\begin{document}\n" +
-                "    \\begin{tikzpicture}\n" +
-                "        \\node (h) at (0,0) {Hello};\n" +
-                "        \\node (w) at (2,3) {World};\n" +
-                "        \\draw (h) edge (w);\n" +
-                "    \\end{tikzpicture}\n" +
-                "\\end{document}\n";
-        latexController.saveTikz(sourceCode);
-        String result = latexController.compileTikz(latexController.getTextInFile());
-        assertEquals(result, "Errors (0)");
     }
 
     @Test
