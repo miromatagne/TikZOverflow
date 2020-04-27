@@ -72,20 +72,6 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
     }
 
     /**
-     * Creation of the String to insert into the label when a new shape has been added.
-     * This String is different depending on the shape added.
-     *
-     * @param shape Shape which has to be converted in a string
-     * @return returnString     String which describes the shape given in parameter
-     */
-    public String createString(Shape shape) {
-        String returnString = "Added ";
-        returnString += shape.getDescription();
-        returnString += " Color : " + shape.getColor() + ".";
-        return returnString;
-    }
-
-    /**
      * Clear the shape menus by calling the update function of the controllers
      */
     public void clearShapeMenus() {

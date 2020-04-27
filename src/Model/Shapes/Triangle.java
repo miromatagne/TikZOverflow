@@ -13,14 +13,6 @@ public class Triangle extends Node{
     }
 
     @Override
-    public String getDescription() {
-        return "Triangle between with corners in : (" + this.getX1() + ", " + this.getY1() + "), " +
-                "(" + this.getX2() + ", " + this.getY2() + "), " +
-                "(" + this.getX3() + ", " + this.getY3() + "), " +
-                " with a thickness of " + this.getOutlineThickness() + ".";
-    }
-
-    @Override
     public String generateAndGetTikzCode() {
         String code = "\\filldraw";
         code += "[fill={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() + ";blue," + getColor().getBlue() + "}," +

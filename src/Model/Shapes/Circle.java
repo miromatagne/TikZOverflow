@@ -12,11 +12,6 @@ public class Circle extends Node {
     }
 
     @Override
-    public String getDescription() {
-        return "Circle of radius " + this.getRadius() + " , center (" + this.getXCenter() + "," + this.getYCenter() + ") and thickness " + this.getOutlineThickness() + ".";
-    }
-
-    @Override
     public String generateAndGetTikzCode() {
         String code = "\\filldraw";
         code += "[fill={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() + ";blue," + getColor().getBlue() + "}," +

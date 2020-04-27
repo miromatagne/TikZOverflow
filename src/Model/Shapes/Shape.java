@@ -34,11 +34,10 @@ public abstract class Shape {
     }
 
     /**
-     * Get the description of the shape (type et general attributes)
+     * Generate the TikZCode for the shape
      *
-     * @return String containing the description of the shape
+     * @return Tikz code
      */
-    public abstract String getDescription();
     public abstract String generateAndGetTikzCode();
 
     public Color getColor() {

@@ -60,6 +60,10 @@ public class ArrowMenuController extends MenuController implements Initializable
         allTextFields.add(headWidthTextField);
     }
 
+    /**
+     * Get information from all fields
+     * @return  list of all information
+     */
     @Override
     public ArrayList<String> getAllFields() {
         ArrayList<String> returnValue = new ArrayList<>();

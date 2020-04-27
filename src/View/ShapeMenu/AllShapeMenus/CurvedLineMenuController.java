@@ -62,6 +62,10 @@ public class CurvedLineMenuController extends MenuController implements Initiali
         allTextFields.add(labelTextField);
     }
 
+    /**
+     * Get information from all fields
+     * @return  list of all information
+     */
     @Override
     public ArrayList<String> getAllFields() {
         ArrayList<String> returnValue = new ArrayList<>();

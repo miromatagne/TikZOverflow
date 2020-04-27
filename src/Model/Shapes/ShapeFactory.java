@@ -25,7 +25,7 @@ public class ShapeFactory {
      * @param id    Identify the type of shape
      * @param data  Data needed to create the shape
      * @param color Color of the shape
-     * @param label
+     * @param label Label of the shape
      * @return Instance of shape
      */
     public static Shape getInstance(int id, ArrayList<Float> data, Color color, String label) {
@@ -91,6 +91,12 @@ public class ShapeFactory {
         return instance;
     }
 
+    /**
+     * Get a default instance of a shape
+     *
+     * @param id    Identify the type of shape
+     * @return default instance of shape
+     */
     public static Shape getDefaultInstance(int id) {
         Shape instance = null;
         ArrayList<Float> data = new ArrayList<>();

@@ -1,7 +1,6 @@
 package View.ViewControllers;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -9,14 +8,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 /**
  * Handles account creation interface elements.
  */
-public class AccountCreationViewController extends AccountController implements Initializable {
+public class AccountCreationViewController extends AccountController{
     @FXML
     TextField usernameField, firstNameField, lastNameField, emailField;
     @FXML
@@ -31,13 +26,8 @@ public class AccountCreationViewController extends AccountController implements 
     private AccountCreationViewControllerListener listener;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
-
-    @Override
     public void update() {
-
+        //No need to update the account creation panel
     }
 
     /**

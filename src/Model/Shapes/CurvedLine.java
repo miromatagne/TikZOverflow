@@ -12,10 +12,6 @@ public class CurvedLine extends Link {
         super(xOrigin, yOrigin, xDestination, yDestination);
     }
 
-    public CurvedLine(Node origin, Node destination) {
-        super(origin, destination);
-    }
-
     public void setCurveOutAngle(float curveOutAngle) {
         this.curveOutAngle = curveOutAngle;
     }
@@ -25,11 +21,6 @@ public class CurvedLine extends Link {
         return curveOutAngle;
     }
     public float getCurvedInAngle() { return curveInAngle; }
-
-    @Override
-    public String getDescription() {
-        return "Curved Line from (" + this.getxOrigin() + "," + this.getyOrigin() + ") to (" + this.getxDestination() + "," + this.getyDestination() + ") with a stroke width of " + this.getStrokeWidth() + " and a curved out angle of " + this.getCurvedOutAngle() + " and a curved in angle of " + this.getCurvedInAngle() + ".";
-    }
 
     @Override
     public String generateAndGetTikzCode() {

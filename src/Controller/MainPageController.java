@@ -2,9 +2,7 @@ package Controller;
 
 import Controller.Exceptions.LatexControllerConstructorException;
 import Controller.Exceptions.ShapeMenuControllerConstructorException;
-import Controller.Exceptions.ShowMainPageException;
 import Model.Shapes.Shape;
-import View.ViewControllers.AccountCreationViewController;
 import View.ViewControllers.MainPageViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,6 +11,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Controller of the main page which handles interactions on the main page
+ */
 public class MainPageController implements MainPageViewController.MainPageViewControllerListener {
     private Stage stage;
     private MainPageControllerListener listener;
@@ -26,6 +27,9 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         this.listener = listener;
     }
 
+    /**
+     * Show the main page scene by loading and creating all the controllers this instance need to handle
+     */
     public void show() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/MainPage.fxml"));
@@ -41,7 +45,6 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
             controller.setShapeButtonListener(shapeMenuController);
             controller.setCodeInterfaceListener(latexController);
             controller.updateText();
-
         } catch (ShapeMenuControllerConstructorException e) {
             System.err.println("Error while creating the shape menu controller");
             e.printStackTrace();
@@ -57,24 +60,35 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         }
     }
 
+    /**
+     * Request to logout to the corresponding listener
+     */
     @Override
     public void onLogoutRequest() {
         listener.logout();
     }
 
+    /**
+     * Request to modify the account to the corresponding listener
+     */
     @Override
     public void accountModificationRequest() {
         listener.accountModificationRequest();
     }
 
+    /**
+     * Create a shape when the shape is released (drag and drop)
+     * @param x x-position
+     * @param y y-position
+     * @param movingShape
+     */
     @Override
     public void onReleaseShape(double x, double y, Shape movingShape) {
         float convertedX = xMouseToPdf(x);
         float convertedY = yMouseToPdf(y);
         movingShape.setPosX(convertedX);
         movingShape.setPosY(convertedY);
-        addShape(movingShape);
-        movingShape = null;
+        addShapeRequest(movingShape);
     }
 
     /**
@@ -88,9 +102,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         double widthConvert = scrollPaneWidth/pdfWidth;
         double xOffset = -1.25; // x = 0.0 in Tikz language
 
-        float posXTikz = (float) ((x/widthConvert) + xOffset);
-
-        return posXTikz;
+        return (float) ((x/widthConvert) + xOffset);
     }
 
     /**
@@ -134,7 +146,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
      * @param shape Shape whose code has to be generated in the coding interface
      */
     @Override
-    public void addShape(Shape shape) {
+    public void addShapeRequest(Shape shape) {
         String code = shape.generateAndGetTikzCode();
         controller.getCodeInterface().appendText(code);
     }

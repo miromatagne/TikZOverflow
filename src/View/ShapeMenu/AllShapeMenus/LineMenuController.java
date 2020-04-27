@@ -55,6 +55,10 @@ public class LineMenuController extends MenuController implements Initializable 
     }
 
 
+    /**
+     * Get information from all fields
+     * @return  list of all information
+     */
     @Override
     public ArrayList<String> getAllFields() {
         ArrayList<String> returnValue = new ArrayList<>();

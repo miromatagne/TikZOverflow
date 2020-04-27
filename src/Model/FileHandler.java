@@ -17,6 +17,10 @@ public class FileHandler {
     private String saveProjectDirectory = "";
     private String saveUserFormat = ".txt";
 
+    /**
+     * Create a new instance of file handler
+     * @throws FileHandlerConstructorException if construction failed
+     */
     public FileHandler() throws FileHandlerConstructorException{
         try {
             setupSaveUserDirectory(DEFAULT_DIRECTORY);
@@ -25,6 +29,10 @@ public class FileHandler {
         }
     }
 
+    /**
+     * Create a new instance of file handler
+     * @throws FileHandlerConstructorException if construction failed
+     */
     public FileHandler(String saveUserDirectory) throws FileHandlerConstructorException{
         try {
             setupSaveUserDirectory(saveUserDirectory);
@@ -37,6 +45,7 @@ public class FileHandler {
      * Setups the directory for users' saves.
      *
      * @param saveUserDirectory Path to the directory users' saves
+     * @throws SetupDirectoryException  if setup failed
      */
     public void setupSaveUserDirectory(String saveUserDirectory) throws SetupDirectoryException {
         try {
@@ -55,6 +64,7 @@ public class FileHandler {
      * Setups the directory for projects' saves
      *
      * @param saveProjectDirectory Path to the directory projects's saves
+     * @throws SetupDirectoryException  if setup failed
      */
 
     public void setupSaveProjectDirectory(String saveProjectDirectory) throws SetupDirectoryException{
@@ -74,6 +84,7 @@ public class FileHandler {
      * Checks if the directory exists. Otherwise, creates it.
      *
      * @param file File created with path to the save_user directory
+     * @throws DirectoryCreationException if directory creation failed
      */
     private void checkAndCreateSaveDirectory(File file) throws DirectoryCreationException{
         if (file.exists() && file.isDirectory()) {
@@ -104,7 +115,7 @@ public class FileHandler {
      * Creates a save corresponding to given user.
      *
      * @param user User to be saved in a text file
-     * @throws SaveUserCreationException when the creation of the user save failed
+     * @throws SaveUserCreationException when the creation of the user save fails
      */
     public void createUserSave(User user) throws SaveUserCreationException {
         if (saveUserDirectory.equals("")) {
@@ -343,18 +354,17 @@ public class FileHandler {
     }
 
     /**
+     * Get the errors in the compiler
+     *
      * @return string with all the errors that the user let in the compiler
      */
     public String getErrors() {
         return ERRORS;
     }
 
-    public void clearErrors(){
-        ERRORS = "";
-        ERRORS_COUNTER = 0;
-    }
-
     /**
+     * Get the counter of errors in the compiler
+     *
      * @return quantity of errors that occur in the compiler
      */
     public int getErrorsCounter() {

@@ -14,11 +14,6 @@ public class Line extends Link {
     }
 
     @Override
-    public String getDescription() {
-        return "Line from (" + this.getxOrigin() + "," + this.getyOrigin() + ") to (" + this.getxDestination() + "," + this.getyDestination() + ") with a stroke width of " + this.getStrokeWidth() + ".";
-    }
-
-    @Override
     public String generateAndGetTikzCode() {
         String code = "\\draw";
 

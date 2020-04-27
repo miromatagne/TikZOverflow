@@ -1,10 +1,7 @@
 package View.ShapeMenu;
 
-import Controller.ShapeMenuController;
-import View.ViewControllers.ControllerSuperclass;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.SubScene;
 import javafx.scene.input.MouseEvent;
@@ -67,16 +64,6 @@ public class ShapeMenuViewController implements Initializable {
     }
 
     /**
-     * The following functions changes the cursor to an hand cursor when we enter the text area
-     */
-    public void rectangleTextHand(){this.changeCursorToHand(rectangleText);}
-    public void circleTextHand(){this.changeCursorToHand(circleText);}
-    public void arrowTextHand(){this.changeCursorToHand(arrowText);}
-    public void curvedLineTextHand(){this.changeCursorToHand(curvedLineText);}
-    public void lineTextHand(){this.changeCursorToHand(lineText);}
-    public void triangleTextHand(){this.changeCursorToHand(triangleText);}
-
-    /**
      * Change the text color once the menu is selected
      * @param id                    Id of the menu
      */
@@ -91,15 +78,6 @@ public class ShapeMenuViewController implements Initializable {
                 allTexts.get(i).setStyle(WHITE);
             }
         }
-    }
-
-    /**
-     * Changes cursor to hand.
-     *
-     * @param text when given text is hovered, cursor changes to hand.
-     */
-    private void changeCursorToHand(Text text){
-        text.setCursor(Cursor.HAND);
     }
 
     /**
