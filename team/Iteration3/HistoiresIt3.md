@@ -1,5 +1,7 @@
 # Histoires pour l'itération 3
 Pour l'itération 3, le groupe 08 devra réaliser l'histoire 4.3 et une partie de l'histoire 7, soit l'histoire 7.1. Ces deux histoires correspond à un total de 28 points pour tout le groupe.
+Plus tard dans l'itération, le groupe 08 a jugé impératif d'effectuer un grand refactoring sur le code afin de corriger les remarques données par l'assistant lors du Code Review.
+C'est pourquoi l'histoire 16 a été ajoutée aux tâches à compléter lors de cette itération.
 
 ## Histoire 4.3
 
@@ -66,7 +68,9 @@ de l’interface graphique prévue à cet effet.
 
 TOTAL : 9 points
 
-Cette histoire a en fait été réalisée en 26 points. Cette importante augmentation par rapport aux prévisions est principalement dûe au large refactoring qui a été fait sur une grande partie du code (ceci est détaillé dans le document "DebriefingIt3").
+Cette histoire a en fait été réalisée en 26 points. 
+Cette importante augmentation par rapport aux prévisions est principalement dûe au large refactoring qui a été fait sur une grande partie 
+du code (ceci est détaillé dans le document "DebriefingIt3").
 
 ### Notes :
 
