@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TestFileHandler {
 
     @Test
-    public void test() throws UserFromSaveCreationException, IOException, SaveUserException, FileHandlerConstructorException {
+    public void test() throws UserFromSaveCreationException, FileHandlerConstructorException, SaveUserCreationException, SaveUserException, IOException {
         /* After execution, a folder should be made containing
          * a save file of "ftrouill" user
          */
@@ -24,6 +24,8 @@ class TestFileHandler {
         user1.setFirstName("Franck");
         user1.setMail("ftrouill@ulb.ac.be");
         user1.setPassword("123456789");
+        fh.createUserSave(user1);
+        fh.saveUser(user1);
         User user2 = fh.getUserFromSave("ftrouill");
         assertEquals("ftrouill", user2.getUsername());
         assertEquals("Franck", user2.getFirstName());
@@ -33,12 +35,8 @@ class TestFileHandler {
 
         String readerTest = fh.readInFile("./save user/ftrouill.txt");
         assertEquals("last:Trouillez" + "\n" + "first:Franck" + "\n" + "username:ftrouill" + "\n" +
-                              "mail:ftrouill@ulb.ac.be" + "\n" + "password:123456789" + "\n", readerTest);
+                "mail:ftrouill@ulb.ac.be" + "\n" + "password:123456789" + "\n", readerTest);
 
-        user1.setFirstName("Franck2");
-        fh.saveUser(user1);
-        user2 = fh.getUserFromSave("ftrouill");
-        assertEquals("Franck2", user2.getFirstName());
     }
     @Test
     public void makeTexFile() throws SaveUserCreationException, IOException, LatexWritingException, FileHandlerConstructorException {

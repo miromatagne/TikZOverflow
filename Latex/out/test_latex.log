@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2020.3.18)  7 APR 2020 12:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2020.3.18)  27 APR 2020 15:10
 entering extended mode
 **./Latex/test_latex.tex
 (Latex/test_latex.tex
@@ -381,7 +381,7 @@ File: pgfmodulematrix.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 r\tikz\libraries\tikzlibrarytopaths.code.tex"
 File: tikzlibrarytopaths.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 )))
-("C:\Users\franc\Desktop\ULB\BA3\genie logiciel et gestion de projets\TikzProje
+("C:\Users\franc\Desktop\ULB\BA3\genie logiciel et gestion de projets\TikZProje
 ct\Latex\out\test_latex.aux")
 \openout1 = `test_latex.aux'.
 
@@ -478,7 +478,7 @@ G,.JBIG2,.JB2,.eps]
 ) [1
 
 {C:/Users/franc/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-("C:\Users\franc\Desktop\ULB\BA3\genie logiciel et gestion de projets\TikzProje
+("C:\Users\franc\Desktop\ULB\BA3\genie logiciel et gestion de projets\TikZProje
 ct\Latex\out\test_latex.aux") ) 
 Here is how much of TeX's memory you used:
  11687 strings out of 493312
@@ -491,7 +491,7 @@ Here is how much of TeX's memory you used:
 <C:/Users/franc/AppData/Local/Programs/MiKTeX 2.
 9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
 Output written on "C:\Users\franc\Desktop\ULB\BA3\genie logiciel et gestion de 
-projets\TikzProject\Latex\out\test_latex.pdf" (1 page, 12370 bytes).
+projets\TikZProject\Latex\out\test_latex.pdf" (1 page, 12370 bytes).
 PDF statistics:
  13 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

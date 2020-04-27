@@ -57,6 +57,9 @@ public class LatexCompiler {
             outStreamText = getLines(pro.getInputStream());
             outStreamError = getLines(pro.getErrorStream());
             pro.waitFor();
+            if (pro.exitValue() != 0){
+                throw new LatexCompilationException();
+            }
         } catch (IOException | InterruptedException e){
             throw new LatexCompilationException(e);
         }
