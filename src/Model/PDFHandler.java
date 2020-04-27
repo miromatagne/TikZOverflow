@@ -13,7 +13,7 @@ import java.io.IOException;
  * Class used to handle PDF files.
  */
 public class PDFHandler {
-    private String pdfPath;
+    private final String pdfPath;
 
     /**
      * Constructor

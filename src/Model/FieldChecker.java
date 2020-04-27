@@ -8,10 +8,10 @@ import java.util.HashSet;
 
 public class FieldChecker {
 
-    HashSet<Character> userCharCollection = new HashSet<>();
-    HashSet<Character> alphaCharCollection = new HashSet<>();
-    HashSet<Character> numericCharCollection = new HashSet<>();
-    HashSet<Character> numericCollection = new HashSet<>();
+    final HashSet<Character> userCharCollection = new HashSet<>();
+    final HashSet<Character> alphaCharCollection = new HashSet<>();
+    final HashSet<Character> numericCharCollection = new HashSet<>();
+    final HashSet<Character> numericCollection = new HashSet<>();
 
     public FieldChecker() {
         setupFieldChecker();
