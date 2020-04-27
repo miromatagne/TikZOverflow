@@ -1,5 +1,8 @@
 package Controller;
 
+import Controller.Exceptions.BuildFullCodeFromShapesOnlyException;
+import Controller.Exceptions.GetTextInFileException;
+import Controller.Exceptions.LatexControllerConstructorException;
 import Controller.Exceptions.TikzCompilationException;
 import Model.User;
 import View.ViewControllers.MainPageViewController;
@@ -13,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TestLatexController {
 
     @Test
-    void getTextInFile() {
+    void getTextInFile() throws LatexControllerConstructorException, GetTextInFileException {
         LatexController latexControl = new LatexController(null);
         User user = new User();
         user.setUsername("test");
@@ -35,7 +38,7 @@ class TestLatexController {
     }
 
     @Test
-    void compileTikz() throws TikzCompilationException {
+    void compileTikz() throws TikzCompilationException, LatexControllerConstructorException, GetTextInFileException {
         LatexController latexController = new LatexController(new MainPageViewController());
         User user = new User();
         user.setUsername("test");
@@ -52,15 +55,12 @@ class TestLatexController {
                 "    \\end{tikzpicture}\n" +
                 "\\end{document}\n";
         latexController.saveTikz(sourceCode);
-
         String result = latexController.compileTikz(latexController.getTextInFile());
         assertEquals(result, "Errors (0)");
-
-
     }
 
     @Test
-    void createImage() {
+    void createImage() throws LatexControllerConstructorException {
         LatexController latexController = new LatexController(new MainPageViewController());
         try {
             latexController.createImage("./Latex/out/test.pdf");
@@ -71,7 +71,7 @@ class TestLatexController {
     }
 
     @Test
-    void saveTikz() {
+    void saveTikz() throws GetTextInFileException, LatexControllerConstructorException {
         LatexController latexController = new LatexController(new MainPageViewController());
         User user = new User();
         user.setUsername("test");
@@ -92,7 +92,7 @@ class TestLatexController {
     }
 
     @Test
-    void extractShapesSubCode() {
+    void extractShapesSubCode() throws LatexControllerConstructorException {
         LatexController latexController = new LatexController(new MainPageViewController());
         User user = new User();
         user.setUsername("test");
@@ -115,7 +115,7 @@ class TestLatexController {
     }
 
     @Test
-    void buildFullCodeFromShapesOnlyCode() {
+    void buildFullCodeFromShapesOnlyCode() throws BuildFullCodeFromShapesOnlyException, LatexControllerConstructorException {
         LatexController latexController = new LatexController(new MainPageViewController());
         User user = new User();
         user.setUsername("test");

@@ -1,6 +1,7 @@
 package Controller;
 
 import Controller.Exceptions.SessionOpeningException;
+import Model.Exceptions.FileHandlerConstructorException;
 import Model.FileHandler;
 import Model.User;
 import org.junit.jupiter.api.Test;
@@ -12,9 +13,8 @@ class TestSession {
 
 
     @Test
-    public void testSetup(){
+    public void testSetup() throws FileHandlerConstructorException {
         FileHandler fh = new FileHandler();
-        fh.setupSaveUserDirectory("save user");
         testUser = new User();
         testUser.setUsername("ftrouill");
         testUser.setLastName("Trouillez");
@@ -23,21 +23,21 @@ class TestSession {
         testUser.setPassword("123456789");
     }
     @Test
-    public void userNotRegisteredTest() throws SessionOpeningException {
+    public void userNotRegisteredTest() throws SessionOpeningException, FileHandlerConstructorException {
         testSetup();
         int res1 = Session.getInstance().openSession("ftrouuuuil", "123456789");
         assertEquals(res1, Session.USER_NOT_REGISTERED);
     }
 
     @Test
-    public void wrongPasswordTest() throws SessionOpeningException {
+    public void wrongPasswordTest() throws SessionOpeningException, FileHandlerConstructorException {
         testSetup();
         int res2 = Session.getInstance().openSession("ftrouill", "oups");
         assertEquals(res2, Session.INVALID_PASSWORD);
     }
 
     @Test
-    public void successfulConnectionTest() throws SessionOpeningException {
+    public void successfulConnectionTest() throws SessionOpeningException, FileHandlerConstructorException {
         testSetup();
         int res3 = Session.getInstance().openSession("ftrouill", "123456789");
         assertEquals(res3, Session.CONNECTION_ESTABLISHED);

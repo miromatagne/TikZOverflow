@@ -13,12 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class TestFileHandler {
 
     @Test
-    public void test() throws UserFromSaveCreationException, IOException, SaveUserException {
+    public void test() throws UserFromSaveCreationException, IOException, SaveUserException, FileHandlerConstructorException {
         /* After execution, a folder should be made containing
          * a save file of "ftrouill" user
          */
         FileHandler fh = new FileHandler();
-        fh.setupSaveUserDirectory("save user");
         User user1 = new User();
         user1.setUsername("ftrouill");
         user1.setLastName("Trouillez");
@@ -42,11 +41,10 @@ class TestFileHandler {
         assertEquals("Franck2", user2.getFirstName());
     }
     @Test
-    public void makeTexFile() throws SaveUserCreationException, IOException, LatexWritingException {
+    public void makeTexFile() throws SaveUserCreationException, IOException, LatexWritingException, FileHandlerConstructorException {
         User user = new User();
         user.setUsername("test1");
         FileHandler fh = new FileHandler();
-        fh.setupSaveUserDirectory("save user");
         fh.createUserSave(user);
         File texFile = new File("./Latex/" + user.getUsername() + ".tex");
         fh.writeInFile(texFile, "");
@@ -67,7 +65,7 @@ class TestFileHandler {
     }
 
     @Test
-    void errorLogs() throws LogErrorException {
+    void errorLogs() throws LogErrorException, FileHandlerConstructorException {
         User user = new User();
         user.setUsername("logFileTest");
         FileHandler fileHandler = new FileHandler();

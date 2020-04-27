@@ -84,7 +84,7 @@ class TestShapeFactory {
         assertEquals((float) 1.2,t.getXCenter());
         assertEquals((float) 15.6,t.getYCenter());
         assertEquals(Color.WHITE,t.getColor());
-        assertEquals((float) 0.456,t.getOutlineThickness());
+        assertEquals((float) 40,t.getOutlineThickness());
 
 
 
@@ -100,7 +100,7 @@ class TestShapeFactory {
         assertEquals((float) 0,r.getXCenter());
         assertEquals((float) 3,r.getHeight());
         assertEquals((float) 4,r.getWidth());
-        assertEquals((float) 50,r.getOutlineThickness());
+        assertEquals((float) 3,r.getOutlineThickness());
         assertEquals(Color.GREY, r.getColor());
 
 
@@ -108,8 +108,8 @@ class TestShapeFactory {
         Circle c = (Circle) ShapeFactory.getDefaultInstance(CIRCLE);
         assertEquals((float) 0,c.getXCenter());
         assertEquals((float) 0,c.getXCenter());
-        assertEquals((float) 3,c.getRadius());
-        assertEquals((float) 50,c.getOutlineThickness());
+        assertEquals((float) 2,c.getRadius());
+        assertEquals((float) 3,c.getOutlineThickness());
         assertEquals(Color.GREY, c.getColor());
 
         //ARROW
