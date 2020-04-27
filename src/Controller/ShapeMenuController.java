@@ -140,6 +140,7 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
         for (int i = 0; i < allFields.size(); i++) {
             String tempStringInField = allFields.get(i);
             if (!fieldChecker.isValidNumber(tempStringInField) || tempStringInField == null) {
+                System.out.println(tempStringInField);
                 canAddShape = false;
                 if (i < allControllers.get(idCurrent).getAllTextFields().size()) {
                     allControllers.get(idCurrent).getAllTextFields().get(i).setStyle(redStyle);

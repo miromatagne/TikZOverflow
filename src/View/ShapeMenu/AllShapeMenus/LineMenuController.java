@@ -30,7 +30,7 @@ public class LineMenuController extends MenuController implements Initializable 
     @FXML
     private TextField labelTextField;
 
-    private static final ArrayList<TextField> allTextFields = new ArrayList<>();
+    private final ArrayList<TextField> allTextFields = new ArrayList<>();
 
     /**
      * Function called when a new menu is selected. It clears the different fields

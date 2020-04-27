@@ -34,7 +34,7 @@ public class CircleMenuController extends MenuController implements Initializabl
 
     private static final double THICKNESS_DEFAULT_VALUE = 50;
 
-    private static final ArrayList<TextField> allTextFields = new ArrayList<>();
+    private final ArrayList<TextField> allTextFields = new ArrayList<>();
 
 
     /**
