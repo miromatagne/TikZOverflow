@@ -65,7 +65,6 @@ class AccountCreationControllerTest {
             backtoLoginTest();
             onAccountCreationAttemptTest();
             stage.close();
-
         }
 
         //Test functions
