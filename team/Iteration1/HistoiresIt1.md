@@ -61,7 +61,7 @@ Interface cadre de texte : 4 points
 
 TOTAL : 4 points
 
-En réalité, cette histoire a été réalisée au terme de 3 points.
+En réalité, la tâche "interface de texte" a été réalisée au terme de 3 points mais 1 point de documentation a été necessaire, ce qui donne un total de 4 points.
 
 ### Notes :
 
