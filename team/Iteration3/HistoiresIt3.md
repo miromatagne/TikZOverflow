@@ -1,5 +1,5 @@
 # Histoires pour l'itération 3
-Pour l'itération 3, le groupe 08 devra réaliser l'histoire 4.3 et une partie de l'histoire 7. Ces deux histoires correspond à un total de 28 points pour tout le groupe.
+Pour l'itération 3, le groupe 08 devra réaliser l'histoire 4.3 et une partie de l'histoire 7, soit l'histoire 7.1. Ces deux histoires correspond à un total de 28 points pour tout le groupe.
 
 ## Histoire 4.3
 
@@ -20,16 +20,18 @@ Cette action a pour effet de déposer l’élément sur le canevas et en même t
 
 ### Introduit dans l'itération : 3
 
-### Etat : 
+### Etat : Complétée
 
 ### Points :
 
-- Point-and-click : supprimé par le client : 0 points
+- Point-and-click : 5 points
 - Conversion du diagramme en code TikZ : 7 points
 - Documentation : 4 points
 - Travail d'équipe : 3 points
 
 TOTAL : 14 points
+
+Cette histoire a été réalisée en 6 points. Ceci est dû notamment au fait que le client ait décidé de retirer le point-and-click, comme précisé dans les notes ci-dessous.
 
 ### Notes :
 
@@ -37,9 +39,9 @@ Les coordonnées des éléments graphiques seront directement décidées depuis 
 
 ----------------------
 
-## Histoire 7
+## Histoire 7.1
 
-### Titre : Drag & Drop (Glisser-déposer)
+### Titre : Drag & Drop (Glisser-déposer) sans le mode gaucher
 
 ### Description
 L’utilisateur peut construire un diagramme TikZ de façon modulaire, en utilisant des éléments graphiques du diagramme, prédéfinis dans le logiciel (e.g. noeuds ronds, noeuds carrés, flèches, axes, . . .).
@@ -54,7 +56,7 @@ de l’interface graphique prévue à cet effet.
 
 ### Introduit dans l'itération : 3
 
-### Etat : 
+### Etat : Complétée
 
 ### Points :
 
@@ -63,6 +65,8 @@ de l’interface graphique prévue à cet effet.
 - Affichage des formes pendant le "drag" : 3 points
 
 TOTAL : 9 points
+
+Cette histoire a en fait été réalisée en 26 points. Cette importante augmentation par rapport aux prévisions est principalement dû au large refactoring qui a été fait sur une grande partie du code (ceci est détaillé dans le document "DebriefingIt3").
 
 ### Notes :
 
