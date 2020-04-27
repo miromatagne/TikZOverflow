@@ -7,6 +7,7 @@ import org.apache.pdfbox.rendering.PDFRenderer;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Class used to handle PDF files.
@@ -26,9 +27,9 @@ public class PDFHandler {
     /**
      * Converts pdf file to jpeg image file in the same directory
      *
-     * @throws Exception if pdf file doesn't exist
+     * @throws IOException if pdf file doesn't exist
      */
-    public void convertPdfToImageOnDisk() throws Exception {
+    public void convertPdfToImageOnDisk() throws IOException {
         File file = new File(pdfPath);
         PDDocument document = PDDocument.load(file);
         PDFRenderer renderer = new PDFRenderer(document);

@@ -1,5 +1,8 @@
 package Controller;
 
+import Controller.Exceptions.SessionOpeningException;
+import Model.Exceptions.SaveUserCreationException;
+import Model.Exceptions.UserFromSaveCreationException;
 import Model.FileHandler;
 import Model.User;
 
@@ -35,20 +38,25 @@ public class Session {
      * @return              0 if successful
      *                      -1 if wrong username
      *                      -2 if wrong password
+     * @throws SessionOpeningException when there is a problem while getting a user to open his session
      */
-    public int openSession(String username, String password){
-        fileHandler.setupSaveUserDirectory("save user");
-        currentUser = fileHandler.getUserFromSave(username);
-        if(currentUser == null) {
-            return USER_NOT_REGISTERED; //User is not registered
-        } else {
-            if(password.equals(currentUser.getPassword())) {
-                System.out.println("Connected user : "+ currentUser.getUsername());
-                System.out.println("Connected user password : " + currentUser.getPassword());
-                return CONNECTION_ESTABLISHED;
+    public int openSession(String username, String password) throws SessionOpeningException {
+        try {
+            fileHandler.setupSaveUserDirectory("save user");
+            if (!fileHandler.saveUserExists(username)){
+                return USER_NOT_REGISTERED; //User is not registered
             } else {
-                return INVALID_PASSWORD;
+                currentUser = fileHandler.getUserFromSave(username);
+                if (password.equals(currentUser.getPassword())) {
+                    System.out.println("Connected user : " + currentUser.getUsername());
+                    System.out.println("Connected user password : " + currentUser.getPassword());
+                    return CONNECTION_ESTABLISHED;
+                } else {
+                    return INVALID_PASSWORD;
+                }
             }
+        } catch (UserFromSaveCreationException e) {
+            throw new SessionOpeningException(e);
         }
     }
 
@@ -67,20 +75,26 @@ public class Session {
      * @param lastName                  last name
      * @param mail                      mail
      * @param password                  password
-     * @return                          TRUE if creation successful
-     *                                  FALSE otherwise
      */
     public boolean createAccount(String username, String firstName, String lastName,
                                  String mail, String password){
-        if(fileHandler.getUserFromSave(username) != null) {//User already exists
-            return false;
+        try {
+            if(fileHandler.saveUserExists(username)) {//User already exists
+                return false;
+            }
+            User newUser = new User();
+            newUser.setUsername(username);
+            newUser.setFirstName(firstName);
+            newUser.setLastName(lastName);
+            newUser.setPassword(password);
+            newUser.setMail(mail);
+            fileHandler.createUserSave(newUser);
+            return true;
+        } catch (SaveUserCreationException e){
+            System.err.println("Error while creating an account");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
         }
-        User newUser = new User();
-        newUser.setUsername(username);
-        newUser.setFirstName(firstName);
-        newUser.setLastName(lastName);
-        newUser.setPassword(password);
-        newUser.setMail(mail);
-        return fileHandler.createUserSave(newUser);
+        return false;
     }
 }

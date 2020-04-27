@@ -51,12 +51,10 @@ class TestLatexController {
                 "    \\end{tikzpicture}\n" +
                 "\\end{document}\n";
         latexController.saveTikz(sourceCode);
-        try {
-            String result = latexController.compileTikz(latexController.getTextInFile());
-            assertEquals(result, "Errors (0)");
-        } catch (IOException e) {
-            fail();
-        }
+
+        String result = latexController.compileTikz(latexController.getTextInFile());
+        assertEquals(result, "Errors (0)");
+
 
     }
 

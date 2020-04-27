@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Exceptions.*;
+
 import java.io.*;
 
 /**
@@ -27,16 +29,14 @@ public class FileHandler {
      * Setups the directory for users' saves.
      *
      * @param saveUserDirectory Path to the directory users' saves
-     * @return TRUE if the setup is made successfully
-     * FALSE otherwise
      */
-    public boolean setupSaveUserDirectory(String saveUserDirectory) {
+    public void setupSaveUserDirectory(String saveUserDirectory) {
         if (saveUserDirectory == null || saveUserDirectory.equals("")) {
-            return false;
+            return;
         }
         this.saveUserDirectory = saveUserDirectory;
         File file = new File(saveUserDirectory);
-        return checkAndCreateSaveDirectory(file);
+        checkAndCreateSaveDirectory(file);
     }
 
     /**
@@ -58,18 +58,12 @@ public class FileHandler {
      * Checks if the directory exists. Otherwise, creates it.
      *
      * @param file File created with path to the save_user directory
-     * @return TRUE if the directory already exists OR if the
-     * creation of the directory is successful
-     * FALSE if the creation of the directory failed
      */
-    private boolean checkAndCreateSaveDirectory(File file) {
-        if (file == null) {
-            return false;
-        }
+    private void checkAndCreateSaveDirectory(File file) {
         if (file.exists() && file.isDirectory()) {
-            return true;
+            return;
         }
-        return file.mkdir();
+        file.mkdir();
     }
 
     /**
@@ -92,20 +86,23 @@ public class FileHandler {
      * Creates a save corresponding to given user.
      *
      * @param user User to be saved in a text file
-     * @return TRUE if writing successful
-     * FALSE otherwise
+     * @throws SaveUserCreationException when the creation of the user save failed
      */
-    public boolean createUserSave(User user) {
+    public void createUserSave(User user) throws SaveUserCreationException {
         if (saveUserDirectory.equals("")) {
-            return false;
+            return;
         }
-        File saveFile = new File(saveUserDirectory + "/" + user.getUsername() + saveUserFormat);
-        if (saveFile.exists()) {
-            //Error, the file does already exist
-            return false;
+        try {
+            File saveFile = new File(saveUserDirectory + "/" + user.getUsername() + saveUserFormat);
+            if (saveFile.exists()) {
+                //Error, the file does already exist
+                return;
+            }
+            makeTexFile(user, "");
+            writeSave(user, saveFile);
+        } catch (LatexWritingException | SaveWritingException e){
+            throw new SaveUserCreationException(e);
         }
-        makeTexFile(user, "");
-        return writeSave(user, saveFile);
     }
 
     /**
@@ -114,27 +111,27 @@ public class FileHandler {
      *
      * @param user       User for whom the .tex file will be created/updated
      * @param sourceCode String from the compiling text area
+     * @throws LatexWritingException when the text has not be written successfully in the tex file
      */
-    public void makeTexFile(User user, String sourceCode) {
-        setupSaveProjectDirectory("./Latex/");
-        File texFile = new File(saveProjectDirectory + user.getUsername() + ".tex");
-
-        if (texFile.exists()) {
-            writeInFile(texFile, sourceCode);
-        } else {
-            File template_file = new File("./Latex/template.txt");
-            String temp, text = "";
-            BufferedReader br;
-            try {
+    public void makeTexFile(User user, String sourceCode) throws LatexWritingException {
+        try {
+            setupSaveProjectDirectory("./Latex/");
+            File texFile = new File(saveProjectDirectory + user.getUsername() + ".tex");
+            if (texFile.exists()) {
+                writeInFile(texFile, sourceCode);
+            } else {
+                File template_file = new File("./Latex/template.txt");
+                String temp, text = "";
+                BufferedReader br;
                 br = new BufferedReader(new FileReader(template_file));
                 while ((temp = br.readLine()) != null) {
                     text = text.concat(temp + '\n');
                 }
-            } catch (IOException e) {
-                System.err.println("There was an error while reading the sample file\n");
-                e.printStackTrace();
+                writeInFile(texFile, text);
             }
-            writeInFile(texFile, text);
+        }
+        catch (IOException e) {
+            throw new LatexWritingException(e);
         }
     }
 
@@ -143,31 +140,35 @@ public class FileHandler {
      *
      * @param user User to be saved.
      * @param file File in which to write.
-     * @return TRUE if writing was successful
-     * FALSE otherwise
+     * @throws SaveWritingException when the save could not be written
      */
-    private boolean writeSave(User user, File file) {
-        String text = getSaveTextFromUser(user);
-        return writeInFile(file, text);
+    private void writeSave(User user, File file) throws SaveWritingException {
+        try {
+            String text = getSaveTextFromUser(user);
+            writeInFile(file, text);
+        } catch (IOException e) {
+            throw new SaveWritingException(e);
+        }
     }
 
     /**
      * Save the user in the user directory
      *
      * @param user user contain all the new data to be saved
-     * @return TRUE if the save was successful
-     * FALSE otherwise
+     * @throws SaveUserException when the user save could not be written
      */
-    public boolean saveUser(User user) {
+    public void saveUser(User user) throws SaveUserException {
         if (saveUserDirectory.equals("")) {
-            return false;
+            return;
         }
-
-        File file = new File(saveUserDirectory + "/" + user.getUsername() + saveUserFormat);
-        if (file.exists()) {
-            return writeSave(user, file);
+        try {
+            File file = new File(saveUserDirectory + "/" + user.getUsername() + saveUserFormat);
+            if (file.exists()) {
+                writeSave(user, file);
+            }
+        } catch (SaveWritingException e) {
+            throw new SaveUserException(e);
         }
-        return false;
     }
 
 
@@ -176,20 +177,13 @@ public class FileHandler {
      *
      * @param file File written
      * @param text Content to write
-     * @return TRUE if writing successful
-     * FALSE otherwise
+     * @throws IOException when a IO error occurs
      */
-    public boolean writeInFile(File file, String text) {
-        try {
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(text);
-            bw.close();
-            return true;
-        } catch (IOException e) {
-            System.err.format("IOException: %s%n", e);
-        }
-        return false;
+    public void writeInFile(File file, String text) throws IOException {
+        FileWriter fw = new FileWriter(file);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(text);
+        bw.close();
     }
 
 
@@ -197,21 +191,18 @@ public class FileHandler {
      * Read the text in a File
      *
      * @param path File path.
-     * @return A String containing all the line of the file
+     * @return text in the file
+     * @throws IOException if error in IO interactions
      */
-    public String readInFile(String path) {
+    public String readInFile(String path) throws IOException{
         File file = new File(path);
         String textInFile;
         StringBuilder builder = new StringBuilder();
 
-        try {
-            FileReader reader = new FileReader(file);
-            BufferedReader buffer = new BufferedReader(reader);
-            while ((textInFile = buffer.readLine()) != null) {
-                builder.append(textInFile).append("\n");
-            }
-        } catch (IOException e) {
-            System.err.format("IOException: %s%n", e);
+        FileReader reader = new FileReader(file);
+        BufferedReader buffer = new BufferedReader(reader);
+        while ((textInFile = buffer.readLine()) != null) {
+            builder.append(textInFile).append("\n");
         }
 
         return builder.toString();
@@ -221,24 +212,33 @@ public class FileHandler {
      * Creates a user from its username and its save in the save_user directory.
      *
      * @param username Username (identifying users)
-     * @return User created. Null if save file does not exist.
+     * @return User created
+     * @throws UserFromSaveCreationException when then user can not be created from the save corresponding to the username given
      */
-    public User getUserFromSave(String username) {
-        if (saveUserDirectory.equals("")) {
-            return null;
+    public User getUserFromSave(String username) throws UserFromSaveCreationException {
+        try {
+            File file = new File(saveUserDirectory + "/" + username + saveUserFormat);
+            User user = new User();
+            user.setUsername(username);
+            setUserLastName(file, user);
+            setUserFirstName(file, user);
+            setUserMail(file, user);
+            setUserPassword(file, user);
+            return user;
+        } catch (IOException e){
+            throw new UserFromSaveCreationException(e);
         }
+    }
+
+    /**
+     * Check if the save user file exists
+     *
+     * @param username  username of the user
+     * @return          TRUE if file exists, FALSE otherwise
+     */
+    public boolean saveUserExists(String username){
         File file = new File(saveUserDirectory + "/" + username + saveUserFormat);
-        if (!file.exists()) {
-            //Error, the file does not exist
-            return null;
-        }
-        User user = new User();
-        user.setUsername(username);
-        setUserLastName(file, user);
-        setUserFirstName(file, user);
-        setUserMail(file, user);
-        setUserPassword(file, user);
-        return user;
+        return file.exists();
     }
 
     /**
@@ -247,30 +247,23 @@ public class FileHandler {
      * @param file File corresponding to user save file
      * @param flag Flag to extract the information from
      * @return Information needed, or empty string if empty file/flag
+     * @throws IOException if any IO error interaction occurs
      */
-    private String getInformation(File file, String flag) {
+    private String getInformation(File file, String flag) throws IOException{
         if (file == null || flag.equals("")) {
             return "";
         }
-        if (file.length() == 0) {
-            System.out.println("File " + file.getPath() + " is empty");
-            return "";
-        }
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] lineArray = line.split(":");
-                if (lineArray[0].equals(flag)) {
-                    if (!lineArray[1].equals("")) {
-                        return lineArray[1];
-                    }
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] lineArray = line.split(":");
+            if (lineArray[0].equals(flag)) {
+                if (!lineArray[1].equals("")) {
+                    return lineArray[1];
                 }
             }
-            br.close();
-        } catch (IOException e) {
-            System.err.format("IOException: %s%n", e);
         }
+        br.close();
         System.out.println("No information for the flag : " + flag + ", in file " + file.getPath());
         return "";
     }
@@ -280,8 +273,9 @@ public class FileHandler {
      *
      * @param file File corresponding to user save file
      * @param user User whose last name is set
+     * @throws IOException if any IO error interaction occurs
      */
-    private void setUserLastName(File file, User user) {
+    private void setUserLastName(File file, User user) throws IOException{
         String temp;
         if (!(temp = getInformation(file, "last")).equals("")) {
             user.setLastName(temp);
@@ -293,8 +287,9 @@ public class FileHandler {
      *
      * @param file File corresponding to user save file
      * @param user User whose first name is set
+     * @throws IOException if any IO error interaction occurs
      */
-    private void setUserFirstName(File file, User user) {
+    private void setUserFirstName(File file, User user) throws IOException{
         String temp;
         if (!(temp = getInformation(file, "first")).equals("")) {
             user.setFirstName(temp);
@@ -306,8 +301,9 @@ public class FileHandler {
      *
      * @param file File corresponding to user save file
      * @param user User whose mail is set
+     * @throws IOException if any IO error interaction occurs
      */
-    private void setUserMail(File file, User user) {
+    private void setUserMail(File file, User user) throws IOException{
         String temp;
         if (!(temp = getInformation(file, "mail")).equals("")) {
             user.setMail(temp);
@@ -319,8 +315,9 @@ public class FileHandler {
      *
      * @param file File corresponding to user save file
      * @param user User whose password is set
+     * @throws IOException if any IO error interaction occurs
      */
-    private void setUserPassword(File file, User user) {
+    private void setUserPassword(File file, User user) throws IOException{
         String temp;
         if (!(temp = getInformation(file, "password")).equals("")) {
             user.setPassword(temp);
@@ -352,40 +349,43 @@ public class FileHandler {
      * @param path     the path to the log file which contains all information about the last compilation
      *                 that we made
      * @param username each error give the username so we need it to filter errors from other information
-     * @throws IOException If there was an error while reading the file.
+     * @throws LogErrorException If there was an error while reading the file.
      */
-    public void errorLogs(String path, String username) throws IOException {
-        ERRORS = "";
-        ERRORS_COUNTER = 0;
-        File file = new File(path);
-        String[] words;
-        FileReader fileReader = new FileReader(file);
-        BufferedReader buffer = new BufferedReader(fileReader);
-        String line;
-        String input = "Latex/" + username + ".tex";
+    public void errorLogs(String path, String username) throws LogErrorException {
+        try {
+            ERRORS = "";
+            ERRORS_COUNTER = 0;
+            File file = new File(path);
+            String[] words;
+            FileReader fileReader = new FileReader(file);
+            BufferedReader buffer = new BufferedReader(fileReader);
+            String line;
+            String input = "Latex/" + username + ".tex";
 
-        while ((line = buffer.readLine()) != null) {
-            words = line.split(":");
-            for (String word : words) {
-                if (word.equals(input)) {
-                    ERRORS_COUNTER++;
-                    for (int i = 1; i < words.length; i++) {
-                        if (i == 1) {
-                            ERRORS += "line ";
+            while ((line = buffer.readLine()) != null) {
+                words = line.split(":");
+                for (String word : words) {
+                    if (word.equals(input)) {
+                        ERRORS_COUNTER++;
+                        for (int i = 1; i < words.length; i++) {
+                            if (i == 1) {
+                                ERRORS += "line ";
+                            }
+                            ERRORS += words[i];
+                            if (i < words.length - 1) {
+                                ERRORS += ":";
+                            } else {
+                                ERRORS += "\n";
+                            }
                         }
-                        ERRORS += words[i];
-                        if (i < words.length - 1) {
-                            ERRORS += ":";
-                        }
-                        else {
-                            ERRORS += "\n";
-                        }
+                    } else if (word.equals("*** (job aborted, no legal \\end found)")) {
+                        ERRORS_COUNTER++;
+                        ERRORS += "*** Missing '\\begin{document}' and/or '\\end{document}'";
                     }
-                } else if (word.equals("*** (job aborted, no legal \\end found)")) {
-                    ERRORS_COUNTER++;
-                    ERRORS += "*** Missing '\\begin{document}' and/or '\\end{document}'";
                 }
             }
+        } catch (IOException e) {
+            throw new LogErrorException(e);
         }
     }
 
