@@ -70,7 +70,7 @@ Cette histoire a en fait été réalisée en 26 points. Cette importante augment
 
 ### Notes :
 
-Le mode gaucher n'est pas à réaliser pour cette itération.
+Le mode gaucher n'est pas à réaliser pour cette itération, c'est pourquoi l'histoire 7 a été scindée en les histoires 7.1 et 7.2.
 
 ----------------------
 
