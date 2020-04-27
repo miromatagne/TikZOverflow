@@ -75,7 +75,7 @@ public class LoginScreenViewController extends ControllerSuperclass implements I
         this.listener = listener;
     }
     public interface LoginScreenViewControllerListener{
-        public void onLoginAttempt(String username, String password);
-        public void onAccountCreation();
+        void onLoginAttempt(String username, String password);
+        void onAccountCreation();
     }
 }

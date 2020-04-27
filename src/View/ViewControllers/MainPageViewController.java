@@ -117,15 +117,6 @@ public class MainPageViewController implements Initializable {
      */
     @FXML
     public void compile(){
-        /*
-        String sourceCode = "";
-        if(currentCodeDisplay == SHAPES_ONLY){
-            sourceCode = latexController.buildFullCodeFromShapesOnlyCode(codeInterface.getText());
-        }
-        String errorsButtonText = latexController.compileTikz(sourceCode);
-        errorsButton.setText(errorsButtonText);
-
-         */
         codeInterfaceListener.onCompilationAttempt(codeInterface.getText());
     }
 

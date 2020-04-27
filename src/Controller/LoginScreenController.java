@@ -45,6 +45,7 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
         controller.setListener(this);
         return loader;
     }
+    
     /**
      * Checks if the username and password are correct with the session object. If they are, the user gets to his main screen.
      * If not, the incorrect credentials are highlighted in red.
