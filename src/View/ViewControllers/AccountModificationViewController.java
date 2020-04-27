@@ -35,15 +35,6 @@ public class AccountModificationViewController extends AccountViewController imp
     //Method
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        update();
-    }
-
-    /**
-     * Function update override the one from ControllerSuperClass
-     * Used to update all the TextField with the information of the CurrentUser from Session
-     */
-    @Override
-    public void update() {
         User userCurrent = Session.getInstance().getUser();
         usernameField.setText(userCurrent.getUsername());
         firstNameField.setText(userCurrent.getFirstName());
@@ -58,7 +49,6 @@ public class AccountModificationViewController extends AccountViewController imp
         setTextFieldStyle("password", "default");
         setTextFieldStyle("passwordConfirmation", "default");
     }
-
 
     /**
      * Action of the validate button : - Check if all the information in the field are correct

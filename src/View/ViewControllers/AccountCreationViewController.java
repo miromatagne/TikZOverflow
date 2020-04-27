@@ -25,11 +25,6 @@ public class AccountCreationViewController extends AccountViewController {
 
     private AccountCreationViewControllerListener listener;
 
-    @Override
-    public void update() {
-        //No need to update the account creation panel
-    }
-
     /**
      * Checks every input and highlights wrong ones in red when user clicks on "Create".
      */

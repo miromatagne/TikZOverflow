@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 /**
  * Handles Login screen interface interactions.
  */
-public class LoginScreenViewController extends ControllerSuperclass {
+public class LoginScreenViewController {
     @FXML
     TextField usernameField;
     @FXML
@@ -53,11 +53,6 @@ public class LoginScreenViewController extends ControllerSuperclass {
      */
     public void newAccount() {
         listener.onAccountCreation();
-    }
-
-    @Override
-    public void update() {
-        //No need to update login Screen
     }
 
     public void setListener(LoginScreenViewControllerListener listener){
