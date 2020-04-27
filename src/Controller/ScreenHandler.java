@@ -152,4 +152,8 @@ public class ScreenHandler extends Application implements LoginScreenController.
     public void onModificationDone() {
         goToMainPage();
     }
+
+    public AccountCreationController getAccountCreationController(){
+        return this.accountCreationController;
+    }
 }
