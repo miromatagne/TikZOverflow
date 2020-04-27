@@ -1,5 +1,6 @@
 package Controller;
 
+import Controller.Exceptions.TikzCompilationException;
 import Model.User;
 import View.ViewControllers.MainPageViewController;
 import org.junit.jupiter.api.Test;
@@ -34,7 +35,7 @@ class TestLatexController {
     }
 
     @Test
-    void compileTikz() {
+    void compileTikz() throws TikzCompilationException {
         LatexController latexController = new LatexController(new MainPageViewController());
         User user = new User();
         user.setUsername("test");

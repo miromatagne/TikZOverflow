@@ -1,5 +1,7 @@
 package Controller;
 
+import Controller.Exceptions.AddSceneException;
+import Controller.Exceptions.ShapeMenuControllerConstructorException;
 import Model.FieldChecker;
 import Model.Shapes.ShapeFactory;
 import Model.Shapes.Shape;
@@ -30,31 +32,25 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
     /**
      * Create the Pop Up menu for the shapes and add the menus to it.
      *
-     * @throws IOException If there was an error while reading the .fxml file
+     * @throws ShapeMenuControllerConstructorException If there was an error while constructing the instance
      */
-    public ShapeMenuController()  {
-        popUpStage = new Stage();
-        popUpStage.setTitle("Add Shape Menu");
-        popUpStage.initModality(Modality.APPLICATION_MODAL);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/ShapeMenu/FxmlFiles/addShapeMenu.fxml"));
-        Parent addShapeMenuRoot = null;
+    public ShapeMenuController()  throws ShapeMenuControllerConstructorException {
         try {
-            addShapeMenuRoot = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        shapeMenuViewController = loader.getController();
-        shapeMenuViewController.setListener(this);
-
-        allControllers = new ArrayList<>();
-        allShapes = new ArrayList<>();
-        try {
+            popUpStage = new Stage();
+            popUpStage.setTitle("Add Shape Menu");
+            popUpStage.initModality(Modality.APPLICATION_MODAL);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/ShapeMenu/FxmlFiles/addShapeMenu.fxml"));
+            Parent addShapeMenuRoot = loader.load();
+            shapeMenuViewController = loader.getController();
+            shapeMenuViewController.setListener(this);
+            allControllers = new ArrayList<>();
+            allShapes = new ArrayList<>();
             setUpScenes();
-        } catch (IOException e) {
-            e.printStackTrace();
+            changeToMenu(ShapeMenuViewController.ARROW);
+            popUpStage.setScene(new Scene(addShapeMenuRoot));
+        } catch (IOException | AddSceneException e) {
+            throw new ShapeMenuControllerConstructorException(e);
         }
-        changeToMenu(ShapeMenuViewController.ARROW);
-        popUpStage.setScene(new Scene(addShapeMenuRoot));
     }
 
     public void setMainPageViewController(MainPageViewController mainPageViewController) {
@@ -101,20 +97,16 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
     /**
      * Add the scenes for all the shape menus to the ArrayList.
      *
-     * @throws IOException If there was an error while reading a .fxml file
+     * @throws AddSceneException when a scene can not be added
      */
-    public void setUpScenes() throws IOException {
+    public void setUpScenes() throws AddSceneException {
         addScene("/View/ShapeMenu/FxmlFiles/rectangleMenu.fxml");
         addScene("/View/ShapeMenu/FxmlFiles/circleMenu.fxml");
         addScene("/View/ShapeMenu/FxmlFiles/lineMenu.fxml");
         addScene("/View/ShapeMenu/FxmlFiles/curvedLineMenu.fxml");
         addScene("/View/ShapeMenu/FxmlFiles/arrowMenu.fxml");
-        addScene("/View/ShapeMenu/FxmlFiles/triangleMenu.fxml");
-
-        if (allShapes.isEmpty()) {
-            throw new IOException();
-        }
     }
+
 
     /**
      * Change the menu to the menu indicated by the value given in parameter
@@ -134,15 +126,16 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
      * Add a scene to the array list containing all the menus and add its controller to an array too
      *
      * @param scenePath Path to the corresponding fxml file
+     * @throws AddSceneException when the fxml file is not loaded successfully
      */
-    private void addScene(String scenePath) {
+
+    private void addScene(String scenePath) throws AddSceneException {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(scenePath));
             allShapes.add(loader.load());
             allControllers.add(loader.getController());
-        } catch (Exception exc) {
-            System.out.println("Error loading scene " + scenePath);
-            exc.printStackTrace();
+        } catch (IOException e) {
+            throw new AddSceneException(e);
         }
     }
 
@@ -208,6 +201,5 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
     @Override
     public void onConfirmButtonPressed() {
         verifyShape();
-
     }
 }

@@ -34,8 +34,8 @@ public class AccountCreationController implements AccountCreationViewController.
             controller.setListener(this);
             stage.getScene().setRoot(loader.getRoot());
             stage.show();
-        } catch (Exception e) {
-            System.out.println("Error loading /View/FXML/accountCreation.fxml");
+        } catch (IOException e) {
+            System.err.println("Error loading /View/FXML/accountCreation.fxml");
             e.printStackTrace();
         }
     }

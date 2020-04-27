@@ -1,5 +1,9 @@
 package Controller;
 
+import Controller.Exceptions.TikzCompilationException;
+import Model.Exceptions.LatexCompilationException;
+import Model.Exceptions.LatexWritingException;
+import Model.Exceptions.LogErrorException;
 import Model.FileHandler;
 import Model.LatexCompiler;
 import Model.PDFHandler;
@@ -31,8 +35,15 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      * @return Source code
      */
     public String getTextInFile() {
-        String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
-        return fileHandler.readInFile(filePath);
+        try {
+            String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
+            return fileHandler.readInFile(filePath);
+        } catch (IOException e) {
+            System.err.println("Error while getting source code");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
+        }
+        return "";
     }
 
     /**
@@ -42,21 +53,19 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      * @return String with error count
      * @throws IOException If reading the log was unsuccessful
      */
-    public String compileTikz(String sourceCode) throws IOException {
-        saveTikz(sourceCode);
-        String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
-
+    public String compileTikz(String sourceCode) throws TikzCompilationException {
         try {
+            saveTikz(sourceCode);
+            String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
             LatexCompiler.runProcess(filePath);
             String pdfPath = "./Latex/out/" + Session.getInstance().getUser().getUsername() + ".pdf";
             createImage(pdfPath);
-        } catch (Exception e) {
-            System.err.println("Error in compilation :  " + e.toString());
             fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log", Session.getInstance().getUser().getUsername());
+            int errorsCount = fileHandler.getErrorsCounter();
+            return "Errors (" + errorsCount + ")";
+        } catch (LatexCompilationException | LogErrorException e) {
+            throw new TikzCompilationException(e);
         }
-        fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log", Session.getInstance().getUser().getUsername());
-        int errorsCount = fileHandler.getErrorsCounter();
-        return "Errors (" + errorsCount + ")";
     }
 
     /**
@@ -92,7 +101,13 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      * @param sourceCode Source code to be saved
      */
     public void saveTikz(String sourceCode) {
-        fileHandler.makeTexFile(Session.getInstance().getUser(), sourceCode);
+        try {
+            fileHandler.makeTexFile(Session.getInstance().getUser(), sourceCode);
+        } catch (LatexWritingException e){
+            System.err.println("Error while writing in tex file");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
+        }
     }
 
     /**
@@ -135,18 +150,16 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
 
     @Override
     public void onCompilationAttempt(String code) {
-
-        String sourceCode = buildFullCodeFromShapesOnlyCode(code);
-
-        String errorsButtonText = null;
         try {
+            String sourceCode = buildFullCodeFromShapesOnlyCode(code);
+            String errorsButtonText = null;
             errorsButtonText = compileTikz(sourceCode);
-        } catch (IOException e) {
-            System.err.println("LaTeX compilation failed");
+            mainPageViewController.setErrorButtonText(errorsButtonText);
+        } catch (TikzCompilationException e) {
+            System.err.println("TikZ/LaTeX compilation failed");
             e.printStackTrace();
+            e.getCause().printStackTrace();
         }
-
-        mainPageViewController.setErrorButtonText(errorsButtonText);
     }
 
     @Override

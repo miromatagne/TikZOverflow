@@ -1,5 +1,7 @@
 package Controller;
 
+import Controller.Exceptions.ShapeMenuControllerConstructorException;
+import Controller.Exceptions.ShowMainPageException;
 import Model.Shapes.Shape;
 import View.ViewControllers.AccountCreationViewController;
 import View.ViewControllers.MainPageViewController;
@@ -23,7 +25,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         this.listener = listener;
     }
 
-    public void show(){
+    public void show() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/MainPage.fxml"));
             root = loader.load();
@@ -41,9 +43,14 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
 
             stage.getScene().setRoot(loader.getRoot());
             stage.show();
-        } catch (Exception e) {
-            System.out.println("Error loading /View/FXML/accountCreation.fxml");
+        } catch (ShapeMenuControllerConstructorException e) {
+            System.err.println("Error while creating the shape menu controller");
             e.printStackTrace();
+            e.getCause().printStackTrace();
+        } catch (IOException e) {
+            System.err.println("Error while loading the fxml file");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
         }
 
     }

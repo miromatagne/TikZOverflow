@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Exceptions.SaveUserException;
 import Model.FieldChecker;
 import Model.FileHandler;
 import Model.User;
@@ -36,7 +37,7 @@ public class AccountModificationController implements AccountModificationViewCon
             controller.setListener(this);
             stage.getScene().setRoot(loader.getRoot());
             stage.show();
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Error loading /View/FXML/accountModification.fxml");
             e.printStackTrace();
         }
@@ -87,15 +88,20 @@ public class AccountModificationController implements AccountModificationViewCon
      */
     public boolean validateModification(String firstName, String lastName, String email, String password, String passwordConfirmation) {
         if (validateInformation(firstName, lastName, email, password, passwordConfirmation)) {
-            User userCurrent = Session.getInstance().getUser();
-            userCurrent.setLastName(lastName);
-            userCurrent.setFirstName(firstName);
-            userCurrent.setMail(email);
-            userCurrent.setPassword(password);
-            Session.getInstance().setUser(userCurrent);
-            FileHandler handler = new FileHandler();
-            if (!handler.saveUser(userCurrent)) {
-                System.out.println("Error in saving the user");
+            try {
+                User userCurrent = Session.getInstance().getUser();
+                userCurrent.setLastName(lastName);
+                userCurrent.setFirstName(firstName);
+                userCurrent.setMail(email);
+                userCurrent.setPassword(password);
+                Session.getInstance().setUser(userCurrent);
+                FileHandler handler = new FileHandler();
+                handler.saveUser(userCurrent);
+            } catch (SaveUserException e) {
+                System.err.println("Error in saving the user");
+                e.printStackTrace();
+                e.getCause().printStackTrace();
+
             }
             return true;
         }

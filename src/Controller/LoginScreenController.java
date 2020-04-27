@@ -1,9 +1,12 @@
 package Controller;
 
+import Controller.Exceptions.SessionOpeningException;
 import View.ViewControllers.LoginScreenViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class LoginScreenController implements LoginScreenViewController.LoginScreenViewControllerListener {
     private Stage stage;
@@ -32,13 +35,13 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
             FXMLLoader loader = getLoader();
             stage.getScene().setRoot(loader.getRoot());
             stage.show();
-        } catch (Exception e) {
-            System.out.println("Error loading /View/FXML/LoginScreen.fxml");
+        } catch (IOException e) {
+            System.err.println("Error loading /View/FXML/LoginScreen.fxml");
             e.printStackTrace();
         }
     }
 
-    private FXMLLoader getLoader() throws java.io.IOException {
+    private FXMLLoader getLoader() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/LoginScreen.fxml"));
         loader.load();
         controller = loader.getController();
@@ -51,15 +54,21 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
      * If not, the incorrect credentials are highlighted in red.
      */
     public void validateLogin(String username, String password) {
-        Session session = Session.getInstance();
-        int valid = session.openSession(username, password);
-        if (valid == Session.CONNECTION_ESTABLISHED) {
-            listener.onSuccessfulLoginRequest();
-        } else if (valid == Session.USER_NOT_REGISTERED) {
-            controller.setTextFieldStyle("username", "red");
-        } else if (valid == Session.INVALID_PASSWORD) {
-            controller.setTextFieldStyle("password", "red");
-            controller.setTextFieldStyle("username", "default");
+        try {
+            Session session = Session.getInstance();
+            int valid = session.openSession(username, password);
+            if (valid == Session.CONNECTION_ESTABLISHED) {
+                listener.onSuccessfulLoginRequest();
+            } else if (valid == Session.USER_NOT_REGISTERED) {
+                controller.setTextFieldStyle("username", "red");
+            } else if (valid == Session.INVALID_PASSWORD) {
+                controller.setTextFieldStyle("password", "red");
+                controller.setTextFieldStyle("username", "default");
+            }
+        } catch (SessionOpeningException e){
+            System.err.println("Error while opening a session");
+            e.printStackTrace();
+            e.getCause().printStackTrace();
         }
     }
 

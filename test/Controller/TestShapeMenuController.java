@@ -2,6 +2,7 @@ package Controller;
 
 
 
+import Controller.Exceptions.ShapeMenuControllerConstructorException;
 import Model.Shapes.Circle;
 import Model.Shapes.Rectangle;
 import javafx.scene.paint.Color;
@@ -12,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TestShapeMenuController {
 
     @Test
-    public void createString(){
+    public void createString() throws ShapeMenuControllerConstructorException {
         ShapeMenuController shapeMenuController = new ShapeMenuController();
         Circle circle = new Circle(3, 1);
         Rectangle rectangle = new Rectangle(4, 6);
