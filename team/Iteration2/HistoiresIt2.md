@@ -26,6 +26,8 @@ Dans le deuxième cas, l’utilisateur peut utiliser le cadre de texte pour déc
 
 TOTAL : 28 points
 
+Cette hisotoire a en fait été réalisée au terme de 31.5 points.
+
 ### Notes :
 Lorsqu'un élément a été défini à partir du panneau de configuration, les caractéristiques de celui-ci (au format texte) seront inscrites dans un label "Elements ajoutés".
 
