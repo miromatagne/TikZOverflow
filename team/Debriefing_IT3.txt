@@ -4,7 +4,7 @@ refactoring.
 
 
 Un panneau de formes prédéfinies a été créé sur l'écran principal, et celles-ci
-peuvent être "drag-and-drop" sur le canvas au centre directement. Le code Tikz
+peuvent être "drag-and-drop" sur le canevas au centre directement. Le code Tikz
 correspondant à cette forme prédéfinie est alors ajoutée à l'interface de texte
 et l'utilisateur peut alors modifier ses caractéristiques, ou ajouter d'autres
 formes via le code et non via les formes prédéfinies.

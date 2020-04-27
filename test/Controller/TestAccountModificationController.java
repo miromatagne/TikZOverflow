@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AccountModificationControllerTest {
+class TestAccountModificationController {
 
     /**
      * Main test for the AccountModificationController, launch a testAccountModification object which extends

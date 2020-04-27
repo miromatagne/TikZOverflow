@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
 /**
  * Handles Login screen interface interactions.
  */
-public class LoginScreenViewController extends ControllerSuperclass implements Initializable {
+public class LoginScreenViewController extends ControllerSuperclass {
     @FXML
     TextField usernameField;
     @FXML
@@ -22,9 +22,7 @@ public class LoginScreenViewController extends ControllerSuperclass implements I
     Label signUpLabel;
 
     private LoginScreenViewControllerListener listener;
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
+
 
     /**
      * Tries to login with filled in username and password.
