@@ -15,7 +15,7 @@ Un point correspond à une heure de travail par binôme (approximatif).  Par it�
 | 2 | 2 | Histoire 2 | 1 | | 26 |
 |   | 3 | Histoire 3 | 2 | | 15 |
 |   | 6 | Histoire 6 | 2 | | 4 |
-|   | 7 | Histoire 7 | 3 | | 10 |
+|   | 7 | Histoire 7.1 et 7.2 | 3 | | 10 |
 |   | 10 | Histoire 10 | 2 | | 32 |
 | 3 | 5 | Histoire 5 | 2 | | 10 |
 |   | 8 | Histoire 8 | 1 | | 19 |
@@ -126,6 +126,37 @@ TOTAL : 15 points
 
 ----------------------
 
+## Histoire 4
+
+### Titre : Création de diagrammes
+
+### Description
+L’utilisateur a deux possibilités pour créer un diagramme :
+- utiliser la méthode point-and-click;
+- utiliser le langage TikZ.
+
+Dans le premier cas, l’utilisateur doit tout d'abord définir les caractéristiques initiales des noeuds et des liens qu’il veut utiliser,
+grâce à un panneau de configuration où l’utilisateur peut choisir le type du noeud (cercle, rectangle, triangle, ...), le type du lien 
+(arc, arête, ...) et leurs caractéristiques graphiques (couleur, épaisseur, étiquette, ...). 
+Quand un élément (noeud/lien) est défini, l’utilisateur peut le sélectionner et le placer dans un cadre de type point-and-click contenant
+un canevas. Cette action a pour effet de déposer l’élément sur le canevas et en même temps la production du code TikZ correspondant qui est
+visible dans un deuxième cadre de texte associé.
+Dans le deuxième cas, l’utilisateur peut utiliser le cadre de texte pour décrire son diagramme en langage TikZ. Quand l’utilisateur termine
+son code, le cadre contenant le canevas produira le dessin du diagramme automatiquement.
+
+### Priorité Client : 1
+
+### Risque Développeurs : 1
+
+### Introduit dans l'itération : 
+
+### Etat : Abandonnée car scindée en les histoires 4.1, 4.2 et 4.3
+
+### Points :
+TOTAL : 51 points
+
+----------------------
+
 ## Histoire 4.1
 
 ### Titre : Création de diagrammes - Partie 1
@@ -193,9 +224,9 @@ Dans le premier cas, quand un élément (noeud/lien) est défini à partir du pa
 
 ### Risque Développeurs : 1
 
-### Introduit dans l'itération : 
+### Introduit dans l'itération : 3
 
-### Etat : 
+### Etat : Complétée
 
 ### Points :
 - Point-and-click : 5 points
@@ -256,7 +287,13 @@ TOTAL : 4 points
 ### Titre : Drag & Drop (Glisser-déposer)
 
 ### Description
-L’utilisateur peut construire un diagramme TikZ de façon modulaire, en utilisant des éléments graphiques du diagramme, prédéfinis dans le logiciel (e.g. noeuds ronds, noeuds carrés, flèches, axes, . . .).Pour ce faire, il faut d’abord afficher ces éléments prédéfinis dans une partie dédiée de l’in-terface graphique. Ensuite, l’utilisateur clique sur un élément graphique avec le bouton principal de la souris (le gauche en mode droitier, le droit en mode gaucher), et, en maintenant ce bouton enfoncé, il fera glisser l’objet jusqu’à sa destination sur le diagramme. Une fois atteint la cible, l’utilisateur relâchera le bouton et il verra apparaître l’objet désirédans le diagramme. Lorsque le glisser-déposer aura été complété, le code correspondant au diagramme devra être mis à jour dans la partie de l’interface graphique prévue à cet effet.
+L’utilisateur peut construire un diagramme TikZ de façon modulaire, en utilisant des éléments graphiques du diagramme, prédéfinis dans le 
+logiciel (e.g. noeuds ronds, noeuds carrés, flèches, axes, . . .). Pour ce faire, il faut d’abord afficher ces éléments prédéfinis dans une 
+partie dédiée de l’in-terface graphique. Ensuite, l’utilisateur clique sur un élément graphique avec le bouton principal de la souris 
+(le gauche en mode droitier, le droit en mode gaucher), et, en maintenant ce bouton enfoncé, il fera glisser l’objet jusqu’à sa destination 
+sur le diagramme. Une fois atteint la cible, l’utilisateur relâchera le bouton et il verra apparaître l’objet désirédans le diagramme. 
+Lorsque le glisser-déposer aura été complété, le code correspondant au diagramme devra être mis à jour dans la partie de l’interface graphique
+prévue à cet effet.
 
 ### Priorité Client : 2
 
@@ -264,11 +301,59 @@ L’utilisateur peut construire un diagramme TikZ de façon modulaire, en utilis
 
 ### Introduit dans l'itération : 
 
-### Etat : 
+### Etat : Abandonée car scindée en les histoires 7.1 et 7.2 
 
 ### Points :
 
 TOTAL : 10 points
+
+----------------------
+
+## Histoire 7.1
+
+### Titre : Drag & Drop (Glisser-déposer) sans le mode gaucher
+
+### Description
+L’utilisateur peut construire un diagramme TikZ de façon modulaire, en utilisant des éléments graphiques du diagramme, prédéfinis dans le 
+logiciel (e.g. noeuds ronds, noeuds carrés, flèches, axes, . . .). Pour ce faire, il faut d’abord afficher ces éléments prédéfinis dans une 
+partie dédiée de l’in-terface graphique. Ensuite, l’utilisateur clique sur un élément graphique avec le bouton principal de la souris, et, en maintenant ce bouton enfoncé, il fera glisser l’objet jusqu’à sa destination 
+sur le diagramme. Une fois atteint la cible, l’utilisateur relâchera le bouton et il verra apparaître l’objet désirédans le diagramme. 
+Lorsque le glisser-déposer aura été complété, le code correspondant au diagramme devra être mis à jour dans la partie de l’interface graphique
+prévue à cet effet.
+
+### Priorité Client : 2
+
+### Risque Développeurs : 3 (si histoire 4 déjà complétée)
+
+### Introduit dans l'itération : 3
+
+### Etat : Complétée
+
+### Points :
+
+TOTAL : 9 points
+
+----------------------
+
+## Histoire 7.2
+
+### Titre : Drag & Drop (Glisser-déposer)
+
+### Description
+Lorsque l'utilisateur désire cliquer sur un élément graphique avec la souris il peut le faire avec le bouton principal gauche en mode
+droitier et le droit en mode gaucher.
+
+### Priorité Client : 2
+
+### Risque Développeurs : 3
+
+### Introduit dans l'itération : 
+
+### Etat :
+
+### Points :
+
+TOTAL : 1 points
 
 ----------------------
 
