@@ -3,7 +3,6 @@ package View.ViewControllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
