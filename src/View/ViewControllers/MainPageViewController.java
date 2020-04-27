@@ -379,6 +379,9 @@ public class MainPageViewController implements Initializable {
     public void handleDragDropped(DragEvent event){
         double x = event.getX();
         double y = event.getY();
+        if(errorsButton.getText() == "Hide errors"){
+            hideErrors(codeInterfaceListener.getErrorsCounter());
+        }
         if(movingImage != null) {
             Parent root = listener.getRoot();
             ((GridPane) root).getChildren().remove(movingImage);
