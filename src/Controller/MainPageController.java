@@ -30,20 +30,18 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/MainPage.fxml"));
             root = loader.load();
+            stage.getScene().setRoot(root);
             controller = loader.getController();
             controller.setListener(this);
             PredefinedShapesPanelController predefinedShapesPanelController = new PredefinedShapesPanelController();
             shapeMenuController = new ShapeMenuController();
             latexController = new LatexController(controller);
             shapeMenuController.setMainPageViewController(controller);
-
             controller.setPredefinedShapesPanelController(predefinedShapesPanelController);
             controller.setShapeButtonListener(shapeMenuController);
             controller.setCodeInterfaceListener(latexController);
             controller.updateText();
 
-            stage.getScene().setRoot(loader.getRoot());
-            stage.show();
         } catch (ShapeMenuControllerConstructorException e) {
             System.err.println("Error while creating the shape menu controller");
             e.printStackTrace();
@@ -57,7 +55,6 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
             e.printStackTrace();
             e.getCause().printStackTrace();
         }
-
     }
 
     @Override

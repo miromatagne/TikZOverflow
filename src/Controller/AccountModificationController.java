@@ -17,6 +17,7 @@ public class AccountModificationController implements AccountModificationViewCon
     private AccountModificationControllerListener listener;
     private AccountModificationViewController controller;
 
+
     public AccountModificationController(Stage stage, AccountModificationControllerListener listener){
         this.stage = stage;
         this.listener = listener;

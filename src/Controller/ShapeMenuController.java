@@ -46,8 +46,8 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
             allControllers = new ArrayList<>();
             allShapes = new ArrayList<>();
             setUpScenes();
-            changeToMenu(ShapeMenuViewController.ARROW);
             popUpStage.setScene(new Scene(addShapeMenuRoot));
+            changeToMenu(ShapeMenuViewController.ARROW);
         } catch (IOException | AddSceneException e) {
             throw new ShapeMenuControllerConstructorException(e);
         }
@@ -197,6 +197,7 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
     public void onButtonPressed() {
         showPopUp();
     }
+
 
     @Override
     public void onConfirmButtonPressed() {

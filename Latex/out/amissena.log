@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.13)  11 APR 2020 12:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/W32TeX) (preloaded format=pdflatex 2020.3.13)  26 APR 2020 16:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -382,16 +382,16 @@ e
 {c:/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 (./Latex/out/amissena.aux) ) 
 Here is how much of TeX's memory you used:
- 11751 strings out of 480994
- 244443 string characters out of 5916032
- 454108 words of memory out of 5000000
- 27088 multiletter control sequences out of 15000+600000
+ 11764 strings out of 480994
+ 244904 string characters out of 5916032
+ 455108 words of memory out of 5000000
+ 27101 multiletter control sequences out of 15000+600000
  532638 words of font info for 25 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,5n,67p,425b,617s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,5n,67p,425b,623s stack positions out of 5000i,500n,10000p,200000b,80000s
 <c:/texlive/2019/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmr10.pfb>
-Output written on ./Latex/out/amissena.pdf (1 page, 8447 bytes).
+Output written on ./Latex/out/amissena.pdf (1 page, 8702 bytes).
 PDF statistics:
  15 PDF objects out of 1000 (max. 8388607)
  10 compressed objects within 1 object stream

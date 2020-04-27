@@ -152,4 +152,5 @@ public class ScreenHandler extends Application implements LoginScreenController.
     public void onModificationDone() {
         goToMainPage();
     }
+
 }
