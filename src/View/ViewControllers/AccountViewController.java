@@ -5,9 +5,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 /**
- * This abstract class is used for account controller (create and modification) because they have similarities
+ * This abstract class is used for account view controllers (create and modification) because they have similarities
  */
-public abstract class AccountController extends ControllerSuperclass {
+public abstract class AccountViewController extends ControllerSuperclass {
     @FXML
     TextField usernameField, firstNameField, lastNameField, emailField;
     @FXML

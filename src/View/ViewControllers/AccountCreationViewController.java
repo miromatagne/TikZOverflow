@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 /**
  * Handles account creation interface elements.
  */
-public class AccountCreationViewController extends AccountController{
+public class AccountCreationViewController extends AccountViewController {
     @FXML
     TextField usernameField, firstNameField, lastNameField, emailField;
     @FXML
