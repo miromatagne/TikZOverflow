@@ -1,9 +1,7 @@
 package Controller;
 
 import Model.FieldChecker;
-import Model.FileHandler;
 import View.ViewControllers.AccountCreationViewController;
-import View.ViewControllers.LoginScreenViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,7 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * Controller class used to handle account creation screen behaviour.
+ * Handles account creation screen behaviour.
  */
 public class AccountCreationController implements AccountCreationViewController.AccountCreationViewControllerListener {
     private final Stage stage;
@@ -26,10 +24,11 @@ public class AccountCreationController implements AccountCreationViewController.
 
     /**
      * Constructor.
-     * @param stage stage this screen needs to be in.
+     *
+     * @param stage    stage this screen needs to be in.
      * @param listener listener used to communicate with ScreenHandler
      */
-    public AccountCreationController(Stage stage, AccountCreationControllerListener listener){
+    public AccountCreationController(Stage stage, AccountCreationControllerListener listener) {
         this.stage = stage;
         this.listener = listener;
     }
@@ -37,14 +36,13 @@ public class AccountCreationController implements AccountCreationViewController.
     /**
      * Method used when opening account creation screen.
      */
-    public void show(){
+    public void show() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/accountCreation.fxml"));
             loader.load();
             controller = loader.getController();
             controller.setListener(this);
             stage.getScene().setRoot(loader.getRoot());
-            stage.show();
         } catch (IOException e) {
             System.err.println("Error loading /View/FXML/accountCreation.fxml");
             e.printStackTrace();
@@ -88,8 +86,7 @@ public class AccountCreationController implements AccountCreationViewController.
         }
         if (!isBoxChecked) {
             controller.setTCUStyle("red");
-        }
-        else {
+        } else {
             controller.setTCUStyle("default");
         }
 
@@ -105,21 +102,22 @@ public class AccountCreationController implements AccountCreationViewController.
     }
 
     /**
+     * Creates user account and requests ScreenHandler to create resulting popup.
      *
-     * @param username
-     * @param firstName
-     * @param lastName
-     * @param email
-     * @param password
-     * @param passwordConfirmation
-     * @param isBoxChecked
+     * @param username             username
+     * @param firstName            first name
+     * @param lastName             last name
+     * @param email                email address
+     * @param password             password
+     * @param passwordConfirmation password confirmation
+     * @param isBoxChecked         true if TCU box was checked; false otherwise
      */
     @Override
     public void onAccountCreationAttempt(String username, String firstName, String lastName, String email, String password, String passwordConfirmation, boolean isBoxChecked) {
-        if (validateInformation(username, firstName, lastName, email, password, passwordConfirmation, isBoxChecked)){
-            if(Session.getInstance().createAccount(username, firstName, lastName, email, password)) {
+        if (validateInformation(username, firstName, lastName, email, password, passwordConfirmation, isBoxChecked)) {
+            if (Session.getInstance().createAccount(username, firstName, lastName, email, password)) {
                 listener.createAccountCreationPopup("Account successfully created !", true);
-            }else {
+            } else {
                 listener.createAccountCreationPopup("Error creating a new account. Username already in use.", false);
             }
         }
@@ -154,7 +152,10 @@ public class AccountCreationController implements AccountCreationViewController.
 
     }
 
-    public interface AccountCreationControllerListener{
+    /**
+     * Interface used to communicate with ScreenHandler.
+     */
+    public interface AccountCreationControllerListener {
 
         void backToLoginScreenRequest();
 

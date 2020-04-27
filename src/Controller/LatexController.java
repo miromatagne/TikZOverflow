@@ -24,8 +24,14 @@ import java.util.regex.Pattern;
 public class LatexController implements MainPageViewController.CodeInterfaceListener {
 
     FileHandler fileHandler;
-    private MainPageViewController mainPageViewController;
+    private final MainPageViewController mainPageViewController;
 
+    /**
+     * Constructor.
+     *
+     * @param mainPageViewController MainPageViewController we interact with
+     * @throws LatexControllerConstructorException if FileHandler could not be constructed
+     */
     public LatexController(MainPageViewController mainPageViewController) throws LatexControllerConstructorException {
         try {
             this.fileHandler = new FileHandler();
@@ -54,7 +60,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      *
      * @param sourceCode Source code to be compiled
      * @return String with error count
-     * @throws IOException If reading the log was unsuccessful
+     * @throws TikzCompilationException If reading the log was unsuccessful or compilation failed
      */
     public String compileTikz(String sourceCode) throws TikzCompilationException {
         try {
@@ -94,10 +100,6 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
         }
     }
 
-    public FileHandler getFileHandler() {
-        return fileHandler;
-    }
-
     /**
      * Save current source code in .tex file
      *
@@ -106,7 +108,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     public void saveTikz(String sourceCode) {
         try {
             fileHandler.makeTexFile(Session.getInstance().getUser(), sourceCode);
-        } catch (LatexWritingException e){
+        } catch (LatexWritingException e) {
             System.err.println("Error while writing in tex file");
             e.printStackTrace();
             e.getCause().printStackTrace();
@@ -115,8 +117,9 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
 
     /**
      * Extracts shapes-only code from full LaTeX code.
+     *
      * @param fullCode full LaTeX source code.
-     * @param trim option to trim lines or not
+     * @param trim     option to trim lines or not
      * @return TikZ shapes-only code
      */
     public String extractShapesSubCode(String fullCode, boolean trim) {
@@ -140,6 +143,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
 
     /**
      * Builds full LaTeX code from shapes-only code.
+     *
      * @param shapesOnlyCode shapes-only TikZ code
      * @return full LaTeX code
      */
@@ -156,11 +160,16 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
 
     }
 
+    /**
+     * Compiles code and refreshes error button text on main page.
+     *
+     * @param code TikZ shape-only code
+     */
     @Override
     public void onCompilationAttempt(String code) {
         try {
             String sourceCode = buildFullCodeFromShapesOnlyCode(code);
-            String errorsButtonText = null;
+            String errorsButtonText;
             errorsButtonText = compileTikz(sourceCode);
             mainPageViewController.setErrorButtonText(errorsButtonText);
         } catch (TikzCompilationException e) {
@@ -174,12 +183,16 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
         }
     }
 
+    /**
+     * Reads code in file and extracts shapes-only sub code from it.
+     *
+     * @return TikZ shapes-only code
+     */
     @Override
     public String getShapesOnlyText() {
         try {
             String textInLatexFile = getTextInFile();
-            String textSaved = extractShapesSubCode(textInLatexFile, true);
-            return textSaved;
+            return extractShapesSubCode(textInLatexFile, true);
         } catch (GetTextInFileException e) {
             System.err.println("Error while getting the source code");
             e.printStackTrace();
@@ -188,11 +201,11 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
         return "";
     }
 
-    @Override
-    public int getErrorsCounter() {
-        return fileHandler.getErrorsCounter();
-    }
-
+    /**
+     * Reads full code from file.
+     *
+     * @return full LaTeX code
+     */
     @Override
     public String getFullText() {
         try {
@@ -205,6 +218,11 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
         return "";
     }
 
+    /**
+     * Saves code from code interface into user's LaTeX file.
+     *
+     * @param tikzCode TikZ shapes-only code
+     */
     @Override
     public void saveCodeInterfaceCode(String tikzCode) {
         try {
@@ -214,11 +232,15 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             e.printStackTrace();
             e.getCause().printStackTrace();
         }
-
     }
 
     @Override
     public String getErrorsText() {
         return fileHandler.getErrors();
+    }
+
+    @Override
+    public int getErrorsCounter() {
+        return fileHandler.getErrorsCounter();
     }
 }
