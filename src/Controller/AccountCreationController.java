@@ -1,6 +1,5 @@
 package Controller;
 
-import Model.FieldChecker;
 import View.ViewControllers.AccountCreationViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,7 +16,7 @@ import java.io.IOException;
 /**
  * Handles account creation screen behaviour.
  */
-public class AccountCreationController implements AccountCreationViewController.AccountCreationViewControllerListener {
+public class AccountCreationController extends AccountController implements AccountCreationViewController.AccountCreationViewControllerListener {
     private final Stage stage;
     private final AccountCreationControllerListener listener;
     private AccountCreationViewController controller;
@@ -56,41 +55,13 @@ public class AccountCreationController implements AccountCreationViewController.
      * FALSE otherwise
      */
     public boolean validateInformation(String username, String firstName, String lastName, String email, String password, String passwordConfirmation, boolean isBoxChecked) {
-        FieldChecker fieldChecker = new FieldChecker();
-        if (!fieldChecker.isValidUsername(username)) {
-            controller.setTextFieldStyle("username", "red");
-        } else {
-            controller.setTextFieldStyle("username", "default");
-        }
-        if (!fieldChecker.isValidName(firstName)) {
-            controller.setTextFieldStyle("firstName", "red");
-        } else {
-            controller.setTextFieldStyle("firstName", "default");
-        }
-        if (!fieldChecker.isValidName(lastName)) {
-            controller.setTextFieldStyle("lastName", "red");
-        } else {
-            controller.setTextFieldStyle("lastName", "default");
-        }
-        if (!fieldChecker.isValidMail(email)) {
-            controller.setTextFieldStyle("email", "red");
-        } else {
-            controller.setTextFieldStyle("email", "default");
-        }
-        if (!password.equals(passwordConfirmation) || password.equals("")) {
-            controller.setTextFieldStyle("password", "red");
-            controller.setTextFieldStyle("passwordConfirmation", "red");
-        } else {
-            controller.setTextFieldStyle("password", "default");
-            controller.setTextFieldStyle("passwordConfirmation", "default");
-        }
+        boolean fieldsOk = super.validateInformation(controller, username, firstName, lastName, email, password, passwordConfirmation);
         if (!isBoxChecked) {
             controller.setTCUStyle("red");
         } else {
             controller.setTCUStyle("default");
         }
-
-        return fieldChecker.isValidAccount(username, firstName, lastName, email, password, passwordConfirmation) && isBoxChecked;
+        return fieldsOk && isBoxChecked;
     }
 
     /**

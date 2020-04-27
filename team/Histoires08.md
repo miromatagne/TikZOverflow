@@ -8,14 +8,14 @@ Un point correspond à une heure de travail par binôme (approximatif).  Par it�
 
 ## Pondération
 
-| Priorité/3 | N° | Description | Risque/3 | Heures/? | Points |
+| Priorité/3 | N° | Description | Risque/3 | Heures réalisées | Points estimés |
 | ------ | ------ | ------ | ------ | ------ | ------ |
 | 1 | [1](#Histoire-A) | Histoire 1| 2 | 24.5 | 24 |
-|   | 4 | Histoires 4.1, 4.2 et 4.3 | 1 | 32 | 51 |
+|   | 4 | Histoires 4.1, 4.2 et 4.3 | 1 | 41.5 | 51 |
 | 2 | 2 | Histoire 2 | 1 | | 26 |
 |   | 3 | Histoire 3 | 2 | | 15 |
 |   | 6 | Histoire 6 | 2 | | 4 |
-|   | 7 | Histoire 7 | 3 | | 10 |
+|   | 7 | Histoires 7.1 et 7.2 | 3 | 26 | 10 |
 |   | 10 | Histoire 10 | 2 | | 32 |
 | 3 | 5 | Histoire 5 | 2 | | 10 |
 |   | 8 | Histoire 8 | 1 | | 19 |
@@ -103,7 +103,8 @@ TOTAL : 26 points
 ### Titre : Importation et exportation de fichiers
 
 ### Description
-L’utilisateur peut importer plusieurs fichiers à la fois ou un répertoire ou une archive com-pressée (.tar.gz) à partir de son ordinateur. Les fichiers déjà chargés par l’utilisateur via lerépertoire ne devraient pas être chargés une seconde fois.
+L’utilisateur peut importer plusieurs fichiers à la fois ou un répertoire ou une archive compressée (.tar.gz) à partir de son ordinateur. 
+Les fichiers déjà chargés par l’utilisateur via le répertoire ne devraient pas être chargés une seconde fois.
 
 ### Priorité Client : 2
 
@@ -123,6 +124,38 @@ Afin de déterminer le nombre de points de cette histoire, le groupe l'a scindé
 - Travail d'équipe : 2 points
 
 TOTAL : 15 points
+
+----------------------
+
+## Histoire 4
+
+### Titre : Création de diagrammes
+
+### Description
+L’utilisateur a deux possibilités pour créer un diagramme :
+- utiliser la méthode point-and-click;
+- utiliser le langage TikZ.
+
+Dans le premier cas, l’utilisateur doit tout d'abord définir les caractéristiques initiales des noeuds et des liens qu’il veut utiliser,
+grâce à un panneau de configuration où l’utilisateur peut choisir le type du noeud (cercle, rectangle, triangle, ...), le type du lien 
+(arc, arête, ...) et leurs caractéristiques graphiques (couleur, épaisseur, étiquette, ...).
+Dans le premier cas, quand un élément (noeud/lien) est défini, l’utilisateur peut le sélectionner et le placer dans un cadre de type 
+point-and-click contenant un canevas. Cette action a pour effet de déposer l’élément sur le canevas et en même temps la production du 
+code TikZ correspondant qui est visible dans un deuxième cadre de texte associé.
+Dans le deuxième cas, l’utilisateur peut utiliser le cadre de texte pour décrire son diagramme en langage TikZ. Quand l’utilisateur 
+termine son code, le cadre contenant le canevas produira le dessin du diagramme automatiquement.
+
+### Priorité Client : 1
+
+### Risque Développeurs : 1
+
+### Introduit dans l'itération : 
+
+### Etat : Abandonnée car scindée en les histoires 4.1, 4.2 et 4.3
+
+### Points :
+
+TOTAL : 51 points
 
 ----------------------
 
@@ -264,11 +297,58 @@ L’utilisateur peut construire un diagramme TikZ de façon modulaire, en utilis
 
 ### Introduit dans l'itération : 
 
-### Etat : 
+### Etat : Abandonnée car scindée en les histoires 7.1 et 7.2
 
 ### Points :
 
 TOTAL : 10 points
+
+----------------------
+
+## Histoire 7.1
+
+### Titre : Drag & Drop (Glisser-déposer) - Sans le mode gaucher
+
+### Description
+L’utilisateur peut construire un diagramme TikZ de façon modulaire, en utilisant des éléments graphiques du diagramme, prédéfinis dans le 
+logiciel (e.g. noeuds ronds, noeuds carrés, flèches, axes, . . .). Pour ce faire, il faut d’abord afficher ces éléments prédéfinis dans une
+partie dédiée de l’in-terface graphique. Ensuite, l’utilisateur clique sur un élément graphique avec le bouton principal de la souris et 
+en maintenant ce bouton enfoncé, il fera glisser l’objet jusqu’à sa destination sur le diagramme. Une fois atteint la cible, l’utilisateur 
+relâchera le bouton et il verra apparaître l’objet désirédans le diagramme. Lorsque le glisser-déposer aura été complété, le code 
+correspondant au diagramme devra être mis à jour dans la partie de l’interface graphique prévue à cet effet.
+
+### Priorité Client : 2
+
+### Risque Développeurs : 3 (si histoire 4 déjà complétée)
+
+### Introduit dans l'itération : 3
+
+### Etat : Complétée
+
+### Points :
+
+TOTAL : 9 points
+
+----------------------
+
+## Histoire 7.2
+
+### Titre : Drag & Drop (Glisser-déposer) - Ajout du mode gaucher
+
+### Description
+L’utilisateur clique sur un élément graphique avec le bouton principal de la souris : le gauche en mode droitier, le droit en mode gaucher.
+
+### Priorité Client : 2
+
+### Risque Développeurs : 3
+
+### Introduit dans l'itération : 
+
+### Etat : 
+
+### Points :
+
+TOTAL : 1 points
 
 ----------------------
 
