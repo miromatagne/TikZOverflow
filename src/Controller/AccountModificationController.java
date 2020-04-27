@@ -2,7 +2,6 @@ package Controller;
 
 import Model.Exceptions.FileHandlerConstructorException;
 import Model.Exceptions.SaveUserException;
-import Model.FieldChecker;
 import Model.FileHandler;
 import Model.User;
 import View.ViewControllers.AccountModificationViewController;
@@ -14,7 +13,7 @@ import java.io.IOException;
 /**
  * Handles account modification screen behaviour.
  */
-public class AccountModificationController implements AccountModificationViewController.AccountModificationViewControllerListener {
+public class AccountModificationController extends AccountController implements AccountModificationViewController.AccountModificationViewControllerListener {
     private final Stage stage;
     private final AccountModificationControllerListener listener;
     private AccountModificationViewController controller;
@@ -53,34 +52,8 @@ public class AccountModificationController implements AccountModificationViewCon
      * @return TRUE if all fields are  valid
      * FALSE otherwise
      */
-    public boolean validateInformation(String firstName, String lastName, String email, String password, String passwordConfirmation) {
-        FieldChecker fieldChecker = new FieldChecker();
-
-        if (!fieldChecker.isValidName(firstName)) {
-            controller.setTextFieldStyle("firstName", "red");
-        } else {
-            controller.setTextFieldStyle("firstName", "default");
-        }
-        if (!fieldChecker.isValidName(lastName)) {
-            controller.setTextFieldStyle("lastName", "red");
-        } else {
-            controller.setTextFieldStyle("lastName", "default");
-        }
-        if (!fieldChecker.isValidMail(email)) {
-            controller.setTextFieldStyle("email", "red");
-        } else {
-            controller.setTextFieldStyle("email", "default");
-        }
-        if (!password.equals(passwordConfirmation) || password.equals("")) {
-            controller.setTextFieldStyle("password", "red");
-            controller.setTextFieldStyle("passwordConfirmation", "red");
-        } else {
-            controller.setTextFieldStyle("password", "default");
-            controller.setTextFieldStyle("passwordConfirmation", "default");
-        }
-
-
-        return fieldChecker.isValidAccount(Session.getInstance().getUser().getUsername(), firstName, lastName, email, password, passwordConfirmation);
+    public boolean validateInformation(String username, String firstName, String lastName, String email, String password, String passwordConfirmation) {
+        return super.validateInformation(controller, username, firstName, lastName, email, password, passwordConfirmation);
     }
 
     /**
@@ -92,8 +65,8 @@ public class AccountModificationController implements AccountModificationViewCon
      * @param password             password
      * @param passwordConfirmation password confirmation
      */
-    public boolean validateModification(String firstName, String lastName, String email, String password, String passwordConfirmation) {
-        if (validateInformation(firstName, lastName, email, password, passwordConfirmation)) {
+    public boolean validateModification(String username, String firstName, String lastName, String email, String password, String passwordConfirmation) {
+        if (validateInformation(username, firstName, lastName, email, password, passwordConfirmation)) {
             try {
                 User userCurrent = Session.getInstance().getUser();
                 userCurrent.setLastName(lastName);
@@ -127,8 +100,8 @@ public class AccountModificationController implements AccountModificationViewCon
      * @param passwordConfirmation password confirmation
      */
     @Override
-    public void onValidation(String firstName, String lastName, String email, String password, String passwordConfirmation) {
-        if (validateModification(firstName, lastName, email, password, passwordConfirmation)) {
+    public void onValidation(String username, String firstName, String lastName, String email, String password, String passwordConfirmation) {
+        if (validateModification(username, firstName, lastName, email, password, passwordConfirmation)) {
             listener.onModificationDone();
         }
 

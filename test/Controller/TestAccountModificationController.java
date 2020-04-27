@@ -60,6 +60,8 @@ class TestAccountModificationController {
         }
 
         private void validateInformationTest(){
+            String usernameValid = "amissena";
+            String usernameInvalid = "amissena?";
             String firstNameValid = "amissena";
             String firstNameInvalid = "Olababy85yo";
 
@@ -72,20 +74,22 @@ class TestAccountModificationController {
             String password = "amissena";
             String passwordConfirmationDifferent = "amissenaNOT";
 
-            assertTrue(accountModificationController.validateInformation(firstNameValid, lastNameValid,
+            assertTrue(accountModificationController.validateInformation(usernameValid, firstNameValid, lastNameValid,
                     emailValid, password, password));
-            assertFalse(accountModificationController.validateInformation(firstNameInvalid, lastNameValid,
+            assertFalse(accountModificationController.validateInformation(usernameInvalid, firstNameValid, lastNameValid,
                     emailValid, password, password));
-            assertFalse(accountModificationController.validateInformation(firstNameValid, lastNameInvalid,
+            assertFalse(accountModificationController.validateInformation(usernameValid, firstNameInvalid, lastNameValid,
                     emailValid, password, password));
-            assertFalse(accountModificationController.validateInformation(firstNameValid, lastNameValid,
+            assertFalse(accountModificationController.validateInformation(usernameValid, firstNameValid, lastNameInvalid,
+                    emailValid, password, password));
+            assertFalse(accountModificationController.validateInformation(usernameValid, firstNameValid, lastNameValid,
                     emailInvalid, password, password));
-            assertFalse(accountModificationController.validateInformation(firstNameValid, lastNameValid,
+            assertFalse(accountModificationController.validateInformation(usernameValid, firstNameValid, lastNameValid,
                     emailValid, password, passwordConfirmationDifferent));
         }
 
         private void validateModificationTest() {
-            assertTrue(accountModificationController.validateModification("testing","testing",
+            assertTrue(accountModificationController.validateModification("testing", "testing","testing",
                     "a@gmail.com","password", "password"));
 
             assertEquals(Session.getInstance().getUser().getUsername(),"test");

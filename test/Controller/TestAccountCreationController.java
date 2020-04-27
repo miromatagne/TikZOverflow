@@ -49,8 +49,7 @@ class TestAccountCreationController {
 
         @Override
         public void createAccountCreationPopup(String s, boolean b) {
-            if( (s == "Account successfully created !") || b){ createAccountCreationPopupValid = true;}
-            else{createAccountCreationPopupValid = false;}
+            createAccountCreationPopupValid = (s.equals("Account successfully created !")) || b;
         }
 
         @Override

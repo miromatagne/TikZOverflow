@@ -8,7 +8,7 @@ Un point correspond à une heure de travail par binôme (approximatif).  Par it�
 
 ## Pondération
 
-| Priorité/3 | N° | Description | Risque/3 | Heures/? | Points |
+| Priorité/3 | N° | Description | Risque/3 | Heures réalisées | Points estimés |
 | ------ | ------ | ------ | ------ | ------ | ------ |
 | 1 | [1](#Histoire-A) | Histoire 1| 2 | 24.5 | 24 |
 |   | 4 | Histoires 4.1, 4.2 et 4.3 | 1 | 41.5 | 51 |

@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 /**
  * Controller for the modification screen that contains the methods used by the buttons and to update the textfields.
  */
-public class AccountModificationViewController extends AccountController implements Initializable {
+public class AccountModificationViewController extends AccountViewController implements Initializable {
 
     //Attribut
     @FXML
@@ -66,7 +66,8 @@ public class AccountModificationViewController extends AccountController impleme
      */
     @FXML
     public void validateButtonAction() {
-        listener.onValidation(firstNameField.getText(),
+        listener.onValidation(usernameField.getText(),
+                firstNameField.getText(),
                 lastNameField.getText(),
                 emailField.getText(),
                 passwordField.getText(),
@@ -88,7 +89,7 @@ public class AccountModificationViewController extends AccountController impleme
         this.listener = listener;
     }
     public interface AccountModificationViewControllerListener {
-        void onValidation(String firstName, String lastName, String email, String password, String passwordConfirmation);
+        void onValidation(String username, String firstName, String lastName, String email, String password, String passwordConfirmation);
         void onReturnButtonPressed();
     }
 }
