@@ -17,7 +17,7 @@ class AccountCreationControllerTest {
      */
     @Test
     void testClass(){
-        Application.launch(testAccountCreation.class, null);
+       Application.launch(testAccountCreation.class, null);
     }
 
 
