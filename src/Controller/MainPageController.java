@@ -80,7 +80,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
      * Create a shape when the shape is released (drag and drop)
      * @param x x-position
      * @param y y-position
-     * @param movingShape
+     * @param movingShape Shape to create
      */
     @Override
     public void onReleaseShape(double x, double y, Shape movingShape) {
