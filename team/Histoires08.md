@@ -8,7 +8,7 @@ Un point correspond à une heure de travail par binôme (approximatif).  Par it�
 
 ## Pondération
 
-| Priorité/3 | N° | Description | Risque/3 | Heures réalisées? | Points estimés |
+| Priorité/3 | N° | Description | Risque/3 | Heures réalisées | Points estimés |
 | ------ | ------ | ------ | ------ | ------ | ------ |
 | 1 | [1](#Histoire-A) | Histoire 1| 2 | 24.5 | 24 |
 |   | 4 | Histoires 4.1, 4.2 et 4.3 | 1 | 41.5 | 51 |
@@ -25,8 +25,6 @@ Un point correspond à une heure de travail par binôme (approximatif).  Par it�
 |   | 13 | Histoire 13 | 1 | | 15 |
 |   | 14 | Histoire 14 | 2 | | 7 |
 |   | 15 | Histoire 15 | 2 | | 12 |
-
-Lors de l'itération 3, une histoire a également été ajoutée par l'équipe afin de corriger les remarques de l'assistant et du professeur : Histoire 16.
 
 ----------------------
 
@@ -545,27 +543,5 @@ L’utilisateur peut sélectionner une section du diagramme, la copier, et par l
 ### Points :
 
 TOTAL : 12 points
-
-----------------------
-
-## Histoire 16
-
-### Titre : Refactoring : Architecture MVC
-
-### Description
-Suite aux issues et remarques données par l'assistant lors du Code Review et des explications du professeur sur l'architecture MVC, le code a été en grande partie modifié afin de mieux séparer les responsabilités et respecter plus fidèlement le patron de conception MVC, en implémentant des listeners aux contrôleurs de vue
-par exemple, ce qui n'était pas encore fait précédemment. Les exceptions ont aussi été revues.
-
-### Priorité Client : 
-
-### Risque Développeurs : 2
-
-### Introduit dans l'itération : 3
-
-### Etat : Complétée
-
-### Points :
-
-TOTAL : 8 points
 
 ----------------------
