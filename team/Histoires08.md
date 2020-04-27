@@ -13,18 +13,18 @@ Un point correspond à une heure de travail par binôme (approximatif).  Par it�
 | 1 | [1](#Histoire-A) | Histoire 1| 2 | 24.5 | 24 |
 |   | 4 | Histoires 4.1, 4.2 et 4.3 | 1 | 41.5 | 51 |
 | 2 | 2 | Histoire 2 | 1 | | 26 |
-|   | 3 | Histoire 3 | 2 | | 15 |
+|   | 3 | Histoire 3 | 2 | | 14 |
 |   | 6 | Histoire 6 | 2 | | 4 |
-|   | 7 | Histoires 7.1 et 7.2 | 3 | 24 | 10 |
+|   | 7 | Histoires 7.1 et 7.2 | 3 | 24 | 11 |
 |   | 10 | Histoire 10 | 2 | | 32 |
-| 3 | 5 | Histoire 5 | 2 | | 10 |
+| 3 | 5 | Histoire 5 | 2 | | 24 |
 |   | 8 | Histoire 8 | 1 | | 19 |
 |   | 9 | Histoire 9 | 1 | | 17 |
-|   | 11 | Histoire 11 | 1 | | 20 |
+|   | 11 | Histoire 11 | 1 | | 32 |
 |   | 12 | Histoire 12 | 3 | | 9 |
 |   | 13 | Histoire 13 | 1 | | 15 |
 |   | 14 | Histoire 14 | 2 | | 7 |
-|   | 15 | Histoire 15 | 2 | | 12 |
+|   | 15 | Histoire 15 | 2 | | 30 |
 
 ----------------------
 
@@ -69,10 +69,15 @@ Le client a répondu aux questions suivantes du groupe : Y a-t-il un format impo
 ### Titre : Gestion des projets : sauvegarde, modification du nom du projet, affichage informations
 
 ### Description
-Chaque utilisateur connecté au système peut créer un diagramme uniquement à l'intérieur d'un projet. Pour ce faire, l'utilisateur a deux possibilités :
+Chaque utilisateur connecté au système peut créer un diagramme uniquement à l'intérieur d'un projet. Pour ce faire, l'utilisateur a deux 
+possibilités :
 - créer un nouveau projet en spécifiant son nom;
 - utiliser un projet déjà existant.
-Tous les projets créés ou partagés avec l'utilisateur sont visibles sur sa page de gestion deprojets. Cet écran affiche, pour chaque projet, son titre, le nom de son créateur et la datede dernière modification. Depuis cet écran, l’utilisateur peut sélectionner un ou plusieursprojets pour les copier, les supprimer, les sauvegarder dans un répertoire ou les partager avecun autre utilisateur. De plus, l’utilisateur peut sélectionner un projet pour l’ouvrir et entrerdans le mode d’édition ou pour changer son titre. Quand un projet est en mode édition, lesystème garde trace de toutes les modifications effectuées et les enregistre automatiquementà la fermeture du fichier même.
+Tous les projets créés ou partagés avec l'utilisateur sont visibles sur sa page de gestion deprojets. Cet écran affiche, pour chaque projet, 
+son titre, le nom de son créateur et la datede dernière modification. Depuis cet écran, l’utilisateur peut sélectionner un ou plusieurs projets
+pour les copier, les supprimer, les sauvegarder dans un répertoire ou les partager avecun autre utilisateur. De plus, l’utilisateur peut 
+sélectionner un projet pour l’ouvrir et entrerdans le mode d’édition ou pour changer son titre. Quand un projet est en mode édition, le 
+système garde trace de toutes les modifications effectuées et les enregistre automatiquementà la fermeture du fichier même.
 
 ### Priorité Client : 2
 
@@ -117,13 +122,13 @@ Les fichiers déjà chargés par l’utilisateur via le répertoire ne devraient
 ### Points :
 Afin de déterminer le nombre de points de cette histoire, le groupe l'a scindée en les tâches suivantes :
 
-- Importer : 3 points
+- Importer : 2 points
 - Décompresser : 3 points
 - Exporter : 3 points
 - Documentation : 4 points
 - Travail d'équipe : 2 points
 
-TOTAL : 15 points
+TOTAL : 14 points
 
 ----------------------
 
@@ -246,7 +251,10 @@ TOTAL : 19 points
 ### Titre : Placement relatif
 
 ### Description
-Le langage TikZ permet de décrire le placement des noeuds de manière relative. L’utilisateurpeux choisir d’utiliser cette description pour son diagramme, c.à.d. que, durant la créationd’un diagramme, l’utilisateur peut décrire le placement d’un noeud relativement à la positiond’un autre noeud existant, soit en utilisant la syntaxe du langage TkiZ dans le cadre texte,soit en utilisant la méthodepoint-and-clicksur le canevas.Dans les deux cas, le système doit être capable de produire le code TikZ avec le placementrelatif correspondant.
+Le langage TikZ permet de décrire le placement des noeuds de manière relative. L’utilisateur peux choisir d’utiliser cette description pour
+son diagramme, c.à.d. que, durant la création d’un diagramme, l’utilisateur peut décrire le placement d’un noeud relativement à la position 
+d’un autre noeud existant, soit en utilisant la syntaxe du langage TikZ dans le cadre texte, soit en utilisant la méthode point-and-click 
+sur le canevas. Dans les deux cas, le système doit être capable de produire le code TikZ avec le placement relatif correspondant.
 
 ### Priorité Client : 3
 
@@ -257,8 +265,10 @@ Le langage TikZ permet de décrire le placement des noeuds de manière relative.
 ### Etat : 
 
 ### Points :
+- dans le code TikZ : 2
+- avec le point-and-click : 22
 
-TOTAL : 10 points
+TOTAL : 24 points
 
 ----------------------
 
@@ -267,7 +277,9 @@ TOTAL : 10 points
 ### Titre : Aperçu
 
 ### Description
-Le système offre une fonctionnalité d’aperçu dans laquelle il est possible de générer un fichier pdf/image du diagramme. Pour ce faire, le système effectue une compilation LATEX du code TkiZ que décrit le diagramme et génère l’image/le fichier pdf correspondant. L’utilisateur peut immédiatement visualiser le résultat.
+Le système offre une fonctionnalité d’aperçu dans laquelle il est possible de générer un fichier pdf/image du diagramme. Pour ce faire, 
+le système effectue une compilation LATEX du code TikZ que décrit le diagramme et génère l’image/le fichier pdf correspondant. 
+L’utilisateur peut immédiatement visualiser le résultat.
 
 ### Priorité Client : 2
 
@@ -278,9 +290,10 @@ Le système offre une fonctionnalité d’aperçu dans laquelle il est possible 
 ### Etat : 
 
 ### Points :
-- Générer PDF et image : 4 points
+- Enregistrer PDF/image : 4 points
 
 TOTAL : 4 points
+
 
 ----------------------
 
@@ -348,7 +361,7 @@ L’utilisateur clique sur un élément graphique avec le bouton principal de la
 
 ### Points :
 
-TOTAL : 1 points
+TOTAL : 2 points
 
 ----------------------
 
@@ -357,7 +370,12 @@ TOTAL : 1 points
 ### Titre : Intégration avec des services cloud existants
 
 ### Description
-Chaque utilisateur dispose d’une quantité d’espace disque définie par l’administrateur, afin de pouvoir gérer le stockage de ces projets. Cet espace peut être étendu grâce à l’intégration avec des services de stockage cloud (e.g.Dropbox, Google Drive, Github). L’utilisateur doit pouvoir exporter ses projets vers le service web désiré ainsi qu’importer des fichier stockés sur le service web dans le système. L’exportation/importation pourra être effectuée pour un ou plusieurs fichiers à la fois. Les ystème devra signaler à l’utilisateur si il est en train de télécharger un ficher qui existe déjàdans le système. L’intégration devra être effectuée en utilisant les API dédiées fournies par les services mêmes.
+Chaque utilisateur dispose d’une quantité d’espace disque définie par l’administrateur, afin de pouvoir gérer le stockage de ces projets. 
+Cet espace peut être étendu grâce à l’intégration avec des services de stockage cloud (e.g.Dropbox, Google Drive, Github). 
+L’utilisateur doit pouvoir exporter ses projets vers le service web désiré ainsi qu’importer des fichier stockés sur le service web dans 
+le système. L’exportation/importation pourra être effectuée pour un ou plusieurs fichiers à la fois. Le système devra signaler à l’utilisateur
+si il est en train de télécharger un ficher qui existe déjàdans le système. L’intégration devra être effectuée en utilisant les API dédiées 
+fournies par les services mêmes.
 
 ### Priorité Client : 3
 
@@ -382,13 +400,15 @@ TOTAL : 19 points
 ### Titre : Versioning
 
 ### Description
-L’utilisateur a accès à un système de version via l’application. Le système de gestion des versions permet à l’utilisateur de suivre l’évolution d’un projet TikZ en fournissant les fonctionnalités suivantes :
+L’utilisateur a accès à un système de version via l’application. Le système de gestion des versions permet à l’utilisateur de suivre 
+l’évolution d’un projet TikZ en fournissant les fonctionnalités suivantes :
 - branch le branchement d’un projet.
 - commit valider les modifications apportées à une certaine branche avec un message décrivant les changements
 - revert annuler une ou plusieurs validations précédentes, pour rétablir une version précédente.
 - merge fusionner deux branches, les modifications de l’une sont portées sur l’autre.
 - diff présente la différence (en termes de code TikZ) entre la version actuelle et un commit précédent spécifié.
-Les commits seront liées à l’utilisateur qui a effectué le commit. L’utilisateur aura accès à ces fonctionnalités à travers d’un menu désigné dans l’application.
+Les commits seront liées à l’utilisateur qui a effectué le commit. L’utilisateur aura accès à ces fonctionnalités à travers d’un menu 
+désigné dans l’application.
 
 ### Priorité Client : 3
 
@@ -407,6 +427,9 @@ Les commits seront liées à l’utilisateur qui a effectué le commit. L’util
 
 TOTAL : 17 points
 
+### Questions :
+Pouvons nous utiliser JGit ? si ok : 17 points, si non : +15 points (32)
+
 ----------------------
 
 ## Histoire 10
@@ -414,10 +437,14 @@ TOTAL : 17 points
 ### Titre : Support pour librairies TikZ spécifiques
 
 ### Description
-En plus de la fontionnalité traditionnelle de dessin d’un diagramme (c.-à-d. placement des noeuds et des arcs entre les noeuds), les utilisateurs du système peuvent accéder à des modes de construction du diagrammes dédiés, qui utiliseront certaines librairies TikZ spécifiques. Plus précisément :
-- mindmap - Librairie pour le dessin d’une carte des idées. La carte des idées sera structurée comme un arbre où la racine est le concept principal de la carte et tous les autres concepts seront encodés comme des noeuds fils dans l’arborescence.
+En plus de la fontionnalité traditionnelle de dessin d’un diagramme (c.-à-d. placement des noeuds et des arcs entre les noeuds), 
+les utilisateurs du système peuvent accéder à des modes de construction du diagrammes dédiés, qui utiliseront certaines librairies 
+TikZ spécifiques. Plus précisément :
+- mindmap - Librairie pour le dessin d’une carte des idées. La carte des idées sera structurée comme un arbre où la racine est le concept 
+principal de la carte et tous les autres concepts seront encodés comme des noeuds fils dans l’arborescence.
 - trees - Librairie pour le dessin d’un arbre. L’arbre est décrit comme un ensemble des noeuds et les relations de parenté entre eux.
-- matrix - Librairie pour l’arrangement des noeuds sur une grille (c.-à-d. placement des noeuds en lignes et colonnes, comme les éléments d’une matrice).
+- matrix - Librairie pour l’arrangement des noeuds sur une grille (c.-à-d. placement des noeuds en lignes et colonnes, comme les éléments 
+d’une matrice).
 
 ### Priorité Client : 2
 
@@ -428,13 +455,14 @@ En plus de la fontionnalité traditionnelle de dessin d’un diagramme (c.-à-d.
 ### Etat : 
 
 ### Points :
-- Mindmap : 8 points
-- Trees : 8 points
-- Matrix : 8 points
-- Documentation : 5 points
+- Mindmap : 10 points
+- Trees : 10 points
+- Matrix : 10 points
+- Documentation : 2 points
 - Travail d'équipe : 3 points
 
-TOTAL : 32 points
+TOTAL : 35 points
+
 
 ----------------------
 
@@ -443,7 +471,10 @@ TOTAL : 32 points
 ### Titre : Coloration syntaxique code TikZ
 
 ### Description
-Les utilisateurs peuvent profiter d’une fonctionnalité de coloration syntaxique du code LaTeX associé au diagramme sur lequel ils sont en train de travailler. Cette fonctionnalité doit colorer les mots clés du langage TikZ d’une manière différente du reste du code, afin de simplifier la gestion du code à l’utilisateur. En outre, quand l’utilisateur sélectionne un élément graphique dans la section dédiée de l’interface graphique, le code correspondant à cet élément doit être mis en évidence dans la section affichant le code LaTeX/TikZ.
+Les utilisateurs peuvent profiter d’une fonctionnalité de coloration syntaxique du code LaTeX associé au diagramme sur lequel ils sont en 
+train de travailler. Cette fonctionnalité doit colorer les mots clés du langage TikZ d’une manière différente du reste du code, afin de 
+simplifier la gestion du code à l’utilisateur. En outre, quand l’utilisateur sélectionne un élément graphique dans la section dédiée de 
+l’interface graphique, le code correspondant à cet élément doit être mis en évidence dans la section affichant le code LaTeX/TikZ.
 
 ### Priorité Client : 3
 
@@ -454,11 +485,11 @@ Les utilisateurs peuvent profiter d’une fonctionnalité de coloration syntaxiq
 ### Etat : 
 
 ### Points :
-- Coloration : 3 points
-- Mise en évidence : 15 points
+- Coloration : 5 points
+- Mise en évidence : 25 points
 - Travail d'équipe : 2 points
 
-TOTAL : 20 points
+TOTAL : 32 points
 
 ----------------------
 
@@ -467,7 +498,9 @@ TOTAL : 20 points
 ### Titre : Section d'aide
 
 ### Description
-Les utilisateurs peuvent accéder à une section d’aide dans le programme. Avec cet outil, les utilisateurs peuvent obtenir des informations plus détaillées et des explications sur comment utiliser les différentes fonctionnalités offertes par le programme. Éventuellement, un tutoriel démontrant l’utilisation de certaines fonctionnalités pourrait être démarré à partir de cette section.
+Les utilisateurs peuvent accéder à une section d’aide dans le programme. Avec cet outil, les utilisateurs peuvent obtenir des informations 
+plus détaillées et des explications sur comment utiliser les différentes fonctionnalités offertes par le programme. Éventuellement, un 
+tutoriel démontrant l’utilisation de certaines fonctionnalités pourrait être démarré à partir de cette section.
 
 ### Priorité Client : 3
 
@@ -488,7 +521,10 @@ TOTAL : 9 points
 ### Titre : Sécurité des données
 
 ### Description
-Le logiciel doit répondre à des besoins spécifiques concernant la sécurité informatique. Toutd’abord, les données sauvegardées ne doivent pas être accessibles par des personnes tierces (c’est-à-dire que les données doivent être sauvegardées de manière confidentielle). L’application offre la possibilité de protéger par mot de passe un fichier ou une exportation de projet. L’application ne pourra ouvrir ou importer le fichier ou le projet protégé que si le bon mot de passe est entré.
+Le logiciel doit répondre à des besoins spécifiques concernant la sécurité informatique. Tout d’abord, les données sauvegardées ne doivent pas 
+être accessibles par des personnes tierces (c’est-à-dire que les données doivent être sauvegardées de manière confidentielle). 
+L’application offre la possibilité de protéger par mot de passe un fichier ou une exportation de projet. L’application ne pourra ouvrir ou 
+importer le fichier ou le projet protégé que si le bon mot de passe est entré.
 
 ### Priorité Client : 3
 
@@ -509,7 +545,8 @@ TOTAL : 15 points
 ### Titre : Intégrité des données
 
 ### Description
-Le logiciel doit garantir que les données stockées à l’intérieur de l’application ne puissent pas être altérées de façon fortuite, illicite ou malveillante. Le logiciel doit donc garantir l’absence de modifications non autorisées.
+Le logiciel doit garantir que les données stockées à l’intérieur de l’application ne puissent pas être altérées de façon fortuite, 
+illicite ou malveillante. Le logiciel doit donc garantir l’absence de modifications non autorisées.
 
 ### Priorité Client : 3
 
@@ -523,6 +560,9 @@ Le logiciel doit garantir que les données stockées à l’intérieur de l’ap
 
 TOTAL : 7 points
 
+### Questions :
+A quel point?
+
 ----------------------
 
 ## Histoire 15
@@ -530,7 +570,8 @@ TOTAL : 7 points
 ### Titre : Copy-paste (copier coller)
 
 ### Description
-L’utilisateur peut sélectionner une section du diagramme, la copier, et par la suite la coller à la position actuelle du curseur. L’action de copie et l’action de collage auront des raccourcis clavier respectifs.
+L’utilisateur peut sélectionner une section du diagramme, la copier, et par la suite la coller à la position actuelle du curseur. 
+L’action de copie et l’action de collage auront des raccourcis clavier respectifs.
 
 ### Priorité Client : 3
 
@@ -542,6 +583,6 @@ L’utilisateur peut sélectionner une section du diagramme, la copier, et par l
 
 ### Points :
 
-TOTAL : 12 points
+TOTAL : 30 points
 
 ----------------------
