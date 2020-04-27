@@ -24,12 +24,12 @@ Cette action a pour effet de déposer l’élément sur le canevas et en même t
 
 ### Points :
 
-- Point-and-click : 5 points
+- Point-and-click : supprimé par le client : 0 points
 - Conversion du diagramme en code TikZ : 7 points
 - Documentation : 4 points
 - Travail d'équipe : 3 points
 
-TOTAL : 19 points
+TOTAL : 14 points
 
 ### Notes :
 
