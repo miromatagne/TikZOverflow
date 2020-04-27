@@ -85,8 +85,8 @@ public class MainPageViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         shapeList.prefWidthProperty().bind(scroll.prefWidthProperty());
         shapeList.prefHeightProperty().bind(scroll.prefHeightProperty());
-        // TODO : remove ça :shapeButtonListener.setMainPageViewController(this);
         initializeImageButton();
+        imageScrollPane.widthProperty().addListener((observable, oldValue, newValue) -> compile());
     }
 
     /**
