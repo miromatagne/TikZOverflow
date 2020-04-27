@@ -20,7 +20,7 @@ Cette action a pour effet de déposer l’élément sur le canevas et en même t
 
 ### Introduit dans l'itération : 3
 
-### Etat : 
+### Etat : Complétée
 
 ### Points :
 
@@ -37,7 +37,7 @@ Les coordonnées des éléments graphiques seront directement décidées depuis 
 
 ----------------------
 
-## Histoire 7
+## Histoire 7.1
 
 ### Titre : Drag & Drop (Glisser-déposer)
 
@@ -54,7 +54,7 @@ de l’interface graphique prévue à cet effet.
 
 ### Introduit dans l'itération : 3
 
-### Etat : 
+### Etat : Complétée
 
 ### Points :
 
@@ -66,7 +66,7 @@ TOTAL : 9 points
 
 ### Notes :
 
-Le mode gaucher n'est pas à réaliser pour cette itération.
+Le mode gaucher n'est pas à réaliser pour cette itération, c'est pourquoi l'histoire 7 a été scindée en les histoires 7.1 et 7.2.
 
 ----------------------
 
