@@ -1,5 +1,6 @@
 % Preamble
 \documentclass{article}
+\pagenumbering{gobble}
 
 % Packages
 \usepackage{tikz}

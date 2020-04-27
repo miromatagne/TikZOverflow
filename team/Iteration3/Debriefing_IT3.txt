@@ -1,0 +1,18 @@
+Toutes les fonctionnalités ont été correctement implémentées. Cette itération a 
+été un peu plus compliquée dans le sens où nous avons du faire un important
+refactoring.
+
+
+Un panneau de formes prédéfinies a été créé sur l'écran principal, et celles-ci
+peuvent être "drag-and-drop" sur le canevas au centre directement. Le code Tikz
+correspondant à cette forme prédéfinie est alors ajoutée à l'interface de texte
+et l'utilisateur peut alors modifier ses caractéristiques, ou ajouter d'autres
+formes via le code et non via les formes prédéfinies.
+
+
+Afin de prendre en compte les remarques de l'assistant lors du Code Review et
+les notes informatives y correspondant, nous avons décidé de faire un grand
+refactoring, essentiellement pour séparer les responsabilités et respecter le
+patron de conception MVC, en implémentant des listeners aux contrôleurs de vue
+par exemple, ce qui n'était pas encore fait précédemment. Les exceptions ont
+aussi été revues, et sont maintenant mieux gérées.

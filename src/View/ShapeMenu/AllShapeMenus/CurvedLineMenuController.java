@@ -35,7 +35,7 @@ public class CurvedLineMenuController extends MenuController implements Initiali
     @FXML
     private TextField labelTextField;
 
-    private static final ArrayList<TextField> allTextFields = new ArrayList<>();
+    private final ArrayList<TextField> allTextFields = new ArrayList<>();
 
 
     /**

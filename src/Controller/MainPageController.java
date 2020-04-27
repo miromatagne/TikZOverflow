@@ -103,7 +103,6 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         double pdfWidth = 21.4; //Size of pdf in Tikz language
         double widthConvert = scrollPaneWidth / pdfWidth;
         double xOffset = -1.25; // x = 0.0 in Tikz language
-
         return (float) ((x / widthConvert) + xOffset);
     }
 
@@ -138,7 +137,6 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         if (heightConvert != 0) {
             posYTikz = (float) (yOffset - (y + (scroll * pdfNotShown)) / heightConvert);
         }
-
         return posYTikz;
     }
 
