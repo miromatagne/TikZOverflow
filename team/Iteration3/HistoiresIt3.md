@@ -68,7 +68,7 @@ de l’interface graphique prévue à cet effet.
 
 TOTAL : 9 points
 
-Cette histoire a en fait été réalisée en 26 points. 
+Cette histoire a en fait été réalisée en 24 points. 
 Cette importante augmentation par rapport aux prévisions est principalement dûe au large refactoring qui a été fait sur une grande partie 
 du code (ceci est détaillé dans le document "DebriefingIt3").
 
