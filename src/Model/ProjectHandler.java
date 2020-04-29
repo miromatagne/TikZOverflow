@@ -71,6 +71,24 @@ public class ProjectHandler {
     }
 
     /**
+     * Create a new project for the user
+     * @param user creator
+     * @param title project title
+     * @param collaborators collaborators
+     * @param code TikZ code
+     * @return project created
+     * @throws ProjectCreationException if creation failed
+     */
+    public Project createProject(User user, String title, ArrayList<String> collaborators, String code) throws ProjectCreationException {
+        Project project = createProject(user);
+        project.setTitle(title);
+        project.setCollaboratorsUsernames(collaborators);
+        project.setCode(code);
+        project.setDate(new Date());
+        return project;
+    }
+
+    /**
      * Save a project
      *
      * @param project       project to save

@@ -1,5 +1,9 @@
 package Controller;
 
+import Model.Exceptions.ProjectCreationException;
+import Model.Project;
+import Model.ProjectHandler;
+import View.ViewControllers.ProjectPopUpViewController;
 import View.ViewControllers.ProjectSelectionViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,11 +12,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ProjectSelectionController implements ProjectSelectionViewController.ProjectSelectionViewControllerListener {
+public class ProjectSelectionController implements ProjectSelectionViewController.ProjectSelectionViewControllerListener, ProjectPopUpViewController.ProjectPopUpViewControllerListener {
 
     private final Stage stage;
     private final ProjectSelectionControllerListener listener;
     private ProjectSelectionViewController controller;
+    private ProjectPopUpViewController popUpController;
 
     /**
      * Constructor.
@@ -60,24 +65,52 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
         listener.logout();
     }
 
-    private void showPopUp(String FXMLPath, String title) throws IOException {
+    private void showPopUp(String FXMLPath, String title) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(FXMLPath));
-        Parent root = loader.load();
-        Stage popupStage = new Stage();
-        popupStage.setTitle(title);
-        Scene scene = new Scene(root, 350, 150);
-        popupStage.setScene(scene);
-        popupStage.show();
+        Parent root;
+        try {
+            root = loader.load();
+            popUpController = loader.getController();
+            popUpController.setListener(this);
+            Stage popupStage = new Stage();
+            popUpController.setStage(popupStage);
+            popupStage.setTitle(title);
+            Scene scene = new Scene(root, 350, 150);
+            popupStage.setScene(scene);
+            popupStage.show();
+        } catch (IOException e) {
+            System.err.println(String.format("Unable to load %s pop-up path", FXMLPath));
+            e.printStackTrace();
+            e.getCause().printStackTrace();
+        }
     }
 
     @Override
-    public void showSharePopUp() throws IOException {
-        showPopUp("/View/FXML/shareProjectPopUp.fxml", "Share your project");
+    public void showSharePopUp(String title) {
+        showPopUp("/View/FXML/shareProjectPopUp.fxml", String.format("Share %s", title));
     }
 
     @Override
-    public void showRenamePopUp() throws IOException {
-        showPopUp("/View/FXML/renameProjectPopUp.fxml", "Rename your project");
+    public void showRenamePopUp(String title) {
+        showPopUp("/View/FXML/renameProjectPopUp.fxml", String.format("Rename %s", title));
+    }
+
+    @Override
+    public void showCreatePopUp() {
+        showPopUp("/View/FXML/createProjectPopUp.fxml", "Create your project");
+    }
+
+    @Override
+    public void createProject(String title) {
+        try {
+            Project project  = ProjectHandler.getInstance().createProject(Session.getInstance().getUser(), title, null, "");
+            ProjectDisplay projectDisplay = new ProjectDisplay(project);
+            controller.addProjectToDisplay(projectDisplay);
+        } catch (ProjectCreationException e) {
+            System.err.println(String.format("Error creating project %s", title));
+            e.printStackTrace();
+            e.getCause().printStackTrace();
+        }
     }
 
     public interface ProjectSelectionControllerListener {

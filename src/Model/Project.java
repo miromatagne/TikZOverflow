@@ -13,6 +13,7 @@ public class Project {
     private int id;
     private String title;
     private String creatorUsername;
+
     private ArrayList<String> collaboratorsUsernames;
     private Date date;
     private String code;
@@ -104,5 +105,9 @@ public class Project {
 
     public Date getDate() {
         return date;
+    }
+
+    public void setCollaboratorsUsernames(ArrayList<String> collaboratorsUsernames) {
+        this.collaboratorsUsernames = collaboratorsUsernames;
     }
 }

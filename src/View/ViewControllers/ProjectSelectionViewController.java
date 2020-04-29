@@ -1,18 +1,19 @@
 package View.ViewControllers;
 
+import Controller.ProjectDisplay;
 import Model.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ProjectSelectionViewController implements Initializable {
@@ -35,39 +36,38 @@ public class ProjectSelectionViewController implements Initializable {
     private Button popUpRenameButton;
 
     @FXML
-    private TableView<Project> tableView;
+    private TableView<ProjectDisplay> tableView;
 
     @FXML
-    private TableColumn<Project, CheckBox> checkBoxColumn;
+    private TableColumn<ProjectDisplay, CheckBox> checkBoxColumn;
 
     @FXML
-    private TableColumn<Project, String> titleColumn;
+    private TableColumn<ProjectDisplay, String> titleColumn;
 
     @FXML
-    private TableColumn<Project, String> ownerColumn;
+    private TableColumn<ProjectDisplay, String> ownerColumn;
 
     @FXML
-    private TableColumn<Project, String> dateColumn;
+    private TableColumn<ProjectDisplay, String> dateColumn;
 
-    private ObservableList<Project> data;
+    @FXML
+    private TableColumn<ProjectDisplay, Button> renameColumn;
+
+    @FXML
+    private TableColumn<ProjectDisplay, Button> shareColumn;
+
+    private ObservableList<ProjectDisplay> data;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Project p1 = new Project("Test","Minh", "12 septembre");
-        Project p2 = new Project("Test2","Miro", "19 septembre");
-        data = FXCollections.observableArrayList(p1, p2);
+        data = FXCollections.observableArrayList();
         checkBoxColumn.setCellValueFactory(new PropertyValueFactory<>("checkBox"));
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         ownerColumn.setCellValueFactory(new PropertyValueFactory<>("owner"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        renameColumn.setCellValueFactory(new PropertyValueFactory<>("renameButton"));
+        shareColumn.setCellValueFactory(new PropertyValueFactory<>("shareButton"));
         tableView.setItems(data);
-
-        tableView.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println(tableView.getSelectionModel().getSelectedItem().getTitle());
-            }
-        });
     }
 
     public void setListener(ProjectSelectionViewControllerListener listener) {
@@ -90,8 +90,9 @@ public class ProjectSelectionViewController implements Initializable {
     }
 
     @FXML
-    void onCreateButton(ActionEvent event) {
-
+    void onCreateButton(ActionEvent event) throws IOException {
+        //listener.showCreatePopUp();
+        addProjectToDisplay(new ProjectDisplay(new Project(0,"test", "titleTest", new Date(), new ArrayList<>(), "")));
     }
 
     @FXML
@@ -104,36 +105,39 @@ public class ProjectSelectionViewController implements Initializable {
     }
 
     @FXML
-    void onPressRename(ActionEvent event) throws IOException {
-    listener.showRenamePopUp();
-    }
-
-    @FXML
     void onPressSave(ActionEvent event) {
 
     }
 
-    @FXML
-    void onPressShare(ActionEvent event) throws IOException {
-        listener.showSharePopUp();
-    }
-
-    public ObservableList<Project> getCheckedBoxes() {
-        ObservableList<Project> checkedBoxes = FXCollections.observableArrayList();
-        for(Project p : data)
-        {
-            if(p.getCheckBox().isSelected())
-            {
+    public ObservableList<ProjectDisplay> getCheckedBoxes() {
+        ObservableList<ProjectDisplay> checkedBoxes = FXCollections.observableArrayList();
+        for (ProjectDisplay p : data) {
+            if (p.getCheckBox().isSelected()) {
                 checkedBoxes.add(p);
             }
         }
         return checkedBoxes;
     }
 
+    public void addProjectToDisplay(ProjectDisplay projectDisplay) {
+        data.add(projectDisplay);
+        projectDisplay.getRenameButton().setOnAction(e -> {
+            listener.showRenamePopUp(projectDisplay.getTitle());
+        });
+        projectDisplay.getShareButton().setOnAction(e -> {
+            listener.showSharePopUp(projectDisplay.getTitle());
+        });
+    }
+
     public interface ProjectSelectionViewControllerListener {
         void accountModificationRequest();
+
         void onLogoutRequest();
-        void showSharePopUp() throws IOException;
-        void showRenamePopUp() throws IOException;
+
+        void showSharePopUp(String title);
+
+        void showRenamePopUp(String title);
+
+        void showCreatePopUp();
     }
 }
