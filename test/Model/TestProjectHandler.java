@@ -4,6 +4,7 @@ import Model.Exceptions.*;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,7 +35,7 @@ public class TestProjectHandler {
         project.setCode("code");
 
         //Check of the setup
-        assertEquals(0,project.getID());
+        assertEquals(0 ,project.getID());
         assertEquals("Premier projet",project.getTitle());
         assertEquals("User1",project.getCreatorUsername());
         assertEquals("User2",project.getCollaboratorsUsernames().get(0));
@@ -108,11 +109,12 @@ public class TestProjectHandler {
         FileHandler fileHandler = new FileHandler();
         String fileContent = fileHandler.readInFile("projects/0");
 
-        String date = project1.getDate().toString();
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(projectHandler.DATE_FORMAT);
+        String dateString = dateFormatter.format(project1.getDate());
         String contentExpected = "#0\n" +
                 "#User1\n"+
                 "#Mon projet\n"+
-                "#"+date+"\n"+
+                "#"+dateString+"\n"+
                 "#User2\n"+
                 "Hello World\n";
 
