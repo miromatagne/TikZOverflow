@@ -10,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -102,7 +101,6 @@ public class ProjectSelectionViewController implements Initializable {
 
     @FXML
     void onPressCopy(ActionEvent event) {
-        System.out.println(getCheckedBoxes());
     }
 
     @FXML
@@ -123,16 +121,6 @@ public class ProjectSelectionViewController implements Initializable {
     @FXML
     void onPressShare(ActionEvent event) throws IOException {
         listener.showSharePopUp();
-    }
-
-    @FXML
-    void onPressShareInPopUp(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onPressRenameInPopUp(ActionEvent event) {
-
     }
 
     public ObservableList<Project> getCheckedBoxes() {
