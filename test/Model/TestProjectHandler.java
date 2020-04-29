@@ -109,7 +109,7 @@ public class TestProjectHandler {
         FileHandler fileHandler = new FileHandler();
         String fileContent = fileHandler.readInFile("projects/0");
 
-        SimpleDateFormat dateFormatter = new SimpleDateFormat(projectHandler.DATE_FORMAT);
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(ProjectHandler.DATE_FORMAT);
         String dateString = dateFormatter.format(project1.getDate());
         String contentExpected = "#0\n" +
                 "#User1\n"+
