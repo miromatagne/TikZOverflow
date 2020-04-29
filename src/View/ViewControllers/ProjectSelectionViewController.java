@@ -90,11 +90,6 @@ public class ProjectSelectionViewController implements Initializable {
     }
 
     @FXML
-    void modificationButtonAction(ActionEvent event) {
-
-    }
-
-    @FXML
     void onCreateButton(ActionEvent event) {
 
     }
