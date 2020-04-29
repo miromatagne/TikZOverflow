@@ -16,13 +16,14 @@ import javafx.stage.Stage;
 
 public class ScreenHandler extends Application implements LoginScreenController.LoginScreenControllerListener,
         AccountCreationController.AccountCreationControllerListener, MainPageController.MainPageControllerListener,
-        AccountModificationController.AccountModificationControllerListener {
+        AccountModificationController.AccountModificationControllerListener, ProjectSelectionController.ProjectSelectionControllerListener {
 
     private Stage stage;
     private LoginScreenController loginScreenController;
     private AccountCreationController accountCreationController;
     private AccountModificationController accountModificationController;
     private MainPageController mainPageController;
+    private ProjectSelectionController projectSelectionController;
 
     /**
      * At first, start() loads the login screen
@@ -88,7 +89,12 @@ public class ScreenHandler extends Application implements LoginScreenController.
      */
     @Override
     public void onSuccessfulLoginRequest() {
-        goToMainPage();
+        goToProjectScreen();
+    }
+
+    private void goToProjectScreen() {
+        projectSelectionController = new ProjectSelectionController(stage, this);
+        projectSelectionController.show();
     }
 
     /**
@@ -140,7 +146,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
      */
     @Override
     public void onModificationDone() {
-        goToMainPage();
+        goToProjectScreen();
     }
 
 }

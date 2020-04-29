@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ViewControllers.ProjectSelectionViewController">
+   <children>
+      <VBox layoutX="14.0" layoutY="-108.0" prefHeight="187.0" prefWidth="326.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="TOP" text="Username">
+               <VBox.margin>
+                  <Insets left="50.0" top="150.0" />
+               </VBox.margin></Label>
+            <HBox alignment="CENTER" prefHeight="140.0" prefWidth="295.0">
+               <children>
+                  <TextField fx:id="popUpShareText" promptText="Username">
+                     <HBox.margin>
+                        <Insets right="40.0" />
+                     </HBox.margin>
+                  </TextField>
+                  <Button fx:id="popUpShareButton" mnemonicParsing="false" onAction="#onPressShareInPopUp" text="Share" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
