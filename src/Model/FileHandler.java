@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.Session;
 import Model.Exceptions.*;
 
 import java.io.*;
@@ -419,7 +420,7 @@ public class FileHandler {
             FileReader fileReader = new FileReader(file);
             BufferedReader buffer = new BufferedReader(fileReader);
             String line;
-            String input = "Latex/" + username + ".tex";
+            String input = Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".tex";
 
             while ((line = buffer.readLine()) != null) {
                 words = line.split(":");

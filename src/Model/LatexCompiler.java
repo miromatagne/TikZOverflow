@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.Session;
 import Model.Exceptions.LatexCompilationException;
 
 import java.io.*;
@@ -51,7 +52,7 @@ public class LatexCompiler {
     public static void runProcess(String filePath) throws LatexCompilationException {
         try {
             String command = "pdflatex -file-line-error -interaction=nonstopmode -synctex=1 " +
-                    "-output-format=pdf -output-directory " + DEFAULT_OUTPUT_DIRECTORY + " " + filePath;
+                    "-output-format=pdf -output-directory " + Session.getInstance().getCurrentProject().getPath() + " " + filePath;
             Process pro = Runtime.getRuntime().exec(command);
             clearStream(pro.getInputStream());
             clearStream(pro.getErrorStream());

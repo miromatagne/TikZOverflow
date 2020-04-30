@@ -66,7 +66,7 @@ public class Session {
                 currentUser = fileHandler.getUserFromSave(username);
 
                 if (password.equals(currentUser.getPassword())) {
-                    newProjectRequest("test", "./Test Project/");
+                    newProjectRequest("test", "./TestProject/");
                     return CONNECTION_ESTABLISHED;
                 } else {
                     return INVALID_PASSWORD;
