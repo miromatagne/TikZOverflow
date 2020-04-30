@@ -6,7 +6,9 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 
 /**
@@ -17,28 +19,17 @@ public class ProjectHandler {
     /**
      * Single instance : singleton
      */
-    private static ProjectHandler instance;
-
     private int idCounter;
-    private final static String PROJECT_DIRECTORY = "projects";
+    public final static String PROJECT_DIRECTORY = "projects";
     public final static String DATE_FORMAT = "E dd-MM-yyyy HH:mm:ss";
 
     /**
-     * Private constructor  : singleton
+     * Constructor
      */
-    private ProjectHandler(){
+    public ProjectHandler(){
 
     }
 
-    /**
-     * Instance getter : singleton
-     */
-    public static ProjectHandler getInstance(){
-        if (instance == null){
-            instance = new ProjectHandler();
-        }
-        return instance;
-    }
 
     /**
      * Get a new id (unique identifier)
@@ -59,14 +50,17 @@ public class ProjectHandler {
      * @return      project created
      * @throws ProjectCreationException if creation failed
      */
-    public Project createProject(User user) throws ProjectCreationException {
+    public Project createProject(User user, String path) throws ProjectCreationException, DirectoryCreationException {
         try {
             int id = getNewId();
-            Project project = new Project(id, user.getUsername());
-            saveProject(project);
+            Project project = new Project(id, user.getUsername(), path);
+            setupProjectDirectory(project.getPath());
+            saveProjectInfo(project);
             return project;
         } catch (ProjectSaveException e) {
             throw new ProjectCreationException(e);
+        } catch (DirectoryCreationException e) {
+            throw new DirectoryCreationException();
         }
     }
 
@@ -76,14 +70,24 @@ public class ProjectHandler {
      * @param project       project to save
      * @throws ProjectSaveException     if save failed
      */
-    public void saveProject(Project project) throws ProjectSaveException {
+    public void saveProjectInfo(Project project) throws ProjectSaveException {
         try {
             String toWrite = generateSaveFromProject(project);
-            writeInFile(new File(generatePath(project.getID())), toWrite);
+            writeInFile(new File(generateProjectInfoPath(project.getID())), toWrite);
         } catch (IOException e) {
             throw new ProjectSaveException(e);
         }
 
+    }
+
+    private void setupProjectDirectory(String path) throws DirectoryCreationException {
+        File file = new File(path);
+        if (file.exists() && file.isDirectory()) {
+            return;
+        }
+        if (!file.mkdir()) {
+            throw new DirectoryCreationException();
+        }
     }
 
     /**
@@ -95,7 +99,7 @@ public class ProjectHandler {
      */
     public Project loadProject(int id) throws ProjectLoadException {
         try {
-            String saveText = readInFile(new File(generatePath(id)));
+            String saveText = readInFile(new File(generateProjectInfoPath(id)));
             return generateProjectFromSave(saveText);
         } catch (IOException | ProjectFromSaveGenerationException e) {
             throw new ProjectLoadException(e);
@@ -110,14 +114,16 @@ public class ProjectHandler {
      * @return                  copy of the project
      * @throws ProjectCopyException     if copy failed
      */
-    public Project createCopy(Project projectToCopy, User user) throws ProjectCopyException{
+    public Project createCopy(Project projectToCopy, User user, String new_path) throws ProjectCopyException, DirectoryCreationException {
         try {
-            Project projectCopy = createProject(user);
+            Project projectCopy = createProject(user, new_path);
             projectCopy.setTitle(projectToCopy.getTitle());
             projectCopy.setCode(projectToCopy.getCode());
             return projectCopy;
         } catch (ProjectCreationException e) {
             throw new ProjectCopyException(e);
+        } catch (DirectoryCreationException e) {
+            throw new DirectoryCreationException();
         }
     }
 
@@ -129,7 +135,7 @@ public class ProjectHandler {
      * @throws ProjectDeletionException if deletion failed
      */
     public void deleteProject(Project project) throws ProjectDeletionException {
-        File file = new File(generatePath(project.getID()));
+        File file = new File(generateProjectInfoPath(project.getID()));
         if (!file.delete()){
             throw new ProjectDeletionException();
         }
@@ -162,7 +168,7 @@ public class ProjectHandler {
      * @param id    project id
      * @return      path
      */
-    private String generatePath(int id) {
+    private String generateProjectInfoPath(int id) {
         return PROJECT_DIRECTORY+"/"+id;
     }
 
@@ -173,37 +179,28 @@ public class ProjectHandler {
      * @return          save content
      */
     private String generateSaveFromProject(Project project){
-        /*
-        Choisir le bon format de la save du projet
-        Exemple : Nom du file : id.txt
-        """
-        #ID
-        #Username Creator
-        #Titre
-        #Date
-        #Collaborator 1
-        #Collaborator 2
-        #...
-        CODE
-        """
+        /* PROJECT INFO FILE FORMAT
+        id:
+        creator:
+        collaborators:c1,c2,c3,...
+        title:
+        creation_date:
+        modification_date: TODO
+        path:
          */
-        String toWrite;
+        String toWrite = "";
         final String ENDLINE = "\n";
 
-        String idPart ="#"+project.getID()+ENDLINE;
-        String creatorPart = "#"+project.getCreatorUsername()+ENDLINE;
-        String titlePart = "#"+project.getTitle()+ENDLINE;
-        SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT);
-        String datePart = "#"+dateFormatter.format(project.getDate())+ENDLINE;
-        String singleCollaboratorPart;
-        StringBuilder collaboratorsPart = new StringBuilder();
-        for (String collaboratorUsername : project.getCollaboratorsUsernames()){
-            singleCollaboratorPart = "#"+collaboratorUsername+ENDLINE;
-            collaboratorsPart.append(singleCollaboratorPart);
-        }
-        String codePart = project.getCode();
+        toWrite+= "id:"+project.getID()+ENDLINE;
+        toWrite+= "creator:"+project.getCreatorUsername()+ENDLINE;
+        toWrite+= "collaborators:";
+        String collaborators = project.getCollaboratorsUsernames().stream().collect(Collectors.joining(", "));
+        toWrite+=collaborators+ENDLINE;
+        toWrite+="title:"+project.getTitle()+ENDLINE;
+        toWrite+="creation_date:"+new SimpleDateFormat(DATE_FORMAT).format(project.getDate())+ENDLINE;
+        toWrite+="modification_date:"+ENDLINE;
+        toWrite+="path:"+ENDLINE;
 
-        toWrite = idPart + creatorPart + titlePart + datePart + collaboratorsPart + codePart;
         return toWrite;
     }
 
@@ -215,44 +212,31 @@ public class ProjectHandler {
      * @throws ProjectFromSaveGenerationException if the parsing for the date failed
      */
     private Project generateProjectFromSave(String saveText) throws ProjectFromSaveGenerationException {
-        /*
-        Choisir le bon format de la save du projet
-        Exemple : Nom du file : id.txt
-        """
-        #ID
-        #Username Creator
-        #Titre
-        #Date
-        #Collaborator 1
-        #Collaborator 2
-        #...
-        CODE
-        """
+        /* PROJECT INFO FILE FORMAT
+        id:
+        creator:
+        collaborators:c1,c2,c3,...
+        title:
+        creation_date:
+        modification_date: TODO
+        path:
          */
         try {
             String[] allLines = saveText.split("\n");
-            String idString = allLines[0].substring(1);
-            String creatorUsername = allLines[1].substring(1);
-            String title = allLines[2].substring(1);
-            String dateString = allLines[3].substring(1);
-            ArrayList<String> collaboratorsUsernames = new ArrayList<>();
-            StringBuilder code = new StringBuilder();
-            for (int i = 4; i < allLines.length; i++){
-                if (allLines[i].charAt(0) == '#'){
-                    collaboratorsUsernames.add(allLines[i].substring(1));
-                }
-                else {
-                    code.append(allLines[i]);
-                    if (i < allLines.length - 1){
-                        code.append("\n");
-                    }
-                }
-            }
+            String idString = allLines[0].split("id:")[1];
+            String creatorUsername = allLines[1].split("creator:")[1];
+            //collaborators
+            ArrayList<String> collaboratorsUsernames = (ArrayList<String>) Arrays.asList(allLines[2].split("collaborators:")[1].split(","));
+            String title = allLines[3].split("title:")[1];
+            String dateString = allLines[4].split("creation_date:")[1];
+            //TODO : modification date
+            String path = allLines[6].split("path:")[1];
+
             int id = Integer.parseInt(idString);
             SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT);
             Date date = dateFormatter.parse(dateString);
             return new Project(id, creatorUsername,
-                    title, date, collaboratorsUsernames, code.toString());
+                    title, date, collaboratorsUsernames, path);
         } catch (ParseException e) {
             throw new ProjectFromSaveGenerationException(e);
         }

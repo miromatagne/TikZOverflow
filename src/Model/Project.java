@@ -16,6 +16,7 @@ public class Project {
     private ArrayList<String> collaboratorsUsernames;
     private Date date;
     private String code;
+    private String path;
 
     private final static String DEFAULT_TITLE = "Unnamed";
     private final static String DEFAULT_CODE =    "\\node (h) at (0,0) {Hello};\n" +
@@ -27,9 +28,10 @@ public class Project {
      *
      * @param id                id of the project
      * @param creatorUsername   creator username
+     * @param path              path to the project save directory
      */
-    public Project(int id, String creatorUsername){
-        this(id, creatorUsername, DEFAULT_TITLE, new Date(), new ArrayList<>(), DEFAULT_CODE);
+    public Project(int id, String creatorUsername, String path){
+        this(id, creatorUsername, DEFAULT_TITLE, new Date(), new ArrayList<>(), path);
     }
 
     /**
@@ -40,15 +42,15 @@ public class Project {
      * @param title             project title
      * @param date              last date of modification
      * @param collaborators     list of collaborators
-     * @param code              code of the project
      */
-    public Project(int id, String creatorUsername, String title, Date date, ArrayList<String> collaborators, String code){
+    public Project(int id, String creatorUsername, String title, Date date, ArrayList<String> collaborators, String path){
         setID(id);
         setCreatorUsername(creatorUsername);
         setTitle(title);
         setDate(date);
         this.collaboratorsUsernames = collaborators;
         setCode(code);
+        this.path=path;
     }
 
 
@@ -105,4 +107,9 @@ public class Project {
     public Date getDate() {
         return date;
     }
+
+    public String getPath() {
+        return path;
+    }
+
 }

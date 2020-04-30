@@ -1,12 +1,14 @@
 package Controller;
 
 import Controller.Exceptions.SessionOpeningException;
-import Model.Exceptions.FileHandlerConstructorException;
-import Model.Exceptions.SaveUserCreationException;
-import Model.Exceptions.SetupDirectoryException;
-import Model.Exceptions.UserFromSaveCreationException;
+import Model.Exceptions.*;
 import Model.FileHandler;
+import Model.Project;
+import Model.ProjectHandler;
 import Model.User;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Class that controls the current session, including the logging in, the logging out
@@ -18,7 +20,9 @@ public class Session {
     public static final int USER_NOT_REGISTERED = -1;
     public static final int INVALID_PASSWORD = -2;
     private User currentUser = null;
+    private Project currentProject = null;
     private FileHandler fileHandler;
+    private ProjectHandler projectHandler;
     private static final Session session;
 
     static {
@@ -29,6 +33,7 @@ public class Session {
     private Session() {
         try {
             fileHandler = new FileHandler();
+            projectHandler = new ProjectHandler();
         } catch (FileHandlerConstructorException e) {
             System.err.println("Error while creating the session");
             e.printStackTrace();
@@ -38,14 +43,6 @@ public class Session {
 
     public static Session getInstance() {
         return session;
-    }
-
-    public User getUser() {
-        return currentUser;
-    }
-
-    public void setUser(User newUser) {
-        currentUser = newUser;
     }
 
     /**
@@ -61,6 +58,7 @@ public class Session {
     public int openSession(String username, String password) throws SessionOpeningException {
         try {
             fileHandler.setupSaveUserDirectory("save user");
+            fileHandler.setupSaveProjectDirectory(ProjectHandler.PROJECT_DIRECTORY);
             if (!fileHandler.saveUserExists(username)) {
                 return USER_NOT_REGISTERED; //User is not registered
             } else {
@@ -75,6 +73,52 @@ public class Session {
             throw new SessionOpeningException(e);
         }
     }
+
+    /**
+     * Handles new project creation requests
+     *
+     * @param title new project title
+     * @param path new project directory path
+     */
+    public void newProjectRequest(String title, String path){
+        try {
+            currentProject = projectHandler.createProject(currentUser, path);
+            currentProject.setTitle(title);
+        } catch (ProjectCreationException e) {
+            e.printStackTrace();
+        } catch (DirectoryCreationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Opens a project
+     *
+     * @param project
+     */
+    public void openProject(Project project){
+         this.currentProject = project;
+    }
+
+    /**
+     * Accesses the projects that the current logged in user has access to
+     *
+     * @return ArrayList containing the user's projects
+     */
+    public ArrayList<Project> getUserProjects(){
+        ArrayList<Project> userProjects = new ArrayList<Project>();
+        for(int id: currentUser.getProjectIDs()){
+            try {
+                Project p = projectHandler.loadProject(id);
+                userProjects.add(p);
+            } catch (ProjectLoadException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return userProjects;
+    }
+
 
     /**
      * Logs the user out of the session.
@@ -115,4 +159,16 @@ public class Session {
         }
         return false;
     }
+
+    public Project getCurrentProject{
+        return currentProject;
+    }
+    public User getUser() {
+        return currentUser;
+    }
+
+    public void setUser(User newUser) {
+        currentUser = newUser;
+    }
+
 }

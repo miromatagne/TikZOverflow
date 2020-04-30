@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 /**
  * Class to model a user
  */
@@ -11,6 +13,7 @@ public class User {
     private String firstName = "";
     private String password = "";
     private String mail = "";
+    private ArrayList<Integer> projectIDs;
 
     public String getUsername() {
         return username;
@@ -52,4 +55,11 @@ public class User {
         this.password = password;
     }
 
+    public ArrayList<Integer> getProjectIDs() {
+        return projectIDs;
+    }
+
+    public void setProjectIDs(ArrayList<Integer> projectIDs) {
+        this.projectIDs = projectIDs;
+    }
 }

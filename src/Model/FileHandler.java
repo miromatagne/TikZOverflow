@@ -3,6 +3,9 @@ package Model;
 import Model.Exceptions.*;
 
 import java.io.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * This class is used to handle interactions with files. It creates directories and writes the saves
@@ -112,6 +115,11 @@ public class FileHandler {
         text += "username:" + user.getUsername() + "\n";
         text += "mail:" + user.getMail() + "\n";
         text += "password:" + user.getPassword() + "\n";
+        ArrayList<String> projectIDs = new ArrayList<String>();
+        for(int id : user.getProjectIDs()){
+            projectIDs.add(Integer.toString(id));
+        }
+        text += "projects:" + projectIDs.stream().collect(Collectors.joining(", ")) + "\n";
         return text;
     }
 
@@ -148,7 +156,7 @@ public class FileHandler {
      */
     public void makeTexFile(User user, String sourceCode) throws LatexWritingException {
         try {
-            setupSaveProjectDirectory("./Latex/");
+            setupSaveProjectDirectory(Session.getInstance().getCurrentProject().getPath());
             File texFile = new File(saveProjectDirectory + user.getUsername() + ".tex");
             if (texFile.exists()) {
                 writeInFile(texFile, sourceCode);
@@ -256,6 +264,7 @@ public class FileHandler {
             setUserFirstName(file, user);
             setUserMail(file, user);
             setUserPassword(file, user);
+            setUserProjectIDs(file, user);
             return user;
         } catch (IOException e) {
             throw new UserFromSaveCreationException(e);
@@ -311,6 +320,25 @@ public class FileHandler {
         String temp;
         if (!(temp = getInformation(file, "last")).equals("")) {
             user.setLastName(temp);
+        }
+    }
+
+    /**
+     * Fills user projects from file.
+     *
+     * @param file File corresponding to user save file
+     * @param user User whose projects are set
+     * @throws IOException if any IO error interaction occurs
+     */
+    private void setUserProjectIDs(File file, User user) throws IOException {
+        String temp;
+        if (!(temp = getInformation(file, "projects")).equals("")) {
+            String[] projectIDArray = temp.split(",");
+            ArrayList<Integer> projectIDs = new ArrayList<Integer>();
+            for(String p : projectIDArray){
+                projectIDs.add(Integer.parseInt(p));
+            }
+            user.setProjectIDs(projectIDs);
         }
     }
 

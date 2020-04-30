@@ -104,7 +104,7 @@ public class TestProjectHandler {
 
         projectHandler.shareProject(project1, user2);
 
-        projectHandler.saveProject(project1);
+        projectHandler.saveProjectInfo(project1);
 
         FileHandler fileHandler = new FileHandler();
         String fileContent = fileHandler.readInFile("projects/0");
@@ -131,7 +131,7 @@ public class TestProjectHandler {
         project.setTitle("Mon projet 1");
         project.setCode("HELLO WORLD");
 
-        projectHandler.saveProject(project);
+        projectHandler.saveProjectInfo(project);
 
         Project loadedProject = projectHandler.loadProject(0);
 
