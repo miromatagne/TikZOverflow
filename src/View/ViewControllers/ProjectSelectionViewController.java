@@ -91,8 +91,8 @@ public class ProjectSelectionViewController implements Initializable {
 
     @FXML
     void onCreateButton(ActionEvent event) throws IOException {
-        //listener.showCreatePopUp();
-        addProjectToDisplay(new ProjectDisplay(new Project(0,"test", "titleTest", new Date(), new ArrayList<>(), "")));
+        listener.showCreatePopUp();
+        //addProjectToDisplay(new ProjectDisplay(new Project(0,"test", "titleTest", new Date(), new ArrayList<>(), "")));
     }
 
     @FXML
@@ -122,11 +122,19 @@ public class ProjectSelectionViewController implements Initializable {
     public void addProjectToDisplay(ProjectDisplay projectDisplay) {
         data.add(projectDisplay);
         projectDisplay.getRenameButton().setOnAction(e -> {
-            listener.showRenamePopUp(projectDisplay.getTitle());
+            listener.showRenamePopUp(projectDisplay.getProject());
         });
         projectDisplay.getShareButton().setOnAction(e -> {
-            listener.showSharePopUp(projectDisplay.getTitle());
+            listener.showSharePopUp(projectDisplay.getProject());
         });
+    }
+
+    public void refreshProjectTitle(Project currentTreatedProject, String title) {
+        for(ProjectDisplay projectDisplay : data) {
+            if(projectDisplay.getProject().equals(currentTreatedProject)){
+                projectDisplay.setTitle(title);
+            }
+        }
     }
 
     public interface ProjectSelectionViewControllerListener {
@@ -134,9 +142,9 @@ public class ProjectSelectionViewController implements Initializable {
 
         void onLogoutRequest();
 
-        void showSharePopUp(String title);
+        void showSharePopUp(Project project);
 
-        void showRenamePopUp(String title);
+        void showRenamePopUp(Project project);
 
         void showCreatePopUp();
     }

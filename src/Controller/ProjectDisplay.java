@@ -10,15 +10,17 @@ public class ProjectDisplay {
     private final SimpleStringProperty owner;
     private final SimpleStringProperty date;
     private final CheckBox checkBox;
-
+    private final Project project;
     private final Button renameButton;
     private final Button shareButton;
+
     private SimpleStringProperty title;
 
-    public ProjectDisplay(Project project){
+    public ProjectDisplay(Project project) {
         this.title = new SimpleStringProperty(project.getTitle());
         this.owner = new SimpleStringProperty(project.getCreatorUsername());
         this.date = new SimpleStringProperty(project.getDate().toString());
+        this.project = project;
         this.checkBox = new CheckBox();
         this.renameButton = new Button("Rename");
         this.shareButton = new Button("Share");
@@ -58,5 +60,13 @@ public class ProjectDisplay {
 
     public Button getShareButton() {
         return shareButton;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setTitle(String title) {
+        this.title.set(title);
     }
 }

@@ -13,6 +13,9 @@ public class ProjectPopUpViewController {
     @FXML
     private TextField popUpTitleText;
 
+    @FXML
+    private TextField popUpRenameText;
+
     private ProjectPopUpViewControllerListener listener;
 
     public void setListener(ProjectPopUpViewControllerListener listener){
@@ -25,7 +28,8 @@ public class ProjectPopUpViewController {
 
     @FXML
     void onPressRenameInPopUp(ActionEvent event) {
-
+        listener.renameProject(popUpRenameText.getText());
+        stage.close();
     }
 
     @FXML
@@ -41,5 +45,7 @@ public class ProjectPopUpViewController {
     public interface ProjectPopUpViewControllerListener {
 
         void createProject(String text) throws ProjectCreationException;
+
+        void renameProject(String text);
     }
 }

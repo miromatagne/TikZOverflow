@@ -16,6 +16,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
 
     private final Stage stage;
     private final ProjectSelectionControllerListener listener;
+    private Project currentTreatedProject;
     private ProjectSelectionViewController controller;
     private ProjectPopUpViewController popUpController;
 
@@ -86,13 +87,15 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
     }
 
     @Override
-    public void showSharePopUp(String title) {
-        showPopUp("/View/FXML/shareProjectPopUp.fxml", String.format("Share %s", title));
+    public void showSharePopUp(Project project) {
+        showPopUp("/View/FXML/shareProjectPopUp.fxml", String.format("Share %s", project.getTitle()));
+        currentTreatedProject = project;
     }
 
     @Override
-    public void showRenamePopUp(String title) {
-        showPopUp("/View/FXML/renameProjectPopUp.fxml", String.format("Rename %s", title));
+    public void showRenamePopUp(Project project) {
+        showPopUp("/View/FXML/renameProjectPopUp.fxml", String.format("Rename %s", project.getTitle()));
+        currentTreatedProject = project;
     }
 
     @Override
@@ -111,6 +114,12 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
             e.printStackTrace();
             e.getCause().printStackTrace();
         }
+    }
+
+    @Override
+    public void renameProject(String title) {
+        currentTreatedProject.setTitle(title);
+        controller.refreshProjectTitle(currentTreatedProject, title);
     }
 
     public interface ProjectSelectionControllerListener {
