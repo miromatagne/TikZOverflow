@@ -199,7 +199,7 @@ public class ProjectHandler {
         toWrite+="title:"+project.getTitle()+ENDLINE;
         toWrite+="creation_date:"+new SimpleDateFormat(DATE_FORMAT).format(project.getDate())+ENDLINE;
         toWrite+="modification_date:"+ENDLINE;
-        toWrite+="path:"+ENDLINE;
+        toWrite+="path:"+project.getPath()+ENDLINE;
 
         return toWrite;
     }

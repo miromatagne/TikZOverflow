@@ -59,11 +59,14 @@ public class Session {
         try {
             fileHandler.setupSaveUserDirectory("save user");
             fileHandler.setupSaveProjectDirectory(ProjectHandler.PROJECT_DIRECTORY);
+
             if (!fileHandler.saveUserExists(username)) {
                 return USER_NOT_REGISTERED; //User is not registered
             } else {
                 currentUser = fileHandler.getUserFromSave(username);
+
                 if (password.equals(currentUser.getPassword())) {
+                    newProjectRequest("test", "./Test Project/");
                     return CONNECTION_ESTABLISHED;
                 } else {
                     return INVALID_PASSWORD;
@@ -84,9 +87,13 @@ public class Session {
         try {
             currentProject = projectHandler.createProject(currentUser, path);
             currentProject.setTitle(title);
+            currentUser.getProjectIDs().add(currentProject.getID());
+            fileHandler.makeTexFile(currentUser, "");
         } catch (ProjectCreationException e) {
             e.printStackTrace();
         } catch (DirectoryCreationException e) {
+            e.printStackTrace();
+        } catch (LatexWritingException e) {
             e.printStackTrace();
         }
     }
@@ -160,9 +167,6 @@ public class Session {
         return false;
     }
 
-    public Project getCurrentProject{
-        return currentProject;
-    }
     public User getUser() {
         return currentUser;
     }
@@ -171,4 +175,11 @@ public class Session {
         currentUser = newUser;
     }
 
+    public Project getCurrentProject() {
+        return currentProject;
+    }
+
+    public void setCurrentProject(Project currentProject) {
+        this.currentProject = currentProject;
+    }
 }

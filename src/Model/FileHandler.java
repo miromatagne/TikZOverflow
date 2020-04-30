@@ -6,6 +6,7 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import Controller.Session;
 
 /**
  * This class is used to handle interactions with files. It creates directories and writes the saves
@@ -139,9 +140,8 @@ public class FileHandler {
                 //Error, the file does already exist
                 return;
             }
-            makeTexFile(user, "");
             writeSave(user, saveFile);
-        } catch (LatexWritingException | SaveWritingException e) {
+        } catch (SaveWritingException e) {
             throw new SaveUserCreationException(e);
         }
     }
@@ -157,7 +157,7 @@ public class FileHandler {
     public void makeTexFile(User user, String sourceCode) throws LatexWritingException {
         try {
             setupSaveProjectDirectory(Session.getInstance().getCurrentProject().getPath());
-            File texFile = new File(saveProjectDirectory + user.getUsername() + ".tex");
+            File texFile = new File(saveProjectDirectory + Session.getInstance().getCurrentProject().getTitle() + ".tex");
             if (texFile.exists()) {
                 writeInFile(texFile, sourceCode);
             } else {
@@ -299,7 +299,7 @@ public class FileHandler {
         while ((line = br.readLine()) != null) {
             String[] lineArray = line.split(":");
             if (lineArray[0].equals(flag)) {
-                if (!lineArray[1].equals("")) {
+                if (lineArray.length>1 &&!lineArray[1].equals("")) {
                     return lineArray[1];
                 }
             }

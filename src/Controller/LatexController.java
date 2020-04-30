@@ -49,7 +49,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      */
     public String getTextInFile() throws GetTextInFileException {
         try {
-            String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
+            String filePath = Session.getInstance().getCurrentProject().getPath()+ Session.getInstance().getCurrentProject().getTitle() + ".tex";
             return fileHandler.readInFile(filePath);
         } catch (IOException e) {
             throw new GetTextInFileException(e);
@@ -66,9 +66,9 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     public String compileTikz(String sourceCode) throws TikzCompilationException {
         try {
             saveTikz(sourceCode);
-            String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
+            String filePath = Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".tex";
             LatexCompiler.runProcess(filePath);
-            String pdfPath = "./Latex/out/" + Session.getInstance().getUser().getUsername() + ".pdf";
+            String pdfPath = Session.getInstance().getCurrentProject().getPath()+ Session.getInstance().getCurrentProject().getTitle() + ".pdf";
             createImage(pdfPath);
             fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log", Session.getInstance().getUser().getUsername());
             int errorsCount = fileHandler.getErrorsCounter();
