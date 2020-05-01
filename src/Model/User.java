@@ -13,7 +13,7 @@ public class User {
     private String firstName = "";
     private String password = "";
     private String mail = "";
-    private ArrayList<Integer> projectIDs = new ArrayList<Integer>();
+    private ArrayList<String> projectPaths = new ArrayList<String >();
 
     public String getUsername() {
         return username;
@@ -55,11 +55,11 @@ public class User {
         this.password = password;
     }
 
-    public ArrayList<Integer> getProjectIDs() {
-        return projectIDs;
+    public ArrayList<String> getProjectPaths() {
+        return projectPaths;
     }
 
-    public void setProjectIDs(ArrayList<Integer> projectIDs) {
-        this.projectIDs = projectIDs;
+    public void setProjectPaths(ArrayList<String> projectPaths) {
+        this.projectPaths = projectPaths;
     }
 }

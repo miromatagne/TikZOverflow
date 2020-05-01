@@ -50,10 +50,13 @@ public class ProjectHandler {
      * @return      project created
      * @throws ProjectCreationException if creation failed
      */
-    public Project createProject(User user, String path) throws ProjectCreationException, DirectoryCreationException {
+    public Project createProject(User user, String path,String title) throws ProjectCreationException, DirectoryCreationException {
         try {
-            int id = getNewId();
-            Project project = new Project(id, user.getUsername(), path);
+            String pathProperties = path + title + ".properties";
+            if(isAlreadyProject(pathProperties)) {
+                return null;
+            }
+            Project project = new Project(user.getUsername(), path,title);
             setupProjectDirectory(project.getPath());
             saveProjectInfo(project);
             return project;
@@ -62,6 +65,14 @@ public class ProjectHandler {
         } catch (DirectoryCreationException e) {
             throw new DirectoryCreationException();
         }
+    }
+
+    public boolean isAlreadyProject(String path){
+        File file = new File(path);
+        if(file.exists()){
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -73,7 +84,8 @@ public class ProjectHandler {
     public void saveProjectInfo(Project project) throws ProjectSaveException {
         try {
             String toWrite = generateSaveFromProject(project);
-            writeInFile(new File(generateProjectInfoPath(project.getID())), toWrite);
+            String pathProperties = project.getPath() + project.getTitle() + ".properties";
+            writeInFile(new File(pathProperties), toWrite);
         } catch (IOException e) {
             throw new ProjectSaveException(e);
         }
@@ -93,13 +105,12 @@ public class ProjectHandler {
     /**
      * Load a project based on its id
      *
-     * @param id    id of the project
      * @return      corresponding project
      * @throws ProjectLoadException     if the load failed
      */
-    public Project loadProject(int id) throws ProjectLoadException {
+    public Project loadProject(String path) throws ProjectLoadException {
         try {
-            String saveText = readInFile(new File(generateProjectInfoPath(id)));
+            String saveText = readInFile(new File(path));
             return generateProjectFromSave(saveText);
         } catch (IOException | ProjectFromSaveGenerationException e) {
             throw new ProjectLoadException(e);
@@ -116,8 +127,7 @@ public class ProjectHandler {
      */
     public Project createCopy(Project projectToCopy, User user, String new_path) throws ProjectCopyException, DirectoryCreationException {
         try {
-            Project projectCopy = createProject(user, new_path);
-            projectCopy.setTitle(projectToCopy.getTitle());
+            Project projectCopy = createProject(user, new_path,projectToCopy.getTitle());
             projectCopy.setCode(projectToCopy.getCode());
             return projectCopy;
         } catch (ProjectCreationException e) {
@@ -135,7 +145,8 @@ public class ProjectHandler {
      * @throws ProjectDeletionException if deletion failed
      */
     public void deleteProject(Project project) throws ProjectDeletionException {
-        File file = new File(generateProjectInfoPath(project.getID()));
+        String pathProperties = project.getPath() + project.getTitle() + ".properties";
+        File file = new File(pathProperties);
         if (!file.delete()){
             throw new ProjectDeletionException();
         }
@@ -180,7 +191,7 @@ public class ProjectHandler {
      */
     private String generateSaveFromProject(Project project){
         /* PROJECT INFO FILE FORMAT
-        id:
+        title:
         creator:
         collaborators:c1,c2,c3,...
         title:
@@ -190,13 +201,11 @@ public class ProjectHandler {
          */
         String toWrite = "";
         final String ENDLINE = "\n";
-
-        toWrite+= "id:"+project.getID()+ENDLINE;
+        toWrite+="title:"+project.getTitle()+ENDLINE;
         toWrite+= "creator:"+project.getCreatorUsername()+ENDLINE;
-        toWrite+= "collaborators:";
+        toWrite+= "collaborators:" + " ";
         String collaborators = project.getCollaboratorsUsernames().stream().collect(Collectors.joining(", "));
         toWrite+=collaborators+ENDLINE;
-        toWrite+="title:"+project.getTitle()+ENDLINE;
         toWrite+="creation_date:"+new SimpleDateFormat(DATE_FORMAT).format(project.getDate())+ENDLINE;
         toWrite+="modification_date:"+ENDLINE;
         toWrite+="path:"+project.getPath()+ENDLINE;
@@ -213,30 +222,26 @@ public class ProjectHandler {
      */
     private Project generateProjectFromSave(String saveText) throws ProjectFromSaveGenerationException {
         /* PROJECT INFO FILE FORMAT
-        id:
+        title:
         creator:
         collaborators:c1,c2,c3,...
-        title:
         creation_date:
         modification_date: TODO
         path:
          */
         try {
             String[] allLines = saveText.split("\n");
-            String idString = allLines[0].split("id:")[1];
+            String title = allLines[0].split("title:")[1];
             String creatorUsername = allLines[1].split("creator:")[1];
-            //collaborators
-            ArrayList<String> collaboratorsUsernames = (ArrayList<String>) Arrays.asList(allLines[2].split("collaborators:")[1].split(","));
-            String title = allLines[3].split("title:")[1];
-            String dateString = allLines[4].split("creation_date:")[1];
+            //collaborators //TODO : collab quand champ vide => array de taille null => que faire ?
+            //ArrayList<String> collaboratorsUsernames = (ArrayList<String>) Arrays.asList(allLines[2].split("collaborators:")[1].split(","));
+            String dateString = allLines[3].split("creation_date:")[1];
             //TODO : modification date
-            String path = allLines[6].split("path:")[1];
-
-            int id = Integer.parseInt(idString);
+            String path = allLines[5].split("path:")[1];
             SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT);
             Date date = dateFormatter.parse(dateString);
-            return new Project(id, creatorUsername,
-                    title, date, collaboratorsUsernames, path);
+            return new Project(creatorUsername,
+                    title, date, new ArrayList<String>(), path);
         } catch (ParseException e) {
             throw new ProjectFromSaveGenerationException(e);
         }

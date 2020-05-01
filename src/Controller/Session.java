@@ -7,7 +7,6 @@ import Model.Project;
 import Model.ProjectHandler;
 import Model.User;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -19,6 +18,7 @@ public class Session {
     public static final int CONNECTION_ESTABLISHED = 0;
     public static final int USER_NOT_REGISTERED = -1;
     public static final int INVALID_PASSWORD = -2;
+    private static final int IMPOSSIBLE_TO_CREATE_PROJECT = -3;
     private User currentUser = null;
     private Project currentProject = null;
     private FileHandler fileHandler;
@@ -66,7 +66,19 @@ public class Session {
                 currentUser = fileHandler.getUserFromSave(username);
 
                 if (password.equals(currentUser.getPassword())) {
-                    newProjectRequest("test", "./TestProject/");
+
+                    if(currentUser.getProjectPaths().size() == 0) {
+                        System.out.println("wesh");
+                        newProjectRequest("test", "./TestProject/");
+                    }
+                    else {
+                        try {
+                            System.out.println("yosh");
+                            currentProject = projectHandler.loadProject(currentUser.getProjectPaths().get(0));
+                        } catch (ProjectLoadException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     return CONNECTION_ESTABLISHED;
                 } else {
                     return INVALID_PASSWORD;
@@ -85,15 +97,20 @@ public class Session {
      */
     public void newProjectRequest(String title, String path){
         try {
-            currentProject = projectHandler.createProject(currentUser, path);
-            currentProject.setTitle(title);
-            currentUser.getProjectIDs().add(currentProject.getID());
-            fileHandler.makeTexFile(currentUser, "");
+            currentProject = projectHandler.createProject(currentUser, path,title);
+            if(currentProject != null) {
+                String pathProperties = path + title + ".properties";
+                currentUser.getProjectPaths().add(pathProperties);
+                fileHandler.saveUser(currentUser);
+                fileHandler.makeTexFile(currentUser, "");
+            }
         } catch (ProjectCreationException e) {
             e.printStackTrace();
         } catch (DirectoryCreationException e) {
             e.printStackTrace();
         } catch (LatexWritingException e) {
+            e.printStackTrace();
+        } catch(SaveUserException e){
             e.printStackTrace();
         }
     }
@@ -114,10 +131,10 @@ public class Session {
      */
     public ArrayList<Project> getUserProjects(){
         ArrayList<Project> userProjects = new ArrayList<Project>();
-        for(int id: currentUser.getProjectIDs()){
+        for(String p:currentUser.getProjectPaths()){
             try {
-                Project p = projectHandler.loadProject(id);
-                userProjects.add(p);
+                Project project = projectHandler.loadProject(p);
+                userProjects.add(project);
             } catch (ProjectLoadException e) {
                 e.printStackTrace();
             }

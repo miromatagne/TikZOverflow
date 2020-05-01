@@ -1,5 +1,5 @@
 package Model;
-
+/*
 import Model.Exceptions.*;
 import org.junit.jupiter.api.Test;
 
@@ -7,11 +7,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 
 import static org.junit.jupiter.api.Assertions.*;
-/*
 public class TestProjectHandler {
 
     @Test
-    public void creation() throws ProjectCreationException {
+    public void creation() throws ProjectCreationException, DirectoryCreationException {
 
         ProjectHandler projectHandler = new ProjectHandler();
 
@@ -23,10 +22,10 @@ public class TestProjectHandler {
         User user2 = new User();
         user2.setUsername("User2");
 
-        Project project = projectHandler.createProject(user1);
+        Project project = projectHandler.createProject(user1, "User/Project");
 
         //Check of the default title
-        assertEquals("Unnamed",project.getTitle());
+        assertEquals("Unnamed", project.getTitle());
 
         //Information setup
 
@@ -35,20 +34,19 @@ public class TestProjectHandler {
         project.setCode("code");
 
         //Check of the setup
-        assertEquals(0 ,project.getID());
-        assertEquals("Premier projet",project.getTitle());
-        assertEquals("User1",project.getCreatorUsername());
-        assertEquals("User2",project.getCollaboratorsUsernames().get(0));
-        assertEquals("code",project.getCode());
-
+        assertEquals(0, project.getID());
+        assertEquals("Premier projet", project.getTitle());
+        assertEquals("User1", project.getCreatorUsername());
+        assertEquals("User2", project.getCollaboratorsUsernames().get(0));
+        assertEquals("code", project.getCode());
     }
 
     @Test
-    public void copy() throws ProjectCreationException, ProjectCopyException {
+    public void copy() throws ProjectCreationException, ProjectCopyException, DirectoryCreationException {
 
         ProjectHandler projectHandler = new ProjectHandler();
         User user1 = new User();
-        Project project1 = projectHandler.createProject(user1);
+        Project project1 = projectHandler.createProject(user1, "User/Project");
         project1.setTitle("Project number 1");
         project1.setCode("code number 1");
 
@@ -56,32 +54,31 @@ public class TestProjectHandler {
         user2.setUsername("User2");
         project1.addCollaborator(user2.getUsername());
 
-        Project project2 = projectHandler.createCopy(project1, user2);
+        Project project2 = projectHandler.createCopy(project1, user2, "User/Project");
 
         assertEquals("Project number 1", project2.getTitle());
         assertEquals("code number 1", project2.getCode());
         assertEquals("User2", project2.getCreatorUsername());
-
     }
 
     @Test
-    void delete() throws ProjectCreationException, ProjectDeletionException {
+    void delete() throws ProjectCreationException, ProjectDeletionException, DirectoryCreationException {
         ProjectHandler projectHandler = new ProjectHandler();
         User user1 = new User();
         User user2 = new User();
-        Project project1 = projectHandler.createProject(user1);
-        projectHandler.createProject(user2);
+        Project project1 = projectHandler.createProject(user1,"User/Project");
+        projectHandler.createProject(user2,"User/Project");
 
         projectHandler.deleteProject(project1);
     }
 
     @Test
-    void share() throws ProjectCreationException {
+    void share() throws ProjectCreationException, DirectoryCreationException {
         ProjectHandler projectHandler = new ProjectHandler();
         User user1 = new User();
         User user2 = new User();
         user2.setUsername("User2");
-        Project project1 = projectHandler.createProject(user1);
+        Project project1 = projectHandler.createProject(user1,"User/Project");
         projectHandler.shareProject(project1, user2);
 
         assertEquals("User2", project1.getCollaboratorsUsernames().get(0));
@@ -89,11 +86,11 @@ public class TestProjectHandler {
     }
 
     @Test
-    void save() throws ProjectCreationException, ProjectSaveException, FileHandlerConstructorException, IOException {
-        ProjectHandler projectHandler = ProjectHandler.getInstance();
+    void save() throws ProjectCreationException, ProjectSaveException, FileHandlerConstructorException, IOException, DirectoryCreationException {
+        ProjectHandler projectHandler = new ProjectHandler();
         User user1 = new User();
         user1.setUsername("User1");
-        Project project1 = projectHandler.createProject(user1);
+        Project project1 = projectHandler.createProject(user1,"User/Project");
 
         project1.setCode("Hello World");
         project1.setTitle("Mon projet");
@@ -121,12 +118,12 @@ public class TestProjectHandler {
     }
 
     @Test
-    void load() throws ProjectCreationException, ProjectLoadException, ProjectSaveException {
-        ProjectHandler projectHandler = ProjectHandler.getInstance();
+    void load() throws ProjectCreationException, ProjectLoadException, ProjectSaveException, DirectoryCreationException {
+        ProjectHandler projectHandler = new ProjectHandler();
         User user = new User();
         user.setUsername("Createur");
 
-        Project project  = projectHandler.createProject(user);
+        Project project  = projectHandler.createProject(user,"User/Project");
         project.setTitle("Mon projet 1");
         project.setCode("HELLO WORLD");
 
@@ -141,11 +138,11 @@ public class TestProjectHandler {
     }
 
     @Test
-    void rename() throws ProjectCreationException {
-        ProjectHandler projectHandler = ProjectHandler.getInstance();
+    void rename() throws ProjectCreationException, DirectoryCreationException {
+        ProjectHandler projectHandler = new ProjectHandler();
         User user = new User();
         user.setUsername("Createur");
-        Project project = projectHandler.createProject(user);
+        Project project = projectHandler.createProject(user,"User/Project");
         project.setTitle("Title number 1");
         projectHandler.renameProject(project, "New number 1");
 
@@ -153,5 +150,4 @@ public class TestProjectHandler {
     }
 
 
-}
-*/
+}*/

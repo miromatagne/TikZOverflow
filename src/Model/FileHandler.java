@@ -4,10 +4,9 @@ import Controller.Session;
 import Model.Exceptions.*;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.stream.Collectors;
-import Controller.Session;
 
 /**
  * This class is used to handle interactions with files. It creates directories and writes the saves
@@ -117,11 +116,8 @@ public class FileHandler {
         text += "username:" + user.getUsername() + "\n";
         text += "mail:" + user.getMail() + "\n";
         text += "password:" + user.getPassword() + "\n";
-        ArrayList<String> projectIDs = new ArrayList<String>();
-        for(int id : user.getProjectIDs()){
-            projectIDs.add(Integer.toString(id));
-        }
-        text += "projects:" + projectIDs.stream().collect(Collectors.joining(", ")) + "\n";
+        ArrayList<String> projectPaths = user.getProjectPaths();
+        text += "projects:" + projectPaths.stream().collect(Collectors.joining(", ")) + "\n";
         return text;
     }
 
@@ -265,7 +261,7 @@ public class FileHandler {
             setUserFirstName(file, user);
             setUserMail(file, user);
             setUserPassword(file, user);
-            setUserProjectIDs(file, user);
+            setUserProjectPaths(file, user);
             return user;
         } catch (IOException e) {
             throw new UserFromSaveCreationException(e);
@@ -331,15 +327,15 @@ public class FileHandler {
      * @param user User whose projects are set
      * @throws IOException if any IO error interaction occurs
      */
-    private void setUserProjectIDs(File file, User user) throws IOException {
+    private void setUserProjectPaths(File file, User user) throws IOException {
         String temp;
         if (!(temp = getInformation(file, "projects")).equals("")) {
-            String[] projectIDArray = temp.split(",");
-            ArrayList<Integer> projectIDs = new ArrayList<Integer>();
-            for(String p : projectIDArray){
-                projectIDs.add(Integer.parseInt(p));
+            String[] projectPathArray = temp.split(",");
+            ArrayList<String> projectPaths = new ArrayList<>();
+            for(String s:projectPathArray){
+                projectPaths.add(s);
             }
-            user.setProjectIDs(projectIDs);
+            user.setProjectPaths(projectPaths);
         }
     }
 
