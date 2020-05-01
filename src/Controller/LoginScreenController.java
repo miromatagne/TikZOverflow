@@ -91,6 +91,7 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
             System.err.println("Error while opening a session");
             e.printStackTrace();
             e.getCause().printStackTrace();
+            // @FPL : allez vers la vue...
         }
     }
 

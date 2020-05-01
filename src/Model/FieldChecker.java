@@ -7,7 +7,6 @@ import java.util.HashSet;
  */
 
 public class FieldChecker {
-
     final HashSet<Character> userCharCollection = new HashSet<>();
     final HashSet<Character> alphaCharCollection = new HashSet<>();
     final HashSet<Character> numericCharCollection = new HashSet<>();
@@ -21,6 +20,7 @@ public class FieldChecker {
      * Setup the FieldChecker object by initializing char collections
      */
     public void setupFieldChecker() {
+        //@FPL: utilisez des expressions régulières, ce sera plus lisible et maintenable
         for (int i = 48; i < 127; i++) { //ASCII TABLE
             if (i < 58) { //0-9
                 userCharCollection.add((char) i);
