@@ -215,6 +215,11 @@
       <compilerarg line="${compiler.args.tikzoverflow}"/>
       <bootclasspath refid="tikzoverflow.module.bootclasspath"/>
       <classpath refid="tikzoverflow.module.production.classpath"/>
+      <classpath>
+        <pathelement path="lib/commons-logging-1.2.jar"/>
+        <pathelement path="lib/fontbox-2.0.19.jar"/>
+        <pathelement path="lib/pdfbox-app-2.0.19.jar"/>
+      </classpath>
       <src refid="tikzoverflow.module.sourcepath"/>
       <patternset refid="excluded.from.compilation.tikzoverflow"/>
     </javac>
@@ -261,10 +266,10 @@
   <target name="init.artifacts">
     <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
     <property name="artifact.output.g08-iteration-1" value="${basedir}/out/artifacts/g08_iteration_1"/>
-    <property name="artifact.output.tikzoverflow:jar" value="${basedir}/out/artifacts/TikZOverflow_jar"/>
+    <property name="artifact.output.tikzoverflow:jar" value="${basedir}/dist"/>
     <mkdir dir="${artifacts.temp.dir}"/>
     <property name="temp.jar.path.g08-iteration-1.jar" value="${artifacts.temp.dir}/g08-iteration-1.jar"/>
-    <property name="temp.jar.path.TikZOverflow.jar" value="${artifacts.temp.dir}/TikZOverflow.jar"/>
+    <property name="temp.jar.path.TikZOverflow.jar" value="${artifacts.temp.dir}/TikZOverflow-latest.jar"/>
   </target>
   
   <target name="artifact.g08-iteration-1" depends="init.artifacts" description="Build &#39;g08-iteration-1&#39; artifact">
@@ -273,7 +278,7 @@
     <jar destfile="${temp.jar.path.g08-iteration-1.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
       <zipfileset dir="out"/>
     </jar>
-    <copy file="${temp.jar.path.g08-iteration-1.jar}" tofile="${artifact.temp.output.g08-iteration-1}/g08-iteration-1.jar"/>
+    <copy file="${temp.jar.path.g08-iteration-1.jar}" tofile="${artifact.temp.output.g08-iteration-1}/g08-latest.jar"/>
   </target>
   
   <target name="artifact.tikzoverflow:jar" depends="init.artifacts, compile.module.tikzoverflow" description="Build &#39;TikZOverflow:jar&#39; artifact">
