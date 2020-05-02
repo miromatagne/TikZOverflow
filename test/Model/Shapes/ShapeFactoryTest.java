@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import static Model.Shapes.ShapeFactory.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class TestShapeFactory {
+class ShapeFactoryTest {
 
     final static int RECTANGLE = 0;
     final static int CIRCLE = 1;

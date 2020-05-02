@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestProjectHandler {
+public class ProjectHandlerTest {
 
     @Test
     public void creation() throws ProjectCreationException {

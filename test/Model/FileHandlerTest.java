@@ -10,7 +10,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TestFileHandler {
+class FileHandlerTest {
 
     @Test
     public void test() throws UserFromSaveCreationException, FileHandlerConstructorException, SaveUserCreationException, SaveUserException, IOException {
