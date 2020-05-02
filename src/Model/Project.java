@@ -62,7 +62,9 @@ public class Project {
     }
 
     public void addCollaborator(String newCollaboratorUsername){
-        collaboratorsUsernames.add(newCollaboratorUsername);
+        if(!collaboratorsUsernames.contains(newCollaboratorUsername)) {
+            collaboratorsUsernames.add(newCollaboratorUsername);
+        }
     }
 
     public String getTitle() {

@@ -32,7 +32,7 @@ public class ProjectHandler {
      * @return      project created
      * @throws ProjectCreationException if creation failed
      */
-    public Project createProject(User user, String path,String title) throws ProjectCreationException, DirectoryCreationException {
+    public Project createProject(User user, String path,String title) throws ProjectCreationException, DirectoryCreationException, ProjectAlreadyExistsException {
         try {
             Project project = new Project(user.getUsername(), path,title);
             setupProjectDirectory(project.getPath());
@@ -45,14 +45,6 @@ public class ProjectHandler {
         }
     }
 
-    public boolean isAlreadyProject(String path){
-        File file = new File(path);
-        if(file.exists()){
-            return true;
-        }
-        return false;
-    }
-
     /**
      * Save a project
      *
@@ -62,7 +54,7 @@ public class ProjectHandler {
     public void saveProjectInfo(Project project) throws ProjectSaveException {
         try {
             String toWrite = generateSaveFromProject(project);
-            String pathProperties = project.getPath() + "project.properties";
+            String pathProperties = project.getPath() + File.separator +"project.properties";
             writeInFile(new File(pathProperties), toWrite);
         } catch (IOException e) {
             throw new ProjectSaveException(e);
@@ -70,12 +62,16 @@ public class ProjectHandler {
 
     }
 
-    private void setupProjectDirectory(String path) throws DirectoryCreationException {
-        File file = new File(path);
-        if (file.exists() && file.isDirectory()) {
+    private void setupProjectDirectory(String path) throws DirectoryCreationException, ProjectAlreadyExistsException {
+        File file = new File(path+File.separator+"project.properties");
+        if (file.exists()) { //Project with the same path already exists
+            throw new ProjectAlreadyExistsException();
+        }
+        file = new File(path);
+        if(file.exists() && file.isDirectory()){ //Path given does not contain project.properties file
             return;
         }
-        if (!file.mkdir()) {
+        if (!file.mkdirs()) { //Path given is not a directory yet so we create it
             throw new DirectoryCreationException();
         }
     }
@@ -88,8 +84,8 @@ public class ProjectHandler {
      */
     public Project loadProject(String path) throws ProjectLoadException {
         try {
-            String saveText = readInFile(new File(path + "project.properties"));
-            return generateProjectFromSave(saveText);
+            String saveText = readInFile(new File(path + File.separator+"project.properties"));
+            return generateProjectFromSave(saveText, path);
         } catch (IOException | ProjectFromSaveGenerationException e) {
             throw new ProjectLoadException(e);
         }
@@ -103,7 +99,7 @@ public class ProjectHandler {
      * @return                  copy of the project
      * @throws ProjectCopyException     if copy failed
      */
-    public Project createCopy(Project projectToCopy, User user, String new_path) throws ProjectCopyException, DirectoryCreationException {
+    public Project createCopy(Project projectToCopy, User user, String new_path) throws ProjectCopyException, DirectoryCreationException, ProjectAlreadyExistsException {
         try {
             Project projectCopy = createProject(user, new_path,projectToCopy.getTitle());
             projectCopy.setCode(projectToCopy.getCode());
@@ -123,7 +119,7 @@ public class ProjectHandler {
      * @throws ProjectDeletionException if deletion failed
      */
     public void deleteProject(Project project) throws ProjectDeletionException {
-        String pathProperties = project.getPath() + project.getTitle() + ".properties";
+        String pathProperties = project.getPath() + File.separator+ "project.properties";
         File file = new File(pathProperties);
         if (!file.delete()){
             throw new ProjectDeletionException();
@@ -164,19 +160,18 @@ public class ProjectHandler {
         collaborators:c1,c2,c3,...
         title:
         creation_date:
-        modification_date: TODO
+        modification_date:
         path:
          */
         String toWrite = "";
         final String ENDLINE = "\n";
         toWrite+="title:"+project.getTitle()+ENDLINE;
         toWrite+= "creator:"+project.getCreatorUsername()+ENDLINE;
-        toWrite+= "collaborators:" + " ";
-        String collaborators = project.getCollaboratorsUsernames().stream().collect(Collectors.joining(", "));
+        toWrite+= "collaborators:";
+        String collaborators = String.join(", ", project.getCollaboratorsUsernames());
         toWrite+=collaborators+ENDLINE;
         toWrite+="creation_date:"+new SimpleDateFormat(DATE_FORMAT).format(project.getDate())+ENDLINE;
-        toWrite+="modification_date:"+ENDLINE;
-        toWrite+="path:"+project.getPath()+ENDLINE;
+        toWrite+="modification_date:"+new SimpleDateFormat(DATE_FORMAT).format(new Date())+ENDLINE;
 
         return toWrite;
     }
@@ -185,31 +180,34 @@ public class ProjectHandler {
      * Generate the project from a text save
      *
      * @param saveText  content of the save
+     * @param path      path to the project directory
      * @return project created
      * @throws ProjectFromSaveGenerationException if the parsing for the date failed
      */
-    private Project generateProjectFromSave(String saveText) throws ProjectFromSaveGenerationException {
+    private Project generateProjectFromSave(String saveText, String path) throws ProjectFromSaveGenerationException {
         /* PROJECT INFO FILE FORMAT
         title:
         creator:
         collaborators:c1,c2,c3,...
         creation_date:
-        modification_date: TODO
+        modification_date:
         path:
          */
         try {
             String[] allLines = saveText.split("\n");
             String title = allLines[0].split("title:")[1];
             String creatorUsername = allLines[1].split("creator:")[1];
-            //collaborators //TODO : collab quand champ vide => array de taille null => que faire ?
-            //ArrayList<String> collaboratorsUsernames = (ArrayList<String>) Arrays.asList(allLines[2].split("collaborators:")[1].split(","));
+            ArrayList<String> collaboratorsUsernames = new ArrayList<>();
+            try {
+                collaboratorsUsernames = new ArrayList<>(Arrays.asList(allLines[2].split("collaborators:")[1].split(",")));
+            }catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("Project has no collaborators");
+            }
             String dateString = allLines[3].split("creation_date:")[1];
-            //TODO : modification date
-            String path = allLines[5].split("path:")[1];
             SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT);
             Date date = dateFormatter.parse(dateString);
             return new Project(creatorUsername,
-                    title, date, new ArrayList<String>(), path);
+                    title, date, collaboratorsUsernames, path);
         } catch (ParseException e) {
             throw new ProjectFromSaveGenerationException(e);
         }
@@ -228,6 +226,7 @@ public class ProjectHandler {
         BufferedWriter bw = new BufferedWriter(fw);
         bw.write(text);
         bw.close();
+        fw.close();
     }
 
 
@@ -247,7 +246,8 @@ public class ProjectHandler {
         while ((textToRead = buffer.readLine()) != null) {
             builder.append(textToRead).append("\n");
         }
-
+        buffer.close();
+        reader.close();
         return builder.toString();
     }
 }

@@ -96,7 +96,7 @@ public class FileHandler {
         text += "mail:" + user.getMail() + "\n";
         text += "password:" + user.getPassword() + "\n";
         ArrayList<String> projectPaths = user.getProjectPaths();
-        text += "projects:" + projectPaths.stream().collect(Collectors.joining(", ")) + "\n";
+        text += "projects:" + String.join(", ", projectPaths) + "\n";
         return text;
     }
 
@@ -218,7 +218,8 @@ public class FileHandler {
         while ((textInFile = buffer.readLine()) != null) {
             builder.append(textInFile).append("\n");
         }
-
+        buffer.close();
+        reader.close();
         return builder.toString();
     }
 
@@ -308,10 +309,7 @@ public class FileHandler {
         String temp;
         if (!(temp = getInformation(file, "projects")).equals("")) {
             String[] projectPathArray = temp.split(",");
-            ArrayList<String> projectPaths = new ArrayList<>();
-            for(String s:projectPathArray){
-                projectPaths.add(s);
-            }
+            ArrayList<String> projectPaths = new ArrayList<>(Arrays.asList(projectPathArray));
             user.setProjectPaths(projectPaths);
         }
     }

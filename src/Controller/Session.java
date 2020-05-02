@@ -68,7 +68,11 @@ public class Session {
 
                     if(currentUser.getProjectPaths().size() == 0) {
                         System.out.println("wesh");
-                        newProjectRequest("test", "./TestProject/");
+                        try {
+                            newProjectRequest("test", "./TestProject/");
+                        } catch (ProjectAlreadyExistsException e){ //TODO inform project creation panel
+                            System.out.println("A project properties file already exists -> overwrite ? (to do : inform project creation panel)");
+                        }
                     }
                     else {
                         try {
@@ -94,22 +98,15 @@ public class Session {
      * @param title new project title
      * @param path new project directory path
      */
-    public void newProjectRequest(String title, String path){
+    public void newProjectRequest(String title, String path) throws ProjectAlreadyExistsException{
         try {
             currentProject = projectHandler.createProject(currentUser, path,title);
             if(currentProject != null) {
-                String pathProperties = path + title + "project.properties";
                 currentUser.getProjectPaths().add(path);
                 fileHandler.saveUser(currentUser);
                 fileHandler.makeTexFile("");
             }
-        } catch (ProjectCreationException e) {
-            e.printStackTrace();
-        } catch (DirectoryCreationException e) {
-            e.printStackTrace();
-        } catch (LatexWritingException e) {
-            e.printStackTrace();
-        } catch(SaveUserException e){
+        } catch (ProjectCreationException | DirectoryCreationException | LatexWritingException | SaveUserException e) {
             e.printStackTrace();
         }
     }
@@ -117,7 +114,7 @@ public class Session {
     /**
      * Opens a project
      *
-     * @param project
+     * @param project Project object to open
      */
     public void openProject(Project project){
          this.currentProject = project;
@@ -129,7 +126,7 @@ public class Session {
      * @return ArrayList containing the user's projects
      */
     public ArrayList<Project> getUserProjects(){
-        ArrayList<Project> userProjects = new ArrayList<Project>();
+        ArrayList<Project> userProjects = new ArrayList<>();
         for(String p:currentUser.getProjectPaths()){
             try {
                 Project project = projectHandler.loadProject(p);

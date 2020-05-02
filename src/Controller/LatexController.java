@@ -4,10 +4,8 @@ import Controller.Exceptions.BuildFullCodeFromShapesOnlyException;
 import Controller.Exceptions.GetTextInFileException;
 import Controller.Exceptions.LatexControllerConstructorException;
 import Controller.Exceptions.TikzCompilationException;
+import Model.*;
 import Model.Exceptions.*;
-import Model.FileHandler;
-import Model.LatexCompiler;
-import Model.PDFHandler;
 import View.ViewControllers.MainPageViewController;
 import javafx.scene.image.Image;
 
@@ -24,6 +22,7 @@ import java.util.regex.Pattern;
 public class LatexController implements MainPageViewController.CodeInterfaceListener {
 
     FileHandler fileHandler;
+    ProjectHandler projectHandler;
     private final MainPageViewController mainPageViewController;
 
     /**
@@ -35,6 +34,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     public LatexController(MainPageViewController mainPageViewController) throws LatexControllerConstructorException {
         try {
             this.fileHandler = new FileHandler();
+            this.projectHandler = new ProjectHandler();
             this.mainPageViewController = mainPageViewController;
         } catch (FileHandlerConstructorException e) {
             throw new LatexControllerConstructorException(e);
@@ -110,10 +110,13 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     public void saveTikz(String sourceCode) {
         try {
             fileHandler.makeTexFile(sourceCode);
+            projectHandler.saveProjectInfo(Session.getInstance().getCurrentProject());
         } catch (LatexWritingException e) {
             System.err.println("Error while writing in tex file");
             e.printStackTrace();
             e.getCause().printStackTrace();
+        } catch (ProjectSaveException e) {
+            e.printStackTrace();
         }
     }
 
