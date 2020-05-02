@@ -58,7 +58,6 @@ public class Session {
     public int openSession(String username, String password) throws SessionOpeningException {
         try {
             fileHandler.setupSaveUserDirectory("save user");
-            fileHandler.setupSaveProjectDirectory(ProjectHandler.PROJECT_DIRECTORY);
 
             if (!fileHandler.saveUserExists(username)) {
                 return USER_NOT_REGISTERED; //User is not registered
@@ -99,10 +98,10 @@ public class Session {
         try {
             currentProject = projectHandler.createProject(currentUser, path,title);
             if(currentProject != null) {
-                String pathProperties = path + title + ".properties";
-                currentUser.getProjectPaths().add(pathProperties);
+                String pathProperties = path + title + "project.properties";
+                currentUser.getProjectPaths().add(path);
                 fileHandler.saveUser(currentUser);
-                fileHandler.makeTexFile(currentUser, "");
+                fileHandler.makeTexFile("");
             }
         } catch (ProjectCreationException e) {
             e.printStackTrace();

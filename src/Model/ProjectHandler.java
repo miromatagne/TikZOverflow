@@ -16,11 +16,6 @@ import java.util.stream.Collectors;
  * actions on projects such as copy, deletion, save, share or renaming.
  */
 public class ProjectHandler {
-    /**
-     * Single instance : singleton
-     */
-    private int idCounter;
-    public final static String PROJECT_DIRECTORY = "projects";
     public final static String DATE_FORMAT = "E dd-MM-yyyy HH:mm:ss";
 
     /**
@@ -28,19 +23,6 @@ public class ProjectHandler {
      */
     public ProjectHandler(){
 
-    }
-
-
-    /**
-     * Get a new id (unique identifier)
-     *
-     * @return      new id
-     */
-    private int getNewId() {
-        /*
-        We have to find a way to generate a unique id and not forget to take in account deletions
-         */
-        return idCounter++;
     }
 
     /**
@@ -52,10 +34,6 @@ public class ProjectHandler {
      */
     public Project createProject(User user, String path,String title) throws ProjectCreationException, DirectoryCreationException {
         try {
-            String pathProperties = path + title + ".properties";
-            if(isAlreadyProject(pathProperties)) {
-                return null;
-            }
             Project project = new Project(user.getUsername(), path,title);
             setupProjectDirectory(project.getPath());
             saveProjectInfo(project);
@@ -84,7 +62,7 @@ public class ProjectHandler {
     public void saveProjectInfo(Project project) throws ProjectSaveException {
         try {
             String toWrite = generateSaveFromProject(project);
-            String pathProperties = project.getPath() + project.getTitle() + ".properties";
+            String pathProperties = project.getPath() + "project.properties";
             writeInFile(new File(pathProperties), toWrite);
         } catch (IOException e) {
             throw new ProjectSaveException(e);
@@ -103,14 +81,14 @@ public class ProjectHandler {
     }
 
     /**
-     * Load a project based on its id
+     * Load a project based on its path
      *
-     * @return      corresponding project
+     * @return corresponding project
      * @throws ProjectLoadException     if the load failed
      */
     public Project loadProject(String path) throws ProjectLoadException {
         try {
-            String saveText = readInFile(new File(path));
+            String saveText = readInFile(new File(path + "project.properties"));
             return generateProjectFromSave(saveText);
         } catch (IOException | ProjectFromSaveGenerationException e) {
             throw new ProjectLoadException(e);
@@ -171,16 +149,6 @@ public class ProjectHandler {
      */
     public void renameProject(Project project, String newTitle) {
         project.setTitle(newTitle);
-    }
-
-    /**
-     * Generate the path to the project based on its id
-     *
-     * @param id    project id
-     * @return      path
-     */
-    private String generateProjectInfoPath(int id) {
-        return PROJECT_DIRECTORY+"/"+id;
     }
 
     /**

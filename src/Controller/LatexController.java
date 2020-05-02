@@ -109,7 +109,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      */
     public void saveTikz(String sourceCode) {
         try {
-            fileHandler.makeTexFile(Session.getInstance().getUser(), sourceCode);
+            fileHandler.makeTexFile(sourceCode);
         } catch (LatexWritingException e) {
             System.err.println("Error while writing in tex file");
             e.printStackTrace();

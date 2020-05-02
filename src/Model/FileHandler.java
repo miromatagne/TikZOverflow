@@ -18,7 +18,6 @@ public class FileHandler {
     private static int ERRORS_COUNTER = 0;
     private static String ERRORS = "";
     private String saveUserDirectory = "";
-    private String saveProjectDirectory = "";
     private final String saveUserFormat = ".txt";
 
     /**
@@ -62,26 +61,6 @@ public class FileHandler {
             }
             this.saveUserDirectory = saveUserDirectory;
             File file = new File(saveUserDirectory);
-            checkAndCreateSaveDirectory(file);
-        } catch (DirectoryCreationException e) {
-            throw new SetupDirectoryException(e);
-        }
-    }
-
-    /**
-     * Setups the directory for projects' saves
-     *
-     * @param saveProjectDirectory Path to the directory projects's saves
-     * @throws SetupDirectoryException if setup failed
-     */
-
-    public void setupSaveProjectDirectory(String saveProjectDirectory) throws SetupDirectoryException {
-        try {
-            if (saveProjectDirectory.equals("")) {
-                return;
-            }
-            this.saveProjectDirectory = saveProjectDirectory;
-            File file = new File(saveProjectDirectory);
             checkAndCreateSaveDirectory(file);
         } catch (DirectoryCreationException e) {
             throw new SetupDirectoryException(e);
@@ -147,14 +126,12 @@ public class FileHandler {
      * Creates a .tex file for every new user, and updates it with the new source code
      * when compiling.
      *
-     * @param user       User for whom the .tex file will be created/updated
      * @param sourceCode String from the compiling text area
      * @throws LatexWritingException when the text has not be written successfully in the tex file
      */
-    public void makeTexFile(User user, String sourceCode) throws LatexWritingException {
+    public void makeTexFile(String sourceCode) throws LatexWritingException {
         try {
-            setupSaveProjectDirectory(Session.getInstance().getCurrentProject().getPath());
-            File texFile = new File(saveProjectDirectory + Session.getInstance().getCurrentProject().getTitle() + ".tex");
+            File texFile = new File(Session.getInstance().getCurrentProject().getPath()+ Session.getInstance().getCurrentProject().getTitle() + ".tex");
             if (texFile.exists()) {
                 writeInFile(texFile, sourceCode);
             } else {
@@ -167,7 +144,7 @@ public class FileHandler {
                 }
                 writeInFile(texFile, text);
             }
-        } catch (IOException | SetupDirectoryException e) {
+        } catch (IOException e) {
             throw new LatexWritingException(e);
         }
     }
