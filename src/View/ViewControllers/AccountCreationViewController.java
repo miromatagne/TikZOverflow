@@ -54,7 +54,6 @@ public class AccountCreationViewController extends AccountViewController {
     }
 
 
-
     /**
      * Brings the user back to login screen.
      */
