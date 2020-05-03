@@ -58,7 +58,7 @@
   <property environment="env"/>
   <property name="jdk.bin.11" value="${env.JAVA_HOME}/bin"/>
   <path id="jdk.classpath.11">
-    <fileset dir="${jdk.home.11}">
+    <fileset dir="${env.JAVA_HOME}">
       <include name="../jbr!/java.base"/>
       <include name="../jbr!/java.compiler"/>
       <include name="../jbr!/java.datatransfer"/>
@@ -127,7 +127,7 @@
     </fileset>
   </path>
   
-  <property name="project.jdk.home" value="${jdk.home.11}"/>
+  <property name="project.jdk.home" value="${env.JAVA_HOME}"/>
   <property name="project.jdk.bin" value="${jdk.bin.11}"/>
   <property name="project.jdk.classpath" value="jdk.classpath.11"/>
   
