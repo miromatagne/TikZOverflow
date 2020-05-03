@@ -233,8 +233,12 @@ public class MainPageViewController implements Initializable {
         shapeButtonListener.onButtonPressed();
     }
 
-    public TextArea getCodeInterface() {
-        return codeInterface;
+    /**
+     * Add code to source code interface
+     * @param code code to be added.
+     */
+    public void appendText(String code){
+        codeInterface.appendText(code);
     }
 
     /**
@@ -474,12 +478,20 @@ public class MainPageViewController implements Initializable {
     }
 
 
-    public ImageView getRenderedImageView() {
-        return renderedImageView;
+    public Image getImage(){
+        return renderedImageView.getImage();
     }
 
-    public ScrollPane getImageScrollPane() {
-        return imageScrollPane;
+    public double getImageWidth(){
+        return imageScrollPane.getWidth();
+    }
+
+    public double getImageHeight(){
+        return imageScrollPane.getHeight();
+    }
+
+    public double getImageScrollValue(){
+        return imageScrollPane.getVvalue();
     }
 
     /**

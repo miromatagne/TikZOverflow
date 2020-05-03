@@ -22,6 +22,15 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     private LatexController latexController;
     private Parent root;
 
+    private static final double PDF_WIDTH = 21.4; //Size of pdf in Tikz language
+    private static final double PDF_HEIGHT = 25.7; //Size of pdf in Tikz language
+
+    private static final double X_OFFSET = -1.25; // x = 0.0 in Tikz language
+    private static final double Y_OFFSET = 19.75; // y = 0.0 in Tikz language
+
+    private static final double CORRECTION_FACTOR = 4.0/1415; //Empirical value
+
+
     public MainPageController(Stage stage, MainPageControllerListener listener) {
         this.stage = stage;
         this.listener = listener;
@@ -99,16 +108,9 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
      * @return posXTikz         a float number for Tikz Language
      */
     public float xMouseToPdf(double x) {
-        // @FPL: controller.getImageScrollPane().getWidth() trop lié à la vue
-        // ajouter une méthode controller.getImageWidth() pour être découplé de la vue qui pourrait changer
-        // à appliquer un peu partout
-        double scrollPaneWidth = controller.getImageScrollPane().getWidth();
-        //@FPL: magic numbers => constantes (static final ...)
-        double pdfWidth = 21.4; //Size of pdf in Tikz language
-        double widthConvert = scrollPaneWidth / pdfWidth;
-        //@FPL: magic numbers => constantes (static final ...)
-        double xOffset = -1.25; // x = 0.0 in Tikz language
-        return (float) ((x / widthConvert) + xOffset);
+        double scrollPaneWidth = controller.getImageWidth();
+        double widthConvert = scrollPaneWidth / PDF_WIDTH;
+        return (float) ((x / widthConvert) + X_OFFSET);
     }
 
     /**
@@ -118,29 +120,27 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
      * @return posYTikz         a float number for Tikz language
      */
     public float yMouseToPdf(double y) {
-        double pdfHeight = 25.7; //Size of pdf in Tikz language
-        double yOffset = 19.75; // y = 0.0 in Tikz language
-        double scrollPaneHeight = controller.getImageScrollPane().getHeight();
+        double scrollPaneHeight = controller.getImageHeight();
         double imageMaxHeight = 0;
 
-        Image image = controller.getRenderedImageView().getImage();
+        Image image = controller.getImage();
         if (image != null) {
             double imageWidth = image.getWidth();
             double imageHeight = image.getHeight();
-            imageMaxHeight = (controller.getImageScrollPane().getWidth() / imageWidth) * imageHeight; //Total height of the re-sized image(PDF)
+            imageMaxHeight = (controller.getImageWidth() / imageWidth) * imageHeight; //Total height of the re-sized image(PDF)
         }
 
-        double correctionFactor = 4 * (imageMaxHeight / 1415); //Empirical value
-        double heightConvert = imageMaxHeight / pdfHeight - correctionFactor;
+        double correctionTerm = (imageMaxHeight * CORRECTION_FACTOR);
+        double heightConvert = imageMaxHeight / PDF_HEIGHT - correctionTerm;
         double pdfNotShown = 0;
         if (scrollPaneHeight < imageMaxHeight) {
             pdfNotShown = (imageMaxHeight - scrollPaneHeight);
         }
-        double scroll = controller.getImageScrollPane().getVvalue();
+        double scroll = controller.getImageScrollValue();
 
         float posYTikz = 0;
         if (heightConvert != 0) {
-            posYTikz = (float) (yOffset - (y + (scroll * pdfNotShown)) / heightConvert);
+            posYTikz = (float) (Y_OFFSET - (y + (scroll * pdfNotShown)) / heightConvert);
         }
         return posYTikz;
     }
@@ -154,7 +154,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     @Override
     public void addShapeRequest(Shape shape) {
         String code = shape.generateAndGetTikzCode();
-        controller.getCodeInterface().appendText(code);
+        controller.appendText(code);
     }
 
     @Override
