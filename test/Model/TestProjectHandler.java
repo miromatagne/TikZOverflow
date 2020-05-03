@@ -76,6 +76,7 @@ public class TestProjectHandler {
         projectHandler.deleteProject(project1);
     }
 
+    /*
     @Test
     void share() throws ProjectCreationException, DirectoryCreationException, ProjectAlreadyExistsException, ProjectDeletionException {
         ProjectHandler projectHandler = new ProjectHandler();
@@ -88,7 +89,8 @@ public class TestProjectHandler {
         assertEquals("User2", project1.getCollaboratorsUsernames().get(0));
         projectHandler.deleteProject(project1);
     }
-
+*/
+    /*
     @Test
     void save() throws ProjectCreationException, ProjectSaveException, FileHandlerConstructorException, IOException, DirectoryCreationException, ProjectAlreadyExistsException, ProjectDeletionException {
         ProjectHandler projectHandler = new ProjectHandler();
@@ -118,28 +120,28 @@ public class TestProjectHandler {
 
         assertEquals(contentExpected, fileContent);
         projectHandler.deleteProject(project1);
-    }
+    }*/
 
     @Test
     void load() throws ProjectCreationException, ProjectLoadException, ProjectSaveException, DirectoryCreationException, ProjectAlreadyExistsException, ProjectDeletionException {
         ProjectHandler projectHandler = new ProjectHandler();
         User user = new User();
-        user.setUsername("Createur");
+        user.setUsername("creator");
 
         Project project  = projectHandler.createProject(user,"Test/Project", "TestLoad");
-        project.setTitle("Mon projet 1");
+        project.setTitle("My project 1");
 
         projectHandler.saveProjectInfo(project);
 
         Project loadedProject = projectHandler.loadProject("Test/Project");
 
-        assertEquals("Mon projet 1", loadedProject.getTitle());
-        assertEquals("Createur", loadedProject.getCreatorUsername());
+        assertEquals("My project 1", loadedProject.getTitle());
+        assertEquals("creator", loadedProject.getCreatorUsername());
         assertEquals(project.getDate().toString(), loadedProject.getDate().toString());
-        System.out.println(loadedProject.getPath());
         projectHandler.deleteProject(project);
     }
 
+    /*
     @Test
     void rename() throws ProjectCreationException, DirectoryCreationException, ProjectAlreadyExistsException, ProjectDeletionException {
         ProjectHandler projectHandler = new ProjectHandler();
@@ -152,6 +154,6 @@ public class TestProjectHandler {
         assertEquals("New number 1", project.getTitle());
         projectHandler.deleteProject(project);
     }
-
+*/
 
 }

@@ -7,6 +7,9 @@ import Model.Project;
 import Model.ProjectHandler;
 import Model.User;
 
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -18,7 +21,6 @@ public class Session {
     public static final int CONNECTION_ESTABLISHED = 0;
     public static final int USER_NOT_REGISTERED = -1;
     public static final int INVALID_PASSWORD = -2;
-    private static final int IMPOSSIBLE_TO_CREATE_PROJECT = -3;
     private User currentUser = null;
     private Project currentProject = null;
     private FileHandler fileHandler;
@@ -67,7 +69,6 @@ public class Session {
                 if (password.equals(currentUser.getPassword())) {
 
                     if(currentUser.getProjectPaths().size() == 0) {
-                        System.out.println("wesh");
                         try {
                             newProjectRequest("test", "./TestProject/");
                         } catch (ProjectAlreadyExistsException e){ //TODO inform project creation panel
@@ -76,10 +77,11 @@ public class Session {
                     }
                     else {
                         try {
-                            System.out.println("yosh");
-                            currentProject = projectHandler.loadProject(currentUser.getProjectPaths().get(0));
-                        } catch (ProjectLoadException e) {
+                            loadProjectRequest(currentUser.getProjectPaths().get(0));
+                        } catch (ProjectLoadException e) { //TODO : informe view
                             e.printStackTrace();
+                        } catch (ProjectNotAllowException e){//TODO : informe view
+                            System.out.println("wesh tu peux pas ouvir car il t'appartient pas ");
                         }
                     }
                     return CONNECTION_ESTABLISHED;
@@ -101,23 +103,75 @@ public class Session {
     public void newProjectRequest(String title, String path) throws ProjectAlreadyExistsException{
         try {
             currentProject = projectHandler.createProject(currentUser, path,title);
-            if(currentProject != null) {
-                currentUser.getProjectPaths().add(path);
-                fileHandler.saveUser(currentUser);
-                fileHandler.makeTexFile("");
-            }
+            currentUser.getProjectPaths().add(path);
+            fileHandler.saveUser(currentUser);
+            fileHandler.makeTexFile("");
         } catch (ProjectCreationException | DirectoryCreationException | LatexWritingException | SaveUserException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Opens a project
-     *
-     * @param project Project object to open
-     */
-    public void openProject(Project project){
-         this.currentProject = project;
+    public void loadProjectRequest(String path) throws ProjectLoadException,ProjectNotAllowException{
+        Project loadedProject = projectHandler.loadProject(path);
+        if(currentUser.getUsername().equals(loadedProject.getCreatorUsername()) || loadedProject.getCollaboratorsUsernames().contains(currentUser.getUsername())){
+            currentProject = loadedProject;
+        }
+        else{
+            throw new ProjectNotAllowException();
+        }
+
+    }
+
+    public void copyProjectRequest(Project projectToCopy, User user, String new_path) throws ProjectCopyException, DirectoryCreationException, ProjectAlreadyExistsException{
+        Project copyProject = projectHandler.createCopy(projectToCopy,user,new_path);
+        try {
+            String code = fileHandler.readInFile(projectToCopy.getPath() + File.separator + projectToCopy.getTitle() + ".tex");
+            currentProject = copyProject;
+            fileHandler.makeTexFile(code);
+            user.getProjectPaths().add(new_path);
+            fileHandler.saveUser(user);
+        }catch (IOException | LatexWritingException | SaveUserException e){
+            throw new ProjectCopyException(e);
+        }
+    }
+
+    public void deleteProjectRequest(Project projectToDelete) throws ProjectDeletionException{
+        ArrayList<String> users = projectToDelete.getCollaboratorsUsernames();
+        users.add(projectToDelete.getCreatorUsername());
+        String path = projectToDelete.getPath();
+        projectHandler.deleteProject(projectToDelete);
+
+        try {
+            for (String user : users) {
+                User u = fileHandler.getUserFromSave(user);
+                if (u.getProjectPaths().contains(path)) {
+                    u.getProjectPaths().remove(path);
+                }
+                fileHandler.saveUser(u);
+            }
+        }catch (UserFromSaveCreationException | SaveUserException e){
+            throw new ProjectDeletionException();
+        }
+    }
+
+    public void shareProjectRequest(Project project,User user) throws SaveUserException, ProjectSaveException{
+        project.addCollaborator(user.getUsername());
+        user.getProjectPaths().add(project.getPath());
+        fileHandler.saveUser(user);
+        projectHandler.saveProjectInfo(project);
+    }
+
+    public void renameProject(Project project, String newTitle) throws ProjectRenameException {
+        try {
+            String code = fileHandler.readInFile(project.getPath() + File.separator + project.getTitle() + ".tex");
+
+            project.setTitle(newTitle);
+            projectHandler.saveProjectInfo(project);
+
+            fileHandler.makeTexFile(code);
+        } catch (IOException | LatexWritingException | ProjectSaveException e){
+            throw new ProjectRenameException();
+        }
     }
 
     /**
@@ -145,6 +199,7 @@ public class Session {
      */
     public void logOut() {
         currentUser = null;
+        currentProject = null;
     }
 
     /**

@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 
@@ -102,12 +103,9 @@ public class ProjectHandler {
     public Project createCopy(Project projectToCopy, User user, String new_path) throws ProjectCopyException, DirectoryCreationException, ProjectAlreadyExistsException {
         try {
             Project projectCopy = createProject(user, new_path,projectToCopy.getTitle());
-            projectCopy.setCode(projectToCopy.getCode());
             return projectCopy;
         } catch (ProjectCreationException e) {
             throw new ProjectCopyException(e);
-        } catch (DirectoryCreationException e) {
-            throw new DirectoryCreationException();
         }
     }
 
@@ -124,27 +122,6 @@ public class ProjectHandler {
         if (!file.delete()){
             throw new ProjectDeletionException();
         }
-    }
-
-    /**
-     * Share a project with a given user
-     *
-     * @param project       project to share
-     * @param user          new collaborator to add to the project
-     */
-    public void shareProject(Project project, User user){
-        project.addCollaborator(user.getUsername());
-    }
-
-
-    /**
-     * Rename the project given in parameter
-     *
-     * @param project   project to rename
-     * @param newTitle  new title
-     */
-    public void renameProject(Project project, String newTitle) {
-        project.setTitle(newTitle);
     }
 
     /**
@@ -170,8 +147,8 @@ public class ProjectHandler {
         toWrite+= "collaborators:";
         String collaborators = String.join(", ", project.getCollaboratorsUsernames());
         toWrite+=collaborators+ENDLINE;
-        toWrite+="creation_date:"+new SimpleDateFormat(DATE_FORMAT).format(project.getDate())+ENDLINE;
-        toWrite+="modification_date:"+new SimpleDateFormat(DATE_FORMAT).format(new Date())+ENDLINE;
+        toWrite+="creation_date:"+new SimpleDateFormat(DATE_FORMAT,Locale.ENGLISH).format(project.getDate())+ENDLINE;
+        toWrite+="modification_date:"+new SimpleDateFormat(DATE_FORMAT,Locale.ENGLISH).format(new Date())+ENDLINE;
 
         return toWrite;
     }
@@ -204,7 +181,7 @@ public class ProjectHandler {
                 System.out.println("Project has no collaborators");
             }
             String dateString = allLines[3].split("creation_date:")[1];
-            SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT);
+            SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
             Date date = dateFormatter.parse(dateString);
             return new Project(creatorUsername,
                     title, date, collaboratorsUsernames, path);

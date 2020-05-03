@@ -96,7 +96,7 @@ public class FileHandler {
         text += "mail:" + user.getMail() + "\n";
         text += "password:" + user.getPassword() + "\n";
         ArrayList<String> projectPaths = user.getProjectPaths();
-        text += "projects:" + String.join(", ", projectPaths) + "\n";
+        text += "projects:" + String.join(",", projectPaths) + "\n";
         return text;
     }
 
