@@ -13,13 +13,6 @@ TikZOverflow requires :
 * PDFBox 2.0.19 (and its dependencies) 
 * A LaTeX compiler
 * JUnit 5.4 (to run tests)
-* ant (if you want to compile)
-
-## Compilation
-Run the ant command with the tikzoverflow.xml structure file.
-```
-ant -buildfile tikzoverflow.xml
-```
 
 ### Starting the app
 
