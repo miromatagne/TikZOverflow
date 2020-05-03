@@ -43,11 +43,11 @@ public class AccountModificationViewController extends AccountViewController imp
         passwordField.setText(userCurrent.getPassword());
         passwordConfirmationField.setText("");
 
-        setTextFieldStyle("firstName", "default");
-        setTextFieldStyle("lastName", "default");
-        setTextFieldStyle("email", "default");
-        setTextFieldStyle("password", "default");
-        setTextFieldStyle("passwordConfirmation", "default");
+        setFirstNameFieldStyle(AccountViewController.DEFAULT_STYLE);
+        setLastNameFieldStyle(AccountViewController.DEFAULT_STYLE);
+        setEmailFieldStyle(AccountViewController.DEFAULT_STYLE);
+        setPasswordFieldStyle(AccountViewController.DEFAULT_STYLE);
+        setPasswordConfirmationFieldStyle(AccountViewController.DEFAULT_STYLE);
     }
 
     /**

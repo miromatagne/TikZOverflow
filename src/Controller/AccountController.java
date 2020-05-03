@@ -25,31 +25,31 @@ public abstract class AccountController {
     public boolean validateInformation(AccountViewController controller ,String username, String firstName, String lastName, String email, String password, String passwordConfirmation) {
         FieldChecker fieldChecker = new FieldChecker();
         if (!fieldChecker.isValidUsername(username)) {
-            controller.setTextFieldStyle("username", "red");
+            controller.setUsernameFieldStyle(AccountViewController.ERROR_STYLE);
         } else {
-            controller.setTextFieldStyle("username", "default");
+            controller.setUsernameFieldStyle(AccountViewController.DEFAULT_STYLE);
         }
         if (!fieldChecker.isValidName(firstName)) {
-            controller.setTextFieldStyle("firstName", "red");
+            controller.setFirstNameFieldStyle(AccountViewController.ERROR_STYLE);
         } else {
-            controller.setTextFieldStyle("firstName", "default");
+            controller.setFirstNameFieldStyle(AccountViewController.DEFAULT_STYLE);
         }
         if (!fieldChecker.isValidName(lastName)) {
-            controller.setTextFieldStyle("lastName", "red");
+            controller.setLastNameFieldStyle(AccountViewController.ERROR_STYLE);
         } else {
-            controller.setTextFieldStyle("lastName", "default");
+            controller.setLastNameFieldStyle(AccountViewController.DEFAULT_STYLE);
         }
         if (!fieldChecker.isValidMail(email)) {
-            controller.setTextFieldStyle("email", "red");
+            controller.setEmailFieldStyle(AccountViewController.ERROR_STYLE);
         } else {
-            controller.setTextFieldStyle("email", "default");
+            controller.setEmailFieldStyle(AccountViewController.DEFAULT_STYLE);
         }
         if (!password.equals(passwordConfirmation) || password.equals("")) {
-            controller.setTextFieldStyle("password", "red");
-            controller.setTextFieldStyle("passwordConfirmation", "red");
+            controller.setPasswordFieldStyle(AccountViewController.ERROR_STYLE);
+            controller.setPasswordConfirmationFieldStyle(AccountViewController.ERROR_STYLE);
         } else {
-            controller.setTextFieldStyle("password", "default");
-            controller.setTextFieldStyle("passwordConfirmation", "default");
+            controller.setPasswordFieldStyle(AccountViewController.DEFAULT_STYLE);
+            controller.setPasswordConfirmationFieldStyle(AccountViewController.DEFAULT_STYLE);
         }
 
         return fieldChecker.isValidAccount(username, firstName, lastName, email, password, passwordConfirmation);

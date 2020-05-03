@@ -13,30 +13,60 @@ public abstract class AccountViewController {
     @FXML
     PasswordField passwordField, passwordConfirmationField;
 
+    public static final String DEFAULT_STYLE = "-fx-text-inner-color: black;";
+    public static final String ERROR_STYLE = "-fx-text-inner-color: red; -fx-text-box-border: red;";
+
     /**
-     * Change TextField style. Used when a field is not correct.
-     * @param field Name of the field that must change
-     * @param style New style to be applied. If different from "red",  it's
-     *              considered to be "default".
+     * Change usernameField style. Used when the field switches from valid to invalid and vice-versa.
+     * @param style New style to be applied. Can be "ERROR_STYLE" (highlighted in red), or
+     *              "DEFAULT_STYLE".
      */
-    //@FPL: cette méthode apporte de la vue dans le contrôleur car
-    // le contrôleur va demander "mets en rouge le champs username"
-    // alors qu'il devrait demander "mets en erreur le champs username"
-    // Je sais que c'est minime comme différence mais on replace la responsabilité
-    // de la vue au bon endroit
-    public void setTextFieldStyle(String field, String style){
-        String textFieldStyle = "-fx-text-inner-color: black;";
-        if(style.equals("red")) {
-            textFieldStyle = "-fx-text-inner-color: red; -fx-text-box-border: red;";
-        }
-        switch (field){
-            //@FPL : "magic string" => utilisez des constantes ou des méthodes
-            case "username": usernameField.setStyle(textFieldStyle);break;
-            case "firstName": firstNameField.setStyle(textFieldStyle);break;
-            case "lastName": lastNameField.setStyle(textFieldStyle);break;
-            case "password": passwordField.setStyle(textFieldStyle);break;
-            case "passwordConfirmation": passwordConfirmationField.setStyle(textFieldStyle);break;
-            case "email": emailField.setStyle(textFieldStyle);
-        }
+    public void setUsernameFieldStyle(String style){
+        usernameField.setStyle(style);
+    }
+
+    /**
+     * Change firstNameField style. Used when the field switches from valid to invalid and vice-versa.
+     * @param style New style to be applied. Can be "ERROR_STYLE" (highlighted in red), or
+     *              "DEFAULT_STYLE".
+     */
+    public void setFirstNameFieldStyle(String style){
+        firstNameField.setStyle(style);
+    }
+
+    /**
+     * Change lastNameField style. Used when the field switches from valid to invalid and vice-versa.
+     * @param style New style to be applied. Can be "ERROR_STYLE" (highlighted in red), or
+     *              "DEFAULT_STYLE".
+     */
+    public void setLastNameFieldStyle(String style){
+        lastNameField.setStyle(style);
+    }
+
+    /**
+     * Change passwordField style. Used when the field switches from valid to invalid and vice-versa.
+     * @param style New style to be applied. Can be "ERROR_STYLE" (highlighted in red), or
+     *              "DEFAULT_STYLE".
+     */
+    public void setPasswordFieldStyle(String style){
+        passwordField.setStyle(style);
+    }
+
+    /**
+     * Change passwordConfirmationField style. Used when the field switches from valid to invalid and vice-versa.
+     * @param style New style to be applied. Can be "ERROR_STYLE" (highlighted in red), or
+     *              "DEFAULT_STYLE".
+     */
+    public void setPasswordConfirmationFieldStyle(String style){
+        passwordConfirmationField.setStyle(style);
+    }
+
+    /**
+     * Change emailField style. Used when the field switches from valid to invalid and vice-versa.
+     * @param style New style to be applied. Can be "ERROR_STYLE" (highlighted in red), or
+     *              "DEFAULT_STYLE".
+     */
+    public void setEmailFieldStyle(String style){
+        emailField.setStyle(style);
     }
 }

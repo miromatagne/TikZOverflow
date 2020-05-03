@@ -2,13 +2,9 @@ package View.ViewControllers;
 
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * Handles Login screen interface interactions.
@@ -21,6 +17,9 @@ public class LoginScreenViewController {
     @FXML
     Label signUpLabel;
 
+    public static final String DEFAULT_STYLE = "-fx-text-inner-color: black;";
+    public static final String ERROR_STYLE = "-fx-text-inner-color: red; -fx-text-box-border: red;";
+
     private LoginScreenViewControllerListener listener;
 
 
@@ -32,20 +31,21 @@ public class LoginScreenViewController {
     }
 
     /**
-     * Change TextField style. Used when a field is not correct.
-     * @param field Name of the field that must change
-     * @param style New style to be applied. If different from "red",  it's
-     *              considered to be "default".
+     * Change usernameField style. Used when the field switches from valid to invalid and vice-versa.
+     * @param style New style to be applied. Can be "ERROR_STYLE" (highlighted in red), or
+     *              "DEFAULT_STYLE".
      */
-    public void setTextFieldStyle(String field, String style){
-        String textFieldStyle = "-fx-text-inner-color: black;";
-        if(style.equals("red")) {
-            textFieldStyle = "-fx-text-inner-color: red; -fx-text-box-border: red;";
-        }
-        switch (field){
-            case "username": usernameField.setStyle(textFieldStyle);break;
-            case "password": passwordField.setStyle(textFieldStyle);break;
-        }
+    public void setUsernameFieldStyle(String style){
+        usernameField.setStyle(style);
+    }
+
+    /**
+     * Change passwordField style. Used when the field switches from valid to invalid and vice-versa.
+     * @param style New style to be applied. Can be "ERROR_STYLE" (highlighted in red), or
+     *              "DEFAULT_STYLE".
+     */
+    public void setPasswordFieldStyle(String style){
+        passwordField.setStyle(style);
     }
 
     /**

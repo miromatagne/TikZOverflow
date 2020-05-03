@@ -82,10 +82,10 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
             if (valid == Session.CONNECTION_ESTABLISHED) {
                 listener.onSuccessfulLoginRequest();
             } else if (valid == Session.USER_NOT_REGISTERED) {
-                controller.setTextFieldStyle("username", "red");
+                controller.setUsernameFieldStyle(LoginScreenViewController.ERROR_STYLE);
             } else if (valid == Session.INVALID_PASSWORD) {
-                controller.setTextFieldStyle("password", "red");
-                controller.setTextFieldStyle("username", "default");
+                controller.setPasswordFieldStyle(LoginScreenViewController.ERROR_STYLE);
+                controller.setUsernameFieldStyle(LoginScreenViewController.DEFAULT_STYLE);
             }
         } catch (SessionOpeningException e) {
             System.err.println("Error while opening a session");
