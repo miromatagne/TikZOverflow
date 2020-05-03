@@ -2,6 +2,7 @@ package View.ViewControllers;
 
 import Controller.*;
 import Model.Shapes.Shape;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -43,6 +44,8 @@ public class MainPageViewController implements Initializable {
     private CodeInterfaceListener codeInterfaceListener;
     private AddNewShapeButtonListener shapeButtonListener;
 
+    @FXML
+    private Button changeModeButton;
 
     @FXML
     private Button errorsButton;
@@ -73,6 +76,7 @@ public class MainPageViewController implements Initializable {
     final static int SQUARE = 6;
 
     PredefinedShapesPanelController predefinedShapesPanelController;
+    private boolean rightHandMode = true;
 
     /**
      * Initialization of the region where the names of the added shapes will appear
@@ -281,11 +285,13 @@ public class MainPageViewController implements Initializable {
      * @param button The source of the drag
      */
     private void createDragAndDrop(MouseEvent event, Button button) {
-        Dragboard db = button.startDragAndDrop(TransferMode.ANY);
-        ClipboardContent cb = new ClipboardContent();
-        cb.putString("shapeTransfer");
-        db.setContent(cb);
-        event.consume();
+        if((rightHandMode==true && event.getButton() == MouseButton.PRIMARY) || (rightHandMode==false && event.getButton() == MouseButton.SECONDARY)) {
+            Dragboard db = button.startDragAndDrop(TransferMode.ANY);
+            ClipboardContent cb = new ClipboardContent();
+            cb.putString("shapeTransfer");
+            db.setContent(cb);
+            event.consume();
+        }
 
     }
 
@@ -489,6 +495,21 @@ public class MainPageViewController implements Initializable {
      */
     public void addShape(Shape shape) {
         listener.addShapeRequest(shape);
+    }
+
+    /**
+     * change mode to left-handed or right-handed with the corresponding button
+     * @param actionEvent
+     */
+    public void changeMode(ActionEvent actionEvent) {
+        if(rightHandMode == true){
+            rightHandMode=false;
+            changeModeButton.setText("Left-handed");
+        }
+        else{
+            rightHandMode=true;
+            changeModeButton.setText("Right-handed");
+        }
     }
 
     public interface MainPageViewControllerListener {
