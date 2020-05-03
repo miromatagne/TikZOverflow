@@ -12,7 +12,7 @@ import java.io.File;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class LatexControllerTest {
+class TestLatexController {
 
     @Test
     void getTextInFile() throws LatexControllerConstructorException, GetTextInFileException {
