@@ -70,12 +70,9 @@ public class ProjectSelectionViewController implements Initializable {
         renameColumn.setCellValueFactory(new PropertyValueFactory<>("renameButton"));
         shareColumn.setCellValueFactory(new PropertyValueFactory<>("shareButton"));
         tableView.setItems(data);
-        tableView.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                //TODO : Creer la fonction qui va recuperer le project avec la ligne ci-dessous et se deplacer a l'ecran principal
-                System.out.println(tableView.getSelectionModel().getSelectedItem().getTitle());
-            }
+        tableView.setOnMousePressed(event -> {
+            //TODO : Creer la fonction qui va recuperer le project avec la ligne ci-dessous et se deplacer a l'ecran principal
+            System.out.println(tableView.getSelectionModel().getSelectedItem().getTitle());
         });
     }
 
@@ -130,12 +127,8 @@ public class ProjectSelectionViewController implements Initializable {
 
     public void addProjectToDisplay(ProjectDisplay projectDisplay) {
         data.add(projectDisplay);
-        projectDisplay.getRenameButton().setOnAction(e -> {
-            listener.showRenamePopUp(projectDisplay.getProject());
-        });
-        projectDisplay.getShareButton().setOnAction(e -> {
-            listener.showSharePopUp(projectDisplay.getProject());
-        });
+        projectDisplay.getRenameButton().setOnAction(e -> listener.showRenamePopUp(projectDisplay.getProject()));
+        projectDisplay.getShareButton().setOnAction(e -> listener.showSharePopUp(projectDisplay.getProject()));
     }
 
     public void refreshProjectTitle(Project currentTreatedProject, String title) {
