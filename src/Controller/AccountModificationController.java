@@ -83,8 +83,8 @@ public class AccountModificationController extends AccountController implements 
                 userCurrent.setMail(email);
                 userCurrent.setPassword(password);
                 Session.getInstance().setUser(userCurrent);
-                FileHandler handler = new FileHandler();
-                handler.saveUser(userCurrent);
+                FileHandler fileHandler = new FileHandler();
+                fileHandler.saveUser(userCurrent);
             } catch (SaveUserException e) {
                 System.err.println("Error in saving the user");
                 e.printStackTrace();

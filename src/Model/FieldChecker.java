@@ -1,6 +1,6 @@
 package Model;
 
-import java.util.HashSet;
+
 
 /**
  * This class allows to check different inputs from the user of the application

@@ -83,37 +83,5 @@ public class Session {
         currentUser = null;
     }
 
-    /**
-     * Create an account (a user save) if all the fields are ok
-     *
-     * @param username  username
-     * @param firstName first name
-     * @param lastName  last name
-     * @param mail      mail
-     * @param password  password
-     * @return TRUE if account creation was successful
-     * FALSE otherwise
-     */
-    //@FPL : pas sûr que ce soit la responsabilité de cette classe de faire cette opération
-    public boolean createAccount(String username, String firstName, String lastName,
-                                 String mail, String password) {
-        try {
-            if (fileHandler.saveUserExists(username)) {//User already exists
-                return false;
-            }
-            User newUser = new User();
-            newUser.setUsername(username);
-            newUser.setFirstName(firstName);
-            newUser.setLastName(lastName);
-            newUser.setPassword(password);
-            newUser.setMail(mail);
-            fileHandler.createUserSave(newUser);
-            return true;
-        } catch (SaveUserCreationException e) {
-            System.err.println("Error while creating an account");
-            e.printStackTrace();
-            e.getCause().printStackTrace();
-        }
-        return false;
-    }
+
 }
