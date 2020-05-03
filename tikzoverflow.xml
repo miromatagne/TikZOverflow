@@ -3,6 +3,7 @@
   
   
   <property file="tikzoverflow.properties"/>
+  <property name="path.variable.maven_repository" value="${user.home}/.m2/repository"/>
   <!-- Uncomment the following property if no tests compilation is needed -->
   <!-- 
   <property name="skip.tests" value="true"/>
