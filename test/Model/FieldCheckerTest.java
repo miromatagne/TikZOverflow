@@ -7,69 +7,61 @@ import static org.junit.jupiter.api.Assertions.*;
 class FieldCheckerTest {
 
     @Test
-    void setupFieldChecker() {
-        FieldChecker fc = new FieldChecker();
-        fc.setupFieldChecker();
-        assertTrue(fc.userCharCollection.contains('a'));
-        assertTrue(fc.userCharCollection.contains('0'));
-        assertTrue(fc.userCharCollection.contains('a'));
-        assertTrue(fc.userCharCollection.contains('Z'));
-        assertTrue(fc.userCharCollection.contains('B'));
-        assertFalse(fc.userCharCollection.contains(' '));
-        assertFalse(fc.userCharCollection.contains('*'));
-        assertTrue(fc.alphaCharCollection.contains('Z'));
-        assertTrue(fc.alphaCharCollection.contains('e'));
-        assertFalse(fc.alphaCharCollection.contains('8'));
-        assertFalse(fc.alphaCharCollection.contains('_'));
-        assertFalse(fc.alphaCharCollection.contains(' '));
-        assertTrue(fc.numericCharCollection.contains('0'));
-        assertTrue(fc.numericCharCollection.contains('9'));
-        assertFalse(fc.numericCharCollection.contains('w'));
-    }
-
-    @Test
     void isValidUsername() {
-        FieldChecker fc = new FieldChecker();
-        fc.setupFieldChecker();
-        assertTrue(fc.isValidUsername("ftrouill"));
-        assertTrue(fc.isValidUsername("LeBGdu65"));
-        assertTrue(fc.isValidUsername("Olababy85yo"));
-        assertFalse(fc.isValidUsername("Franck TROUILLEZ"));
-        assertFalse(fc.isValidUsername("Franck?"));
+        FieldChecker fieldChecker = new FieldChecker();
+        assertTrue(fieldChecker.isValidUsername("ftrouill"));
+        assertTrue(fieldChecker.isValidUsername("LeBGdu65"));
+        assertTrue(fieldChecker.isValidUsername("Olababy85yo"));
+        assertFalse(fieldChecker.isValidUsername("Franck TROUILLEZ"));
+        assertFalse(fieldChecker.isValidUsername("Franck?"));
     }
 
     @Test
     void isValidName() {
-        FieldChecker fc = new FieldChecker();
-        fc.setupFieldChecker();
-        assertTrue(fc.isValidName("ftrouill"));
-        assertFalse(fc.isValidName("LeBGdu65"));
-        assertFalse(fc.isValidName("Olababy85yo"));
-        assertTrue(fc.isValidName("Franck TROUILLEZ"));
-        assertTrue(fc.isValidName("Franck-Einstein"));
+        FieldChecker fieldChecker = new FieldChecker();
+        assertTrue(fieldChecker.isValidName("ftrouill"));
+        assertFalse(fieldChecker.isValidName("LeBGdu65"));
+        assertFalse(fieldChecker.isValidName("Olababy85yo"));
+        assertTrue(fieldChecker.isValidName("Franck TROUILLEZ"));
+        assertTrue(fieldChecker.isValidName("Franck-Einstein"));
     }
 
     @Test
     void isValidMail() {
-        FieldChecker fc = new FieldChecker();
-        fc.setupFieldChecker();
-        assertTrue(fc.isValidMail("ftrouill@ulb.ac.be"));
-        assertFalse(fc.isValidMail("ftrouill.ulb.ac.be"));
-        assertFalse(fc.isValidMail("ftrouill@ulb@ac.be"));
-        assertFalse(fc.isValidMail("ftrouill @ulb.ac.be"));
+        FieldChecker fieldChecker = new FieldChecker();
+        assertTrue(fieldChecker.isValidMail("ftrouill@ulb.ac.be"));
+        assertFalse(fieldChecker.isValidMail("ftrouill.ulb.ac.be"));
+        assertFalse(fieldChecker.isValidMail("ftrouill@ulb@ac.be"));
+        assertFalse(fieldChecker.isValidMail("ftrouill @ulb.ac.be"));
+        assertFalse(fieldChecker.isValidMail("ftrouill@ulb"));
+        assertFalse(fieldChecker.isValidMail("ftrouill@ulb."));
+        assertTrue(fieldChecker.isValidMail("ftrouill@ulb.ac"));
+        assertFalse(fieldChecker.isValidMail("ftrouill@ulb.ac."));
     }
 
     @Test
     void isValidNumber() {
-        FieldChecker fc = new FieldChecker();
-        fc.setupFieldChecker();
-        assertTrue(fc.isValidNumber("321.7"));
-        assertTrue(fc.isValidNumber("0.3217"));
-        assertTrue(fc.isValidNumber("3217"));
-        assertFalse(fc.isValidNumber("12."));
-        assertFalse(fc.isValidNumber("a"));
-        assertFalse(fc.isValidNumber(".56"));
-        assertFalse(fc.isValidNumber("0.5.6"));
-        assertFalse(fc.isValidNumber("5.6a"));
+        FieldChecker fieldChecker = new FieldChecker();
+        assertTrue(fieldChecker.isValidNumber("321.7"));
+        assertTrue(fieldChecker.isValidNumber("0.3217"));
+        assertTrue(fieldChecker.isValidNumber("3217"));
+        assertFalse(fieldChecker.isValidNumber("12."));
+        assertFalse(fieldChecker.isValidNumber("a"));
+        assertFalse(fieldChecker.isValidNumber(".56"));
+        assertFalse(fieldChecker.isValidNumber("0.5.6"));
+        assertFalse(fieldChecker.isValidNumber("5.6a"));
+    }
+
+    @Test
+    void isValidAccount() {
+        FieldChecker fieldChecker = new FieldChecker();
+        assertTrue(fieldChecker.isValidAccount("ftrouill12", "Franck", "TROUILLEZ", "ftrouill@ulb.ac.be", "aaaaa", "aaaaa"));
+        assertTrue(fieldChecker.isValidAccount("rtodesco", "Raffaele", "TODESCO", "rtodesco@ulb.ac.be", "rto", "rto"));
+        assertFalse(fieldChecker.isValidAccount("ftrouill   ", "Franck", "TROUILLEZ", "ftrouill@ulb.ac.be", "aaaaa", "aaaaa"));
+        assertFalse(fieldChecker.isValidAccount("ftrouill", "Franck4444", "TROUILLEZ", "ftrouill@ulb.ac.be", "aaaaa", "aaaaa"));
+        assertFalse(fieldChecker.isValidAccount("ftrouill", "Franck", "TROUILLEZ7567", "ftrouill@ulb.ac.be", "aaaaa", "aaaaa"));
+        assertFalse(fieldChecker.isValidAccount("ftrouill", "Franck", "TROUILLEZ", "ftrouill@ulb.ac.", "aaaaa", "aaaaa"));
+        assertFalse(fieldChecker.isValidAccount("ftrouill", "Franck", "TROUILLEZ", "ftrouill@ulb.ac.be", "bbb", "aaaaa"));
+        assertFalse(fieldChecker.isValidAccount("ftrouill", "Franck", "TROUILLEZ", "ftrouill@ulb.ac.be", "bbb", "ccccccc"));
     }
 }
