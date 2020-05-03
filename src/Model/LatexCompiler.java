@@ -9,10 +9,8 @@ import java.io.*;
  */
 public class LatexCompiler {
 
-    //@FPL: pq tout en statique ?
-
     private static final String DEFAULT_OUTPUT_DIRECTORY = "./Latex/out";
-    private static final LatexCompiler compiler;
+    private static LatexCompiler compiler;
 
     static {
         compiler = new LatexCompiler();
@@ -23,7 +21,6 @@ public class LatexCompiler {
 
     }
 
-    // @FPL : ce singleton ne sert à rien car tout est en statique. Remettre alors les méthodes côté instance.
     public static LatexCompiler getInstance() {
         return compiler;
     }
@@ -34,7 +31,7 @@ public class LatexCompiler {
      * @param input The inputstream to clear
      * @throws IOException If the readLine throw an exception, getLines will throw it to an upper function
      */
-    private static void clearStream(InputStream input) throws IOException {
+    private void clearStream(InputStream input) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(input));
         while (true) {
             if ((in.readLine()) == null) {
@@ -51,7 +48,7 @@ public class LatexCompiler {
      * @throws LatexCompilationException Two Exception can be thrown : - The first one if the file is not valid(check isValid())
      *                                   - The second one is if an error occur during the compilation
      */
-    public static void runProcess(String filePath) throws LatexCompilationException {
+    public void runProcess(String filePath) throws LatexCompilationException {
         try {
             String command = "pdflatex -file-line-error -interaction=nonstopmode -synctex=1 " +
                     "-output-format=pdf -output-directory " + DEFAULT_OUTPUT_DIRECTORY + " " + filePath;

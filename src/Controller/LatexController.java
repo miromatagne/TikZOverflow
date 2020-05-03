@@ -70,7 +70,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             // @FPL : plus lisible avec une variable
             String username = Session.getInstance().getUser().getUsername();
             String filePath = "./Latex/" + username + ".tex";
-            LatexCompiler.runProcess(filePath);
+            LatexCompiler.getInstance().runProcess(filePath);
             String pdfPath = "./Latex/out/" + username + ".pdf";
             createImage(pdfPath);
             fileHandler.errorLogs("./Latex/out/" + username + ".log", username);
