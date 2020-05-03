@@ -94,6 +94,7 @@ public class Session {
      * @return TRUE if account creation was successful
      * FALSE otherwise
      */
+    //@FPL : pas sûr que ce soit la responsabilité de cette classe de faire cette opération
     public boolean createAccount(String username, String firstName, String lastName,
                                  String mail, String password) {
         try {

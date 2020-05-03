@@ -9,6 +9,8 @@ import java.io.*;
  */
 public class LatexCompiler {
 
+    //@FPL: pq tout en statique ?
+
     private static final String DEFAULT_OUTPUT_DIRECTORY = "./Latex/out";
     private static final LatexCompiler compiler;
 
@@ -21,6 +23,7 @@ public class LatexCompiler {
 
     }
 
+    // @FPL : ce singleton ne sert à rien car tout est en statique. Remettre alors les méthodes côté instance.
     public static LatexCompiler getInstance() {
         return compiler;
     }

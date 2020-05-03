@@ -7,11 +7,14 @@ import java.io.*;
 /**
  * This class is used to handle interactions with files. It creates directories and writes the saves
  */
-
+//@FPL : cette classe est trop grand car trop de responsabilités: fichiers + user files + log + ...
+    // -> à refactoriser
 public class FileHandler {
 
     private static final String DEFAULT_DIRECTORY = "save user";
+    // @FPL : pourquoi en majuscule et en static ?
     private static int ERRORS_COUNTER = 0;
+    // @FPL : pourquoi en majuscule et en static ?
     private static String ERRORS = "";
     private String saveUserDirectory = "";
     private String saveProjectDirectory = "";

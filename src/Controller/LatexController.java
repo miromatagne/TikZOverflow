@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 /**
  * Handles all requests regarding the TikZ source code coming from View.
  */
+//@FPL : grande classe. Trop de responsabilités ?
 public class LatexController implements MainPageViewController.CodeInterfaceListener {
 
     FileHandler fileHandler;
@@ -66,11 +67,13 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     public String compileTikz(String sourceCode) throws TikzCompilationException {
         try {
             saveTikz(sourceCode);
-            String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
+            // @FPL : plus lisible avec une variable
+            String username = Session.getInstance().getUser().getUsername();
+            String filePath = "./Latex/" + username + ".tex";
             LatexCompiler.runProcess(filePath);
-            String pdfPath = "./Latex/out/" + Session.getInstance().getUser().getUsername() + ".pdf";
+            String pdfPath = "./Latex/out/" + username + ".pdf";
             createImage(pdfPath);
-            fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log", Session.getInstance().getUser().getUsername());
+            fileHandler.errorLogs("./Latex/out/" + username + ".log", username);
             int errorsCount = fileHandler.getErrorsCounter();
             return "Errors (" + errorsCount + ")";
         } catch (LatexCompilationException | LogErrorException e) {

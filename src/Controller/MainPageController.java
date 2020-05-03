@@ -99,9 +99,14 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
      * @return posXTikz         a float number for Tikz Language
      */
     public float xMouseToPdf(double x) {
+        // @FPL: controller.getImageScrollPane().getWidth() trop lié à la vue
+        // ajouter une méthode controller.getImageWidth() pour être découplé de la vue qui pourrait changer
+        // à appliquer un peu partout
         double scrollPaneWidth = controller.getImageScrollPane().getWidth();
+        //@FPL: magic numbers => constantes (static final ...)
         double pdfWidth = 21.4; //Size of pdf in Tikz language
         double widthConvert = scrollPaneWidth / pdfWidth;
+        //@FPL: magic numbers => constantes (static final ...)
         double xOffset = -1.25; // x = 0.0 in Tikz language
         return (float) ((x / widthConvert) + xOffset);
     }
