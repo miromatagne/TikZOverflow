@@ -12,10 +12,8 @@ import java.io.*;
 public class FileHandler {
 
     private static final String DEFAULT_DIRECTORY = "save user";
-    // @FPL : pourquoi en majuscule et en static ?
-    private static int ERRORS_COUNTER = 0;
-    // @FPL : pourquoi en majuscule et en static ?
-    private static String ERRORS = "";
+    private int errorsCounter = 0;
+    private String errors = "";
     private String saveUserDirectory = "";
     private String saveProjectDirectory = "";
     private final String saveUserFormat = ".txt";
@@ -365,7 +363,7 @@ public class FileHandler {
      * @return string with all the errors that the user let in the compiler
      */
     public String getErrors() {
-        return ERRORS;
+        return errors;
     }
 
     /**
@@ -374,7 +372,7 @@ public class FileHandler {
      * @return quantity of errors that occur in the compiler
      */
     public int getErrorsCounter() {
-        return ERRORS_COUNTER;
+        return errorsCounter;
     }
 
     /**
@@ -387,8 +385,8 @@ public class FileHandler {
      */
     public void errorLogs(String path, String username) throws LogErrorException {
         try {
-            ERRORS = "";
-            ERRORS_COUNTER = 0;
+            errors = "";
+            errorsCounter = 0;
             File file = new File(path);
             String[] words;
             FileReader fileReader = new FileReader(file);
@@ -400,21 +398,21 @@ public class FileHandler {
                 words = line.split(":");
                 for (String word : words) {
                     if (word.equals(input)) {
-                        ERRORS_COUNTER++;
+                        errorsCounter++;
                         for (int i = 1; i < words.length; i++) {
                             if (i == 1) {
-                                ERRORS += "line ";
+                                errors += "line ";
                             }
-                            ERRORS += words[i];
+                            errors += words[i];
                             if (i < words.length - 1) {
-                                ERRORS += ":";
+                                errors += ":";
                             } else {
-                                ERRORS += "\n";
+                                errors += "\n";
                             }
                         }
                     } else if (word.equals("*** (job aborted, no legal \\end found)")) {
-                        ERRORS_COUNTER++;
-                        ERRORS += "*** Missing '\\begin{document}' and/or '\\end{document}'";
+                        errorsCounter++;
+                        errors += "*** Missing '\\begin{document}' and/or '\\end{document}'";
                     }
                 }
             }
