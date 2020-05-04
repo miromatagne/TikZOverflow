@@ -33,13 +33,9 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      * @throws LatexControllerConstructorException if FileHandler could not be constructed
      */
     public LatexController(MainPageViewController mainPageViewController) throws LatexControllerConstructorException {
-        try {
-            this.userHandler = new UserHandler();
-            this.projectHandler = new ProjectHandler();
-            this.mainPageViewController = mainPageViewController;
-        } catch (FileHandlerConstructorException e) {
-            throw new LatexControllerConstructorException(e);
-        }
+        this.userHandler = new UserHandler();
+        this.projectHandler = new ProjectHandler();
+        this.mainPageViewController = mainPageViewController;
     }
 
     /**
@@ -138,8 +134,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             e.getCause().printStackTrace();
         } catch (GetTextInFileException e) {
             System.err.println("Error reading project file.");
-            e.printStackTrace();
-            e.getCause().printStackTrace();
+            AlertController.showStageError("Error while TikZ compilation.", "TikZ compilation failed");
         }
     }
 

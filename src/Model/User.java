@@ -62,4 +62,8 @@ public class User {
     public void setProjectPaths(ArrayList<String> projectPaths) {
         this.projectPaths = projectPaths;
     }
+
+    public void addProject(String path) {
+        projectPaths.add(path);
+    }
 }

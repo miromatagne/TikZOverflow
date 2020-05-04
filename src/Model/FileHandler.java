@@ -10,7 +10,7 @@ public class FileHandler {
      * @param text Content to write
      * @throws IOException when a IO error occurs
      */
-    protected void writeInFile(File file, String text) throws IOException {
+    public void writeInFile(File file, String text) throws IOException {
         FileWriter fw = new FileWriter(file);
         BufferedWriter bw = new BufferedWriter(fw);
         bw.write(text);
@@ -25,7 +25,7 @@ public class FileHandler {
      * @return text in the file
      * @throws IOException if error in IO interactions
      */
-    protected String readInFile(File file) throws IOException {
+    public String readInFile(File file) throws IOException {
         String textToRead;
         StringBuilder builder = new StringBuilder();
 

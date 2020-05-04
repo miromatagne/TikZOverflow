@@ -105,4 +105,8 @@ public class Project {
     public void setCollaboratorsUsernames(ArrayList<String> collaboratorsUsernames) {
         this.collaboratorsUsernames = collaboratorsUsernames;
     }
+
+    public void setPath(String path) {
+        this.path=path;
+    }
 }

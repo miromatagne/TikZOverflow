@@ -28,17 +28,12 @@ public class Session {
         session = new Session();
     }
 
+    private String save_user;
+
     /* Singleton class */
     private Session() {
-        try {
-            userHandler = new UserHandler();
-            projectHandler = new ProjectHandler();
-        } catch (FileHandlerConstructorException e) {
-            System.err.println("Error while creating the session");
-            e.printStackTrace();
-            e.getCause().printStackTrace();
-            AlertController.showStageError("Error while creating the session.", "Process aborted", true);
-        }
+        userHandler = new UserHandler();
+        projectHandler = new ProjectHandler();
     }
 
     public static Session getInstance() {
@@ -57,31 +52,13 @@ public class Session {
      */
     public int openSession(String username, String password) throws SessionOpeningException {
         try {
-            userHandler.setupSaveUserDirectory("save user");
-
+            userHandler.setupSaveUserDirectory(save_user);
             if (!userHandler.saveUserExists(username)) {
                 return USER_NOT_REGISTERED; //User is not registered
             } else {
                 currentUser = userHandler.getUserFromSave(username);
 
                 if (password.equals(currentUser.getPassword())) {
-
-                    if(currentUser.getProjectPaths().size() == 0) {
-                        System.out.println("wesh");
-                        try {
-                            newProjectRequest("test", "./TestProject/");
-                        } catch (ProjectAlreadyExistsException e){ //TODO inform project creation panel
-                            System.out.println("A project properties file already exists -> overwrite ? (to do : inform project creation panel)");
-                        }
-                    }
-                    else {
-                        try {
-                            System.out.println("yosh");
-                            currentProject = projectHandler.loadProject(currentUser.getProjectPaths().get(0));
-                        } catch (ProjectLoadException e) {
-                            e.printStackTrace();
-                        }
-                    }
                     return CONNECTION_ESTABLISHED;
                 } else {
                     return INVALID_PASSWORD;
@@ -92,33 +69,7 @@ public class Session {
         }
     }
 
-    /**
-     * Handles new project creation requests
-     *
-     * @param title new project title
-     * @param path new project directory path
-     */
-    public void newProjectRequest(String title, String path) throws ProjectAlreadyExistsException{
-        try {
-            currentProject = projectHandler.createProject(currentUser, path,title);
-            if(currentProject != null) {
-                currentUser.getProjectPaths().add(path);
-                userHandler.saveUser(currentUser);
-                projectHandler.makeTexFile("");
-            }
-        } catch (ProjectCreationException | DirectoryCreationException | LatexWritingException | SaveUserException e) {
-            e.printStackTrace();
-        }
-    }
 
-    /**
-     * Opens a project
-     *
-     * @param project Project object to open
-     */
-    public void openProject(Project project){
-         this.currentProject = project;
-    }
 
     /**
      * Accesses the projects that the current logged in user has access to
@@ -180,7 +131,7 @@ public class Session {
         }
         return false;
     }
-    public void loadProjectRequest(String path) throws ProjectLoadException,ProjectNotAllowException{
+/*    public void loadProjectRequest(String path) throws ProjectLoadException,ProjectNotAllowException{
         Project loadedProject = projectHandler.loadProject(path);
         if(currentUser.getUsername().equals(loadedProject.getCreatorUsername()) || loadedProject.getCollaboratorsUsernames().contains(currentUser.getUsername())){
             currentProject = loadedProject;
@@ -239,7 +190,7 @@ public class Session {
         } catch (IOException | LatexWritingException | ProjectSaveException e){
             throw new ProjectRenameException();
         }
-    }
+    }*/
 
     public User getUser() {
         return currentUser;

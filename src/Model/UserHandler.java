@@ -20,17 +20,8 @@ public class UserHandler extends FileHandler{
     private String saveUserDirectory = "";
     private final String saveUserFormat = ".txt";
 
-    /**
-     * Create a new instance of file handler
-     *
-     * @throws FileHandlerConstructorException if construction failed
-     */
-    public UserHandler() throws FileHandlerConstructorException {
-        try {
-            setupSaveUserDirectory(DEFAULT_DIRECTORY);
-        } catch (SetupDirectoryException e) {
-            throw new FileHandlerConstructorException(e);
-        }
+
+    public UserHandler() {
     }
 
     /**
@@ -149,7 +140,7 @@ public class UserHandler extends FileHandler{
             return;
         }
         try {
-            File file = new File(saveUserDirectory + "/" + user.getUsername() + saveUserFormat);
+            File file = new File(saveUserDirectory + File.separator + user.getUsername() + saveUserFormat);
             if (file.exists()) {
                 writeSave(user, file);
             }

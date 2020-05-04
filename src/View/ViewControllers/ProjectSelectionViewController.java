@@ -98,7 +98,6 @@ public class ProjectSelectionViewController implements Initializable {
     @FXML
     void onCreateButton(ActionEvent event) throws IOException {
         listener.showCreatePopUp();
-        //addProjectToDisplay(new ProjectDisplay(new Project(0,"test", "titleTest", new Date(), new ArrayList<>(), "")));
     }
 
     @FXML

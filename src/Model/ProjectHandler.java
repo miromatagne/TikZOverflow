@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 
 /**
@@ -23,22 +22,23 @@ public class ProjectHandler extends FileHandler{
     /**
      * Constructor
      */
-    public ProjectHandler(){
+    public ProjectHandler() {
 
     }
 
     /**
      * Create a new project for the user
      *
-     * @param user  creator
-     * @return      project created
+     * @param user creator
+     * @return project created
      * @throws ProjectCreationException if creation failed
      */
-    public Project createProject(User user, String path,String title) throws ProjectCreationException, DirectoryCreationException, ProjectAlreadyExistsException {
+    public Project createProject(User user, String path, String title) throws ProjectCreationException, DirectoryCreationException, ProjectAlreadyExistsException, LatexWritingException {
         try {
-            Project project = new Project(user.getUsername(), path,title);
-            setupProjectDirectory(project.getPath());
+            Project project = new Project(user.getUsername(), path, title);
+            setupProjectDirectory(project);
             saveProjectInfo(project);
+            makeTexFile("");
             return project;
         } catch (ProjectSaveException e) {
             throw new ProjectCreationException(e);
@@ -48,33 +48,15 @@ public class ProjectHandler extends FileHandler{
     }
 
     /**
-     * Create a new project for the user
-     * @param user creator
-     * @param title project title
-     * @param collaborators collaborators
-     * @param code TikZ code
-     * @return project created
-     * @throws ProjectCreationException if creation failed
-     */
-    public Project createProject(User user, String title, ArrayList<String> collaborators, String code) throws ProjectCreationException {
-        Project project = createProject(user);
-        project.setTitle(title);
-        project.setCollaboratorsUsernames(collaborators);
-        project.setCode(code);
-        project.setDate(new Date());
-        return project;
-    }
-
-    /**
      * Save a project
      *
-     * @param project       project to save
-     * @throws ProjectSaveException     if save failed
+     * @param project project to save
+     * @throws ProjectSaveException if save failed
      */
     public void saveProjectInfo(Project project) throws ProjectSaveException {
         try {
             String toWrite = generateSaveFromProject(project);
-            String pathProperties = project.getPath() + File.separator +"project.properties";
+            String pathProperties = project.getPath() + File.separator + "project.properties";
             writeInFile(new File(pathProperties), toWrite);
         } catch (IOException e) {
             throw new ProjectSaveException(e);
@@ -82,25 +64,23 @@ public class ProjectHandler extends FileHandler{
 
     }
 
-    private void setupProjectDirectory(String path) throws DirectoryCreationException, ProjectAlreadyExistsException {
-        File file = new File(path+File.separator+"project.properties");
-        if (file.exists()) { //Project with the same path already exists
+    private void setupProjectDirectory(Project project) throws DirectoryCreationException, ProjectAlreadyExistsException {
+        String projectDirectoryPath = project.getPath() + File.separator + project.getTitle();
+        File file = new File(projectDirectoryPath);
+        if (file.exists()) { //Project directory with the same path already exists
             throw new ProjectAlreadyExistsException();
-        }
-        file = new File(path);
-        if(file.exists() && file.isDirectory()){ //Path given does not contain project.properties file
-            return;
         }
         if (!file.mkdirs()) { //Path given is not a directory yet so we create it
             throw new DirectoryCreationException();
         }
+        project.setPath(projectDirectoryPath);
     }
 
     /**
      * Load a project based on its path
      *
      * @return corresponding project
-     * @throws ProjectLoadException     if the load failed
+     * @throws ProjectLoadException if the load failed
      */
     public Project loadProject(String path) throws ProjectLoadException {
         try {
@@ -114,16 +94,16 @@ public class ProjectHandler extends FileHandler{
     /**
      * Create a copy of a project for a user
      *
-     * @param projectToCopy     project to copy
-     * @param user              creator of the new project
-     * @return                  copy of the project
-     * @throws ProjectCopyException     if copy failed
+     * @param projectToCopy project to copy
+     * @param user          creator of the new project
+     * @return copy of the project
+     * @throws ProjectCopyException if copy failed
      */
     public Project createCopy(Project projectToCopy, User user, String new_path) throws ProjectCopyException, DirectoryCreationException, ProjectAlreadyExistsException {
         try {
-            Project projectCopy = createProject(user, new_path,projectToCopy.getTitle());
+            Project projectCopy = createProject(user, new_path, projectToCopy.getTitle());
             return projectCopy;
-        } catch (ProjectCreationException e) {
+        } catch (ProjectCreationException | LatexWritingException e) {
             throw new ProjectCopyException(e);
         }
     }
@@ -132,24 +112,35 @@ public class ProjectHandler extends FileHandler{
     /**
      * Delete a project and its save
      *
-     * @param project       project to delete
+     * @param project project to delete
      * @throws ProjectDeletionException if deletion failed
      */
     public void deleteProject(Project project) throws ProjectDeletionException {
-        String pathProperties = project.getPath() + File.separator+ "project.properties";
+        String pathProperties = project.getPath() + File.separator + "project.properties";
         File file = new File(pathProperties);
-        if (!file.delete()){
+        if (!file.delete()) {
             throw new ProjectDeletionException();
+        }
+    }
+
+    public void renameProject(Project project, String newTitle) throws ProjectRenameException {
+        try {
+            String code = super.readInFile(new File(project.getPath() + File.separator + project.getTitle() + ".tex"));
+            project.setTitle(newTitle);
+            saveProjectInfo(project);
+            makeTexFile(code);
+        } catch (IOException | LatexWritingException | ProjectSaveException e){
+            throw new ProjectRenameException();
         }
     }
 
     /**
      * Generate a save text based on a project
      *
-     * @param project   project to be saved
-     * @return          save content
+     * @param project project to be saved
+     * @return save content
      */
-    private String generateSaveFromProject(Project project){
+    private String generateSaveFromProject(Project project) {
         /* PROJECT INFO FILE FORMAT
         title:
         creator:
@@ -161,13 +152,13 @@ public class ProjectHandler extends FileHandler{
          */
         String toWrite = "";
         final String ENDLINE = "\n";
-        toWrite+="title:"+project.getTitle()+ENDLINE;
-        toWrite+= "creator:"+project.getCreatorUsername()+ENDLINE;
-        toWrite+= "collaborators:";
+        toWrite += "title:" + project.getTitle() + ENDLINE;
+        toWrite += "creator:" + project.getCreatorUsername() + ENDLINE;
+        toWrite += "collaborators:";
         String collaborators = String.join(", ", project.getCollaboratorsUsernames());
-        toWrite+=collaborators+ENDLINE;
-        toWrite+="creation_date:"+new SimpleDateFormat(DATE_FORMAT,Locale.ENGLISH).format(project.getDate())+ENDLINE;
-        toWrite+="modification_date:"+new SimpleDateFormat(DATE_FORMAT,Locale.ENGLISH).format(new Date())+ENDLINE;
+        toWrite += collaborators + ENDLINE;
+        toWrite += "creation_date:" + new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH).format(project.getDate()) + ENDLINE;
+        toWrite += "modification_date:" + new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH).format(new Date()) + ENDLINE;
 
         return toWrite;
     }
@@ -175,8 +166,8 @@ public class ProjectHandler extends FileHandler{
     /**
      * Generate the project from a text save
      *
-     * @param saveText  content of the save
-     * @param path      path to the project directory
+     * @param saveText content of the save
+     * @param path     path to the project directory
      * @return project created
      * @throws ProjectFromSaveGenerationException if the parsing for the date failed
      */
@@ -196,7 +187,7 @@ public class ProjectHandler extends FileHandler{
             ArrayList<String> collaboratorsUsernames = new ArrayList<>();
             try {
                 collaboratorsUsernames = new ArrayList<>(Arrays.asList(allLines[2].split("collaborators:")[1].split(",")));
-            }catch (ArrayIndexOutOfBoundsException e){
+            } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Project has no collaborators");
             }
             String dateString = allLines[3].split("creation_date:")[1];

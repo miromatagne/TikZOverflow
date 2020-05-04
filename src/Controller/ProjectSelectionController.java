@@ -1,16 +1,19 @@
 package Controller;
 
-import Model.Exceptions.ProjectCreationException;
-import Model.Project;
-import Model.ProjectHandler;
+import Model.*;
+import Model.Exceptions.*;
 import View.ViewControllers.ProjectPopUpViewController;
 import View.ViewControllers.ProjectSelectionViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ProjectSelectionController implements ProjectSelectionViewController.ProjectSelectionViewControllerListener, ProjectPopUpViewController.ProjectPopUpViewControllerListener {
 
@@ -106,23 +109,116 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
     }
 
     @Override
-    public void createProject(String title) {
+    public boolean createProject(String title, String path) {
+        if(path.equals("") || title.equals("")){
+            AlertController.showStageError("Invalid information", "Please enter valid information");
+            return false; // return false if given path was invalid
+        }
         try {
-            Project project  = ProjectHandler.getInstance().createProject(Session.getInstance().getUser(), title, null, "");
+            ProjectHandler projectHandler = new ProjectHandler();
+            Project project  = projectHandler.createProject(Session.getInstance().getUser(), path, title);
+            Session.getInstance().getUser().addProject(project.getPath());
+            UserHandler userHandler = new UserHandler();
+            userHandler.saveUser(Session.getInstance().getUser());
             ProjectDisplay projectDisplay = new ProjectDisplay(project);
             controller.addProjectToDisplay(projectDisplay);
         } catch (ProjectCreationException e) {
-            System.err.println(String.format("Error creating project %s", title));
             e.printStackTrace();
             e.getCause().printStackTrace();
             AlertController.showStageError("Error while creating project : "+title, "Creating failed");
+        } catch (ProjectAlreadyExistsException | DirectoryCreationException e) {
+            e.printStackTrace();
+        } catch (LatexWritingException e) { // TODO
+            e.printStackTrace();
+        } catch (SaveUserException e) { // TODO
+            e.printStackTrace();
         }
+        return true;
     }
 
     @Override
     public void renameProject(String title) {
         currentTreatedProject.setTitle(title);
+        ProjectHandler projectHandler = new ProjectHandler();
+        try {
+            projectHandler.saveProjectInfo(currentTreatedProject);
+        } catch (ProjectSaveException e) {
+            e.printStackTrace();
+            AlertController.showStageError("Save error", "Error saving project information");
+        }
         controller.refreshProjectTitle(currentTreatedProject, title);
+    }
+
+    @Override
+    public String browseFilesToGetPath(Stage popUpStage) {
+        try {
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            directoryChooser.setTitle("Choose your project folder");
+            File folder = directoryChooser.showDialog(popUpStage);
+            if(folder==null){
+                throw new FileNotFoundException();
+            }
+            return folder.getAbsolutePath();
+        } catch (FileNotFoundException e){
+            AlertController.showStageError("Error opening folder", "Please choose a valid folder", false);
+            return "";
+        }
+    }
+
+    public void loadProject(String path) throws ProjectLoadException,ProjectNotAllowException{
+        ProjectHandler projectHandler = new ProjectHandler();
+        Project loadedProject = projectHandler.loadProject(path);
+        User currentUser = Session.getInstance().getUser();
+        if(currentUser.getUsername().equals(loadedProject.getCreatorUsername()) || loadedProject.getCollaboratorsUsernames().contains(currentUser.getUsername())){
+            currentTreatedProject = loadedProject;
+        }
+        else{
+            throw new ProjectNotAllowException();
+        }
+    }
+
+    public void copyProject(Project projectToCopy, User user, String new_path) throws ProjectCopyException, DirectoryCreationException, ProjectAlreadyExistsException{
+        ProjectHandler projectHandler = new ProjectHandler();
+        Project copyProject = projectHandler.createCopy(projectToCopy,user,new_path);
+        try {
+            String code = projectHandler.readInFile(new File(projectToCopy.getPath() + File.separator + projectToCopy.getTitle() + ".tex"));
+            currentTreatedProject = copyProject;
+            projectHandler.makeTexFile(code);
+            user.addProject(new_path);
+            UserHandler userHandler = new UserHandler();
+            userHandler.saveUser(user);
+        } catch (IOException | LatexWritingException | SaveUserException e){
+            throw new ProjectCopyException(e);
+        }
+    }
+
+    public void deleteProject(Project projectToDelete) throws ProjectDeletionException{
+        ArrayList<String> users = projectToDelete.getCollaboratorsUsernames();
+        users.add(projectToDelete.getCreatorUsername());
+        String path = projectToDelete.getPath();
+        ProjectHandler projectHandler = new ProjectHandler();
+        projectHandler.deleteProject(projectToDelete);
+        try {
+            UserHandler userHandler = new UserHandler();
+            for (String user : users) {
+                User u = userHandler.getUserFromSave(user);
+                if (u.getProjectPaths().contains(path)) {
+                    u.getProjectPaths().remove(path);
+                }
+                userHandler.saveUser(u);
+            }
+        }catch (UserFromSaveCreationException | SaveUserException e){
+            throw new ProjectDeletionException();
+        }
+    }
+
+    public void shareProject(Project project,User user) throws SaveUserException, ProjectSaveException{
+        project.addCollaborator(user.getUsername());
+        user.getProjectPaths().add(project.getPath());
+        UserHandler userHandler = new UserHandler();
+        ProjectHandler projectHandler = new ProjectHandler();
+        userHandler.saveUser(user);
+        projectHandler.saveProjectInfo(project);
     }
 
     public interface ProjectSelectionControllerListener {
