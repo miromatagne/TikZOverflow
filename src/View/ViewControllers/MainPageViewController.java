@@ -63,6 +63,9 @@ public class MainPageViewController implements Initializable {
     private ImageView movingImage;
     private int movingShapeID;
     private Shape movingShape;
+    private final int imageSize = 50;
+    private final int dragImageOffsetX = 246;
+    private final int dragImageOffsetY = -45;
 
     final static int RECTANGLE = 0;
     final static int CIRCLE = 1;
@@ -385,8 +388,8 @@ public class MainPageViewController implements Initializable {
     public void createMovingImage(String path) {
         Parent root = listener.getRoot();
         movingImage = new ImageView(path);
-        movingImage.setFitHeight(50);
-        movingImage.setFitWidth(50);
+        movingImage.setFitHeight(imageSize);
+        movingImage.setFitWidth(imageSize);
         ((GridPane) root).getChildren().add(movingImage);
     }
 
@@ -451,8 +454,8 @@ public class MainPageViewController implements Initializable {
      */
     public void handleDragOver(DragEvent event) {
         if (movingImage != null) {
-            movingImage.setTranslateX(event.getX() + buttonArrow.getLayoutX() * 1.95);
-            movingImage.setTranslateY(event.getY() - 45);
+            movingImage.setTranslateX(event.getX() + dragImageOffsetX);
+            movingImage.setTranslateY(event.getY() + dragImageOffsetY);
         }
         event.acceptTransferModes(TransferMode.ANY);
     }
