@@ -6,7 +6,10 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 
 /**
@@ -14,42 +17,13 @@ import java.util.Date;
  * actions on projects such as copy, deletion, save, share or renaming.
  */
 public class ProjectHandler {
-    /**
-     * Single instance : singleton
-     */
-    private static ProjectHandler instance;
-
-    private int idCounter;
-    private final static String PROJECT_DIRECTORY = "projects";
     public final static String DATE_FORMAT = "E dd-MM-yyyy HH:mm:ss";
 
     /**
-     * Private constructor  : singleton
+     * Constructor
      */
-    private ProjectHandler(){
+    public ProjectHandler(){
 
-    }
-
-    /**
-     * Instance getter : singleton
-     */
-    public static ProjectHandler getInstance(){
-        if (instance == null){
-            instance = new ProjectHandler();
-        }
-        return instance;
-    }
-
-    /**
-     * Get a new id (unique identifier)
-     *
-     * @return      new id
-     */
-    private int getNewId() {
-        /*
-        We have to find a way to generate a unique id and not forget to take in account deletions
-         */
-        return idCounter++;
     }
 
     /**
@@ -59,14 +33,16 @@ public class ProjectHandler {
      * @return      project created
      * @throws ProjectCreationException if creation failed
      */
-    public Project createProject(User user) throws ProjectCreationException {
+    public Project createProject(User user, String path,String title) throws ProjectCreationException, DirectoryCreationException, ProjectAlreadyExistsException {
         try {
-            int id = getNewId();
-            Project project = new Project(id, user.getUsername());
-            saveProject(project);
+            Project project = new Project(user.getUsername(), path,title);
+            setupProjectDirectory(project.getPath());
+            saveProjectInfo(project);
             return project;
         } catch (ProjectSaveException e) {
             throw new ProjectCreationException(e);
+        } catch (DirectoryCreationException e) {
+            throw new DirectoryCreationException();
         }
     }
 
@@ -94,27 +70,41 @@ public class ProjectHandler {
      * @param project       project to save
      * @throws ProjectSaveException     if save failed
      */
-    public void saveProject(Project project) throws ProjectSaveException {
+    public void saveProjectInfo(Project project) throws ProjectSaveException {
         try {
             String toWrite = generateSaveFromProject(project);
-            writeInFile(new File(generatePath(project.getID())), toWrite);
+            String pathProperties = project.getPath() + File.separator +"project.properties";
+            writeInFile(new File(pathProperties), toWrite);
         } catch (IOException e) {
             throw new ProjectSaveException(e);
         }
 
     }
 
+    private void setupProjectDirectory(String path) throws DirectoryCreationException, ProjectAlreadyExistsException {
+        File file = new File(path+File.separator+"project.properties");
+        if (file.exists()) { //Project with the same path already exists
+            throw new ProjectAlreadyExistsException();
+        }
+        file = new File(path);
+        if(file.exists() && file.isDirectory()){ //Path given does not contain project.properties file
+            return;
+        }
+        if (!file.mkdirs()) { //Path given is not a directory yet so we create it
+            throw new DirectoryCreationException();
+        }
+    }
+
     /**
-     * Load a project based on its id
+     * Load a project based on its path
      *
-     * @param id    id of the project
-     * @return      corresponding project
+     * @return corresponding project
      * @throws ProjectLoadException     if the load failed
      */
-    public Project loadProject(int id) throws ProjectLoadException {
+    public Project loadProject(String path) throws ProjectLoadException {
         try {
-            String saveText = readInFile(new File(generatePath(id)));
-            return generateProjectFromSave(saveText);
+            String saveText = readInFile(new File(path + File.separator+"project.properties"));
+            return generateProjectFromSave(saveText, path);
         } catch (IOException | ProjectFromSaveGenerationException e) {
             throw new ProjectLoadException(e);
         }
@@ -128,11 +118,9 @@ public class ProjectHandler {
      * @return                  copy of the project
      * @throws ProjectCopyException     if copy failed
      */
-    public Project createCopy(Project projectToCopy, User user) throws ProjectCopyException{
+    public Project createCopy(Project projectToCopy, User user, String new_path) throws ProjectCopyException, DirectoryCreationException, ProjectAlreadyExistsException {
         try {
-            Project projectCopy = createProject(user);
-            projectCopy.setTitle(projectToCopy.getTitle());
-            projectCopy.setCode(projectToCopy.getCode());
+            Project projectCopy = createProject(user, new_path,projectToCopy.getTitle());
             return projectCopy;
         } catch (ProjectCreationException e) {
             throw new ProjectCopyException(e);
@@ -147,41 +135,11 @@ public class ProjectHandler {
      * @throws ProjectDeletionException if deletion failed
      */
     public void deleteProject(Project project) throws ProjectDeletionException {
-        File file = new File(generatePath(project.getID()));
+        String pathProperties = project.getPath() + File.separator+ "project.properties";
+        File file = new File(pathProperties);
         if (!file.delete()){
             throw new ProjectDeletionException();
         }
-    }
-
-    /**
-     * Share a project with a given user
-     *
-     * @param project       project to share
-     * @param user          new collaborator to add to the project
-     */
-    public void shareProject(Project project, User user){
-        project.addCollaborator(user.getUsername());
-    }
-
-
-    /**
-     * Rename the project given in parameter
-     *
-     * @param project   project to rename
-     * @param newTitle  new title
-     */
-    public void renameProject(Project project, String newTitle) {
-        project.setTitle(newTitle);
-    }
-
-    /**
-     * Generate the path to the project based on its id
-     *
-     * @param id    project id
-     * @return      path
-     */
-    private String generatePath(int id) {
-        return PROJECT_DIRECTORY+"/"+id;
     }
 
     /**
@@ -191,37 +149,25 @@ public class ProjectHandler {
      * @return          save content
      */
     private String generateSaveFromProject(Project project){
-        /*
-        Choisir le bon format de la save du projet
-        Exemple : Nom du file : id.txt
-        """
-        #ID
-        #Username Creator
-        #Titre
-        #Date
-        #Collaborator 1
-        #Collaborator 2
-        #...
-        CODE
-        """
+        /* PROJECT INFO FILE FORMAT
+        title:
+        creator:
+        collaborators:c1,c2,c3,...
+        title:
+        creation_date:
+        modification_date:
+        path:
          */
-        String toWrite;
+        String toWrite = "";
         final String ENDLINE = "\n";
+        toWrite+="title:"+project.getTitle()+ENDLINE;
+        toWrite+= "creator:"+project.getCreatorUsername()+ENDLINE;
+        toWrite+= "collaborators:";
+        String collaborators = String.join(", ", project.getCollaboratorsUsernames());
+        toWrite+=collaborators+ENDLINE;
+        toWrite+="creation_date:"+new SimpleDateFormat(DATE_FORMAT,Locale.ENGLISH).format(project.getDate())+ENDLINE;
+        toWrite+="modification_date:"+new SimpleDateFormat(DATE_FORMAT,Locale.ENGLISH).format(new Date())+ENDLINE;
 
-        String idPart ="#"+project.getID()+ENDLINE;
-        String creatorPart = "#"+project.getCreatorUsername()+ENDLINE;
-        String titlePart = "#"+project.getTitle()+ENDLINE;
-        SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT);
-        String datePart = "#"+dateFormatter.format(project.getDate())+ENDLINE;
-        String singleCollaboratorPart;
-        StringBuilder collaboratorsPart = new StringBuilder();
-        for (String collaboratorUsername : project.getCollaboratorsUsernames()){
-            singleCollaboratorPart = "#"+collaboratorUsername+ENDLINE;
-            collaboratorsPart.append(singleCollaboratorPart);
-        }
-        String codePart = project.getCode();
-
-        toWrite = idPart + creatorPart + titlePart + datePart + collaboratorsPart + codePart;
         return toWrite;
     }
 
@@ -229,48 +175,34 @@ public class ProjectHandler {
      * Generate the project from a text save
      *
      * @param saveText  content of the save
+     * @param path      path to the project directory
      * @return project created
      * @throws ProjectFromSaveGenerationException if the parsing for the date failed
      */
-    private Project generateProjectFromSave(String saveText) throws ProjectFromSaveGenerationException {
-        /*
-        Choisir le bon format de la save du projet
-        Exemple : Nom du file : id.txt
-        """
-        #ID
-        #Username Creator
-        #Titre
-        #Date
-        #Collaborator 1
-        #Collaborator 2
-        #...
-        CODE
-        """
+    private Project generateProjectFromSave(String saveText, String path) throws ProjectFromSaveGenerationException {
+        /* PROJECT INFO FILE FORMAT
+        title:
+        creator:
+        collaborators:c1,c2,c3,...
+        creation_date:
+        modification_date:
+        path:
          */
         try {
             String[] allLines = saveText.split("\n");
-            String idString = allLines[0].substring(1);
-            String creatorUsername = allLines[1].substring(1);
-            String title = allLines[2].substring(1);
-            String dateString = allLines[3].substring(1);
+            String title = allLines[0].split("title:")[1];
+            String creatorUsername = allLines[1].split("creator:")[1];
             ArrayList<String> collaboratorsUsernames = new ArrayList<>();
-            StringBuilder code = new StringBuilder();
-            for (int i = 4; i < allLines.length; i++){
-                if (allLines[i].charAt(0) == '#'){
-                    collaboratorsUsernames.add(allLines[i].substring(1));
-                }
-                else {
-                    code.append(allLines[i]);
-                    if (i < allLines.length - 1){
-                        code.append("\n");
-                    }
-                }
+            try {
+                collaboratorsUsernames = new ArrayList<>(Arrays.asList(allLines[2].split("collaborators:")[1].split(",")));
+            }catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("Project has no collaborators");
             }
-            int id = Integer.parseInt(idString);
-            SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT);
+            String dateString = allLines[3].split("creation_date:")[1];
+            SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
             Date date = dateFormatter.parse(dateString);
-            return new Project(id, creatorUsername,
-                    title, date, collaboratorsUsernames, code.toString());
+            return new Project(creatorUsername,
+                    title, date, collaboratorsUsernames, path);
         } catch (ParseException e) {
             throw new ProjectFromSaveGenerationException(e);
         }
@@ -289,6 +221,7 @@ public class ProjectHandler {
         BufferedWriter bw = new BufferedWriter(fw);
         bw.write(text);
         bw.close();
+        fw.close();
     }
 
 
@@ -308,7 +241,8 @@ public class ProjectHandler {
         while ((textToRead = buffer.readLine()) != null) {
             builder.append(textToRead).append("\n");
         }
-
+        buffer.close();
+        reader.close();
         return builder.toString();
     }
 }

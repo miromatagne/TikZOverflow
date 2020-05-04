@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7350 64-bit) (preloaded format=pdflatex 2020.3.27)  27 APR 2020 21:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7350 64-bit) (preloaded format=pdflatex 2020.3.27)  27 APR 2020 22:13
 entering extended mode
 **./Latex/test_latex.tex
 (Latex/test_latex.tex
@@ -392,7 +392,7 @@ File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count196
 \l__pdf_internal_box=\box56
 )
-No file test_latex.aux.
+("C:\Users\Ludéric\IdeaProjects\Projet TikZ\Latex\out\test_latex.aux")
 \openout1 = `test_latex.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 11.
@@ -409,6 +409,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 11.
 LaTeX Font Info:    ... okay on input line 11.
+
 ABD: EveryShipout initializing macros
 ("C:\Users\Ludéric\AppData\Local\Programs\MiKTeX 2.9\tex/context/base/mkii\sup
 p-pdf.mkii"
@@ -435,8 +436,8 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 {C:/Users/Ludéric/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 ("C:\Users\Ludéric\IdeaProjects\Projet TikZ\Latex\out\test_latex.aux") ) 
 Here is how much of TeX's memory you used:
- 11426 strings out of 480934
- 240239 string characters out of 2898513
+ 11428 strings out of 480934
+ 240373 string characters out of 2898513
  445699 words of memory out of 3000000
  27127 multiletter control sequences out of 15000+200000
  532638 words of font info for 25 fonts, out of 3000000 for 9000

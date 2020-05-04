@@ -4,10 +4,8 @@ import Controller.Exceptions.BuildFullCodeFromShapesOnlyException;
 import Controller.Exceptions.GetTextInFileException;
 import Controller.Exceptions.LatexControllerConstructorException;
 import Controller.Exceptions.TikzCompilationException;
+import Model.*;
 import Model.Exceptions.*;
-import Model.FileHandler;
-import Model.LatexCompiler;
-import Model.PDFHandler;
 import View.ViewControllers.MainPageViewController;
 import javafx.scene.image.Image;
 
@@ -24,6 +22,7 @@ import java.util.regex.Pattern;
 public class LatexController implements MainPageViewController.CodeInterfaceListener {
 
     FileHandler fileHandler;
+    ProjectHandler projectHandler;
     private final MainPageViewController mainPageViewController;
 
     /**
@@ -35,6 +34,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     public LatexController(MainPageViewController mainPageViewController) throws LatexControllerConstructorException {
         try {
             this.fileHandler = new FileHandler();
+            this.projectHandler = new ProjectHandler();
             this.mainPageViewController = mainPageViewController;
         } catch (FileHandlerConstructorException e) {
             throw new LatexControllerConstructorException(e);
@@ -49,7 +49,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      */
     public String getTextInFile() throws GetTextInFileException {
         try {
-            String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
+            String filePath = Session.getInstance().getCurrentProject().getPath()+ Session.getInstance().getCurrentProject().getTitle() + ".tex";
             return fileHandler.readInFile(filePath);
         } catch (IOException e) {
             throw new GetTextInFileException(e);
@@ -66,11 +66,12 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     public String compileTikz(String sourceCode) throws TikzCompilationException {
         try {
             saveTikz(sourceCode);
-            String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
+            String filePath = Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".tex";
+            System.out.println(filePath);
             LatexCompiler.runProcess(filePath);
-            String pdfPath = "./Latex/out/" + Session.getInstance().getUser().getUsername() + ".pdf";
+            String pdfPath = Session.getInstance().getCurrentProject().getPath()+ Session.getInstance().getCurrentProject().getTitle() + ".pdf";
             createImage(pdfPath);
-            fileHandler.errorLogs("./Latex/out/" + Session.getInstance().getUser().getUsername() + ".log", Session.getInstance().getUser().getUsername());
+            fileHandler.errorLogs(Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".log", Session.getInstance().getUser().getUsername());
             int errorsCount = fileHandler.getErrorsCounter();
             return "Errors (" + errorsCount + ")";
         } catch (LatexCompilationException | LogErrorException e) {
@@ -104,11 +105,14 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      */
     public void saveTikz(String sourceCode) {
         try {
-            fileHandler.makeTexFile(Session.getInstance().getUser(), sourceCode);
+            fileHandler.makeTexFile(sourceCode);
+            projectHandler.saveProjectInfo(Session.getInstance().getCurrentProject());
         } catch (LatexWritingException e) {
             System.err.println("Error while writing in tex file");
             e.printStackTrace();
             e.getCause().printStackTrace();
+        } catch (ProjectSaveException e) {
+            e.printStackTrace();
             AlertController.showStageError("Error while writing in the tex file.", "Tex file not written");
         }
     }

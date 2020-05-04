@@ -1,8 +1,12 @@
 package Model;
 
+import Controller.Session;
 import Model.Exceptions.*;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * This class is used to handle interactions with files. It creates directories and writes the saves
@@ -14,7 +18,6 @@ public class FileHandler {
     private static int ERRORS_COUNTER = 0;
     private static String ERRORS = "";
     private String saveUserDirectory = "";
-    private String saveProjectDirectory = "";
     private final String saveUserFormat = ".txt";
 
     /**
@@ -65,26 +68,6 @@ public class FileHandler {
     }
 
     /**
-     * Setups the directory for projects' saves
-     *
-     * @param saveProjectDirectory Path to the directory projects's saves
-     * @throws SetupDirectoryException if setup failed
-     */
-
-    public void setupSaveProjectDirectory(String saveProjectDirectory) throws SetupDirectoryException {
-        try {
-            if (saveProjectDirectory.equals("")) {
-                return;
-            }
-            this.saveProjectDirectory = saveProjectDirectory;
-            File file = new File(saveProjectDirectory);
-            checkAndCreateSaveDirectory(file);
-        } catch (DirectoryCreationException e) {
-            throw new SetupDirectoryException(e);
-        }
-    }
-
-    /**
      * Checks if the directory exists. Otherwise, creates it.
      *
      * @param file File created with path to the save_user directory
@@ -112,6 +95,8 @@ public class FileHandler {
         text += "username:" + user.getUsername() + "\n";
         text += "mail:" + user.getMail() + "\n";
         text += "password:" + user.getPassword() + "\n";
+        ArrayList<String> projectPaths = user.getProjectPaths();
+        text += "projects:" + String.join(",", projectPaths) + "\n";
         return text;
     }
 
@@ -131,9 +116,8 @@ public class FileHandler {
                 //Error, the file does already exist
                 return;
             }
-            makeTexFile(user, "");
             writeSave(user, saveFile);
-        } catch (LatexWritingException | SaveWritingException e) {
+        } catch (SaveWritingException e) {
             throw new SaveUserCreationException(e);
         }
     }
@@ -142,14 +126,12 @@ public class FileHandler {
      * Creates a .tex file for every new user, and updates it with the new source code
      * when compiling.
      *
-     * @param user       User for whom the .tex file will be created/updated
      * @param sourceCode String from the compiling text area
      * @throws LatexWritingException when the text has not be written successfully in the tex file
      */
-    public void makeTexFile(User user, String sourceCode) throws LatexWritingException {
+    public void makeTexFile(String sourceCode) throws LatexWritingException {
         try {
-            setupSaveProjectDirectory("./Latex/");
-            File texFile = new File(saveProjectDirectory + user.getUsername() + ".tex");
+            File texFile = new File(Session.getInstance().getCurrentProject().getPath()+ Session.getInstance().getCurrentProject().getTitle() + ".tex");
             if (texFile.exists()) {
                 writeInFile(texFile, sourceCode);
             } else {
@@ -162,7 +144,7 @@ public class FileHandler {
                 }
                 writeInFile(texFile, text);
             }
-        } catch (IOException | SetupDirectoryException e) {
+        } catch (IOException e) {
             throw new LatexWritingException(e);
         }
     }
@@ -236,7 +218,8 @@ public class FileHandler {
         while ((textInFile = buffer.readLine()) != null) {
             builder.append(textInFile).append("\n");
         }
-
+        buffer.close();
+        reader.close();
         return builder.toString();
     }
 
@@ -256,6 +239,7 @@ public class FileHandler {
             setUserFirstName(file, user);
             setUserMail(file, user);
             setUserPassword(file, user);
+            setUserProjectPaths(file, user);
             return user;
         } catch (IOException e) {
             throw new UserFromSaveCreationException(e);
@@ -290,7 +274,7 @@ public class FileHandler {
         while ((line = br.readLine()) != null) {
             String[] lineArray = line.split(":");
             if (lineArray[0].equals(flag)) {
-                if (!lineArray[1].equals("")) {
+                if (lineArray.length>1 &&!lineArray[1].equals("")) {
                     return lineArray[1];
                 }
             }
@@ -311,6 +295,22 @@ public class FileHandler {
         String temp;
         if (!(temp = getInformation(file, "last")).equals("")) {
             user.setLastName(temp);
+        }
+    }
+
+    /**
+     * Fills user projects from file.
+     *
+     * @param file File corresponding to user save file
+     * @param user User whose projects are set
+     * @throws IOException if any IO error interaction occurs
+     */
+    private void setUserProjectPaths(File file, User user) throws IOException {
+        String temp;
+        if (!(temp = getInformation(file, "projects")).equals("")) {
+            String[] projectPathArray = temp.split(",");
+            ArrayList<String> projectPaths = new ArrayList<>(Arrays.asList(projectPathArray));
+            user.setProjectPaths(projectPaths);
         }
     }
 
@@ -391,7 +391,7 @@ public class FileHandler {
             FileReader fileReader = new FileReader(file);
             BufferedReader buffer = new BufferedReader(fileReader);
             String line;
-            String input = "Latex/" + username + ".tex";
+            String input = Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".tex";
 
             while ((line = buffer.readLine()) != null) {
                 words = line.split(":");
