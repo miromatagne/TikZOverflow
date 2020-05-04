@@ -40,7 +40,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
         } catch (IOException e) {
             System.err.println("Error loading /View/FXML/projectSelection.fxml");
             e.printStackTrace();
-            AlertController.showStageError("Error while loading the project selection fxml file.", "Process aborted");
+            AlertController.showStageError("Error while loading the project selection fxml file.", "Process aborted", true);
         }
     }
 
@@ -84,7 +84,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
             System.err.println(String.format("Unable to load %s pop-up path", FXMLPath));
             e.printStackTrace();
             e.getCause().printStackTrace();
-            AlertController.showStageError("Error while loading the fxml file : "+FXMLPath, "Process aborted");
+            AlertController.showStageError("Error while loading the fxml file : "+FXMLPath, "Process aborted", true);
         }
     }
 
@@ -115,7 +115,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
             System.err.println(String.format("Error creating project %s", title));
             e.printStackTrace();
             e.getCause().printStackTrace();
-            AlertController.showStageError("Error while creating project : "+title, "Process aborted");
+            AlertController.showStageError("Error while creating project : "+title, "Creating failed");
         }
     }
 

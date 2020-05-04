@@ -38,7 +38,7 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
         } catch (Exception e) {
             System.out.println("Error loading /View/FXML/LoginScreen.fxml");
             e.printStackTrace();
-            AlertController.showStageError("Error while loading the login screen fxml file.", "Process aborted");
+            AlertController.showStageError("Error while loading the login screen fxml file.", "Process aborted", true);
         }
     }
 
@@ -53,7 +53,7 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
         } catch (IOException e) {
             System.err.println("Error loading /View/FXML/LoginScreen.fxml");
             e.printStackTrace();
-            AlertController.showStageError("Error while loading the login screen fxml file.", "Process aborted");
+            AlertController.showStageError("Error while loading the login screen fxml file.", "Process aborted", true);
         }
     }
 
@@ -93,7 +93,7 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
             System.err.println("Error while opening a session");
             e.printStackTrace();
             e.getCause().printStackTrace();
-            AlertController.showStageError("Error while opening the session.", "Process aborted");
+            AlertController.showStageError("Error while opening the session.", "Process aborted", true);
         }
     }
 

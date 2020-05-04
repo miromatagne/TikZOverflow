@@ -6,11 +6,16 @@ import javafx.scene.control.Alert;
 public class AlertController {
 
     public static void showStageError(String header, String content){
+        AlertController.showStageError(header,content,false);
+    }
+    public static void showStageError(String header, String content, boolean hasToQuit){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
-        Platform.exit();
+        if (hasToQuit) {
+            Platform.exit();
+        }
     }
 }

@@ -33,7 +33,7 @@ public class Session {
             System.err.println("Error while creating the session");
             e.printStackTrace();
             e.getCause().printStackTrace();
-            AlertController.showStageError("Error while creating the session.", "Process aborted");
+            AlertController.showStageError("Error while creating the session.", "Process aborted", true);
         }
     }
 
@@ -113,7 +113,7 @@ public class Session {
             System.err.println("Error while creating an account");
             e.printStackTrace();
             e.getCause().printStackTrace();
-            AlertController.showStageError("Error while creating an account.", "Process aborted");
+            AlertController.showStageError("Error while creating an account.", "Account creation failed");
         }
         return false;
     }

@@ -93,7 +93,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
         } catch (IOException e) {
             System.err.println("Image file not found");
             e.printStackTrace();
-            AlertController.showStageError("Error while converting the pdf into a jpg to get an overview.", "Process aborted");
+            AlertController.showStageError("Error while converting the pdf into a jpg to get an overview.", "Overview not available now");
         }
     }
 
@@ -109,7 +109,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             System.err.println("Error while writing in tex file");
             e.printStackTrace();
             e.getCause().printStackTrace();
-            AlertController.showStageError("Error while writing in the tex file.", "Process aborted");
+            AlertController.showStageError("Error while writing in the tex file.", "Tex file not written");
         }
     }
 
@@ -175,12 +175,12 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             System.err.println("TikZ/LaTeX compilation failed");
             e.printStackTrace();
             e.getCause().printStackTrace();
-            AlertController.showStageError("Error while TikZ compilation.", "Process aborted");
+            AlertController.showStageError("Error while TikZ compilation.", "TikZ compilation failed");
         } catch (BuildFullCodeFromShapesOnlyException e) {
             System.err.println("Building code from shapes only failed");
             e.printStackTrace();
             e.getCause().printStackTrace();
-            AlertController.showStageError("Error while building the code from the shapes.", "Process aborted");
+            AlertController.showStageError("Error while building the code from the shapes.", "Code could not be built");
         }
     }
 
@@ -198,7 +198,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             System.err.println("Error while getting the source code");
             e.printStackTrace();
             e.getCause().printStackTrace();
-            AlertController.showStageError("Error while getting the source code.", "Process aborted");
+            AlertController.showStageError("Error while getting the source code.", "Source code not available");
         }
         return "";
     }
@@ -216,7 +216,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             System.err.println("Error while getting the full text");
             e.printStackTrace();
             e.getCause().printStackTrace();
-            AlertController.showStageError("Error while getting the full text from the save file.", "Process aborted");
+            AlertController.showStageError("Error while getting the full text from the save file.", "Save could not be loaded");
         }
         return "";
     }
@@ -234,7 +234,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             System.err.println("Error while getting the full code");
             e.printStackTrace();
             e.getCause().printStackTrace();
-            AlertController.showStageError("Error while saving the code in a LaTeX file from the code area.", "Process aborted");
+            AlertController.showStageError("Error while saving the code in a LaTeX file from the code area.", "Latex file not saved");
         }
     }
 
