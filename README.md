@@ -6,20 +6,19 @@ TikZ/LaTeX code.
 
 ## Using TikZOverflow
 
-TikZOverflow requires Java 11, PDFBox 2.0.19 (and its dependencies) and a LaTeX compiler. The unit tests need to be run with JUnit 5.4.
-To compile the project, you will need to install ant.
+### Requirements
 
-## Compilation
-Run the ant command with the tikzoverflow.xml structure file.
-```
-ant -buildfile tikzoverflow.xml
-```
+TikZOverflow requires :
+* Java 11
+* PDFBox 2.0.19 (and its dependencies) 
+* A LaTeX compiler
+* JUnit 5.4 (to run tests)
 
 ### Starting the app
 
 Run the most recent jar file from dist folder to start the software.
 ```
-java -jar *.jar
+java -jar TikzOverflow.jar
 ```
 <!--
 ## Configuration
