@@ -3,6 +3,7 @@ package Controller;
 import Controller.Exceptions.BuildFullCodeFromShapesOnlyException;
 import Controller.Exceptions.GetTextInFileException;
 import Controller.Exceptions.LatexControllerConstructorException;
+import Model.LatexHandler;
 import Model.User;
 import View.ViewControllers.MainPageViewController;
 import org.junit.jupiter.api.Test;
@@ -66,51 +67,5 @@ class TestLatexController {
                 "\\end{document}\n";
         latexController.saveTikz(sourceCode);
         assertEquals(latexController.getTextInFile(), sourceCode);
-    }
-
-    @Test
-    void extractShapesSubCode() throws LatexControllerConstructorException {
-        LatexController latexController = new LatexController(new MainPageViewController());
-        User user = new User();
-        user.setUsername("test");
-        Session.getInstance().setUser(user);
-        String sourceCode = "\\documentclass{standalone}\n" +
-                "\n" +
-                "\\usepackage{tikz}\n" +
-                "\n" +
-                "\\begin{document}\n" +
-                "    \\begin{tikzpicture}\n" +
-                "        \\node (h) at (0,0) {Hello};\n" +
-                "        \\node (w) at (2,3) {World};\n" +
-                "        \\draw (h) edge (w);\n" +
-                "    \\end{tikzpicture}\n" +
-                "\\end{document}\n";
-        String shapesOnlyCode = "\\node (h) at (0,0) {Hello};\n" +
-                "\\node (w) at (2,3) {World};\n" +
-                "\\draw (h) edge (w);\n";
-        assertEquals(latexController.extractShapesSubCode(sourceCode, true), shapesOnlyCode);
-    }
-
-    @Test
-    void buildFullCodeFromShapesOnlyCode() throws BuildFullCodeFromShapesOnlyException, LatexControllerConstructorException {
-        LatexController latexController = new LatexController(new MainPageViewController());
-        User user = new User();
-        user.setUsername("test");
-        Session.getInstance().setUser(user);
-        String sourceCode = "\\documentclass{standalone}\n" +
-                "\n" +
-                "\\usepackage{tikz}\n" +
-                "\n" +
-                "\\begin{document}\n" +
-                "    \\begin{tikzpicture}\n" +
-                "\t\\node (h) at (0,0) {Hello};\n" +
-                "\t\\node (w) at (2,3) {World};\n" +
-                "\t\\draw (h) edge (w);\n" +
-                "    \\end{tikzpicture}\n" +
-                "\\end{document}\n";
-        String shapesOnlyCode = "   \\node (h) at (0,0) {Hello};\n" +
-                "   \\node (w) at (2,3) {World};\n" +
-                "   \\draw (h) edge (w);\n";
-        assertEquals(latexController.buildFullCodeFromShapesOnlyCode(shapesOnlyCode), sourceCode);
     }
 }
