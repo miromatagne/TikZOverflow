@@ -120,10 +120,6 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
         }
     }
 
-
-
-
-
     /**
      * Compiles code and refreshes error button text on main page.
      *
