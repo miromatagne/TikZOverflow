@@ -43,6 +43,7 @@ public class AccountModificationController extends AccountController implements 
         } catch (IOException e) {
             System.out.println("Error loading /View/FXML/accountModification.fxml");
             e.printStackTrace();
+            AlertController.showStageError("Error while loading the account modification fxml file.", "Process aborted");
         }
     }
 
@@ -89,10 +90,12 @@ public class AccountModificationController extends AccountController implements 
                 System.err.println("Error in saving the user");
                 e.printStackTrace();
                 e.getCause().printStackTrace();
+                AlertController.showStageError("Error while saving the user account.", "Process aborted");
             } catch (FileHandlerConstructorException e) {
                 System.err.println("Error while creating the file handler");
                 e.printStackTrace();
                 e.getCause().printStackTrace();
+                AlertController.showStageError("Error while loading the I/O interactions tool.", "Process aborted");
             }
             return true;
         }
