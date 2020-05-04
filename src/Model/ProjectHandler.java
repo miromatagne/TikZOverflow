@@ -284,31 +284,34 @@ public class ProjectHandler {
      * @param text Content to write
      * @throws IOException when a IO error occurs
      */
-    private void writeInFile(File file, String text) throws IOException {
-        FileWriter fw = new FileWriter(file);
-        BufferedWriter bw = new BufferedWriter(fw);
-        bw.write(text);
-        bw.close();
+    public void writeInFile(File file, String text) throws IOException {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))){
+            bw.write(text);
+        } catch (IOException e){
+            throw e;
+        }
     }
 
 
     /**
      * Read the text in a File
      *
-     * @param file file.
+     * @param file File
      * @return text in the file
      * @throws IOException if error in IO interactions
      */
-    private String readInFile(File file) throws IOException {
-        String textToRead;
-        StringBuilder builder = new StringBuilder();
+    public String readInFile(File file) throws IOException {
+        try (BufferedReader buffer = new BufferedReader(new FileReader(file))){
+            String textInFile;
+            StringBuilder builder = new StringBuilder();
+            while ((textInFile = buffer.readLine()) != null) {
+                builder.append(textInFile).append("\n");
+            }
 
-        FileReader reader = new FileReader(file);
-        BufferedReader buffer = new BufferedReader(reader);
-        while ((textToRead = buffer.readLine()) != null) {
-            builder.append(textToRead).append("\n");
+            return builder.toString();
+        } catch (IOException e){
+            throw e;
         }
 
-        return builder.toString();
     }
 }

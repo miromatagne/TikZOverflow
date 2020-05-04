@@ -212,10 +212,11 @@ public class FileHandler {
      * @throws IOException when a IO error occurs
      */
     public void writeInFile(File file, String text) throws IOException {
-        FileWriter fw = new FileWriter(file);
-        BufferedWriter bw = new BufferedWriter(fw);
-        bw.write(text);
-        bw.close();
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))){
+            bw.write(text);
+        } catch (IOException e){
+            throw e;
+        }
     }
 
 
@@ -227,17 +228,18 @@ public class FileHandler {
      * @throws IOException if error in IO interactions
      */
     public String readInFile(String path) throws IOException {
-        File file = new File(path);
-        String textInFile;
-        StringBuilder builder = new StringBuilder();
+        try (BufferedReader buffer = new BufferedReader(new FileReader(new File(path)))){
+            String textInFile;
+            StringBuilder builder = new StringBuilder();
+            while ((textInFile = buffer.readLine()) != null) {
+                builder.append(textInFile).append("\n");
+            }
 
-        FileReader reader = new FileReader(file);
-        BufferedReader buffer = new BufferedReader(reader);
-        while ((textInFile = buffer.readLine()) != null) {
-            builder.append(textInFile).append("\n");
+            return builder.toString();
+        } catch (IOException e){
+            throw e;
         }
 
-        return builder.toString();
     }
 
     /**
@@ -285,19 +287,22 @@ public class FileHandler {
         if (file == null || flag.equals("")) {
             return "";
         }
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        String line;
-        while ((line = br.readLine()) != null) {
-            String[] lineArray = line.split(":");
-            if (lineArray[0].equals(flag)) {
-                if (!lineArray[1].equals("")) {
-                    return lineArray[1];
+        try (BufferedReader br = new BufferedReader(new FileReader(file))){
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] lineArray = line.split(":");
+                if (lineArray[0].equals(flag)) {
+                    if (!lineArray[1].equals("")) {
+                        return lineArray[1];
+                    }
                 }
             }
+            System.out.println("No information for the flag : " + flag + ", in file " + file.getPath());
+            return "";
+        } catch (IOException e){
+            throw e;
         }
-        br.close();
-        System.out.println("No information for the flag : " + flag + ", in file " + file.getPath());
-        return "";
+
     }
 
     /**
@@ -383,13 +388,10 @@ public class FileHandler {
      * @throws LogErrorException If there was an error while reading the file.
      */
     public void errorLogs(String path, String username) throws LogErrorException {
-        try {
+        try (BufferedReader buffer = new BufferedReader(new FileReader(new File(path)))) {
             ERRORS = "";
             ERRORS_COUNTER = 0;
-            File file = new File(path);
             String[] words;
-            FileReader fileReader = new FileReader(file);
-            BufferedReader buffer = new BufferedReader(fileReader);
             String line;
             String input = "Latex/" + username + ".tex";
 

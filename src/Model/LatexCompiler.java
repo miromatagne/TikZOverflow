@@ -32,11 +32,14 @@ public class LatexCompiler {
      * @throws IOException If the readLine throw an exception, getLines will throw it to an upper function
      */
     private static void clearStream(InputStream input) throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(input));
-        while (true) {
-            if ((in.readLine()) == null) {
-                break;
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(input))) {
+            while (true) {
+                if ((in.readLine()) == null) {
+                    break;
+                }
             }
+        } catch (IOException e){
+            throw e;
         }
     }
 
