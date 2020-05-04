@@ -25,7 +25,7 @@ public class FileHandler {
     /**
      * Read the text in a File
      *
-     * @param file file.
+     * @param path file.
      * @return text in the file
      * @throws IOException if error in IO interactions
      */
@@ -44,14 +44,14 @@ public class FileHandler {
         // add close
 
     }
-
-    /**
+/*
+    *//**
      * Creates a user from its username and its save in the save_user directory.
      *
      * @param username Username (identifying users)
      * @return User created
      * @throws UserFromSaveCreationException when then user can not be created from the save corresponding to the username given
-     */
+     *//*
     public User getUserFromSave(String username) throws UserFromSaveCreationException {
         try {
             File file = new File(saveUserDirectory + "/" + username + saveUserFormat);
@@ -67,25 +67,25 @@ public class FileHandler {
         }
     }
 
-    /**
+    *//**
      * Check if the save user file exists
      *
      * @param username username of the user
      * @return TRUE if file exists, FALSE otherwise
-     */
+     *//*
     public boolean saveUserExists(String username) {
         File file = new File(saveUserDirectory + "/" + username + saveUserFormat);
         return file.exists();
     }
 
-    /**
+    *//**
      * Searches the information needed with the given save file flag.
      *
      * @param file File corresponding to user save file
      * @param flag Flag to extract the information from
      * @return Information needed, or empty string if empty file/flag
      * @throws IOException if any IO error interaction occurs
-     */
+     *//*
     private String getInformation(File file, String flag) throws IOException {
         if (file == null || flag.equals("")) {
             return "";
@@ -108,13 +108,13 @@ public class FileHandler {
 
     }
 
-    /**
+    *//**
      * Fills user last name from file.
      *
      * @param file File corresponding to user save file
      * @param user User whose last name is set
      * @throws IOException if any IO error interaction occurs
-     */
+     *//*
     private void setUserLastName(File file, User user) throws IOException {
         String temp;
         if (!(temp = getInformation(file, "last")).equals("")) {
@@ -122,13 +122,13 @@ public class FileHandler {
         }
     }
 
-    /**
+    *//**
      * Fills user first name from file.
      *
      * @param file File corresponding to user save file
      * @param user User whose first name is set
      * @throws IOException if any IO error interaction occurs
-     */
+     *//*
     private void setUserFirstName(File file, User user) throws IOException {
         String temp;
         if (!(temp = getInformation(file, "first")).equals("")) {
@@ -136,13 +136,13 @@ public class FileHandler {
         }
     }
 
-    /**
+    *//**
      * Fills user mail from file.
      *
      * @param file File corresponding to user save file
      * @param user User whose mail is set
      * @throws IOException if any IO error interaction occurs
-     */
+     *//*
     private void setUserMail(File file, User user) throws IOException {
         String temp;
         if (!(temp = getInformation(file, "mail")).equals("")) {
@@ -150,13 +150,13 @@ public class FileHandler {
         }
     }
 
-    /**
+    *//**
      * Fills user password from file.
      *
      * @param file File corresponding to user save file
      * @param user User whose password is set
      * @throws IOException if any IO error interaction occurs
-     */
+     *//*
     private void setUserPassword(File file, User user) throws IOException {
         String temp;
         if (!(temp = getInformation(file, "password")).equals("")) {
@@ -164,32 +164,32 @@ public class FileHandler {
         }
     }
 
-    /**
+    *//**
      * Get the errors in the compiler
      *
      * @return string with all the errors that the user let in the compiler
-     */
+     *//*
     public String getErrors() {
         return ERRORS;
     }
 
-    /**
+    *//**
      * Get the counter of errors in the compiler
      *
      * @return quantity of errors that occur in the compiler
-     */
+     *//*
     public int getErrorsCounter() {
         return ERRORS_COUNTER;
     }
 
-    /**
+    *//**
      * Find the errors that the user has written in the compiler
      *
      * @param path     the path to the log file which contains all information about the last compilation
      *                 that we made
      * @param username each error give the username so we need it to filter errors from other information
      * @throws LogErrorException If there was an error while reading the file.
-     */
+     *//*
     public void errorLogs(String path, String username) throws LogErrorException {
         try (BufferedReader buffer = new BufferedReader(new FileReader(new File(path)))) {
             ERRORS = "";
@@ -224,6 +224,6 @@ public class FileHandler {
             throw new LogErrorException(e);
         }
     }
-
+*/
 
 }
