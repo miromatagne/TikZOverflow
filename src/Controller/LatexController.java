@@ -22,7 +22,7 @@ import java.util.Objects;
  */
 public class LatexController implements MainPageViewController.CodeInterfaceListener {
 
-    FileHandler fileHandler;
+    UserHandler userHandler;
     ProjectHandler projectHandler;
     private final MainPageViewController mainPageViewController;
 
@@ -34,7 +34,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      */
     public LatexController(MainPageViewController mainPageViewController) throws LatexControllerConstructorException {
         try {
-            this.fileHandler = new FileHandler();
+            this.userHandler = new UserHandler();
             this.projectHandler = new ProjectHandler();
             this.mainPageViewController = mainPageViewController;
         } catch (FileHandlerConstructorException e) {
@@ -50,8 +50,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      */
     public String getTextInFile() throws GetTextInFileException {
         try {
-            String filePath = Session.getInstance().getCurrentProject().getPath()+ Session.getInstance().getCurrentProject().getTitle() + ".tex";
-            return fileHandler.readInFile(filePath);
+            return projectHandler.getProjectCode();
         } catch (IOException e) {
             throw new GetTextInFileException(e);
         }
@@ -69,14 +68,11 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             saveTikz(sourceCode);
             String filePath = Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".tex";
             System.out.println(filePath);
-            LatexCompiler.runProcess(filePath);
             String pdfPath = Session.getInstance().getCurrentProject().getPath()+ Session.getInstance().getCurrentProject().getTitle() + ".pdf";
-            String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
             LatexHandler.getInstance().runProcess(filePath);
-            String pdfPath = "./Latex/out/" + Session.getInstance().getUser().getUsername() + ".pdf";
             createImage(pdfPath);
-            fileHandler.errorLogs(Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".log", Session.getInstance().getUser().getUsername());
-            int errorsCount = fileHandler.getErrorsCounter();
+            userHandler.errorLogs(Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".log", Session.getInstance().getUser().getUsername());
+            int errorsCount = userHandler.getErrorsCounter();
             return "Errors (" + errorsCount + ")";
         } catch (LatexCompilationException | LogErrorException e) {
             throw new TikzCompilationException(e);
@@ -92,13 +88,17 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
         PDFHandler pdfHandler = new PDFHandler(pdfPath);
         try {
             pdfHandler.convertPdfToImageOnDisk();
-            String imagePath = pdfPath.replace(".pdf", ".jpg");
+        } catch (Exception e) {
+            System.err.println("Error converting " + pdfPath + " to image");
+            e.printStackTrace();
+        }
+        String imagePath = pdfPath.replace(".pdf", ".jpg");
+        try {
             Image renderedImage = new Image(new FileInputStream(imagePath));
             mainPageViewController.renderImage(renderedImage);
         } catch (IOException e) {
             System.err.println("Image file not found");
             e.printStackTrace();
-            AlertController.showStageError("Error while converting the pdf into a jpg to get an overview.", "Overview not available now");
         }
     }
 
@@ -109,7 +109,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      */
     public void saveTikz(String sourceCode) {
         try {
-            fileHandler.makeTexFile(sourceCode);
+            projectHandler.makeTexFile(sourceCode);
             projectHandler.saveProjectInfo(Session.getInstance().getCurrentProject());
         } catch (LatexWritingException e) {
             System.err.println("Error while writing in tex file");
@@ -117,13 +117,8 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             e.getCause().printStackTrace();
         } catch (ProjectSaveException e) {
             e.printStackTrace();
-            AlertController.showStageError("Error while writing in the tex file.", "Tex file not written");
         }
     }
-
-
-
-
 
     /**
      * Compiles code and refreshes error button text on main page.
@@ -143,12 +138,8 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             e.getCause().printStackTrace();
         } catch (GetTextInFileException e) {
             System.err.println("Error reading project file.");
-            AlertController.showStageError("Error while TikZ compilation.", "TikZ compilation failed");
-        } catch (BuildFullCodeFromShapesOnlyException e) {
-            System.err.println("Building code from shapes only failed");
             e.printStackTrace();
             e.getCause().printStackTrace();
-            AlertController.showStageError("Error while building the code from the shapes.", "Code could not be built");
         }
     }
 
@@ -166,7 +157,6 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             System.err.println("Error while getting the source code");
             e.printStackTrace();
             e.getCause().printStackTrace();
-            AlertController.showStageError("Error while getting the source code.", "Source code not available");
         }
         return "";
     }
@@ -184,7 +174,6 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             System.err.println("Error while getting the full text");
             e.printStackTrace();
             e.getCause().printStackTrace();
-            AlertController.showStageError("Error while getting the full text from the save file.", "Save could not be loaded");
         }
         return "";
     }
@@ -203,17 +192,16 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             System.err.println("Error reading file before saving");
             e.printStackTrace();
             e.getCause().printStackTrace();
-            AlertController.showStageError("Error while saving the code in a LaTeX file from the code area.", "Latex file not saved");
         }
     }
 
     @Override
     public String getErrorsText() {
-        return fileHandler.getErrors();
+        return userHandler.getErrors();
     }
 
     @Override
     public int getErrorsCounter() {
-        return fileHandler.getErrorsCounter();
+        return userHandler.getErrorsCounter();
     }
 }

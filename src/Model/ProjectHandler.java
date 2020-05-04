@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.Session;
 import Model.Exceptions.*;
 
 import java.io.*;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
  * This class is used to handle projects. It uses a singleton design pattern. It allows different
  * actions on projects such as copy, deletion, save, share or renaming.
  */
-public class ProjectHandler {
+public class ProjectHandler extends FileHandler{
     public final static String DATE_FORMAT = "E dd-MM-yyyy HH:mm:ss";
 
     /**
@@ -103,7 +104,7 @@ public class ProjectHandler {
      */
     public Project loadProject(String path) throws ProjectLoadException {
         try {
-            String saveText = readInFile(new File(path + File.separator+"project.properties"));
+            String saveText = super.readInFile(new File(path + File.separator+"project.properties"));
             return generateProjectFromSave(saveText, path);
         } catch (IOException | ProjectFromSaveGenerationException e) {
             throw new ProjectLoadException(e);
@@ -208,41 +209,35 @@ public class ProjectHandler {
         }
     }
 
-
-    /**
-     * Writes text into file.
-     *
-     * @param file File written
-     * @param text Content to write
-     * @throws IOException when a IO error occurs
-     */
-    private void writeInFile(File file, String text) throws IOException {
-        FileWriter fw = new FileWriter(file);
-        BufferedWriter bw = new BufferedWriter(fw);
-        bw.write(text);
-        bw.close();
-        fw.close();
+    public String getProjectCode() throws IOException {
+        String filePath = Controller.Session.getInstance().getCurrentProject().getPath()+ Session.getInstance().getCurrentProject().getTitle() + ".tex";
+        return super.readInFile(new File(filePath));
     }
 
-
     /**
-     * Read the text in a File
+     * Creates a .tex file for every new user, and updates it with the new source code
+     * when compiling.
      *
-     * @param file file.
-     * @return text in the file
-     * @throws IOException if error in IO interactions
+     * @param sourceCode String from the compiling text area
+     * @throws LatexWritingException when the text has not be written successfully in the tex file
      */
-    private String readInFile(File file) throws IOException {
-        String textToRead;
-        StringBuilder builder = new StringBuilder();
-
-        FileReader reader = new FileReader(file);
-        BufferedReader buffer = new BufferedReader(reader);
-        while ((textToRead = buffer.readLine()) != null) {
-            builder.append(textToRead).append("\n");
+    public void makeTexFile(String sourceCode) throws LatexWritingException {
+        try {
+            File texFile = new File(Session.getInstance().getCurrentProject().getPath()+ Session.getInstance().getCurrentProject().getTitle() + ".tex");
+            if (texFile.exists()) {
+                writeInFile(texFile, sourceCode);
+            } else {
+                File template_file = new File("./Latex/template.txt");
+                String temp, text = "";
+                BufferedReader br;
+                br = new BufferedReader(new FileReader(template_file));
+                while ((temp = br.readLine()) != null) {
+                    text = text.concat(temp + '\n');
+                }
+                writeInFile(texFile, text);
+            }
+        } catch (IOException e) {
+            throw new LatexWritingException(e);
         }
-        buffer.close();
-        reader.close();
-        return builder.toString();
     }
 }
