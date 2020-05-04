@@ -107,8 +107,8 @@ public class TestProjectHandler {
 
         projectHandler.saveProjectInfo(project1);
 
-        FileHandler fileHandler = new FileHandler();
-        String fileContent = fileHandler.readInFile(project1.getPath()+File.separator+"project.properties");
+        UserHandler userHandler = new UserHandler();
+        String fileContent = userHandler.readInFile(new File(project1.getPath() + File.separator + "project.properties"));
 
         SimpleDateFormat dateFormatter = new SimpleDateFormat(ProjectHandler.DATE_FORMAT);
         String dateString = dateFormatter.format(project1.getDate());

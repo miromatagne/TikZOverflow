@@ -2,7 +2,7 @@ package Controller;
 
 import Model.Exceptions.FileHandlerConstructorException;
 import Model.Exceptions.SaveUserException;
-import Model.FileHandler;
+import Model.UserHandler;
 import Model.User;
 import View.ViewControllers.AccountModificationViewController;
 import javafx.fxml.FXMLLoader;
@@ -83,7 +83,7 @@ public class AccountModificationController extends AccountController implements 
                 userCurrent.setMail(email);
                 userCurrent.setPassword(password);
                 Session.getInstance().setUser(userCurrent);
-                FileHandler handler = new FileHandler();
+                UserHandler handler = new UserHandler();
                 handler.saveUser(userCurrent);
             } catch (SaveUserException e) {
                 System.err.println("Error in saving the user");

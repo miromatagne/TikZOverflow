@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  */
 public class LatexController implements MainPageViewController.CodeInterfaceListener {
 
-    FileHandler fileHandler;
+    UserHandler userHandler;
     ProjectHandler projectHandler;
     private final MainPageViewController mainPageViewController;
 
@@ -33,7 +33,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      */
     public LatexController(MainPageViewController mainPageViewController) throws LatexControllerConstructorException {
         try {
-            this.fileHandler = new FileHandler();
+            this.userHandler = new UserHandler();
             this.projectHandler = new ProjectHandler();
             this.mainPageViewController = mainPageViewController;
         } catch (FileHandlerConstructorException e) {
@@ -49,8 +49,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      */
     public String getTextInFile() throws GetTextInFileException {
         try {
-            String filePath = Session.getInstance().getCurrentProject().getPath()+ Session.getInstance().getCurrentProject().getTitle() + ".tex";
-            return fileHandler.readInFile(filePath);
+            return projectHandler.getProjectCode();
         } catch (IOException e) {
             throw new GetTextInFileException(e);
         }
@@ -71,8 +70,8 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             LatexCompiler.runProcess(filePath);
             String pdfPath = Session.getInstance().getCurrentProject().getPath()+ Session.getInstance().getCurrentProject().getTitle() + ".pdf";
             createImage(pdfPath);
-            fileHandler.errorLogs(Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".log", Session.getInstance().getUser().getUsername());
-            int errorsCount = fileHandler.getErrorsCounter();
+            userHandler.errorLogs(Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".log", Session.getInstance().getUser().getUsername());
+            int errorsCount = userHandler.getErrorsCounter();
             return "Errors (" + errorsCount + ")";
         } catch (LatexCompilationException | LogErrorException e) {
             throw new TikzCompilationException(e);
@@ -109,7 +108,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      */
     public void saveTikz(String sourceCode) {
         try {
-            fileHandler.makeTexFile(sourceCode);
+            projectHandler.makeTexFile(sourceCode);
             projectHandler.saveProjectInfo(Session.getInstance().getCurrentProject());
         } catch (LatexWritingException e) {
             System.err.println("Error while writing in tex file");
@@ -242,11 +241,11 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
 
     @Override
     public String getErrorsText() {
-        return fileHandler.getErrors();
+        return userHandler.getErrors();
     }
 
     @Override
     public int getErrorsCounter() {
-        return fileHandler.getErrorsCounter();
+        return userHandler.getErrorsCounter();
     }
 }
