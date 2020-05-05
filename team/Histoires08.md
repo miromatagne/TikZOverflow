@@ -59,6 +59,8 @@ Afin de déterminer le nombre de points de cette histoire, le groupe l'a scindé
 
 TOTAL : 24 points
 
+Cette histoire a en fait été réalisée en 24.5 points.
+
 ### Notes :
 Le client a répondu aux questions suivantes du groupe : Y a-t-il un format imposé pour la sauvegarde des informations ou pouvons-nous utiliser un fichier texte ? Un fichier texte est suffisant. Devons-nous rédiger nous-mêmes les conditions de service ? Oui, il faut rédiger des conditions de service mais assez simples et courtes.
 
@@ -83,9 +85,9 @@ système garde trace de toutes les modifications effectuées et les enregistre a
 
 ### Risque Développeurs : 1
 
-### Introduit dans l'itération : 
+### Introduit dans l'itération : 4
 
-### Etat :
+### Etat : En cours
 
 ### Points :
 Afin de déterminer le nombre de points de cette histoire, le groupe l'a scindée en les tâches suivantes :
@@ -211,6 +213,8 @@ Dans le deuxième cas, l’utilisateur peut utiliser le cadre de texte pour déc
 
 TOTAL : 28 points
 
+Cette histoire a en fait été réalisée en 31.5 points (plus de détails dans le fichier team/Iteration2/HistoiresIt2.md).
+
 ### Notes :
 Lorsqu'un élément a été défini à partir du panneau de configuration, les caractéristiques de celui-ci (au format texte) seront inscrites dans un label "Elements ajoutés".
 
@@ -231,9 +235,9 @@ Dans le premier cas, quand un élément (noeud/lien) est défini à partir du pa
 
 ### Risque Développeurs : 1
 
-### Introduit dans l'itération : 
+### Introduit dans l'itération : 3
 
-### Etat : 
+### Etat : Complétée
 
 ### Points :
 - Point-and-click : 5 points
@@ -242,6 +246,8 @@ Dans le premier cas, quand un élément (noeud/lien) est défini à partir du pa
 - Travail d'équipe : 3 points
 
 TOTAL : 19 points
+
+Cette histoire a en fait été réalisée au terme de 6 points (plus de détails dans le fichier team/Iteration3/HistoiresIt3.md).
 
 ----------------------
 
@@ -341,6 +347,8 @@ correspondant au diagramme devra être mis à jour dans la partie de l’interfa
 ### Points :
 
 TOTAL : 9 points
+
+Cette histoire a en fait été réalisée en 24 points (plus de détails dans le fichier team/Iteration3/HistoiresIt3.md).
 
 ----------------------
 
