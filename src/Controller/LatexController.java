@@ -24,6 +24,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
 
     UserHandler userHandler;
     ProjectHandler projectHandler;
+    LatexErrorsHandler latexErrorsHandler;
     private final MainPageViewController mainPageViewController;
 
     /**
@@ -35,6 +36,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     public LatexController(MainPageViewController mainPageViewController) throws LatexControllerConstructorException {
         this.userHandler = new UserHandler();
         this.projectHandler = new ProjectHandler();
+        this.latexErrorsHandler = new LatexErrorsHandler();
         this.mainPageViewController = mainPageViewController;
     }
 
@@ -67,8 +69,8 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             String pdfPath = Session.getInstance().getCurrentProject().getPath()+ Session.getInstance().getCurrentProject().getTitle() + ".pdf";
             LatexHandler.getInstance().runProcess(filePath);
             createImage(pdfPath);
-            userHandler.errorLogs(Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".log", Session.getInstance().getUser().getUsername());
-            int errorsCount = userHandler.getErrorsCounter();
+            latexErrorsHandler.errorLogs(Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".log", Session.getInstance().getUser().getUsername());
+            int errorsCount = latexErrorsHandler.getErrorsCounter();
             return "Errors (" + errorsCount + ")";
         } catch (LatexCompilationException | LogErrorException e) {
             throw new TikzCompilationException(e);
@@ -192,11 +194,11 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
 
     @Override
     public String getErrorsText() {
-        return userHandler.getErrors();
+        return latexErrorsHandler.getErrors();
     }
 
     @Override
     public int getErrorsCounter() {
-        return userHandler.getErrorsCounter();
+        return latexErrorsHandler.getErrorsCounter();
     }
 }

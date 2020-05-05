@@ -66,8 +66,8 @@ class TestUserHandler {
     void errorLogs() throws LogErrorException, FileHandlerConstructorException {
         User user = new User();
         user.setUsername("logFileTest");
-        UserHandler userHandler = new UserHandler();
-        userHandler.errorLogs("./test/Model/" + user.getUsername() + ".log", user.getUsername());
+        LatexErrorsHandler latexErrorsHandler = new LatexErrorsHandler();
+        latexErrorsHandler.errorLogs("./test/Model/" + user.getUsername() + ".log", user.getUsername());
         int errorsCounterTest = 7;
         String errors = "line 1: LaTeX Error: Missing \\begin{document}.\n" +
                 "line 6: Paragraph ended before \\@fileswith@ptions was complete\n" +
@@ -76,7 +76,7 @@ class TestUserHandler {
                 "line 11: Undefined control sequence.\n" +
                 "line 12: Undefined control sequence.\n" +
                 "line 13: LaTeX Error: \\begin{document} ended by \\end{tikzpictu\n";
-        assertEquals(errorsCounterTest, userHandler.getErrorsCounter());//check if we have the same number of errors
-        assertEquals(errors, userHandler.getErrors());//check if we have the same errors
+        assertEquals(errorsCounterTest, latexErrorsHandler.getErrorsCounter());//check if we have the same number of errors
+        assertEquals(errors, latexErrorsHandler.getErrors());//check if we have the same errors
     }
 }
