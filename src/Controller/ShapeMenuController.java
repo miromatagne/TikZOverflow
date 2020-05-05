@@ -5,6 +5,7 @@ import Controller.Exceptions.ShapeMenuControllerConstructorException;
 import Model.FieldChecker;
 import Model.Shapes.ShapeFactory;
 import Model.Shapes.Shape;
+import Model.TextTypeChecker;
 import View.ViewControllers.MainPageViewController;
 import View.ShapeMenu.AllShapeMenus.MenuController;
 import View.ShapeMenu.ShapeMenuViewController;
@@ -132,14 +133,14 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
      */
     public void verifyShape() {
         boolean canAddShape = true;
-        FieldChecker fieldChecker = new FieldChecker();
+        TextTypeChecker textTypeChecker = new TextTypeChecker();
         ArrayList<String> allFields = allControllers.get(idCurrent).getAllFields();
         ArrayList<Float> allDataInField = new ArrayList<>();
         String redStyle = "-fx-text-box-border: red";
         String normalStyle = "";
         for (int i = 0; i < allFields.size(); i++) {
             String tempStringInField = allFields.get(i);
-            if (!fieldChecker.isValidNumber(tempStringInField) || tempStringInField == null) {
+            if (!textTypeChecker.isValidNumber(tempStringInField) || tempStringInField == null) {
                 canAddShape = false;
                 if (i < allControllers.get(idCurrent).getAllTextFields().size()) {
                     allControllers.get(idCurrent).getAllTextFields().get(i).setStyle(redStyle);
