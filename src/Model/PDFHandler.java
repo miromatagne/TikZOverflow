@@ -30,11 +30,12 @@ public class PDFHandler {
      * @throws IOException if pdf file doesn't exist
      */
     public void convertPdfToImageOnDisk() throws IOException {
-        File file = new File(pdfPath);
-        PDDocument document = PDDocument.load(file);
-        PDFRenderer renderer = new PDFRenderer(document);
-        BufferedImage renderedImage = renderer.renderImageWithDPI(0, 300, ImageType.RGB);
-        ImageIO.write(renderedImage, "JPEG", new File(pdfPath.replace(".pdf", ".jpg")));
-        document.close();
+        try (PDDocument document = PDDocument.load(new File(pdfPath))) {
+            PDFRenderer renderer = new PDFRenderer(document);
+            BufferedImage renderedImage = renderer.renderImageWithDPI(0, 300, ImageType.RGB);
+            ImageIO.write(renderedImage, "JPEG", new File(pdfPath.replace(".pdf", ".jpg")));
+        } catch (IOException e){
+            throw e;
+        }
     }
 }
