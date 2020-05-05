@@ -181,7 +181,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
         ProjectHandler projectHandler = new ProjectHandler();
         Project copyProject = projectHandler.createCopy(projectToCopy,user,new_path);
         try {
-            String code = projectHandler.readInFile(new File(projectToCopy.getPath() + File.separator + projectToCopy.getTitle() + ".tex"));
+            String code = projectHandler.readInFile(projectToCopy.getPath() + File.separator + projectToCopy.getTitle() + ".tex");
             currentTreatedProject = copyProject;
             projectHandler.makeTexFile(code);
             user.addProject(new_path);

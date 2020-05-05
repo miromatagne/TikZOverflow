@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestProjectHandler {
 
     @Test
-    public void creation() throws ProjectCreationException, DirectoryCreationException, ProjectAlreadyExistsException, ProjectDeletionException {
+    public void creation() throws ProjectCreationException, DirectoryCreationException, ProjectAlreadyExistsException, ProjectDeletionException, LatexWritingException {
 
         ProjectHandler projectHandler = new ProjectHandler();
 
@@ -43,7 +43,7 @@ public class TestProjectHandler {
     }
 
     @Test
-    public void copy() throws ProjectCreationException, ProjectCopyException, DirectoryCreationException, ProjectAlreadyExistsException, ProjectDeletionException {
+    public void copy() throws ProjectCreationException, ProjectCopyException, DirectoryCreationException, ProjectAlreadyExistsException, ProjectDeletionException, LatexWritingException {
 
         ProjectHandler projectHandler = new ProjectHandler();
         User user1 = new User();
@@ -66,7 +66,7 @@ public class TestProjectHandler {
     }
 
     @Test
-    void delete() throws ProjectCreationException, ProjectDeletionException, DirectoryCreationException, ProjectAlreadyExistsException {
+    void delete() throws ProjectCreationException, ProjectDeletionException, DirectoryCreationException, ProjectAlreadyExistsException, LatexWritingException {
         ProjectHandler projectHandler = new ProjectHandler();
         User user1 = new User();
         //User user2 = new User();
@@ -123,7 +123,7 @@ public class TestProjectHandler {
     }*/
 
     @Test
-    void load() throws ProjectCreationException, ProjectLoadException, ProjectSaveException, DirectoryCreationException, ProjectAlreadyExistsException, ProjectDeletionException {
+    void load() throws ProjectCreationException, ProjectLoadException, ProjectSaveException, DirectoryCreationException, ProjectAlreadyExistsException, ProjectDeletionException, LatexWritingException {
         ProjectHandler projectHandler = new ProjectHandler();
         User user = new User();
         user.setUsername("creator");

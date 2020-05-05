@@ -84,7 +84,7 @@ public class ProjectHandler extends FileHandler{
      */
     public Project loadProject(String path) throws ProjectLoadException {
         try {
-            String saveText = super.readInFile(new File(path + File.separator+"project.properties"));
+            String saveText = super.readInFile(path + File.separator+"project.properties");
             return generateProjectFromSave(saveText, path);
         } catch (IOException | ProjectFromSaveGenerationException e) {
             throw new ProjectLoadException(e);
@@ -125,7 +125,7 @@ public class ProjectHandler extends FileHandler{
 
     public void renameProject(Project project, String newTitle) throws ProjectRenameException {
         try {
-            String code = super.readInFile(new File(project.getPath() + File.separator + project.getTitle() + ".tex"));
+            String code = super.readInFile(project.getPath() + File.separator + project.getTitle() + ".tex");
             project.setTitle(newTitle);
             saveProjectInfo(project);
             makeTexFile(code);
@@ -202,7 +202,7 @@ public class ProjectHandler extends FileHandler{
 
     public String getProjectCode() throws IOException {
         String filePath = Controller.Session.getInstance().getCurrentProject().getPath()+ Session.getInstance().getCurrentProject().getTitle() + ".tex";
-        return super.readInFile(new File(filePath));
+        return super.readInFile(filePath);
     }
 
     /**

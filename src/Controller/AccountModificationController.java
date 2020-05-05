@@ -91,11 +91,6 @@ public class AccountModificationController extends AccountController implements 
                 e.printStackTrace();
                 e.getCause().printStackTrace();
                 AlertController.showStageError("Error while saving the user account.", "User could not be saved");
-            } catch (FileHandlerConstructorException e) {
-                System.err.println("Error while creating the file handler");
-                e.printStackTrace();
-                e.getCause().printStackTrace();
-                AlertController.showStageError("Error while loading the I/O interactions tool.", "Process aborted", true);
             }
             return true;
         }
