@@ -39,6 +39,20 @@ public class FileHandler {
         }
 
     }
+
+    void deleteDirectory(File file) throws IOException {
+        if (file.isDirectory()) {
+            File[] entries = file.listFiles();
+            if (entries != null) {
+                for (File entry : entries) {
+                    deleteDirectory(entry);
+                }
+            }
+        }
+        if (!file.delete()) {
+            throw new IOException("Failed to delete " + file);
+        }
+    }
 /*
     *//**
      * Creates a user from its username and its save in the save_user directory.

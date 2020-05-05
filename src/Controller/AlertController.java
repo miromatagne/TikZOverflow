@@ -10,12 +10,21 @@ public class AlertController {
     }
     public static void showStageError(String header, String content, boolean hasToQuit){
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
+        createAlert(header, content, alert);
         if (hasToQuit) {
             Platform.exit();
         }
+    }
+
+    public static void showStageInfo(String header, String content){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        createAlert(header, content, alert);
+    }
+
+    private static void createAlert(String header, String content, Alert alert) {
+        alert.setTitle(header);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

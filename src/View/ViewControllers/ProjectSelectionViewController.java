@@ -1,6 +1,7 @@
 package View.ViewControllers;
 
 import Controller.ProjectDisplay;
+import Controller.Session;
 import Model.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -70,10 +71,19 @@ public class ProjectSelectionViewController implements Initializable {
         renameColumn.setCellValueFactory(new PropertyValueFactory<>("renameButton"));
         shareColumn.setCellValueFactory(new PropertyValueFactory<>("shareButton"));
         tableView.setItems(data);
+        listProjects();
         tableView.setOnMousePressed(event -> {
             //TODO : Creer la fonction qui va recuperer le project avec la ligne ci-dessous et se deplacer a l'ecran principal
             System.out.println(tableView.getSelectionModel().getSelectedItem().getTitle());
         });
+    }
+
+    private void listProjects() {
+        ArrayList<Project> projects = Session.getInstance().getUserProjects();
+        for(Project p: projects){
+            ProjectDisplay projectDisplay = new ProjectDisplay(p);
+            addProjectToDisplay(projectDisplay);
+        }
     }
 
     public void setListener(ProjectSelectionViewControllerListener listener) {
@@ -105,8 +115,8 @@ public class ProjectSelectionViewController implements Initializable {
     }
 
     @FXML
-    void onPressDelete(ActionEvent event) {
-
+    void onPressDelete() {
+        listener.deleteProjects(getCheckedBoxes());
     }
 
     @FXML
@@ -138,6 +148,10 @@ public class ProjectSelectionViewController implements Initializable {
         }
     }
 
+    public void removeProjectFromDisplay(ProjectDisplay projectDisplay) {
+        data.remove(projectDisplay);
+    }
+
     public interface ProjectSelectionViewControllerListener {
         void accountModificationRequest();
 
@@ -148,5 +162,7 @@ public class ProjectSelectionViewController implements Initializable {
         void showRenamePopUp(Project project);
 
         void showCreatePopUp();
+
+        void deleteProjects(ObservableList<ProjectDisplay> checkedBoxes);
     }
 }

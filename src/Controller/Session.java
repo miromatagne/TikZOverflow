@@ -78,12 +78,12 @@ public class Session {
      */
     public ArrayList<Project> getUserProjects(){
         ArrayList<Project> userProjects = new ArrayList<>();
-        for(String p:currentUser.getProjectPaths()){
+        for(String projectPath:currentUser.getProjectPaths()){
             try {
-                Project project = projectHandler.loadProject(p);
+                Project project = projectHandler.loadProject(projectPath);
                 userProjects.add(project);
             } catch (ProjectLoadException e) {
-                e.printStackTrace();
+                e.printStackTrace(); // TODO
             }
 
         }

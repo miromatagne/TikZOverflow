@@ -4,6 +4,7 @@ import Model.*;
 import Model.Exceptions.*;
 import View.ViewControllers.ProjectPopUpViewController;
 import View.ViewControllers.ProjectSelectionViewController;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -109,6 +110,20 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
     }
 
     @Override
+    public void deleteProjects(ObservableList<ProjectDisplay> checkedBoxes) {
+        for(ProjectDisplay projectDisplay: checkedBoxes){
+            ProjectHandler projectHandler = new ProjectHandler();
+            Project project = projectDisplay.getProject();
+            try {
+                projectHandler.deleteProject(project);
+                controller.removeProjectFromDisplay(projectDisplay);
+            } catch (ProjectDeletionException | SaveUserException | UserFromSaveCreationException e) {
+                AlertController.showStageError("Failed to delete", String.format("Could not delete %s", project.getTitle()));
+            }
+        }
+    }
+
+    @Override
     public boolean createProject(String title, String path) {
         if(path.equals("") || title.equals("")){
             AlertController.showStageError("Invalid information", "Please enter valid information");
@@ -138,13 +153,12 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
 
     @Override
     public void renameProject(String title) {
-        currentTreatedProject.setTitle(title);
         ProjectHandler projectHandler = new ProjectHandler();
         try {
-            projectHandler.saveProjectInfo(currentTreatedProject);
-        } catch (ProjectSaveException e) {
+            projectHandler.renameProject(currentTreatedProject, title);
+        } catch (ProjectRenameException e) {
             e.printStackTrace();
-            AlertController.showStageError("Save error", "Error saving project information");
+            AlertController.showStageError("Save error", "Error renaming project");
         }
         controller.refreshProjectTitle(currentTreatedProject, title);
     }
@@ -162,6 +176,21 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
         } catch (FileNotFoundException e){
             AlertController.showStageError("Error opening folder", "Please choose a valid folder", false);
             return "";
+        }
+    }
+
+    @Override
+    public void shareProject(String collaboratorUsername) {
+        ProjectHandler projectHandler = new ProjectHandler();
+        try {
+            projectHandler.shareProject(collaboratorUsername, currentTreatedProject);
+            AlertController.showStageInfo("Successful sharing", String.format("Project successfully shared with %s !", collaboratorUsername));
+        } catch (UserFromSaveCreationException e) {
+            AlertController.showStageError("User not found", String.format("User %s does not exist", collaboratorUsername));
+        } catch (ProjectSaveException e) {
+            e.printStackTrace(); // TODO
+        } catch (SaveUserException e) {
+            e.printStackTrace(); // TODO
         }
     }
 
@@ -192,6 +221,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
         }
     }
 
+    /*
     public void deleteProject(Project projectToDelete) throws ProjectDeletionException{
         ArrayList<String> users = projectToDelete.getCollaboratorsUsernames();
         users.add(projectToDelete.getCreatorUsername());
@@ -210,7 +240,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
         }catch (UserFromSaveCreationException | SaveUserException e){
             throw new ProjectDeletionException();
         }
-    }
+    }*/
 
     public void shareProject(Project project,User user) throws SaveUserException, ProjectSaveException{
         project.addCollaborator(user.getUsername());

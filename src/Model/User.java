@@ -66,4 +66,8 @@ public class User {
     public void addProject(String path) {
         projectPaths.add(path);
     }
+
+    public void removeProject(String path) {
+        projectPaths.remove(path);
+    }
 }

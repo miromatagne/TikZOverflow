@@ -17,7 +17,6 @@ public class UserHandler extends FileHandler{
     public static final String DEFAULT_DIRECTORY = "save user";
     private static int ERRORS_COUNTER = 0;
     private static String ERRORS = "";
-    private String saveUserDirectory = "";
     private final String saveUserFormat = ".txt";
 
 
@@ -50,7 +49,6 @@ public class UserHandler extends FileHandler{
             if (saveUserDirectory == null || saveUserDirectory.equals("")) {
                 return;
             }
-            this.saveUserDirectory = saveUserDirectory;
             File file = new File(saveUserDirectory);
             checkAndCreateSaveDirectory(file);
         } catch (DirectoryCreationException e) {
@@ -87,7 +85,7 @@ public class UserHandler extends FileHandler{
         text += "mail:" + user.getMail() + "\n";
         text += "password:" + user.getPassword() + "\n";
         ArrayList<String> projectPaths = user.getProjectPaths();
-        text += "projects:" + String.join(", ", projectPaths) + "\n";
+        text += "projects:" + String.join(",", projectPaths) + "\n";
         System.out.println(text);
         return text;
     }
@@ -99,11 +97,8 @@ public class UserHandler extends FileHandler{
      * @throws SaveUserCreationException when the creation of the user save fails
      */
     public void createUserSave(User user) throws SaveUserCreationException {
-        if (saveUserDirectory.equals("")) {
-            return;
-        }
         try {
-            File saveFile = new File(saveUserDirectory + File.separator + user.getUsername() + saveUserFormat);
+            File saveFile = new File(DEFAULT_DIRECTORY + File.separator + user.getUsername() + saveUserFormat);
             if (saveFile.exists()) {
                 //Error, the file does already exist
                 // TODO : inform user that username is taken
@@ -139,11 +134,8 @@ public class UserHandler extends FileHandler{
      * @throws SaveUserException when the user save could not be written
      */
     public void saveUser(User user) throws SaveUserException {
-        if (saveUserDirectory.equals("")) {
-            return;
-        }
         try {
-            File file = new File(saveUserDirectory + File.separator + user.getUsername() + saveUserFormat);
+            File file = new File(DEFAULT_DIRECTORY + File.separator + user.getUsername() + saveUserFormat);
             if (file.exists()) {
                 writeSave(user, file);
             }
@@ -161,7 +153,7 @@ public class UserHandler extends FileHandler{
      */
     public User getUserFromSave(String username) throws UserFromSaveCreationException {
         try {
-            File file = new File(saveUserDirectory + File.separator + username + saveUserFormat);
+            File file = new File(DEFAULT_DIRECTORY + File.separator + username + saveUserFormat);
             User user = new User();
             user.setUsername(username);
             setUserLastName(file, user);
@@ -182,7 +174,7 @@ public class UserHandler extends FileHandler{
      * @return TRUE if file exists, FALSE otherwise
      */
     public boolean saveUserExists(String username) {
-        File file = new File(saveUserDirectory + File.separator + username + saveUserFormat);
+        File file = new File(DEFAULT_DIRECTORY + File.separator + username + saveUserFormat);
         return file.exists();
     }
 
@@ -201,9 +193,10 @@ public class UserHandler extends FileHandler{
         BufferedReader br = new BufferedReader(new FileReader(file));
         String line;
         while ((line = br.readLine()) != null) {
-            String[] lineArray = line.split(":");
+            String[] lineArray = line.split(":", 2);
             if (lineArray[0].equals(flag)) {
                 if (lineArray.length>1 &&!lineArray[1].equals("")) {
+                    br.close();
                     return lineArray[1];
                 }
             }

@@ -16,7 +16,7 @@ import java.util.Locale;
  * This class is used to handle projects. It uses a singleton design pattern. It allows different
  * actions on projects such as copy, deletion, save, share or renaming.
  */
-public class ProjectHandler extends FileHandler{
+public class ProjectHandler extends FileHandler {
     public final static String DATE_FORMAT = "E dd-MM-yyyy HH:mm:ss";
 
     /**
@@ -38,9 +38,9 @@ public class ProjectHandler extends FileHandler{
             Project project = new Project(user.getUsername(), path, title);
             setupProjectDirectory(project);
             saveProjectInfo(project);
-            makeTexFile("");
+            generateTexFile(project);
             return project;
-        } catch (ProjectSaveException e) {
+        } catch (ProjectSaveException | IOException e) {
             throw new ProjectCreationException(e);
         } catch (DirectoryCreationException e) {
             throw new DirectoryCreationException();
@@ -84,7 +84,7 @@ public class ProjectHandler extends FileHandler{
      */
     public Project loadProject(String path) throws ProjectLoadException {
         try {
-            String saveText = super.readInFile(path + File.separator+"project.properties");
+            String saveText = super.readInFile(path + File.separator + "project.properties");
             return generateProjectFromSave(saveText, path);
         } catch (IOException | ProjectFromSaveGenerationException e) {
             throw new ProjectLoadException(e);
@@ -115,23 +115,52 @@ public class ProjectHandler extends FileHandler{
      * @param project project to delete
      * @throws ProjectDeletionException if deletion failed
      */
-    public void deleteProject(Project project) throws ProjectDeletionException {
-        String pathProperties = project.getPath() + File.separator + "project.properties";
+    public void deleteProject(Project project) throws ProjectDeletionException, SaveUserException, UserFromSaveCreationException {
+        String pathProperties = project.getPath();
+        ArrayList<String> collaboratorsUsernames = project.getCollaboratorsUsernames();
+        String creatorUsername = project.getCreatorUsername();
+        UserHandler userHandler = new UserHandler();
+        deleteFromUser(project, creatorUsername, userHandler);
+        for(String collaboratorUsername : collaboratorsUsernames){
+            deleteFromUser(project, collaboratorUsername, userHandler);
+        }
         File file = new File(pathProperties);
-        if (!file.delete()) {
+        try {
+            super.deleteDirectory(file);
+        } catch (IOException e) {
             throw new ProjectDeletionException();
         }
     }
 
+    private void deleteFromUser(Project project, String creatorUsername, UserHandler userHandler) throws UserFromSaveCreationException, SaveUserException {
+        User creator = userHandler.getUserFromSave(creatorUsername);
+        creator.removeProject(project.getPath());
+        userHandler.saveUser(creator);
+    }
+
     public void renameProject(Project project, String newTitle) throws ProjectRenameException {
-        try {
-            String code = super.readInFile(project.getPath() + File.separator + project.getTitle() + ".tex");
-            project.setTitle(newTitle);
-            saveProjectInfo(project);
-            makeTexFile(code);
-        } catch (IOException | LatexWritingException | ProjectSaveException e){
+        File projectFile = new File(project.getPath() + File.separator + project.getTitle() + ".tex");
+        boolean success = projectFile.renameTo(new File(project.getPath() + File.separator + newTitle + ".tex"));
+        if (!success) {
             throw new ProjectRenameException();
         }
+        String previousTitle= project.getTitle();
+        project.setTitle(newTitle);
+        try {
+            saveProjectInfo(project);
+        } catch (ProjectSaveException e) {
+            project.setTitle(previousTitle);
+            throw new ProjectRenameException();
+        }
+    }
+
+    public void shareProject(String collaboratorUsername, Project project) throws UserFromSaveCreationException, ProjectSaveException, SaveUserException {
+        UserHandler userHandler = new UserHandler();
+        User collaborator = userHandler.getUserFromSave(collaboratorUsername);
+        project.addCollaborator(collaboratorUsername);
+        collaborator.addProject(project.getPath());
+        saveProjectInfo(project);
+        userHandler.saveUser(collaborator);
     }
 
     /**
@@ -201,7 +230,7 @@ public class ProjectHandler extends FileHandler{
     }
 
     public String getProjectCode() throws IOException {
-        String filePath = Controller.Session.getInstance().getCurrentProject().getPath()+ Session.getInstance().getCurrentProject().getTitle() + ".tex";
+        String filePath = Controller.Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".tex";
         return super.readInFile(filePath);
     }
 
@@ -214,7 +243,7 @@ public class ProjectHandler extends FileHandler{
      */
     public void makeTexFile(String sourceCode) throws LatexWritingException {
         try {
-            File texFile = new File(Session.getInstance().getCurrentProject().getPath()+ Session.getInstance().getCurrentProject().getTitle() + ".tex");
+            File texFile = new File(Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".tex");
             if (texFile.exists()) {
                 writeInFile(texFile, sourceCode);
             } else {
@@ -229,6 +258,18 @@ public class ProjectHandler extends FileHandler{
             }
         } catch (IOException e) {
             throw new LatexWritingException(e);
+        }
+    }
+
+    public void generateTexFile(Project project) throws IOException {
+        File template_file = new File("./Latex/template.txt");
+        File texFile = new File(project.getPath() + File.separator + project.getTitle() + ".tex");
+        try (BufferedReader br = new BufferedReader(new FileReader(template_file))) {
+            String temp, text = "";
+            while ((temp = br.readLine()) != null) {
+                text = text.concat(temp + '\n');
+            }
+            writeInFile(texFile, text);
         }
     }
 }

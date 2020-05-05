@@ -21,6 +21,9 @@ public class ProjectPopUpViewController {
     @FXML
     private TextField pathField;
 
+    @FXML
+    private TextField popUpShareText;
+
     private ProjectPopUpViewControllerListener listener;
 
     public void setListener(ProjectPopUpViewControllerListener listener) {
@@ -29,7 +32,8 @@ public class ProjectPopUpViewController {
 
     @FXML
     void onPressShareInPopUp(ActionEvent event) {
-
+        listener.shareProject(popUpShareText.getText());
+        stage.close();
     }
 
     @FXML
@@ -63,5 +67,7 @@ public class ProjectPopUpViewController {
         void renameProject(String text);
 
         String browseFilesToGetPath(Stage popUpStage) throws FileNotFoundException;
+
+        void shareProject(String collaboratorUsername);
     }
 }
