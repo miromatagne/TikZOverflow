@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
- * This class is used to handle interactions with files. It creates directories and writes the saves
+ * This class is used to handle interactions with user files
  */
 
 public class UserHandler extends FileHandler{

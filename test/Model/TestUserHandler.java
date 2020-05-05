@@ -67,7 +67,7 @@ class TestUserHandler {
         User user = new User();
         user.setUsername("logFileTest");
         LatexErrorsHandler latexErrorsHandler = new LatexErrorsHandler();
-        latexErrorsHandler.errorLogs("./test/Model/" + user.getUsername() + ".log", user.getUsername());
+        latexErrorsHandler.errorLogs("./test/Model/" + user.getUsername() + ".log");
         int errorsCounterTest = 7;
         String errors = "line 1: LaTeX Error: Missing \\begin{document}.\n" +
                 "line 6: Paragraph ended before \\@fileswith@ptions was complete\n" +
