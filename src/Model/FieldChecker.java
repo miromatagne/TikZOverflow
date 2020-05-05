@@ -5,10 +5,7 @@ package Model;
  */
 
 public class FieldChecker {
-
-    public FieldChecker() {
-
-    }
+    private final TextTypeChecker textTypeChecker = new TextTypeChecker();
 
     /**
      * Check if the username is valid
@@ -21,7 +18,7 @@ public class FieldChecker {
         if (username == null || username.equals("")) {
             return false;
         }
-        return isAlphaNumeric(username);
+        return textTypeChecker.isAlphaNumeric(username);
     }
 
     /**
@@ -35,7 +32,7 @@ public class FieldChecker {
         if (name == null || name.equals("")) {
             return false;
         }
-        return isAlpha(name);
+        return textTypeChecker.isAlpha(name);
     }
 
     /**
@@ -73,40 +70,4 @@ public class FieldChecker {
         return false;
     }
 
-    /**
-     * Check if the text given in parameter is a number (float)
-     *
-     * @param text text to be checked
-     * @return TRUE if valid
-     * FALSE otherwise
-     */
-    public boolean isValidNumber(String text) {
-        if (text == null || text.equals("")) {
-            return false;
-        }
-        String pattern = "^([0-9]+|[0-9]+\\.[0-9]+)$"; // we match integers or well-formed floats
-        return text.matches(pattern);
-    }
-
-    /**
-     * Checks if string is fully alphanumeric.
-     *
-     * @param field string to check
-     * @return true if string is totally alphanumeric, 0 otherwise
-     */
-    private boolean isAlphaNumeric(String field) {
-        String pattern = "^[a-zA-Z0-9]+$";
-        return field.matches(pattern);
-    }
-
-    /**
-     * Checks if string contains only letters.
-     *
-     * @param field string to check
-     * @return true if string contains only letters, false otherwise
-     */
-    private boolean isAlpha(String field) {
-        String pattern = "^[-a-zA-Z ]+$";
-        return field.matches(pattern);
-    }
 }
