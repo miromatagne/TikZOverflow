@@ -27,6 +27,11 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     FileHandler fileHandler;
     private final MainPageViewController mainPageViewController;
 
+    private final String username = Session.getInstance().getUser().getUsername();
+    private final String latexFilePath = "./Latex/" + username + ".tex";
+    private final String pdfFilePath = "./Latex/out/" + username + ".pdf";
+    private final String logFilePath = "./Latex/out/" + username + ".log";
+
     /**
      * Constructor.
      *
@@ -50,8 +55,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      */
     public String getTextInFile() throws GetTextInFileException {
         try {
-            String filePath = "./Latex/" + Session.getInstance().getUser().getUsername() + ".tex";
-            return fileHandler.readInFile(filePath);
+            return fileHandler.readInFile(latexFilePath);
         } catch (IOException e) {
             throw new GetTextInFileException(e);
         }
@@ -67,13 +71,9 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     public String compileTikz(String sourceCode) throws TikzCompilationException {
         try {
             saveTikz(sourceCode);
-            // @FPL : plus lisible avec une variable
-            String username = Session.getInstance().getUser().getUsername();
-            String filePath = "./Latex/" + username + ".tex";
-            LatexCompiler.getInstance().runProcess(filePath);
-            String pdfPath = "./Latex/out/" + username + ".pdf";
-            createImage(pdfPath);
-            fileHandler.errorLogs("./Latex/out/" + username + ".log", username);
+            LatexCompiler.getInstance().runProcess(latexFilePath);
+            createImage(pdfFilePath);
+            fileHandler.errorLogs(logFilePath, username);
             int errorsCount = fileHandler.getErrorsCounter();
             return "Errors (" + errorsCount + ")";
         } catch (LatexCompilationException | LogErrorException e) {
