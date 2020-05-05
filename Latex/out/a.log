@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.3.19)  28 APR 2020 21:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.3.19)  4 MAY 2020 12:18
 entering extended mode
 **./Latex/a.tex
 (Latex/a.tex
@@ -388,17 +388,17 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 {C:/Users/Miro-Manuel/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 (C:\Users\Miro-Manuel\IdeaProjects\groupe8\Latex\out\a.aux) ) 
 Here is how much of TeX's memory you used:
- 11765 strings out of 481556
- 245002 string characters out of 2923616
- 452931 words of memory out of 3000000
- 26838 multiletter control sequences out of 15000+200000
+ 11733 strings out of 481556
+ 244369 string characters out of 2923616
+ 451931 words of memory out of 3000000
+ 26806 multiletter control sequences out of 15000+200000
  532338 words of font info for 24 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,6n,67p,419b,565s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 60i,5n,67p,419b,432s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/
 MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
 Output written on C:\Users\Miro-Manuel\IdeaProjects\groupe8\Latex\out\a.pdf (1 
-page, 12593 bytes).
+page, 8730 bytes).
 PDF statistics:
  13 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

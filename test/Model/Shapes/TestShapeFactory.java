@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import static Model.Shapes.ShapeFactory.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests the creation of shapes through the ShapeFactory
+ */
+
 class TestShapeFactory {
 
     final static int RECTANGLE = 0;
