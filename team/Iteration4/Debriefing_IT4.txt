@@ -9,7 +9,7 @@ Certains tests ont egalement été ajoutés afin de couvrir la plus grande parti
 Les exceptions ont également été revues; alors qu'avant elles étaient attrapées au niveau des contrôleurs, elles
 remontent à présent jusqu'à la vue afin de pouvoir notifier l'utilisateur. Ensuite, en fonction de l'importance 
 du problème, soit l'utilisateur est simplement informé du fait que sa requête n'a pas pu aboutir, soit l'application
-se ferme. De plus, la fermeture des ressources dans le cas où un exception survient après l'ouverture de ces dernières
+se ferme. De plus, la fermeture des ressources dans le cas où une exception survient après l'ouverture de ces dernières
 est maintenant géré.
 
 Ensuite, un important refactoring des classes FileHandler et FieldChecker a été effectué afin de mieux respecter le 
