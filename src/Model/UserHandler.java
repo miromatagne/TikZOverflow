@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class UserHandler extends FileHandler{
 
-    private static final String DEFAULT_DIRECTORY = "save user";
+    public static final String DEFAULT_DIRECTORY = "save user";
     private static int ERRORS_COUNTER = 0;
     private static String ERRORS = "";
     private String saveUserDirectory = "";
@@ -88,6 +88,7 @@ public class UserHandler extends FileHandler{
         text += "password:" + user.getPassword() + "\n";
         ArrayList<String> projectPaths = user.getProjectPaths();
         text += "projects:" + String.join(", ", projectPaths) + "\n";
+        System.out.println(text);
         return text;
     }
 
@@ -102,9 +103,10 @@ public class UserHandler extends FileHandler{
             return;
         }
         try {
-            File saveFile = new File(saveUserDirectory + "/" + user.getUsername() + saveUserFormat);
+            File saveFile = new File(saveUserDirectory + File.separator + user.getUsername() + saveUserFormat);
             if (saveFile.exists()) {
                 //Error, the file does already exist
+                // TODO : inform user that username is taken
                 return;
             }
             writeSave(user, saveFile);
@@ -123,6 +125,7 @@ public class UserHandler extends FileHandler{
     private void writeSave(User user, File file) throws SaveWritingException {
         try {
             String text = getSaveTextFromUser(user);
+            System.out.println(text);
             writeInFile(file, text);
         } catch (IOException e) {
             throw new SaveWritingException(e);
@@ -158,7 +161,7 @@ public class UserHandler extends FileHandler{
      */
     public User getUserFromSave(String username) throws UserFromSaveCreationException {
         try {
-            File file = new File(saveUserDirectory + "/" + username + saveUserFormat);
+            File file = new File(saveUserDirectory + File.separator + username + saveUserFormat);
             User user = new User();
             user.setUsername(username);
             setUserLastName(file, user);
@@ -179,7 +182,7 @@ public class UserHandler extends FileHandler{
      * @return TRUE if file exists, FALSE otherwise
      */
     public boolean saveUserExists(String username) {
-        File file = new File(saveUserDirectory + "/" + username + saveUserFormat);
+        File file = new File(saveUserDirectory + File.separator + username + saveUserFormat);
         return file.exists();
     }
 

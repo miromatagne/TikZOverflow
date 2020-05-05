@@ -52,7 +52,7 @@ public class Session {
      */
     public int openSession(String username, String password) throws SessionOpeningException {
         try {
-            userHandler.setupSaveUserDirectory(save_user);
+            userHandler.setupSaveUserDirectory(UserHandler.DEFAULT_DIRECTORY);
             if (!userHandler.saveUserExists(username)) {
                 return USER_NOT_REGISTERED; //User is not registered
             } else {
@@ -121,9 +121,10 @@ public class Session {
             newUser.setLastName(lastName);
             newUser.setPassword(password);
             newUser.setMail(mail);
+            userHandler.setupSaveUserDirectory(UserHandler.DEFAULT_DIRECTORY);
             userHandler.createUserSave(newUser);
             return true;
-        } catch (SaveUserCreationException e) {
+        } catch (SaveUserCreationException | SetupDirectoryException e) {
             System.err.println("Error while creating an account");
             e.printStackTrace();
             e.getCause().printStackTrace();

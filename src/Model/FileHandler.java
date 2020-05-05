@@ -16,10 +16,6 @@ public class FileHandler {
         } catch (IOException e){
             throw e;
         }
-        FileWriter fw = new FileWriter(file);
-        BufferedWriter bw = new BufferedWriter(fw);
-        bw.close();
-        fw.close();
     }
 
     /**
@@ -41,7 +37,6 @@ public class FileHandler {
         } catch (IOException e){
             throw e;
         }
-        // add close
 
     }
 /*
