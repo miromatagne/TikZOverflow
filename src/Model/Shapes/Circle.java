@@ -13,11 +13,13 @@ public class Circle extends Node {
 
     @Override
     public String generateAndGetTikzCode() {
-        String code = "\\filldraw";
-        code += "fill={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() + ";blue," + getColor().getBlue() + "}," +
-                "line width=" + getOutlineThickness() / 20 + "] ";
-        code += "(" + getPosX() + "," + getPosY() + ") circle ";
-        code += "(" + radius + ");\n";
+        String code = super.generateAndGetTikzCode();
+        //position of the center of the circle
+        code += "(" + getPosX() + "," + getPosY() + ") ";
+        //position of the label and his content
+        code += "node at (" + getPosX() + "," + getPosY() + "){" + getLabel() +"} ";
+        //radius of the circle
+        code += "circle (" + radius + ");\n";
         return code;
     }
 

@@ -18,17 +18,16 @@ public class Rectangle extends Node {
         float y1 = getPosY();
         float x2 = getPosX() + width;
         float y2 = getPosY() + height;
-        //filled form
-        String code = "\\filldraw";
-        //color and border width
-        code += "[fill={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() + ";blue," + getColor().getBlue() + "}," +
-                "line width=" + getOutlineThickness() / 20 + "] ";
+        float labelPosX = (x1+x2)/2;
+        float labelPosY = (y1+y2)/2;
+
+        String code = super.generateAndGetTikzCode();
         //position of the bottom left corner
         code += "(" + x1 + "," + y1 + ") ";
-        //label of the shape
-        code += "node[above] at (" + (x1+x2)/2 + "," + (y1+y2)/2+ "){" + getLabel() +"} rectangle ";
+        //position of the label and his content
+        code += "node at (" + labelPosX + "," + labelPosY + "){" + getLabel() +"} ";
         //position of the top right corner
-        code += "(" + x2 + "," + y2 + ");\n";
+        code += "rectangle (" + x2 + "," + y2 + ");\n";
         return code;
     }
 

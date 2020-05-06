@@ -16,6 +16,15 @@ public abstract class Node extends Shape {
         this.yCenter = yCenter;
     }
 
+    public String generateAndGetTikzCode(){
+        //filled form
+        String code = "\\filldraw";
+        //color and border width
+        code += "[fill={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() + ";blue," + getColor().getBlue() + "}," +
+                "line width=" + getOutlineThickness() / 20 + "] ";
+        return code;
+    }
+
 
     public float getXCenter() {
         return xCenter;

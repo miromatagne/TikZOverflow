@@ -86,6 +86,7 @@ public class ShapeFactory {
                 Triangle t = new Triangle(data.get(0), data.get(1), data.get(2), data.get(3), data.get(4), data.get(5));
                 t.setOutlineThickness(data.get(6));
                 t.setColor(color);
+                t.setLabel(label);
                 instance = t;
         }
         return instance;
