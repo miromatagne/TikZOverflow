@@ -5,38 +5,21 @@ import Controller.Session;
 import Model.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ProjectSelectionViewController implements Initializable {
 
     ProjectSelectionViewControllerListener listener;
-
-    @FXML
-    private TextField createText;
-
-    @FXML
-    private TextField popUpShareText;
-
-    @FXML
-    private Button popUpShareButton;
-
-    @FXML
-    private TextField popUpRenameText;
-
-    @FXML
-    private Button popUpRenameButton;
 
     @FXML
     private TableView<ProjectDisplay> tableView;
