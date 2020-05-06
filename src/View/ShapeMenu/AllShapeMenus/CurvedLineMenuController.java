@@ -68,7 +68,6 @@ public class CurvedLineMenuController extends MenuController implements Initiali
         allTextFields.add(strokeWidthTextField);
         allTextFields.add(curveOutAngleTextField);
         allTextFields.add(curveInAngleTextField);
-        allTextFields.add(labelTextField);
     }
 
     /**
