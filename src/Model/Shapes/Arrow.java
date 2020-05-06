@@ -32,9 +32,10 @@ public class Arrow extends Link {
         code += " ,color={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() +
                 ";blue," + getColor().getBlue() + "}]";
 
-        //Draw line Position
+        //Draw line Position + Label in the Middle
         code += " (" + getxOrigin() + "," + getyOrigin() + ")";
-        code += " --";
+        code += " -- (" + (getxDestination()-getxOrigin())/2 + "," + (getyDestination()-getyOrigin())/2 + ")" ;
+        code += " node[color=black, above] {" + getLabel() + "} --" ;
         code += " (" + getxDestination() + "," + getyDestination() + ");\n";
         return code;
     }
