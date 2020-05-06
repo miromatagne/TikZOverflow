@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 
 /**
@@ -99,13 +100,27 @@ public class ProjectHandler extends FileHandler {
      * @return copy of the project
      * @throws ProjectCopyException if copy failed
      */
-    public Project createCopy(Project projectToCopy, User user, String new_path) throws ProjectCopyException, DirectoryCreationException, ProjectAlreadyExistsException {
+    public Project createCopy(Project projectToCopy, User user) throws ProjectCopyException {
+        int firstAvailableIndex = findNewPath(projectToCopy);
         try {
-            Project projectCopy = createProject(user, new_path, projectToCopy.getTitle());
-            return projectCopy;
-        } catch (ProjectCreationException | LatexWritingException e) {
+            int lastSeparatorPosition = projectToCopy.getPath().lastIndexOf(File.separator);
+            String rootProjectPath = projectToCopy.getPath().substring(0,lastSeparatorPosition);
+            System.out.println(rootProjectPath);
+            String directoryName = projectToCopy.getPath().substring(lastSeparatorPosition+1);
+            return createProject(user, rootProjectPath, directoryName+firstAvailableIndex);
+        } catch (ProjectCreationException | LatexWritingException | DirectoryCreationException | ProjectAlreadyExistsException e) {
             throw new ProjectCopyException(e);
         }
+    }
+
+    private int findNewPath(Project projectToCopy) {
+        int index = 1;
+        File currentDirectory;
+        do {
+            index++;
+            currentDirectory = new File(projectToCopy.getPath() + index);
+        } while (currentDirectory.exists());
+        return index;
     }
 
 
@@ -120,15 +135,15 @@ public class ProjectHandler extends FileHandler {
         ArrayList<String> collaboratorsUsernames = project.getCollaboratorsUsernames();
         String creatorUsername = project.getCreatorUsername();
         UserHandler userHandler = new UserHandler();
-        deleteFromUser(project, creatorUsername, userHandler);
-        for(String collaboratorUsername : collaboratorsUsernames){
-            deleteFromUser(project, collaboratorUsername, userHandler);
-        }
         File file = new File(pathProperties);
         try {
             super.deleteDirectory(file);
         } catch (IOException e) {
             throw new ProjectDeletionException();
+        }
+        deleteFromUser(project, creatorUsername, userHandler);
+        for(String collaboratorUsername : collaboratorsUsernames){
+            deleteFromUser(project, collaboratorUsername, userHandler);
         }
     }
 
@@ -230,7 +245,7 @@ public class ProjectHandler extends FileHandler {
     }
 
     public String getProjectCode() throws IOException {
-        String filePath = Controller.Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".tex";
+        String filePath = Controller.Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex";
         return super.readInFile(filePath);
     }
 
@@ -243,7 +258,7 @@ public class ProjectHandler extends FileHandler {
      */
     public void makeTexFile(String sourceCode) throws LatexWritingException {
         try {
-            File texFile = new File(Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".tex");
+            File texFile = new File(Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex");
             if (texFile.exists()) {
                 writeInFile(texFile, sourceCode);
             } else {

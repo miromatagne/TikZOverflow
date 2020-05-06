@@ -1,9 +1,4 @@
 package Model;
-import Controller.Exceptions.BuildFullCodeFromShapesOnlyException;
-import Controller.Exceptions.LatexControllerConstructorException;
-import Controller.LatexController;
-import Controller.Session;
-import View.ViewControllers.MainPageViewController;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +9,7 @@ class TestLatexHandler {
         //Send to the compilerLatex the latex file
         String filePath = "./Latex/test_latex.t"; // Test typo
         try {
-            LatexHandler.getInstance().runProcess(filePath);
+            LatexHandler.getInstance().runProcess(filePath, "./Latex/out");
             fail("Exception not thrown"); // Error
         }
         catch (Exception e){/*Where it needs to be*/}
@@ -22,7 +17,7 @@ class TestLatexHandler {
 
         filePath = "./Latex/test_latex.tex";
         try {
-            LatexHandler.getInstance().runProcess(filePath);
+            LatexHandler.getInstance().runProcess(filePath, "./Latex/out");
         }
         catch(Exception e){System.err.println("Error in compilation"); e.printStackTrace(); fail("Exception thrown");}
     }

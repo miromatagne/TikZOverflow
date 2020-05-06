@@ -56,7 +56,7 @@ public class TestProjectHandler {
         user2.setUsername("User2");
         project1.addCollaborator(user2.getUsername());
 
-        Project project2 = projectHandler.createCopy(project1, user2, "Test/Project2");
+        Project project2 = projectHandler.createCopy(project1, user2);
 
         assertEquals("Project number 1", project2.getTitle());
         assertEquals("code number 1", project2.getCode());

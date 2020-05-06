@@ -1,21 +1,19 @@
 package Controller;
 
-import Controller.Exceptions.BuildFullCodeFromShapesOnlyException;
 import Controller.Exceptions.GetTextInFileException;
 import Controller.Exceptions.LatexControllerConstructorException;
 import Controller.Exceptions.TikzCompilationException;
 import Model.*;
 import Model.Exceptions.*;
-import Model.FileHandler;
 import Model.LatexHandler;
 import Model.PDFHandler;
 import View.ViewControllers.MainPageViewController;
 import javafx.scene.image.Image;
 
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * Handles all requests regarding the TikZ source code coming from View.
@@ -64,12 +62,12 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     public String compileTikz(String sourceCode) throws TikzCompilationException {
         try {
             saveTikz(sourceCode);
-            String filePath = Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".tex";
+            String filePath = Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex";
             System.out.println(filePath);
-            String pdfPath = Session.getInstance().getCurrentProject().getPath()+ Session.getInstance().getCurrentProject().getTitle() + ".pdf";
-            LatexHandler.getInstance().runProcess(filePath);
+            String pdfPath = Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".pdf";
+            LatexHandler.getInstance().runProcess(filePath, Session.getInstance().getCurrentProject().getPath());
             createImage(pdfPath);
-            latexErrorsHandler.errorLogs(Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".log");
+            latexErrorsHandler.errorLogs(Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".log");
             int errorsCount = latexErrorsHandler.getErrorsCounter();
             return "Errors (" + errorsCount + ")";
         } catch (LatexCompilationException | LogErrorException e) {

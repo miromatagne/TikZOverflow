@@ -124,6 +124,26 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
     }
 
     @Override
+    public void copyProjects(ObservableList<ProjectDisplay> checkedBoxes) {
+        for(ProjectDisplay projectDisplay: checkedBoxes){
+            ProjectHandler projectHandler = new ProjectHandler();
+            Project project = projectDisplay.getProject();
+            User user = Session.getInstance().getUser();
+            try {
+                Project copiedProject = projectHandler.createCopy(project, user);
+                controller.addProjectToDisplay(new ProjectDisplay(copiedProject));
+            } catch (ProjectCopyException e) {
+                AlertController.showStageError("Copy error", String.format("Error copying %s", project.getTitle()));
+            }
+        }
+    }
+
+    @Override
+    public void goToMainPage(Project project) {
+        listener.goToMainPage(project);
+    }
+
+    @Override
     public boolean createProject(String title, String path) {
         if(path.equals("") || title.equals("")){
             AlertController.showStageError("Invalid information", "Please enter valid information");
@@ -194,65 +214,10 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
         }
     }
 
-    public void loadProject(String path) throws ProjectLoadException,ProjectNotAllowException{
-        ProjectHandler projectHandler = new ProjectHandler();
-        Project loadedProject = projectHandler.loadProject(path);
-        User currentUser = Session.getInstance().getUser();
-        if(currentUser.getUsername().equals(loadedProject.getCreatorUsername()) || loadedProject.getCollaboratorsUsernames().contains(currentUser.getUsername())){
-            currentTreatedProject = loadedProject;
-        }
-        else{
-            throw new ProjectNotAllowException();
-        }
-    }
-
-    public void copyProject(Project projectToCopy, User user, String new_path) throws ProjectCopyException, DirectoryCreationException, ProjectAlreadyExistsException{
-        ProjectHandler projectHandler = new ProjectHandler();
-        Project copyProject = projectHandler.createCopy(projectToCopy,user,new_path);
-        try {
-            String code = projectHandler.readInFile(projectToCopy.getPath() + File.separator + projectToCopy.getTitle() + ".tex");
-            currentTreatedProject = copyProject;
-            projectHandler.makeTexFile(code);
-            user.addProject(new_path);
-            UserHandler userHandler = new UserHandler();
-            userHandler.saveUser(user);
-        } catch (IOException | LatexWritingException | SaveUserException e){
-            throw new ProjectCopyException(e);
-        }
-    }
-
-    /*
-    public void deleteProject(Project projectToDelete) throws ProjectDeletionException{
-        ArrayList<String> users = projectToDelete.getCollaboratorsUsernames();
-        users.add(projectToDelete.getCreatorUsername());
-        String path = projectToDelete.getPath();
-        ProjectHandler projectHandler = new ProjectHandler();
-        projectHandler.deleteProject(projectToDelete);
-        try {
-            UserHandler userHandler = new UserHandler();
-            for (String user : users) {
-                User u = userHandler.getUserFromSave(user);
-                if (u.getProjectPaths().contains(path)) {
-                    u.getProjectPaths().remove(path);
-                }
-                userHandler.saveUser(u);
-            }
-        }catch (UserFromSaveCreationException | SaveUserException e){
-            throw new ProjectDeletionException();
-        }
-    }*/
-
-    public void shareProject(Project project,User user) throws SaveUserException, ProjectSaveException{
-        project.addCollaborator(user.getUsername());
-        user.getProjectPaths().add(project.getPath());
-        UserHandler userHandler = new UserHandler();
-        ProjectHandler projectHandler = new ProjectHandler();
-        userHandler.saveUser(user);
-        projectHandler.saveProjectInfo(project);
-    }
-
     public interface ProjectSelectionControllerListener {
         void accountModificationRequest();
         void logout();
+
+        void goToMainPage(Project project);
     }
 }

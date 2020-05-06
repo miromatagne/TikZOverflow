@@ -73,8 +73,9 @@ public class ProjectSelectionViewController implements Initializable {
         tableView.setItems(data);
         listProjects();
         tableView.setOnMousePressed(event -> {
-            //TODO : Creer la fonction qui va recuperer le project avec la ligne ci-dessous et se deplacer a l'ecran principal
-            System.out.println(tableView.getSelectionModel().getSelectedItem().getTitle());
+            System.out.println(tableView.getSelectionModel().getSelectedItem().getProject().getTitle());
+            Project project = tableView.getSelectionModel().getSelectedItem().getProject();
+            listener.goToMainPage(project); 
         });
     }
 
@@ -106,22 +107,18 @@ public class ProjectSelectionViewController implements Initializable {
     }
 
     @FXML
-    void onCreateButton(ActionEvent event) throws IOException {
+    void onCreateButton(){
         listener.showCreatePopUp();
     }
 
     @FXML
-    void onPressCopy(ActionEvent event) {
+    void onPressCopy() {
+        listener.copyProjects(getCheckedBoxes());
     }
 
     @FXML
     void onPressDelete() {
         listener.deleteProjects(getCheckedBoxes());
-    }
-
-    @FXML
-    void onPressSave(ActionEvent event) {
-
     }
 
     public ObservableList<ProjectDisplay> getCheckedBoxes() {
@@ -164,5 +161,9 @@ public class ProjectSelectionViewController implements Initializable {
         void showCreatePopUp();
 
         void deleteProjects(ObservableList<ProjectDisplay> checkedBoxes);
+
+        void copyProjects(ObservableList<ProjectDisplay> checkedBoxes);
+
+        void goToMainPage(Project project);
     }
 }

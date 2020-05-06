@@ -1,7 +1,5 @@
 package Model;
 
-import Controller.Exceptions.BuildFullCodeFromShapesOnlyException;
-import Controller.Exceptions.GetTextInFileException;
 import Model.Exceptions.LatexCompilationException;
 
 import java.io.*;
@@ -91,13 +89,15 @@ public class LatexHandler {
      * occur, will be stored in ./Latex/out.
      *
      * @param filePath String corresponding to the location of .tex file
+     * @param outputDirectoryPath
      * @throws LatexCompilationException Two Exception can be thrown : - The first one if the file is not valid(check isValid())
      *                                   - The second one is if an error occur during the compilation
      */
-    public void runProcess(String filePath) throws LatexCompilationException {
+    public void runProcess(String filePath, String outputDirectoryPath) throws LatexCompilationException {
         try {
+            System.out.println("pdf " + filePath);
             String command = "pdflatex -file-line-error -interaction=nonstopmode -synctex=1 " +
-                    "-output-format=pdf -output-directory " + DEFAULT_OUTPUT_DIRECTORY + " " + filePath;
+                    "-output-format=pdf -output-directory " + outputDirectoryPath + " " + filePath;
             Process pro = Runtime.getRuntime().exec(command);
             clearStream(pro.getInputStream());
             clearStream(pro.getErrorStream());

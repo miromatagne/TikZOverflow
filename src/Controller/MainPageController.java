@@ -2,6 +2,7 @@ package Controller;
 
 import Controller.Exceptions.LatexControllerConstructorException;
 import Controller.Exceptions.ShapeMenuControllerConstructorException;
+import Model.Project;
 import Model.Shapes.Shape;
 import View.ViewControllers.MainPageViewController;
 import javafx.fxml.FXMLLoader;

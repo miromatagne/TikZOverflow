@@ -3,6 +3,7 @@ package Model;
 import Controller.Session;
 import Model.Exceptions.LogErrorException;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -44,7 +45,7 @@ public class LatexErrorsHandler extends FileHandler{
             ERRORS_COUNTER = 0;
             String[] linesLogFile = super.readInFile(path).split("\n");
             String[] words;
-            String errorPrefix = Controller.Session.getInstance().getCurrentProject().getPath() + Session.getInstance().getCurrentProject().getTitle() + ".tex";
+            String errorPrefix = Controller.Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex";
 
             for(int i=0; i<linesLogFile.length; i++) {
                 words = linesLogFile[i].split(":");
