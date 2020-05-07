@@ -1,7 +1,10 @@
 package Controller;
 
-import Model.*;
 import Model.Exceptions.*;
+import Model.Project;
+import Model.ProjectHandler;
+import Model.User;
+import Model.UserHandler;
 import View.ViewControllers.ProjectPopUpViewController;
 import View.ViewControllers.ProjectSelectionViewController;
 import javafx.collections.ObservableList;
@@ -14,7 +17,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * This class controls the Project Selection Screen, which is the screen where the user's
@@ -29,7 +31,6 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
     private final ProjectSelectionControllerListener listener;
     private Project currentTreatedProject;
     private ProjectSelectionViewController controller;
-    private ProjectPopUpViewController popUpController;
 
     /**
      * Constructor.
@@ -95,7 +96,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
         Parent root;
         try {
             root = loader.load();
-            popUpController = loader.getController();
+            ProjectPopUpViewController popUpController = loader.getController();
             popUpController.setListener(this);
             Stage popupStage = new Stage();
             popUpController.setStage(popupStage);
@@ -209,16 +210,12 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
             userHandler.saveUser(Session.getInstance().getUser());
             ProjectDisplay projectDisplay = new ProjectDisplay(project);
             controller.addProjectToDisplay(projectDisplay);
-        } catch (ProjectCreationException e) {
+        } catch (ProjectCreationException | LatexWritingException | SaveUserException e) {
             e.printStackTrace();
             e.getCause().printStackTrace();
             AlertController.showStageError("Error while creating project : "+title, "Creating failed");
         } catch (ProjectAlreadyExistsException | DirectoryCreationException e) {
-            e.printStackTrace();
-        } catch (LatexWritingException e) { // TODO
-            e.printStackTrace();
-        } catch (SaveUserException e) { // TODO
-            e.printStackTrace();
+            AlertController.showStageError("Error while creating project : "+title, "A project with this name already exists. Please chose another name.");
         }
         return true;
     }
@@ -274,10 +271,8 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
             AlertController.showStageInfo("Successful sharing", String.format("Project successfully shared with %s !", collaboratorUsername));
         } catch (UserFromSaveCreationException e) {
             AlertController.showStageError("User not found", String.format("User %s does not exist", collaboratorUsername));
-        } catch (ProjectSaveException e) {
-            e.printStackTrace(); // TODO
-        } catch (SaveUserException e) {
-            e.printStackTrace(); // TODO
+        } catch (ProjectSaveException | SaveUserException e) {
+            AlertController.showStageError("Error sharing project", "There was an error sharing this project.");
         }
     }
 
