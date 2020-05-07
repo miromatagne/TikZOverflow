@@ -57,7 +57,6 @@ public class Session {
                 return USER_NOT_REGISTERED; //User is not registered
             } else {
                 currentUser = userHandler.getUserFromSave(username);
-
                 if (password.equals(currentUser.getPassword())) {
                     return CONNECTION_ESTABLISHED;
                 } else {

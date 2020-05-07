@@ -1,9 +1,8 @@
 package Controller;
 
-import Model.Exceptions.FileHandlerConstructorException;
 import Model.Exceptions.SaveUserException;
-import Model.UserHandler;
 import Model.User;
+import Model.UserHandler;
 import View.ViewControllers.AccountModificationViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
