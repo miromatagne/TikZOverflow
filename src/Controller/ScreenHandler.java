@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Project;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -99,8 +100,11 @@ public class ScreenHandler extends Application implements LoginScreenController.
 
     /**
      * Change the scene to the main page (PDF and code creation page)
+     * @param project
      */
-    private void goToMainPage() {
+    @Override
+    public void goToMainPage(Project project) {
+        Session.getInstance().setCurrentProject(project);
         mainPageController = new MainPageController(stage, this);
         mainPageController.show();
     }

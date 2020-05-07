@@ -1,41 +1,25 @@
 package View.ViewControllers;
 
 import Controller.ProjectDisplay;
+import Controller.Session;
 import Model.Project;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class ProjectSelectionViewController implements Initializable {
 
     ProjectSelectionViewControllerListener listener;
-
-    @FXML
-    private TextField createText;
-
-    @FXML
-    private TextField popUpShareText;
-
-    @FXML
-    private Button popUpShareButton;
-
-    @FXML
-    private TextField popUpRenameText;
-
-    @FXML
-    private Button popUpRenameButton;
 
     @FXML
     private TableView<ProjectDisplay> tableView;
@@ -70,13 +54,20 @@ public class ProjectSelectionViewController implements Initializable {
         renameColumn.setCellValueFactory(new PropertyValueFactory<>("renameButton"));
         shareColumn.setCellValueFactory(new PropertyValueFactory<>("shareButton"));
         tableView.setItems(data);
-        tableView.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                //TODO : Creer la fonction qui va recuperer le project avec la ligne ci-dessous et se deplacer a l'ecran principal
-                System.out.println(tableView.getSelectionModel().getSelectedItem().getTitle());
-            }
+        listProjects();
+        tableView.setOnMousePressed(event -> {
+            System.out.println(tableView.getSelectionModel().getSelectedItem().getProject().getTitle());
+            Project project = tableView.getSelectionModel().getSelectedItem().getProject();
+            listener.goToMainPage(project); 
         });
+    }
+
+    private void listProjects() {
+        ArrayList<Project> projects = Session.getInstance().getUserProjects();
+        for(Project p: projects){
+            ProjectDisplay projectDisplay = new ProjectDisplay(p);
+            addProjectToDisplay(projectDisplay);
+        }
     }
 
     public void setListener(ProjectSelectionViewControllerListener listener) {
@@ -99,23 +90,18 @@ public class ProjectSelectionViewController implements Initializable {
     }
 
     @FXML
-    void onCreateButton(ActionEvent event) throws IOException {
+    void onCreateButton(){
         listener.showCreatePopUp();
-        //addProjectToDisplay(new ProjectDisplay(new Project(0,"test", "titleTest", new Date(), new ArrayList<>(), "")));
     }
 
     @FXML
-    void onPressCopy(ActionEvent event) {
+    void onPressCopy() {
+        listener.copyProjects(getCheckedBoxes());
     }
 
     @FXML
-    void onPressDelete(ActionEvent event) {
-
-    }
-
-    @FXML
-    void onPressSave(ActionEvent event) {
-
+    void onPressDelete() {
+        listener.deleteProjects(getCheckedBoxes());
     }
 
     public ObservableList<ProjectDisplay> getCheckedBoxes() {
@@ -130,12 +116,8 @@ public class ProjectSelectionViewController implements Initializable {
 
     public void addProjectToDisplay(ProjectDisplay projectDisplay) {
         data.add(projectDisplay);
-        projectDisplay.getRenameButton().setOnAction(e -> {
-            listener.showRenamePopUp(projectDisplay.getProject());
-        });
-        projectDisplay.getShareButton().setOnAction(e -> {
-            listener.showSharePopUp(projectDisplay.getProject());
-        });
+        projectDisplay.getRenameButton().setOnAction(e -> listener.showRenamePopUp(projectDisplay.getProject()));
+        projectDisplay.getShareButton().setOnAction(e -> listener.showSharePopUp(projectDisplay.getProject()));
     }
 
     public void refreshProjectTitle(Project currentTreatedProject, String title) {
@@ -144,6 +126,10 @@ public class ProjectSelectionViewController implements Initializable {
                 projectDisplay.setTitle(title);
             }
         }
+    }
+
+    public void removeProjectFromDisplay(ProjectDisplay projectDisplay) {
+        data.remove(projectDisplay);
     }
 
     public interface ProjectSelectionViewControllerListener {
@@ -156,5 +142,11 @@ public class ProjectSelectionViewController implements Initializable {
         void showRenamePopUp(Project project);
 
         void showCreatePopUp();
+
+        void deleteProjects(ObservableList<ProjectDisplay> checkedBoxes);
+
+        void copyProjects(ObservableList<ProjectDisplay> checkedBoxes);
+
+        void goToMainPage(Project project);
     }
 }

@@ -42,6 +42,7 @@ public class AccountCreationController extends AccountController implements Acco
         } catch (IOException e) {
             System.err.println("Error loading /View/FXML/accountCreation.fxml");
             e.printStackTrace();
+            AlertController.showStageError("Error while loading the account creation fxml file.", "Process aborted", true);
         }
     }
 
@@ -123,6 +124,7 @@ public class AccountCreationController extends AccountController implements Acco
         } catch (IOException e) {
             System.err.println("Could not open TCU");
             e.printStackTrace();
+            AlertController.showStageError("Error while loading the terms and conditions file.", "File not readable");
         }
 
     }

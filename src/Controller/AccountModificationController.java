@@ -2,7 +2,7 @@ package Controller;
 
 import Model.Exceptions.FileHandlerConstructorException;
 import Model.Exceptions.SaveUserException;
-import Model.FileHandler;
+import Model.UserHandler;
 import Model.User;
 import View.ViewControllers.AccountModificationViewController;
 import javafx.fxml.FXMLLoader;
@@ -43,6 +43,7 @@ public class AccountModificationController extends AccountController implements 
         } catch (IOException e) {
             System.out.println("Error loading /View/FXML/accountModification.fxml");
             e.printStackTrace();
+            AlertController.showStageError("Error while loading the account modification fxml file.", "Process aborted", true);
         }
     }
 
@@ -83,16 +84,13 @@ public class AccountModificationController extends AccountController implements 
                 userCurrent.setMail(email);
                 userCurrent.setPassword(password);
                 Session.getInstance().setUser(userCurrent);
-                FileHandler handler = new FileHandler();
+                UserHandler handler = new UserHandler();
                 handler.saveUser(userCurrent);
             } catch (SaveUserException e) {
                 System.err.println("Error in saving the user");
                 e.printStackTrace();
                 e.getCause().printStackTrace();
-            } catch (FileHandlerConstructorException e) {
-                System.err.println("Error while creating the file handler");
-                e.printStackTrace();
-                e.getCause().printStackTrace();
+                AlertController.showStageError("Error while saving the user account.", "User could not be saved");
             }
             return true;
         }

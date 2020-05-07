@@ -1,37 +1,11 @@
 package Model;
 
-import java.util.HashSet;
-
 /**
  * This class allows to check different inputs from the user of the application
  */
 
 public class FieldChecker {
-
-    final HashSet<Character> userCharCollection = new HashSet<>();
-    final HashSet<Character> alphaCharCollection = new HashSet<>();
-    final HashSet<Character> numericCharCollection = new HashSet<>();
-    final HashSet<Character> numericCollection = new HashSet<>();
-
-    public FieldChecker() {
-        setupFieldChecker();
-    }
-
-    /**
-     * Setup the FieldChecker object by initializing char collections
-     */
-    public void setupFieldChecker() {
-        for (int i = 48; i < 127; i++) { //ASCII TABLE
-            if (i < 58) { //0-9
-                userCharCollection.add((char) i);
-                numericCharCollection.add((char) i);
-                numericCollection.add((char) i);
-            } else if ((i >= 65 && i <= 90) || (i >= 97 && i <= 122)) { //A-Z and a-z
-                alphaCharCollection.add((char) i);
-                userCharCollection.add((char) i);
-            }
-        }
-    }
+    private final TextTypeChecker textTypeChecker = new TextTypeChecker();
 
     /**
      * Check if the username is valid
@@ -44,12 +18,7 @@ public class FieldChecker {
         if (username == null || username.equals("")) {
             return false;
         }
-        for (int i = 0; i < username.length(); i++) {
-            if (!userCharCollection.contains(username.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+        return textTypeChecker.isAlphaNumeric(username);
     }
 
     /**
@@ -63,12 +32,7 @@ public class FieldChecker {
         if (name == null || name.equals("")) {
             return false;
         }
-        for (int i = 0; i < name.length(); i++) {
-            if ((!alphaCharCollection.contains(name.charAt(i))) && name.charAt(i) != '-' && name.charAt(i) != ' ') {
-                return false;
-            }
-        }
-        return true;
+        return textTypeChecker.isAlpha(name);
     }
 
     /**
@@ -82,15 +46,8 @@ public class FieldChecker {
         if (mail == null || mail.equals("")) {
             return false;
         }
-        int arobaseCounter = 0;
-        for (int i = 0; i < mail.length(); i++) {
-            if (mail.charAt(i) == ' ') {
-                return false;
-            } else if (mail.charAt(i) == '@') {
-                arobaseCounter++;
-            }
-        }
-        return arobaseCounter == 1;
+        String pattern = "^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-zA-Z0-9!#$%&'*+/=?^_`{|}~.-]+(\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)+$";
+        return mail.matches(pattern);
     }
 
     /**
@@ -113,28 +70,4 @@ public class FieldChecker {
         return false;
     }
 
-    /**
-     * Check if the text given in parameter is a number (float)
-     *
-     * @param text text to be checked
-     * @return TRUE if valid
-     * FALSE otherwise
-     */
-    public boolean isValidNumber(String text) {
-        if (text == null || text.equals("")) {
-            return false;
-        }
-        int pointCounter = 0;
-        for (int i = 0; i < text.length(); i++) {
-            if (text.charAt(i) == '.') {
-                pointCounter++;
-                if (i == 0 || i == text.length() - 1) {
-                    return false;
-                }
-            } else if (!numericCollection.contains(text.charAt(i))) {
-                return false;
-            }
-        }
-        return pointCounter <= 1;
-    }
 }

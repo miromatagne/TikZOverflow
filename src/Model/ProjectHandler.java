@@ -1,120 +1,92 @@
 package Model;
 
+import Controller.Session;
 import Model.Exceptions.*;
 
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Locale;
+import java.util.regex.Pattern;
 
 
 /**
  * This class is used to handle projects. It uses a singleton design pattern. It allows different
  * actions on projects such as copy, deletion, save, share or renaming.
  */
-public class ProjectHandler {
-    /**
-     * Single instance : singleton
-     */
-    private static ProjectHandler instance;
-
-    private int idCounter;
-    private final static String PROJECT_DIRECTORY = "projects";
+public class ProjectHandler extends FileHandler {
     public final static String DATE_FORMAT = "E dd-MM-yyyy HH:mm:ss";
 
     /**
-     * Private constructor  : singleton
+     * Constructor
      */
-    private ProjectHandler(){
+    public ProjectHandler() {
 
-    }
-
-    /**
-     * Instance getter : singleton
-     */
-    public static ProjectHandler getInstance(){
-        if (instance == null){
-            instance = new ProjectHandler();
-        }
-        return instance;
-    }
-
-    /**
-     * Get a new id (unique identifier)
-     *
-     * @return      new id
-     */
-    private int getNewId() {
-        /*
-        We have to find a way to generate a unique id and not forget to take in account deletions
-         */
-        return idCounter++;
     }
 
     /**
      * Create a new project for the user
      *
-     * @param user  creator
-     * @return      project created
-     * @throws ProjectCreationException if creation failed
-     */
-    public Project createProject(User user) throws ProjectCreationException {
-        try {
-            int id = getNewId();
-            Project project = new Project(id, user.getUsername());
-            saveProject(project);
-            return project;
-        } catch (ProjectSaveException e) {
-            throw new ProjectCreationException(e);
-        }
-    }
-
-    /**
-     * Create a new project for the user
      * @param user creator
-     * @param title project title
-     * @param collaborators collaborators
-     * @param code TikZ code
      * @return project created
      * @throws ProjectCreationException if creation failed
      */
-    public Project createProject(User user, String title, ArrayList<String> collaborators, String code) throws ProjectCreationException {
-        Project project = createProject(user);
-        project.setTitle(title);
-        project.setCollaboratorsUsernames(collaborators);
-        project.setCode(code);
-        project.setDate(new Date());
-        return project;
+    public Project createProject(User user, String path, String title) throws ProjectCreationException, DirectoryCreationException, ProjectAlreadyExistsException, LatexWritingException {
+        try {
+            Project project = new Project(user.getUsername(), path, title);
+            setupProjectDirectory(project);
+            saveProjectInfo(project);
+            generateTexFile(project);
+            return project;
+        } catch (ProjectSaveException | IOException e) {
+            throw new ProjectCreationException(e);
+        } catch (DirectoryCreationException e) {
+            throw new DirectoryCreationException();
+        }
     }
 
     /**
      * Save a project
      *
-     * @param project       project to save
-     * @throws ProjectSaveException     if save failed
+     * @param project project to save
+     * @throws ProjectSaveException if save failed
      */
-    public void saveProject(Project project) throws ProjectSaveException {
+    public void saveProjectInfo(Project project) throws ProjectSaveException {
         try {
             String toWrite = generateSaveFromProject(project);
-            writeInFile(new File(generatePath(project.getID())), toWrite);
+            String pathProperties = project.getPath() + File.separator + "project.properties";
+            writeInFile(new File(pathProperties), toWrite);
         } catch (IOException e) {
             throw new ProjectSaveException(e);
         }
 
     }
 
+    private void setupProjectDirectory(Project project) throws DirectoryCreationException, ProjectAlreadyExistsException {
+        String projectDirectoryPath = project.getPath() + File.separator + project.getTitle();
+        File file = new File(projectDirectoryPath);
+        if (file.exists()) { //Project directory with the same path already exists
+            throw new ProjectAlreadyExistsException();
+        }
+        if (!file.mkdirs()) { //Path given is not a directory yet so we create it
+            throw new DirectoryCreationException();
+        }
+        project.setPath(projectDirectoryPath);
+    }
+
     /**
-     * Load a project based on its id
+     * Load a project based on its path
      *
-     * @param id    id of the project
-     * @return      corresponding project
-     * @throws ProjectLoadException     if the load failed
+     * @return corresponding project
+     * @throws ProjectLoadException if the load failed
      */
-    public Project loadProject(int id) throws ProjectLoadException {
+    public Project loadProject(String path) throws ProjectLoadException {
         try {
-            String saveText = readInFile(new File(generatePath(id)));
-            return generateProjectFromSave(saveText);
+            String saveText = super.readInFile(path + File.separator + "project.properties");
+            return generateProjectFromSave(saveText, path);
         } catch (IOException | ProjectFromSaveGenerationException e) {
             throw new ProjectLoadException(e);
         }
@@ -123,192 +95,196 @@ public class ProjectHandler {
     /**
      * Create a copy of a project for a user
      *
-     * @param projectToCopy     project to copy
-     * @param user              creator of the new project
-     * @return                  copy of the project
-     * @throws ProjectCopyException     if copy failed
+     * @param projectToCopy project to copy
+     * @param user          creator of the new project
+     * @return copy of the project
+     * @throws ProjectCopyException if copy failed
      */
-    public Project createCopy(Project projectToCopy, User user) throws ProjectCopyException{
+    public Project createCopy(Project projectToCopy, User user) throws ProjectCopyException {
+        int firstAvailableIndex = findNewPath(projectToCopy);
         try {
-            Project projectCopy = createProject(user);
-            projectCopy.setTitle(projectToCopy.getTitle());
-            projectCopy.setCode(projectToCopy.getCode());
-            return projectCopy;
-        } catch (ProjectCreationException e) {
+            int lastSeparatorPosition = projectToCopy.getPath().lastIndexOf(File.separator);
+            String rootProjectPath = projectToCopy.getPath().substring(0,lastSeparatorPosition);
+            System.out.println(rootProjectPath);
+            String directoryName = projectToCopy.getPath().substring(lastSeparatorPosition+1);
+            return createProject(user, rootProjectPath, directoryName+firstAvailableIndex);
+        } catch (ProjectCreationException | LatexWritingException | DirectoryCreationException | ProjectAlreadyExistsException e) {
             throw new ProjectCopyException(e);
         }
+    }
+
+    private int findNewPath(Project projectToCopy) {
+        int index = 1;
+        File currentDirectory;
+        do {
+            index++;
+            currentDirectory = new File(projectToCopy.getPath() + index);
+        } while (currentDirectory.exists());
+        return index;
     }
 
 
     /**
      * Delete a project and its save
      *
-     * @param project       project to delete
+     * @param project project to delete
      * @throws ProjectDeletionException if deletion failed
      */
-    public void deleteProject(Project project) throws ProjectDeletionException {
-        File file = new File(generatePath(project.getID()));
-        if (!file.delete()){
+    public void deleteProject(Project project) throws ProjectDeletionException, SaveUserException, UserFromSaveCreationException {
+        String pathProperties = project.getPath();
+        ArrayList<String> collaboratorsUsernames = project.getCollaboratorsUsernames();
+        String creatorUsername = project.getCreatorUsername();
+        UserHandler userHandler = new UserHandler();
+        File file = new File(pathProperties);
+        try {
+            super.deleteDirectory(file);
+        } catch (IOException e) {
             throw new ProjectDeletionException();
+        }
+        deleteFromUser(project, creatorUsername, userHandler);
+        for(String collaboratorUsername : collaboratorsUsernames){
+            deleteFromUser(project, collaboratorUsername, userHandler);
         }
     }
 
-    /**
-     * Share a project with a given user
-     *
-     * @param project       project to share
-     * @param user          new collaborator to add to the project
-     */
-    public void shareProject(Project project, User user){
-        project.addCollaborator(user.getUsername());
+    private void deleteFromUser(Project project, String creatorUsername, UserHandler userHandler) throws UserFromSaveCreationException, SaveUserException {
+        User creator = userHandler.getUserFromSave(creatorUsername);
+        creator.removeProject(project.getPath());
+        userHandler.saveUser(creator);
     }
 
-
-    /**
-     * Rename the project given in parameter
-     *
-     * @param project   project to rename
-     * @param newTitle  new title
-     */
-    public void renameProject(Project project, String newTitle) {
+    public void renameProject(Project project, String newTitle) throws ProjectRenameException {
+        File projectFile = new File(project.getPath() + File.separator + project.getTitle() + ".tex");
+        boolean success = projectFile.renameTo(new File(project.getPath() + File.separator + newTitle + ".tex"));
+        if (!success) {
+            throw new ProjectRenameException();
+        }
+        String previousTitle= project.getTitle();
         project.setTitle(newTitle);
+        try {
+            saveProjectInfo(project);
+        } catch (ProjectSaveException e) {
+            project.setTitle(previousTitle);
+            throw new ProjectRenameException();
+        }
     }
 
-    /**
-     * Generate the path to the project based on its id
-     *
-     * @param id    project id
-     * @return      path
-     */
-    private String generatePath(int id) {
-        return PROJECT_DIRECTORY+"/"+id;
+    public void shareProject(String collaboratorUsername, Project project) throws UserFromSaveCreationException, ProjectSaveException, SaveUserException {
+        UserHandler userHandler = new UserHandler();
+        User collaborator = userHandler.getUserFromSave(collaboratorUsername);
+        project.addCollaborator(collaboratorUsername);
+        collaborator.addProject(project.getPath());
+        saveProjectInfo(project);
+        userHandler.saveUser(collaborator);
     }
 
     /**
      * Generate a save text based on a project
      *
-     * @param project   project to be saved
-     * @return          save content
+     * @param project project to be saved
+     * @return save content
      */
-    private String generateSaveFromProject(Project project){
-        /*
-        Choisir le bon format de la save du projet
-        Exemple : Nom du file : id.txt
-        """
-        #ID
-        #Username Creator
-        #Titre
-        #Date
-        #Collaborator 1
-        #Collaborator 2
-        #...
-        CODE
-        """
+    private String generateSaveFromProject(Project project) {
+        /* PROJECT INFO FILE FORMAT
+        title:
+        creator:
+        collaborators:c1,c2,c3,...
+        title:
+        creation_date:
+        modification_date:
+        path:
          */
-        String toWrite;
+        String toWrite = "";
         final String ENDLINE = "\n";
+        toWrite += "title:" + project.getTitle() + ENDLINE;
+        toWrite += "creator:" + project.getCreatorUsername() + ENDLINE;
+        toWrite += "collaborators:";
+        String collaborators = String.join(", ", project.getCollaboratorsUsernames());
+        toWrite += collaborators + ENDLINE;
+        toWrite += "creation_date:" + new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH).format(project.getDate()) + ENDLINE;
+        toWrite += "modification_date:" + new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH).format(new Date()) + ENDLINE;
 
-        String idPart ="#"+project.getID()+ENDLINE;
-        String creatorPart = "#"+project.getCreatorUsername()+ENDLINE;
-        String titlePart = "#"+project.getTitle()+ENDLINE;
-        SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT);
-        String datePart = "#"+dateFormatter.format(project.getDate())+ENDLINE;
-        String singleCollaboratorPart;
-        StringBuilder collaboratorsPart = new StringBuilder();
-        for (String collaboratorUsername : project.getCollaboratorsUsernames()){
-            singleCollaboratorPart = "#"+collaboratorUsername+ENDLINE;
-            collaboratorsPart.append(singleCollaboratorPart);
-        }
-        String codePart = project.getCode();
-
-        toWrite = idPart + creatorPart + titlePart + datePart + collaboratorsPart + codePart;
         return toWrite;
     }
 
     /**
      * Generate the project from a text save
      *
-     * @param saveText  content of the save
+     * @param saveText content of the save
+     * @param path     path to the project directory
      * @return project created
      * @throws ProjectFromSaveGenerationException if the parsing for the date failed
      */
-    private Project generateProjectFromSave(String saveText) throws ProjectFromSaveGenerationException {
-        /*
-        Choisir le bon format de la save du projet
-        Exemple : Nom du file : id.txt
-        """
-        #ID
-        #Username Creator
-        #Titre
-        #Date
-        #Collaborator 1
-        #Collaborator 2
-        #...
-        CODE
-        """
+    private Project generateProjectFromSave(String saveText, String path) throws ProjectFromSaveGenerationException {
+        /* PROJECT INFO FILE FORMAT
+        title:
+        creator:
+        collaborators:c1,c2,c3,...
+        creation_date:
+        modification_date:
+        path:
          */
         try {
             String[] allLines = saveText.split("\n");
-            String idString = allLines[0].substring(1);
-            String creatorUsername = allLines[1].substring(1);
-            String title = allLines[2].substring(1);
-            String dateString = allLines[3].substring(1);
+            String title = allLines[0].split("title:")[1];
+            String creatorUsername = allLines[1].split("creator:")[1];
             ArrayList<String> collaboratorsUsernames = new ArrayList<>();
-            StringBuilder code = new StringBuilder();
-            for (int i = 4; i < allLines.length; i++){
-                if (allLines[i].charAt(0) == '#'){
-                    collaboratorsUsernames.add(allLines[i].substring(1));
-                }
-                else {
-                    code.append(allLines[i]);
-                    if (i < allLines.length - 1){
-                        code.append("\n");
-                    }
-                }
+            try {
+                collaboratorsUsernames = new ArrayList<>(Arrays.asList(allLines[2].split("collaborators:")[1].split(",")));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Project has no collaborators");
             }
-            int id = Integer.parseInt(idString);
-            SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT);
+            String dateString = allLines[3].split("creation_date:")[1];
+            SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
             Date date = dateFormatter.parse(dateString);
-            return new Project(id, creatorUsername,
-                    title, date, collaboratorsUsernames, code.toString());
+            return new Project(creatorUsername,
+                    title, date, collaboratorsUsernames, path);
         } catch (ParseException e) {
             throw new ProjectFromSaveGenerationException(e);
         }
     }
 
-
-    /**
-     * Writes text into file.
-     *
-     * @param file File written
-     * @param text Content to write
-     * @throws IOException when a IO error occurs
-     */
-    private void writeInFile(File file, String text) throws IOException {
-        FileWriter fw = new FileWriter(file);
-        BufferedWriter bw = new BufferedWriter(fw);
-        bw.write(text);
-        bw.close();
+    public String getProjectCode() throws IOException {
+        String filePath = Controller.Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex";
+        return super.readInFile(filePath);
     }
 
-
     /**
-     * Read the text in a File
+     * Creates a .tex file for every new user, and updates it with the new source code
+     * when compiling.
      *
-     * @param file file.
-     * @return text in the file
-     * @throws IOException if error in IO interactions
+     * @param sourceCode String from the compiling text area
+     * @throws LatexWritingException when the text has not be written successfully in the tex file
      */
-    private String readInFile(File file) throws IOException {
-        String textToRead;
-        StringBuilder builder = new StringBuilder();
-
-        FileReader reader = new FileReader(file);
-        BufferedReader buffer = new BufferedReader(reader);
-        while ((textToRead = buffer.readLine()) != null) {
-            builder.append(textToRead).append("\n");
+    public void makeTexFile(String sourceCode) throws LatexWritingException {
+        try {
+            File texFile = new File(Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex");
+            if (texFile.exists()) {
+                writeInFile(texFile, sourceCode);
+            } else {
+                File template_file = new File("./Latex/template.txt");
+                String temp, text = "";
+                BufferedReader br;
+                br = new BufferedReader(new FileReader(template_file));
+                while ((temp = br.readLine()) != null) {
+                    text = text.concat(temp + '\n');
+                }
+                writeInFile(texFile, text);
+            }
+        } catch (IOException e) {
+            throw new LatexWritingException(e);
         }
+    }
 
-        return builder.toString();
+    public void generateTexFile(Project project) throws IOException {
+        File template_file = new File("./Latex/template.txt");
+        File texFile = new File(project.getPath() + File.separator + project.getTitle() + ".tex");
+        try (BufferedReader br = new BufferedReader(new FileReader(template_file))) {
+            String temp, text = "";
+            while ((temp = br.readLine()) != null) {
+                text = text.concat(temp + '\n');
+            }
+            writeInFile(texFile, text);
+        }
     }
 }

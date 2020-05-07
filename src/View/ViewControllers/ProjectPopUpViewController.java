@@ -6,24 +6,34 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
+
 public class ProjectPopUpViewController {
 
     private Stage stage;
 
     @FXML
-    private TextField popUpTitleText;
+    private TextField projectNameField;
 
     @FXML
     private TextField popUpRenameText;
 
+    @FXML
+    private TextField pathField;
+
+    @FXML
+    private TextField popUpShareText;
+
     private ProjectPopUpViewControllerListener listener;
 
-    public void setListener(ProjectPopUpViewControllerListener listener){
+    public void setListener(ProjectPopUpViewControllerListener listener) {
         this.listener = listener;
     }
+
     @FXML
     void onPressShareInPopUp(ActionEvent event) {
-
+        listener.shareProject(popUpShareText.getText());
+        stage.close();
     }
 
     @FXML
@@ -34,8 +44,16 @@ public class ProjectPopUpViewController {
 
     @FXML
     public void onPressCreateInPopUp(ActionEvent actionEvent) throws ProjectCreationException {
-        listener.createProject(popUpTitleText.getText());
-        stage.close();
+        boolean correct = listener.createProject(projectNameField.getText(), pathField.getText());
+        if (correct) {
+            stage.close();
+        }
+    }
+
+    @FXML
+    void onPressBrowseInPopUp() throws FileNotFoundException {
+        String path = listener.browseFilesToGetPath(stage);
+        pathField.setText(path);
     }
 
     public void setStage(Stage stage) {
@@ -44,8 +62,12 @@ public class ProjectPopUpViewController {
 
     public interface ProjectPopUpViewControllerListener {
 
-        void createProject(String text) throws ProjectCreationException;
+        boolean createProject(String text, String path) throws ProjectCreationException;
 
         void renameProject(String text);
+
+        String browseFilesToGetPath(Stage popUpStage) throws FileNotFoundException;
+
+        void shareProject(String collaboratorUsername);
     }
 }
