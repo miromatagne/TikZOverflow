@@ -17,6 +17,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * This class manages the View of the Project Selection Screen.
+ */
+
 public class ProjectSelectionViewController implements Initializable {
 
     ProjectSelectionViewControllerListener listener;
