@@ -276,9 +276,9 @@ public class ProjectHandler extends FileHandler {
     }
 
     public void generateTexFile(Project project) throws IOException {
-        File template_file = new File("./Latex/template.txt");
+        InputStream inputStream = getClass().getResourceAsStream("/template.txt");
         File texFile = new File(project.getPath() + File.separator + project.getTitle() + ".tex");
-        try (BufferedReader br = new BufferedReader(new FileReader(template_file))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
             String temp, text = "";
             while ((temp = br.readLine()) != null) {
                 text = text.concat(temp + '\n');

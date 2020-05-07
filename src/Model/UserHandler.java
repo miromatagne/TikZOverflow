@@ -1,12 +1,10 @@
 package Model;
 
-import Controller.Session;
 import Model.Exceptions.*;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 /**
  * This class is used to handle interactions with user files
