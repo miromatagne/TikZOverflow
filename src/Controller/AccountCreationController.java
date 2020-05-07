@@ -8,10 +8,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Handles account creation screen behaviour.
@@ -112,8 +109,8 @@ public class AccountCreationController extends AccountController implements Acco
             Stage tcuStage = new Stage();
             tcuStage.initModality(Modality.APPLICATION_MODAL);
             tcuStage.setTitle("Terms and conditions");
-            File f = new File("tcu.txt");
-            BufferedReader br = new BufferedReader(new FileReader(f));
+            InputStream inputStream = getClass().getResourceAsStream("/tcu.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             String tmp, text = "";
             while ((tmp = br.readLine()) != null) {
                 text = text.concat(tmp + '\n');

@@ -153,10 +153,10 @@ public class FileHandler {
             if (texFile.exists()) {
                 writeInFile(texFile, sourceCode);
             } else {
-                File template_file = new File("./Latex/template.txt");
+                InputStream inputStream = getClass().getResourceAsStream("/template.txt");
                 String temp, text = "";
                 BufferedReader br;
-                br = new BufferedReader(new FileReader(template_file));
+                br = new BufferedReader(new InputStreamReader(inputStream));
                 while ((temp = br.readLine()) != null) {
                     text = text.concat(temp + '\n');
                 }
