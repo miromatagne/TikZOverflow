@@ -44,6 +44,13 @@ public class ProjectSelectionViewController implements Initializable {
 
     private ObservableList<ProjectDisplay> data;
 
+    /**
+     * This function executes as soon as the the class is created.
+     * It initializes the TableView containing the projects and its columns,
+     * and lists the appropriate projects.
+     * It also sets a listener on the TableView in order to know when the user
+     * clicks on a certain project.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         data = FXCollections.observableArrayList();
@@ -62,6 +69,9 @@ public class ProjectSelectionViewController implements Initializable {
         });
     }
 
+    /**
+     * Lists all projects of the current user in the TableView.
+     */
     private void listProjects() {
         ArrayList<Project> projects = Session.getInstance().getUserProjects();
         for(Project p: projects){
@@ -70,6 +80,10 @@ public class ProjectSelectionViewController implements Initializable {
         }
     }
 
+    /**
+     * Sets a listener referring to the ProjectSelectionController.
+     * @param listener ProjectSelectionController instance
+     */
     public void setListener(ProjectSelectionViewControllerListener listener) {
         this.listener = listener;
     }
@@ -89,21 +103,33 @@ public class ProjectSelectionViewController implements Initializable {
         listener.onLogoutRequest(); //requesting logout
     }
 
+    /**
+     * Action of "Create" button.
+     */
     @FXML
     void onCreateButton(){
         listener.showCreatePopUp();
     }
 
+    /**
+     * Action of "Copy" button.
+     */
     @FXML
     void onPressCopy() {
         listener.copyProjects(getCheckedBoxes());
     }
 
+    /**
+     * Action of "Delete" button.
+     */
     @FXML
     void onPressDelete() {
         listener.deleteProjects(getCheckedBoxes());
     }
 
+    /**
+     * @return returns a list of all ProjectDisplay items that are checked (checkbox ticked)
+     */
     public ObservableList<ProjectDisplay> getCheckedBoxes() {
         ObservableList<ProjectDisplay> checkedBoxes = FXCollections.observableArrayList();
         for (ProjectDisplay p : data) {
@@ -114,12 +140,21 @@ public class ProjectSelectionViewController implements Initializable {
         return checkedBoxes;
     }
 
+    /**
+     * Adds a project to the TableView on the screen.
+     * @param projectDisplay ProjectDisplay to add
+     */
     public void addProjectToDisplay(ProjectDisplay projectDisplay) {
         data.add(projectDisplay);
         projectDisplay.getRenameButton().setOnAction(e -> listener.showRenamePopUp(projectDisplay.getProject()));
         projectDisplay.getShareButton().setOnAction(e -> listener.showSharePopUp(projectDisplay.getProject()));
     }
 
+    /**
+     * Refreshes the title of a project when the user has decided to change its name.
+     * @param currentTreatedProject project that the user has decided to rename
+     * @param title new title the user wishes to give to that project
+     */
     public void refreshProjectTitle(Project currentTreatedProject, String title) {
         for(ProjectDisplay projectDisplay : data) {
             if(projectDisplay.getProject().equals(currentTreatedProject)){
@@ -128,6 +163,11 @@ public class ProjectSelectionViewController implements Initializable {
         }
     }
 
+    /**
+     * Remove a certain project from the TableView. This happens
+     * when the user decides to delete a project.
+     * @param projectDisplay ProjectDisplay to remove
+     */
     public void removeProjectFromDisplay(ProjectDisplay projectDisplay) {
         data.remove(projectDisplay);
     }
