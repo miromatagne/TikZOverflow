@@ -34,7 +34,7 @@ public class Arrow extends Link {
 
         //Draw line Position + Label in the Middle
         code += " (" + getxOrigin() + "," + getyOrigin() + ")";
-        code += " -- (" + (getxDestination()-getxOrigin())/2 + "," + (getyDestination()-getyOrigin())/2 + ")" ;
+        code += " -- (" + (getxDestination()+getxOrigin())/2 + "," + (getyDestination()+getyOrigin())/2 + ")" ;
         code += " node[color=black, above] {" + getLabel() + "} --" ;
         code += " (" + getxDestination() + "," + getyDestination() + ");\n";
         return code;

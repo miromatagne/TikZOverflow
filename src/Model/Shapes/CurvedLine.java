@@ -46,7 +46,8 @@ public class CurvedLine extends Link {
         code += " to[out=" + getCurvedOutAngle() + ",in=" + getCurvedInAngle() + "]";
 
         //Ending position
-        code += "(" + getxDestination() + "," + getyDestination() + ");\n";
+        code += "(" + getxDestination() + "," + getyDestination() + ")";
+        code += " node[color=black, above] {" + getLabel() + "}\n";
 
         return code;
     }

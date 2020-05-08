@@ -8,10 +8,8 @@
 % Document
 \begin{document}
     \begin{tikzpicture}[remember picture, overlay, shift={(-4,-15)}]
-	\node (h) at (0,0) {Hello};
-	\node (w) at (2,3) {World};
-	\draw (h) edge (w);
-	\filldraw[fill={rgb,1:red,0.501960813999176;green,0.501960813999176;blue,0.501960813999176},line width=0.15] (5.040311,1.4) circle (2.0);
-	\filldraw[fill={rgb,1:red,1.0;green,1.0;blue,1.0},line width=0.09615384] (1.0,2.0) circle (5.0);
+	\draw [line width=1.0mm ,color={rgb,1:red,0.501960813999176;green,0.501960813999176;blue,0.501960813999176}] (6.146034,15.138032) -- (8.146034,17.138031) node[color=black, above] {Line} -- (10.146034,19.138031);
+	\draw [line width=1.0mm ,color={rgb,1:red,0.501960813999176;green,0.501960813999176;blue,0.501960813999176}] (8.631586,8.5234995) to[out=90.0,in=-90.0](12.631586,12.5234995) node[color=black, above] {Curved line}
+	\draw [arrows={->[length=5.0mm, width=5.0mm]} ,line width=1.0mm ,color={rgb,1:red,0.501960813999176;green,0.501960813999176;blue,0.501960813999176}] (3.1148725,10.374354) -- (4.6148725,11.874354) node[color=black, above] {Arrow} -- (6.1148725,13.374354);
     \end{tikzpicture}
 \end{document}
