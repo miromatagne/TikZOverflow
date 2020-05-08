@@ -100,7 +100,7 @@ public class ProjectHandler extends FileHandler {
      * @throws ProjectCopyException if copy failed
      */
     public Project createCopy(Project projectToCopy, User user) throws ProjectCopyException {
-        int firstAvailableIndex = findNewPath(projectToCopy);
+        int firstAvailableIndex = findNewPathIndex(projectToCopy);
         try {
             int lastSeparatorPosition = projectToCopy.getPath().lastIndexOf(File.separator);
             String rootProjectPath = projectToCopy.getPath().substring(0,lastSeparatorPosition);
@@ -112,7 +112,12 @@ public class ProjectHandler extends FileHandler {
         }
     }
 
-    private int findNewPath(Project projectToCopy) {
+    /**
+     * Find next available name to copy a project.
+     * @param projectToCopy project to copy
+     * @return first available index that will be appended to project to copy title
+     */
+    private int findNewPathIndex(Project projectToCopy) {
         int index = 1;
         File currentDirectory;
         do {
@@ -146,12 +151,27 @@ public class ProjectHandler extends FileHandler {
         }
     }
 
+    /**
+     * Removes a project from a user file.
+     * @param project project to be removed
+     * @param creatorUsername project creator username
+     * @param userHandler UserHandler
+     * @throws UserFromSaveCreationException if user file could not be read
+     * @throws SaveUserException if user file could not be saved
+     */
     private void deleteFromUser(Project project, String creatorUsername, UserHandler userHandler) throws UserFromSaveCreationException, SaveUserException {
         User creator = userHandler.getUserFromSave(creatorUsername);
         creator.removeProject(project.getPath());
         userHandler.saveUser(creator);
     }
 
+    /**
+     * Renames a project title.
+     * Changes the name of the LaTeX file but not of the project directory.
+     * @param project project to be renamed
+     * @param newTitle new project title
+     * @throws ProjectRenameException if project could not be saved
+     */
     public void renameProject(Project project, String newTitle) throws ProjectRenameException {
         File projectFile = new File(project.getPath() + File.separator + project.getTitle() + ".tex");
         boolean success = projectFile.renameTo(new File(project.getPath() + File.separator + newTitle + ".tex"));
@@ -168,6 +188,14 @@ public class ProjectHandler extends FileHandler {
         }
     }
 
+    /**
+     * Shares a project with given collaborator
+     * @param collaboratorUsername username of the collaborator the project is shared with
+     * @param project project to be shared
+     * @throws UserFromSaveCreationException if collaborator file couldn't be read
+     * @throws ProjectSaveException if project file couldn't be saved
+     * @throws SaveUserException if collaborator file couldn't be saved
+     */
     public void shareProject(String collaboratorUsername, Project project) throws UserFromSaveCreationException, ProjectSaveException, SaveUserException {
         UserHandler userHandler = new UserHandler();
         User collaborator = userHandler.getUserFromSave(collaboratorUsername);
@@ -243,6 +271,11 @@ public class ProjectHandler extends FileHandler {
         }
     }
 
+    /**
+     * Reads project code in LaTeX file.
+     * @return source code
+     * @throws IOException if project LaTeX file could not be read
+     */
     public String getProjectCode() throws IOException {
         String filePath = Controller.Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex";
         return super.readInFile(filePath);
@@ -275,6 +308,11 @@ public class ProjectHandler extends FileHandler {
         }
     }
 
+    /**
+     * Writes template code in project LaTeX file.
+     * @param project project to be saved
+     * @throws IOException if project file couldn't be read/written
+     */
     public void generateTexFile(Project project) throws IOException {
         InputStream inputStream = getClass().getResourceAsStream("/template.txt");
         File texFile = new File(project.getPath() + File.separator + project.getTitle() + ".tex");

@@ -276,6 +276,9 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
         }
     }
 
+    /**
+     * Interface used to communicate with ScreenHandler
+     */
     public interface ProjectSelectionControllerListener {
         void accountModificationRequest();
         void logout();
