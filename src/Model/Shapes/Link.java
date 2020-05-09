@@ -29,6 +29,13 @@ public abstract class Link extends Shape {
         this.yDestination = destination.getPosY();
     }
 
+    public String getColorTikzCode(){
+        //Color
+        String code = " ,color={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() + ";blue," + getColor().getBlue() + "}]";
+
+        return code;
+    }
+
     public float getxOrigin() {
         return xOrigin;
     }

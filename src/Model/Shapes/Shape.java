@@ -35,7 +35,7 @@ public abstract class Shape {
     }
 
     /**
-     * Generate the TikZCode for the shape
+     * Generate the TikZCode for the shape needs to be overwritten for each shape
      *
      * @return Tikz code
      */

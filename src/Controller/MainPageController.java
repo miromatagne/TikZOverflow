@@ -23,6 +23,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     private LatexController latexController;
     private Parent root;
 
+
     public MainPageController(Stage stage, MainPageControllerListener listener) {
         this.stage = stage;
         this.listener = listener;
@@ -160,6 +161,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     public Parent getRoot() {
         return root;
     }
+
 
 
     public interface MainPageControllerListener {

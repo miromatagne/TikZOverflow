@@ -15,11 +15,17 @@ public class Triangle extends Node {
 
     @Override
     public String generateAndGetTikzCode() {
-        String code = "\\filldraw";
-        code += "[fill={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() + ";blue," + getColor().getBlue() + "}," +
-                "line width=" + getOutlineThickness() / 20 + "] ";
-        code += "(" + getX1() + "," + getY1() + ") --";
+        float labelPosX = (Math.min(Math.min(getX1(),getX2()),getX3())+Math.max(Math.max(getX1(),getX2()),getX3()))/2;
+        float labelPosY = Math.min(Math.min(getY1(),getY2()),getY3());
+
+        String code = super.generateAndGetTikzCode();
+        //first triangle's corner position
+        code += "(" + getX1() + "," + getY1() + ") ";
+        //position of the label and his content
+        code += "node[color=black, below] at (" + labelPosX + "," + labelPosY + "){" + getLabel() +"} --";
+        //second triangle's corner position
         code += "(" + getX2() + "," + getY2() + ") --";
+        //third triangle's corner position
         code += "(" + getX3() + "," + getY3() + ") -- cycle;\n";
         return code;
     }

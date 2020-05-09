@@ -154,10 +154,6 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
         }
 
         String label = allControllers.get(idCurrent).getLabel().getText();
-        if (label.equals("")) {
-            allControllers.get(idCurrent).getLabel().setStyle(redStyle);
-            canAddShape = false;
-        }
         if (canAddShape) {
             addShape(idCurrent, allDataInField, allControllers.get(idCurrent).getColor(), label);
         }
