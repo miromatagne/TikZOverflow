@@ -89,8 +89,8 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             e.printStackTrace();
         }
         String imagePath = pdfPath.replace(".pdf", ".jpg");
-        try {
-            Image renderedImage = new Image(new FileInputStream(imagePath));
+        try (FileInputStream fileInputStream = new FileInputStream(imagePath)){
+            Image renderedImage = new Image(fileInputStream);
             mainPageViewController.renderImage(renderedImage);
         } catch (IOException e) {
             System.err.println("Image file not found");
