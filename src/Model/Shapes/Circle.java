@@ -17,7 +17,7 @@ public class Circle extends Node {
         //position of the center of the circle
         code += "(" + getPosX() + "," + getPosY() + ") ";
         //position of the label and his content
-        code += "node[below] at (" + getPosX() + "," + (getPosY()-radius) + "){" + getLabel() +"} ";
+        code += "node[color=black, below] at (" + getPosX() + "," + (getPosY()-radius) + "){" + getLabel() +"} ";
         //radius of the circle
         code += "circle (" + radius + ");\n";
         return code;
