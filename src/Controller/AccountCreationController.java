@@ -34,13 +34,13 @@ public class AccountCreationController extends AccountController implements Acco
      */
     public void show() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/accountCreation.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/accountCreationScreen.fxml"));
             loader.load();
             controller = loader.getController();
             controller.setListener(this);
             stage.getScene().setRoot(loader.getRoot());
         } catch (IOException e) {
-            System.err.println("Error loading /View/FXML/accountCreation.fxml");
+            System.err.println("Error loading /View/FXML/accountCreationScreen.fxml");
             e.printStackTrace();
             AlertController.showStageError("Error while loading the account creation fxml file.", "Process aborted", true);
         }

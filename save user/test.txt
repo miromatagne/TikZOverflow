@@ -1,5 +1,0 @@
-last:testing
-first:testing
-username:test
-mail:a@gmail.com
-password:password

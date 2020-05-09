@@ -34,13 +34,13 @@ public class AccountModificationController extends AccountController implements 
      */
     public void show() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/accountModification.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/accountModificationScreen.fxml"));
             loader.load();
             controller = loader.getController();
             controller.setListener(this);
             stage.getScene().setRoot(loader.getRoot());
         } catch (IOException e) {
-            System.out.println("Error loading /View/FXML/accountModification.fxml");
+            System.out.println("Error loading /View/FXML/accountModificationScreen.fxml");
             e.printStackTrace();
             AlertController.showStageError("Error while loading the account modification fxml file.", "Process aborted", true);
         }

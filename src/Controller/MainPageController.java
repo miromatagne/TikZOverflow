@@ -6,22 +6,14 @@ import Controller.Exceptions.ShapeMenuControllerConstructorException;
 import Model.Exceptions.LatexWritingException;
 import Model.Exceptions.ProjectSaveException;
 import Model.LatexHandler;
-import Model.Project;
 import Model.ProjectHandler;
 import Model.Shapes.Shape;
 import View.ViewControllers.MainPageViewController;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -49,7 +41,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
      */
     public void show() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/MainPage.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/mainPage.fxml"));
             root = loader.load();
             stage.getScene().setRoot(root);
             controller = loader.getController();
@@ -95,6 +87,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
 
     @Override
     public void goBackToProjectScreen() {
+        controller.renderImage(null);
         Session.getInstance().setCurrentProject(null);
         listener.goBackToProjectScreen();
     }

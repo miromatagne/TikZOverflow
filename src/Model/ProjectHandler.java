@@ -143,6 +143,7 @@ public class ProjectHandler extends FileHandler {
         try {
             super.deleteDirectory(file);
         } catch (IOException e) {
+            System.out.println(e);
             throw new ProjectDeletionException();
         }
         deleteFromUser(project, creatorUsername, userHandler);

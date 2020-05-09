@@ -50,7 +50,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
             FXMLLoader loader = getLoader();
             stage.getScene().setRoot(loader.getRoot());
         } catch (IOException e) {
-            System.err.println("Error loading /View/FXML/projectSelection.fxml");
+            System.err.println("Error loading /View/FXML/projectSelectionScreen.fxml");
             e.printStackTrace();
             AlertController.showStageError("Error while loading the project selection fxml file.", "Process aborted", true);
         }
@@ -62,7 +62,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
      * @throws IOException if FXML file was not found
      */
     private FXMLLoader getLoader() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/projectSelection.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/FXML/projectSelectionScreen.fxml"));
         loader.load();
         controller = loader.getController();
         controller.setListener(this);
@@ -154,6 +154,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
                 projectHandler.deleteProject(project);
                 controller.removeProjectFromDisplay(projectDisplay);
             } catch (ProjectDeletionException | SaveUserException | UserFromSaveCreationException e) {
+                System.out.println(project.getPath());
                 AlertController.showStageError("Failed to delete", String.format("Could not delete %s", project.getTitle()));
             }
         }

@@ -1,5 +1,0 @@
-last:a
-first:a
-username:a
-mail:a@
-password:a
