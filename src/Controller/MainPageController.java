@@ -69,6 +69,9 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
                     if(Session.getInstance().getCurrentProject() != null){
                         controller.saveSuggestionPopup(false);
                     }
+                    else{
+                        stage.close();
+                    }
                 }
             });
         } catch (ShapeMenuControllerConstructorException e) {
@@ -103,6 +106,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
             ProjectHandler projectHandler = new ProjectHandler();
             projectHandler.makeTexFile(code);
             projectHandler.saveProjectInfo(Session.getInstance().getCurrentProject());
+            controller.getRenderedImageView().setImage(null);
         }
         catch(GetTextInFileException e){
             Alert.AlertType.valueOf("Error on opening Tex file for save");
