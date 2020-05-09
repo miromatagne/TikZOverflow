@@ -1,14 +1,29 @@
 package Controller;
 
+import Controller.Exceptions.GetTextInFileException;
 import Controller.Exceptions.LatexControllerConstructorException;
 import Controller.Exceptions.ShapeMenuControllerConstructorException;
+import Model.Exceptions.LatexWritingException;
+import Model.Exceptions.ProjectSaveException;
+import Model.LatexHandler;
 import Model.Project;
+import Model.ProjectHandler;
 import Model.Shapes.Shape;
 import View.ViewControllers.MainPageViewController;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -47,6 +62,15 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
             controller.setShapeButtonListener(shapeMenuController);
             controller.setCodeInterfaceListener(latexController);
             controller.updateText();
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent e) {
+                    e.consume();
+                    if(Session.getInstance().getCurrentProject() != null){
+                        controller.saveSuggestionPopup(false);
+                    }
+                }
+            });
         } catch (ShapeMenuControllerConstructorException e) {
             System.err.println("Error while creating the shape menu controller");
             e.printStackTrace();
@@ -65,20 +89,33 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         }
     }
 
-    /**
-     * Request to logout to the corresponding listener
-     */
+
     @Override
-    public void onLogoutRequest() {
-        listener.logout();
+    public void goBackToProjectScreen() {
+        Session.getInstance().setCurrentProject(null);
+        listener.goBackToProjectScreen();
     }
 
-    /**
-     * Request to modify the account to the corresponding listener
-     */
     @Override
-    public void accountModificationRequest() {
-        listener.accountModificationRequest();
+    public void saveProject(String code){
+        try{
+            code = LatexHandler.getInstance().buildFullCodeFromShapesOnlyCode(code, latexController.getTextInFile());
+            ProjectHandler projectHandler = new ProjectHandler();
+            projectHandler.makeTexFile(code);
+            projectHandler.saveProjectInfo(Session.getInstance().getCurrentProject());
+        }
+        catch(GetTextInFileException e){
+            Alert.AlertType.valueOf("Error on opening Tex file for save");
+        }catch (LatexWritingException ex) {
+            Alert.AlertType.valueOf("Error on save Tex file");
+        }catch(ProjectSaveException pe){
+            Alert.AlertType.valueOf("Error on save properties file");
+        }
+    }
+
+    @Override
+    public void closeStage() {
+        stage.close();
     }
 
     /**
@@ -164,9 +201,10 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
 
 
 
-    public interface MainPageControllerListener {
-        void logout();
 
-        void accountModificationRequest();
+
+    public interface MainPageControllerListener {
+        void goBackToProjectScreen();
+
     }
 }

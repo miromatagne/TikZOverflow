@@ -1,11 +1,15 @@
 package Controller;
 
+import Model.Exceptions.ProjectSaveException;
 import Model.Project;
+import Model.ProjectHandler;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -49,6 +53,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
         loginScreenController = new LoginScreenController(stage, this);
         loginScreenController.show();
     }
+
 
     /**
      * Creates a popup stage when account creation has been attempted to inform user.
@@ -153,4 +158,8 @@ public class ScreenHandler extends Application implements LoginScreenController.
         goToProjectScreen();
     }
 
+    @Override
+    public void goBackToProjectScreen() {
+        goToProjectScreen();
+    }
 }
