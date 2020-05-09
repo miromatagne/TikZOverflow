@@ -22,7 +22,7 @@ public class Triangle extends Node {
         //first triangle's corner position
         code += "(" + getX1() + "," + getY1() + ") ";
         //position of the label and his content
-        code += "node[below] at (" + labelPosX + "," + labelPosY + "){" + getLabel() +"} --";
+        code += "node[color=black, below] at (" + labelPosX + "," + labelPosY + "){" + getLabel() +"} --";
         //second triangle's corner position
         code += "(" + getX2() + "," + getY2() + ") --";
         //third triangle's corner position

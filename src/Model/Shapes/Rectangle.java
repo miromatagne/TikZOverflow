@@ -25,7 +25,7 @@ public class Rectangle extends Node {
         //position of the bottom left corner
         code += "(" + x1 + "," + y1 + ") ";
         //position of the label and his content
-        code += "node[below] at (" + labelPosX + "," + labelPosY + "){" + getLabel() +"} ";
+        code += "node[color=black, below] at (" + labelPosX + "," + labelPosY + "){" + getLabel() +"} ";
         //position of the top right corner
         code += "rectangle (" + x2 + "," + y2 + ");\n";
         return code;
