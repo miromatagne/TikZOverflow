@@ -11,13 +11,13 @@ import java.util.ArrayList;
 public class ShapeFactory {
 
 
-    final static int RECTANGLE = 0;
-    final static int CIRCLE = 1;
-    final static int LINE = 2;
-    final static int CURVED_LINE = 3;
-    final static int ARROW = 4;
-    final static int TRIANGLE = 5;
-    final static int SQUARE = 6;
+    public final static int RECTANGLE = 0;
+    public final static int CIRCLE = 1;
+    public final static int LINE = 2;
+    public final static int CURVED_LINE = 3;
+    public final static int ARROW = 4;
+    public final static int TRIANGLE = 5;
+    public final static int SQUARE = 6;
 
     /**
      * Get an instance of a shape based on information given in parameters
