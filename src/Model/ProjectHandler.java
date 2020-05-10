@@ -104,8 +104,13 @@ public class ProjectHandler extends FileHandler {
         try {
             int lastSeparatorPosition = projectToCopy.getPath().lastIndexOf(File.separator);
             String rootProjectPath = projectToCopy.getPath().substring(0,lastSeparatorPosition);
-            return createProject(user, rootProjectPath, projectToCopy.getTitle()+firstAvailableIndex);
-        } catch (ProjectCreationException | LatexWritingException | DirectoryCreationException | ProjectAlreadyExistsException e) {
+
+            Project p = createProject(user, rootProjectPath, projectToCopy.getTitle()+firstAvailableIndex);
+            File texFile = new File(p.getPath() + File.separator + p.getTitle() + ".tex");
+            super.writeInFile(texFile,super.readInFile(projectToCopy.getPath() + File.separator + projectToCopy.getTitle() + ".tex"));
+
+            return p;
+        } catch (ProjectCreationException | LatexWritingException | DirectoryCreationException | ProjectAlreadyExistsException | IOException e) {
             throw new ProjectCopyException(e);
         }
     }
