@@ -44,7 +44,7 @@ public class FileHandler {
 
     }
 
-    void deleteDirectory(File file) throws IOException {
+    public void deleteDirectory(File file) throws IOException {
         if (file.isDirectory()) {
             File[] entries = file.listFiles();
             if (entries != null) {
