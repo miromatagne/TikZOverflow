@@ -32,7 +32,7 @@ public class CurvedLine extends Link {
     public String generateAndGetTikzCode() {
         //Defining the position where the label will be drawn
         double labelPosY = Math.min(getyOrigin(),getyDestination());
-        double labelPosX=0;
+        double labelPosX;
         if(labelPosY == getyOrigin()){
             labelPosX=getxOrigin();
         }

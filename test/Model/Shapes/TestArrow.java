@@ -19,6 +19,7 @@ class TestArrow {
         a.setArrowHeadWidth(7);
         a.setColor(Color.valueOf("#990000"));
         a.setStrokeWidth(3);
+        a.setLabel("Arrow");
         String code = a.generateAndGetTikzCode();
 
         Circle c = new Circle(3,3);
@@ -28,10 +29,11 @@ class TestArrow {
         a2.setArrowHeadWidth(9);
         a2.setColor(Color.valueOf("#990000"));
         a2.setStrokeWidth(2);
+        a2.setLabel("Arrow2");
         String code2 = a2.generateAndGetTikzCode();
 
-        assertEquals("\\draw [arrows={->[length=5.0mm, width=7.0mm]} ,line width=3.0mm ,color={rgb,1:red,0.6000000238418579;green,0.0;blue,0.0}] (0.0,1.0) -- (4.0,4.0);\n",code);
-        assertEquals("\\draw [arrows={->[length=2.0mm, width=9.0mm]} ,line width=2.0mm ,color={rgb,1:red,0.6000000238418579;green,0.0;blue,0.0}] (3.0,3.0) -- (1.0,2.0);\n",code2);
+        assertEquals("\\draw [arrows={->[length=5.0mm, width=7.0mm]} ,line width=3.0mm ,color={rgb,1:red,0.6000000238418579;green,0.0;blue,0.0}] (0.0,1.0) -- (2.0,2.5) -- (4.0,4.0) node[color=black, below] at (0.0,1.0){Arrow}; \n",code);
+        assertEquals("\\draw [arrows={->[length=2.0mm, width=9.0mm]} ,line width=2.0mm ,color={rgb,1:red,0.6000000238418579;green,0.0;blue,0.0}] (3.0,3.0) -- (2.0,2.5) -- (1.0,2.0) node[color=black, below] at (1.0,2.0){Arrow2}; \n",code2);
     }
 
     @Test
