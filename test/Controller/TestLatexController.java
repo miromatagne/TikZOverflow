@@ -21,7 +21,7 @@ class TestLatexController {
     @Test
     void getTextInFile() {
         try {
-            String path = "./test/Controller/TestLatexControllerGetTextInFileDirectory/";
+            String path = "./test/Controller/TestLatexController/GetTextInFileDirectory/";
             String title = "Project";
 
             /* We have to delete the test project if it already exists */
@@ -91,7 +91,7 @@ class TestLatexController {
     @Test
     void saveTikz() {
         try {
-            String path = "./test/Controller/TestLatexControllerSaveTikzDirectory/";
+            String path = "./test/Controller/TestLatexController/SaveTikzDirectory/";
             String title = "Project";
 
             /* We have to delete the test project if it already exists */
