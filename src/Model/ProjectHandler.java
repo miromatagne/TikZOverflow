@@ -179,12 +179,22 @@ public class ProjectHandler extends FileHandler {
         if (!success) {
             throw new ProjectRenameException();
         }
-        String previousTitle= project.getTitle();
+        File projectDirectory = new File(project.getPath());
+        int lastSeparatorPosition = project.getPath().lastIndexOf(File.separator);
+        String rootProjectPath = project.getPath().substring(0,lastSeparatorPosition);
+        success = projectDirectory.renameTo(new File(rootProjectPath + File.separator + newTitle));
+        if (!success) {
+            throw new ProjectRenameException();
+        }
+        String previousTitle = project.getTitle();
+        String previousPath = project.getPath();
+        project.setPath(rootProjectPath + File.separator+newTitle);
         project.setTitle(newTitle);
         try {
             saveProjectInfo(project);
         } catch (ProjectSaveException e) {
             project.setTitle(previousTitle);
+            project.setPath(previousPath);
             throw new ProjectRenameException();
         }
     }
