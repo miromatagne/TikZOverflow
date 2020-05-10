@@ -17,8 +17,9 @@ class TestCircle {
         c.setColor(Color.valueOf("#990000"));
         c.setOutlineThickness(60);
         c.setRadius(3);
+        c.setLabel("Circle");
         String code = c.generateAndGetTikzCode();
-        assertEquals("\\filldraw[fill={rgb,1:red,0.6000000238418579;green,0.0;blue,0.0},line width=3.0] (3.0,4.0) circle (3.0);\n",code);
+        assertEquals("\\filldraw[fill={rgb,1:red,0.6000000238418579;green,0.0;blue,0.0},line width=3.0] (3.0,4.0) node[color=black, below] at (3.0,1.0){Circle} circle (3.0);\n",code);
     }
 
     @Test
