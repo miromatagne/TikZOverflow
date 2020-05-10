@@ -67,9 +67,12 @@ public class ProjectSelectionViewController implements Initializable {
         tableView.setItems(data);
         listProjects();
         tableView.setOnMousePressed(event -> {
-            System.out.println(tableView.getSelectionModel().getSelectedItem().getProject().getTitle());
-            Project project = tableView.getSelectionModel().getSelectedItem().getProject();
-            listener.goToMainPage(project); 
+            ProjectDisplay projectDisplay = tableView.getSelectionModel().getSelectedItem();
+            if(projectDisplay != null) {
+                System.out.println(projectDisplay.getProject().getTitle());
+                Project project = projectDisplay.getProject();
+                listener.goToMainPage(project);
+            }
         });
     }
 

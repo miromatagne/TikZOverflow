@@ -1,10 +1,7 @@
 package View.ViewControllers;
 
 import Controller.*;
-import Model.Exceptions.ProjectSaveException;
-import Model.ProjectHandler;
 import Model.Shapes.Shape;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -275,7 +272,7 @@ public class MainPageViewController implements Initializable {
      * @param button The source of the drag
      */
     private void createDragAndDrop(MouseEvent event, Button button) {
-        if((rightHandMode==true && event.getButton() == MouseButton.PRIMARY) || (rightHandMode==false && event.getButton() == MouseButton.SECONDARY)) {
+        if((rightHandMode && event.getButton() == MouseButton.PRIMARY) || (!rightHandMode && event.getButton() == MouseButton.SECONDARY)) {
             Dragboard db = button.startDragAndDrop(TransferMode.ANY);
             ClipboardContent cb = new ClipboardContent();
             cb.putString("shapeTransfer");
@@ -452,8 +449,9 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     *
-     * @param backToProject
+     * Open a pop-up asking if the user wants to the save the project before quiting
+     * @param backToProject if TRUE, goes back to project selection screen
+     *                      if False, quits the application
      */
     public void saveSuggestionPopup(boolean backToProject) {
         Stage popupStage = new Stage();
@@ -538,10 +536,9 @@ public class MainPageViewController implements Initializable {
 
     /**
      * change mode to left-handed or right-handed with the corresponding button
-     * @param actionEvent
      */
-    public void changeMode(ActionEvent actionEvent) {
-        if(rightHandMode == true){
+    public void changeMode() {
+        if(rightHandMode){
             rightHandMode=false;
             changeModeButton.setText("Left-handed");
         }
@@ -551,7 +548,7 @@ public class MainPageViewController implements Initializable {
         }
     }
 
-    public void backToProjectsButtonAction(ActionEvent actionEvent){
+    public void backToProjectsButtonAction(){
         saveSuggestionPopup(true);
     }
 
