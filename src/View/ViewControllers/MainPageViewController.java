@@ -92,7 +92,6 @@ public class MainPageViewController implements Initializable {
      * Updates the text of the code interface area
      */
     public void updateText() {
-        //update of codeInterface a textArea
         if (textSaved == null) {
             textSaved = codeInterfaceListener.getShapesOnlyText();
             currentCodeDisplay = SHAPES_ONLY;
@@ -254,8 +253,9 @@ public class MainPageViewController implements Initializable {
      */
     private void bindImageButton(ImageView imageButton, Button button) {
         //0.6 is an empirical value
-        imageButton.fitWidthProperty().bind(button.widthProperty().multiply(0.6));
-        imageButton.fitHeightProperty().bind(button.heightProperty().multiply(0.6));
+        double scaleFactor = 0.6;
+        imageButton.fitWidthProperty().bind(button.widthProperty().multiply(scaleFactor));
+        imageButton.fitHeightProperty().bind(button.heightProperty().multiply(scaleFactor));
     }
 
     /**
@@ -391,7 +391,7 @@ public class MainPageViewController implements Initializable {
         if (movingShape != null) {
             listener.onReleaseShape(x, y, movingShape);
         }
-        compile();
+        compile(); //compile direct after a drop
 
     }
 
@@ -429,7 +429,7 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * This method shows the accessible zone for the drop
+     * This method shows to the user the accessible zone for the drop
      *
      * @param event drag event
      */
@@ -443,8 +443,8 @@ public class MainPageViewController implements Initializable {
 
     /**
      * Open a pop-up asking if the user wants to the save the project before quiting
-     * @param backToProject if TRUE, goes back to project selection screen
-     *                      if False, quits the application
+     * @param backToProject if true: goes back to project selection screen
+     *                      if false: quits the application
      */
     public void saveSuggestionPopup(boolean backToProject) {
         Stage popupStage = new Stage();
@@ -528,7 +528,7 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * change mode to left-handed or right-handed with the corresponding button
+     * change mode to left-handed or right-handed when clicking the button
      */
     public void changeMode() {
         if(rightHandMode){

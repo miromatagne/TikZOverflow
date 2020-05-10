@@ -59,7 +59,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
                 public void handle(WindowEvent e) {
                     e.consume();
                     if(Session.getInstance().getCurrentProject() != null){
-                        controller.saveSuggestionPopup(false);
+                        controller.saveSuggestionPopup(false);//suggest the user to save his project before quitting
                     }
                     else{
                         stage.close();
@@ -84,7 +84,9 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         }
     }
 
-
+    /**
+     * return on the screen with all the user's project
+     */
     @Override
     public void goBackToProjectScreen() {
         controller.renderImage(null);
@@ -92,6 +94,10 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         listener.goBackToProjectScreen();
     }
 
+    /**
+     * save the project without compiling it
+     * @param code
+     */
     @Override
     public void saveProject(String code){
         try{
@@ -99,7 +105,6 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
             ProjectHandler projectHandler = new ProjectHandler();
             projectHandler.makeTexFile(code);
             projectHandler.saveProjectInfo(Session.getInstance().getCurrentProject());
-            controller.getRenderedImageView().setImage(null);
         }
         catch(GetTextInFileException e){
             Alert.AlertType.valueOf("Error on opening Tex file for save");
@@ -110,6 +115,9 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         }
     }
 
+    /**
+     * close the program
+     */
     @Override
     public void closeStage() {
         stage.close();
