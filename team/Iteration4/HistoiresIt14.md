@@ -23,7 +23,7 @@ système garde trace de toutes les modifications effectuées et les enregistre a
 
 ### Introduit dans l'itération : 4
 
-### Etat : En cours
+### Etat : Complétée
 
 ### Points :
 Afin de déterminer le nombre de points de cette histoire, le groupe l'a scindée en les tâches suivantes :
@@ -57,7 +57,7 @@ L’utilisateur clique sur un élément graphique avec le bouton principal de la
 
 ### Introduit dans l'itération : 4 
 
-### Etat : En cours
+### Etat : Complétée
 
 ### Points :
 
