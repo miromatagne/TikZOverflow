@@ -104,9 +104,7 @@ public class ProjectHandler extends FileHandler {
         try {
             int lastSeparatorPosition = projectToCopy.getPath().lastIndexOf(File.separator);
             String rootProjectPath = projectToCopy.getPath().substring(0,lastSeparatorPosition);
-            System.out.println(rootProjectPath);
-            String directoryName = projectToCopy.getPath().substring(lastSeparatorPosition+1);
-            return createProject(user, rootProjectPath, directoryName+firstAvailableIndex);
+            return createProject(user, rootProjectPath, projectToCopy.getTitle()+firstAvailableIndex);
         } catch (ProjectCreationException | LatexWritingException | DirectoryCreationException | ProjectAlreadyExistsException e) {
             throw new ProjectCopyException(e);
         }
@@ -122,7 +120,9 @@ public class ProjectHandler extends FileHandler {
         File currentDirectory;
         do {
             index++;
-            currentDirectory = new File(projectToCopy.getPath() + index);
+            int lastSeparatorPosition = projectToCopy.getPath().lastIndexOf(File.separator);
+            String rootProjectPath = projectToCopy.getPath().substring(0,lastSeparatorPosition);
+            currentDirectory = new File(rootProjectPath + File.separator + projectToCopy.getTitle() + index);
         } while (currentDirectory.exists());
         return index;
     }

@@ -173,8 +173,11 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
             User user = Session.getInstance().getUser();
             try {
                 Project copiedProject = projectHandler.createCopy(project, user);
+                user.addProject(copiedProject.getPath());
+                UserHandler userHandler = new UserHandler();
+                userHandler.saveUser(user);
                 controller.addProjectToDisplay(new ProjectDisplay(copiedProject));
-            } catch (ProjectCopyException e) {
+            } catch (ProjectCopyException | SaveUserException e) {
                 AlertController.showStageError("Copy error", String.format("Error copying %s", project.getTitle()));
             }
         }
