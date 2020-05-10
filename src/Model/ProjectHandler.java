@@ -190,11 +190,17 @@ public class ProjectHandler extends FileHandler {
         String previousPath = project.getPath();
         project.setPath(rootProjectPath + File.separator+newTitle);
         project.setTitle(newTitle);
+        User user = Session.getInstance().getUser();
+        user.removeProject(previousPath);
+        user.addProject(rootProjectPath + File.separator+newTitle);
         try {
             saveProjectInfo(project);
-        } catch (ProjectSaveException e) {
+            UserHandler userHandler = new UserHandler();
+            userHandler.saveUser(user);
+        } catch (ProjectSaveException | SaveUserException e) {
             project.setTitle(previousTitle);
             project.setPath(previousPath);
+            user.removeProject(previousPath);
             throw new ProjectRenameException();
         }
     }
