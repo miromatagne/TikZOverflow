@@ -9,13 +9,11 @@ import Model.LatexHandler;
 import Model.ProjectHandler;
 import Model.Shapes.Shape;
 import View.ViewControllers.MainPageViewController;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -26,7 +24,6 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     private final Stage stage;
     private final MainPageControllerListener listener;
     private MainPageViewController controller;
-    private ShapeMenuController shapeMenuController;
     private LatexController latexController;
     private Parent root;
 
@@ -47,23 +44,19 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
             controller = loader.getController();
             controller.setListener(this);
             PredefinedShapesPanelController predefinedShapesPanelController = new PredefinedShapesPanelController();
-            shapeMenuController = new ShapeMenuController();
+            ShapeMenuController shapeMenuController = new ShapeMenuController();
             latexController = new LatexController(controller);
             shapeMenuController.setMainPageViewController(controller);
             controller.setPredefinedShapesPanelController(predefinedShapesPanelController);
             controller.setShapeButtonListener(shapeMenuController);
             controller.setCodeInterfaceListener(latexController);
             controller.updateText();
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent e) {
-                    e.consume();
-                    if(Session.getInstance().getCurrentProject() != null){
-                        controller.saveSuggestionPopup(false);//suggest the user to save his project before quitting
-                    }
-                    else{
-                        stage.close();
-                    }
+            stage.setOnCloseRequest(e -> {
+                e.consume();
+                if (Session.getInstance().getCurrentProject() != null) {
+                    controller.saveSuggestionPopup(false);//suggest the user to save his project before quitting
+                } else {
+                    stage.close();
                 }
             });
         } catch (ShapeMenuControllerConstructorException e) {
@@ -96,7 +89,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
 
     /**
      * save the project without compiling it
-     * @param code
+     * @param code  the text from code interface to save
      */
     @Override
     public void saveProject(String code){
