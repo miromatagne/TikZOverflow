@@ -77,7 +77,4 @@ public class ProjectDisplay {
         this.title.setText(title);
     }
 
-    public SimpleStringProperty getSimpleStringPropertyTitle() {
-        return title;
-    }
 }
