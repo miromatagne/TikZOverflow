@@ -64,9 +64,6 @@ public class AccountModificationViewController extends AccountViewController imp
                 passwordConfirmationField.getText());
     }
 
-
-
-
     /**
      * Action of the return Button : Change screen to the main page
      */
@@ -78,6 +75,7 @@ public class AccountModificationViewController extends AccountViewController imp
     public void setListener(AccountModificationViewControllerListener listener){
         this.listener = listener;
     }
+
     /**
      * Interface used to relay information to corresponding controller
      */

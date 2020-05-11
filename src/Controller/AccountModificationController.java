@@ -108,7 +108,7 @@ public class AccountModificationController extends AccountController implements 
     @Override
     public void onValidation(String username, String firstName, String lastName, String email, String password, String passwordConfirmation) {
         if (validateModification(username, firstName, lastName, email, password, passwordConfirmation)) {
-            listener.onModificationDone();
+            listener.createAccountModificationPopup();
         }
 
     }
@@ -126,6 +126,7 @@ public class AccountModificationController extends AccountController implements 
      * Interface used to communicate with ScreenHandler.
      */
     public interface AccountModificationControllerListener {
+        void createAccountModificationPopup();
         void onModificationDone();
     }
 }
