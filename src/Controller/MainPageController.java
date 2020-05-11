@@ -196,5 +196,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         return root;
     }
 
-    public interface MainPageControllerListener { void goBackToProjectScreen(); }
+    public interface MainPageControllerListener {
+        void goBackToProjectScreen();
+    }
 }
