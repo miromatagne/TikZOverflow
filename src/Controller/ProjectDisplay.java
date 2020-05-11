@@ -20,7 +20,7 @@ public class ProjectDisplay {
     private final Project project;
     private final Button renameButton;
     private final Button shareButton;
-    private final Button title;
+    private final Label title;
 
     /**
      * Constructor of ProjectDisplay based on a project.
@@ -28,7 +28,7 @@ public class ProjectDisplay {
      *                to a ProjectDisplay
      */
     public ProjectDisplay(Project project) {
-        this.title = new Button("Bouton");
+        this.title = new Label(project.getTitle());
         this.owner = new SimpleStringProperty(project.getCreatorUsername());
         this.date = new SimpleStringProperty(project.getDate().toString());
         this.project = project;
@@ -57,11 +57,7 @@ public class ProjectDisplay {
         return checkBox;
     }
 
-    public String getTitle() {
-        return title.getText();
-    }
-
-    public Button getTitleButton() {
+    public Label getTitle() {
         return title;
     }
 

@@ -51,6 +51,14 @@ Button:hover{
     -fx-background-color:#949494;
 }
 
+Label{
+    -fx-text-fill: white;
+    -fx-cursor:hand;
+}
+
+Label:hover{
+    -fx-text-fill: #0099ff;
+}
 .table-view *.scroll-bar:horizontal *.increment-button,
 .table-view *.scroll-bar:horizontal *.decrement-button {
     -fx-background-color: null;

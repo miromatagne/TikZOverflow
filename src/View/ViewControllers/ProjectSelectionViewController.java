@@ -7,10 +7,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Cursor;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -34,7 +32,7 @@ public class ProjectSelectionViewController implements Initializable {
     private TableColumn<ProjectDisplay, CheckBox> checkBoxColumn;
 
     @FXML
-    private TableColumn<ProjectDisplay, Button> titleColumn;
+    private TableColumn<ProjectDisplay, Label> titleColumn;
 
     @FXML
     private TableColumn<ProjectDisplay, String> ownerColumn;
@@ -160,7 +158,7 @@ public class ProjectSelectionViewController implements Initializable {
         data.add(projectDisplay);
         projectDisplay.getRenameButton().setOnAction(e -> listener.showRenamePopUp(projectDisplay.getProject()));
         projectDisplay.getShareButton().setOnAction(e -> listener.showSharePopUp(projectDisplay.getProject()));
-        //projectDisplay.getTitleButton().setOnAction(e -> listener.goToMainPage(projectDisplay.getProject()));
+        projectDisplay.getTitle().setOnMouseClicked(e -> listener.goToMainPage(projectDisplay.getProject()));
     }
 
     /**
