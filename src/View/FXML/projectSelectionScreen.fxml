@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -31,11 +32,17 @@
             <HBox.margin>
                 <Insets right="5.0" />
             </HBox.margin>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
         </Button>
         <Button alignment="CENTER" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: white; -fx-border-insets: 0; -fx-focus-traversable: false;" text="Log Out" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
             <font>
                 <Font name="System Bold" size="12.0" />
             </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
         </Button>
     </HBox>
     <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
@@ -49,16 +56,25 @@
                 <HBox.margin>
                     <Insets left="5.0" right="5.0" />
                 </HBox.margin>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
             </Button>
             <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onPressDelete" text="Delete">
                 <HBox.margin>
                     <Insets left="5.0" right="5.0" />
                 </HBox.margin>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
             </Button>
             <Button fx:id="createButton" mnemonicParsing="false" onAction="#onCreateButton" text="Create">
                 <HBox.margin>
                     <Insets left="5.0" />
                 </HBox.margin>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
             </Button>
         </children>
     </HBox>

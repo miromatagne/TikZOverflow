@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Project;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 
@@ -33,6 +34,12 @@ public class ProjectDisplay {
         this.checkBox = new CheckBox();
         this.renameButton = new Button("Rename");
         this.shareButton = new Button("Share");
+        setupButtonCursor();
+    }
+
+    private void setupButtonCursor() {
+        renameButton.setCursor(Cursor.HAND);
+        shareButton.setCursor(Cursor.HAND);
     }
 
     public String getOwner() {
