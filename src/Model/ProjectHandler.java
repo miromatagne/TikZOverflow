@@ -1,7 +1,7 @@
 package Model;
 
 import Controller.Session;
-import Model.Exceptions.*;
+import Model.Exceptions.DirectoryCreationException;
 import Model.Exceptions.ProjectHandler.*;
 import Model.Exceptions.ProjectHandler.LatexWritingException;
 import Model.Exceptions.ProjectHandler.ProjectCopyException;
