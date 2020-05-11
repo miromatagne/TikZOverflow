@@ -34,20 +34,22 @@ public class ProjectDisplay {
         this.checkBox = new CheckBox();
         this.renameButton = new Button("Rename");
         this.shareButton = new Button("Share");
-        setupButtonCursor();
-    }
-
-    private void setupButtonCursor() {
-        renameButton.setCursor(Cursor.HAND);
-        shareButton.setCursor(Cursor.HAND);
     }
 
     public String getOwner() {
         return owner.get();
     }
 
+    public SimpleStringProperty ownerProperty() {
+        return owner;
+    }
+
     public String getDate() {
         return date.get();
+    }
+
+    public SimpleStringProperty dateProperty() {
+        return date;
     }
 
     public CheckBox getCheckBox() {
@@ -56,6 +58,10 @@ public class ProjectDisplay {
 
     public String getTitle() {
         return title.get();
+    }
+
+    public SimpleStringProperty titleProperty() {
+        return title;
     }
 
     public Button getRenameButton() {
