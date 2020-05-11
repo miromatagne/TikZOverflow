@@ -17,6 +17,12 @@ class TestUserHandler {
     @Test
     public void saveUser() {
         try {
+            File userFile;
+            if((userFile = new File("./test/Model/TestUserHandler/SaveUserDirectory/ftrouill.txt")).exists()){
+                if(!userFile.delete()){
+                    fail("Could not delete existing user file");
+                }
+            }
             UserHandler userHandler = new UserHandler();
             userHandler.setSaveUserDirectory("./test/Model/TestUserHandler/SaveUserDirectory");
             User user1 = new User();
