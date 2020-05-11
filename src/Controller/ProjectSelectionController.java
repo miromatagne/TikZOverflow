@@ -2,6 +2,10 @@ package Controller;
 
 import Model.Exceptions.*;
 import Model.Exceptions.ProjectHandler.*;
+import Model.Exceptions.ProjectHandler.ProjectCopyException;
+import Model.Exceptions.ProjectHandler.ProjectCreationException;
+import Model.Exceptions.ProjectHandler.ProjectDeletionException;
+import Model.Exceptions.ProjectHandler.ProjectSaveException;
 import Model.Exceptions.UserHandler.SaveUserException;
 import Model.Exceptions.UserHandler.UserFromSaveCreationException;
 import Model.Project;
@@ -158,7 +162,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
                 Session.getInstance().getUser().removeProject(project.getPath());
                 projectHandler.deleteProject(project);
                 controller.removeProjectFromDisplay(projectDisplay);
-            } catch (ProjectDeletionException | SaveUserException | UserFromSaveCreationException e) {
+            } catch (SaveUserException | UserFromSaveCreationException | ProjectDeletionException e) {
                 AlertController.showStageError("Failed to delete", String.format("Could not delete %s", project.getTitle()));
             }
         }
@@ -283,7 +287,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
             AlertController.showStageInfo("Successful sharing", String.format("Project successfully shared with %s !", collaboratorUsername));
         } catch (UserFromSaveCreationException e) {
             AlertController.showStageError("User not found", String.format("User %s does not exist", collaboratorUsername));
-        } catch (ProjectSaveException | SaveUserException e) {
+        } catch (SaveUserException | ProjectSaveException e) {
             AlertController.showStageError("Error sharing project", "There was an error sharing this project.");
         }
     }
