@@ -13,6 +13,8 @@ import java.util.Arrays;
 
 public class UserHandler extends FileHandler{
 
+    private static UserHandler instance;
+
     public static final String DEFAULT_DIRECTORY = "save user";
     private String saveUserDirectory;
     private final String saveUserFormat = ".txt";
@@ -21,8 +23,15 @@ public class UserHandler extends FileHandler{
      * Create a new instance of file handler
      *
      */
-    public UserHandler() {
+    private UserHandler() {
         this.saveUserDirectory = DEFAULT_DIRECTORY;
+    }
+
+    public static UserHandler getInstance(){
+        if (instance == null){
+            instance = new UserHandler();
+        }
+        return instance;
     }
 
     /**

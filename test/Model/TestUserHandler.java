@@ -12,12 +12,12 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TestUserHandler {
+public class TestUserHandler {
 
     @Test
     public void saveUser() {
         try {
-            UserHandler userHandler = new UserHandler();
+            UserHandler userHandler = UserHandler.getInstance();
             userHandler.setSaveUserDirectory("./test/Model/TestUserHandler/SaveUserDirectory");
             User user1 = new User();
             user1.setUsername("ftrouill");
@@ -25,8 +25,12 @@ class TestUserHandler {
             user1.setFirstName("Franck");
             user1.setMail("ftrouill@ulb.ac.be");
             user1.setPassword("123456789");
-            userHandler.createUserSave(user1);
-            userHandler.saveUser(user1);
+            try {
+                userHandler.createUserSave(user1);
+            } catch (UserAlreadyExistsException e){
+                /* If the file already exists, just update it */
+                userHandler.saveUser(user1);
+            }
 
             String readerTest = userHandler.readInFile("./test/Model/TestUserHandler/SaveUserDirectory/ftrouill.txt");
             assertEquals("last:Trouillez\n" +
@@ -35,7 +39,7 @@ class TestUserHandler {
                     "mail:ftrouill@ulb.ac.be\n" +
                     "password:123456789\n" +
                     "projects:\n", readerTest);
-        } catch (SaveUserCreationException | IOException | SaveUserException | UserAlreadyExistsException e) {
+        } catch (SaveUserCreationException | IOException | SaveUserException e) {
             e.printStackTrace();
             fail();
         }
@@ -56,7 +60,7 @@ class TestUserHandler {
 
             /* Now, we check if the getUserFromSave method works */
 
-            UserHandler userHandler = new UserHandler();
+            UserHandler userHandler = UserHandler.getInstance();
             userHandler.setSaveUserDirectory("./test/Model/TestUserHandler/GetUserFromSaveDirectory");
 
             User user = userHandler.getUserFromSave("ftrouill");
@@ -70,30 +74,5 @@ class TestUserHandler {
             fail();
         }
 
-    }
-
-
-
-    @Test
-    void errorLogs() {
-        try {
-            User user = new User();
-            user.setUsername("logFileTest");
-            LatexErrorsHandler latexErrorsHandler = new LatexErrorsHandler();
-            latexErrorsHandler.errorLogs("./test/Model/" + user.getUsername() + ".log");
-            int errorsCounterTest = 7;
-            String errors = "line 1: LaTeX Error: Missing \\begin{document}.\n" +
-                    "line 6: Paragraph ended before \\@fileswith@ptions was complete\n" +
-                    "line 9: LaTeX Error: Environment tikzpicture undefined.\n" +
-                    "line 10: Undefined control sequence.\n" +
-                    "line 11: Undefined control sequence.\n" +
-                    "line 12: Undefined control sequence.\n" +
-                    "line 13: LaTeX Error: \\begin{document} ended by \\end{tikzpictu\n";
-            assertEquals(errorsCounterTest, latexErrorsHandler.getErrorsCounter());//check if we have the same number of errors
-            assertEquals(errors, latexErrorsHandler.getErrors());//check if we have the same errors
-        } catch (LogErrorException e) {
-            e.printStackTrace();
-            fail();
-        }
     }
 }

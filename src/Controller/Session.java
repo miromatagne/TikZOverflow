@@ -39,7 +39,7 @@ public class Session {
      *  Singleton class
      */
     private Session() {
-        userHandler = new UserHandler();
+        userHandler = UserHandler.getInstance();
         projectHandler = new ProjectHandler();
     }
 
@@ -58,8 +58,12 @@ public class Session {
      * @throws SessionOpeningException when there is a problem while getting a user to open his session
      */
     public int openSession(String username, String password) throws SessionOpeningException {
+        return openSessionWithDirectory(username, password, UserHandler.DEFAULT_DIRECTORY);
+    }
+
+    public int openSessionWithDirectory(String username, String password, String userDirectory ) throws SessionOpeningException {
         try {
-            userHandler.setupSaveUserDirectory(UserHandler.DEFAULT_DIRECTORY);
+            userHandler.setupSaveUserDirectory(userDirectory);
             if (!userHandler.saveUserExists(username)) {
                 return USER_NOT_REGISTERED; //User is not registered
             } else {

@@ -178,7 +178,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
             try {
                 Project copiedProject = projectHandler.createCopy(project, user);
                 user.addProject(copiedProject.getPath());
-                UserHandler userHandler = new UserHandler();
+                UserHandler userHandler = UserHandler.getInstance();
                 userHandler.saveUser(user);
                 controller.addProjectToDisplay(new ProjectDisplay(copiedProject));
             } catch (ProjectCopyException | SaveUserException e) {
@@ -218,7 +218,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
             ProjectHandler projectHandler = new ProjectHandler();
             Project project  = projectHandler.createProject(Session.getInstance().getUser(), path, title);
             Session.getInstance().getUser().addProject(project.getPath());
-            UserHandler userHandler = new UserHandler();
+            UserHandler userHandler = UserHandler.getInstance();
             userHandler.saveUser(Session.getInstance().getUser());
             ProjectDisplay projectDisplay = new ProjectDisplay(project);
             controller.addProjectToDisplay(projectDisplay);

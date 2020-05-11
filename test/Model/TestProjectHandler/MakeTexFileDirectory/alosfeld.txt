@@ -1,0 +1,6 @@
+last:Losfeld
+first:Armand
+username:alosfeld
+mail:armand.losfeld@ulb.ac.be
+password:mdp
+projects:./test/Model/TestProjectHandler\MakeTexFileDirectory\TestMakeTexFile
