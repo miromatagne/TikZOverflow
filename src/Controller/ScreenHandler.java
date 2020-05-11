@@ -61,7 +61,6 @@ public class ScreenHandler extends Application implements LoginScreenController.
      * @param message message to display to user
      * @param success defines if account creation was successful or not
      */
-
     @Override
     public void createAccountCreationPopup(String message, boolean success) {
         Stage popupStage = new Stage();
@@ -93,7 +92,6 @@ public class ScreenHandler extends Application implements LoginScreenController.
     /**
      * Creates a popup stage when a successful account modification has been made to inform user.
      */
-
     @Override
     public void createAccountModificationPopup() {
         Stage popupStage = new Stage();

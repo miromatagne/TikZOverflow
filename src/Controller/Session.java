@@ -34,7 +34,9 @@ public class Session {
 
     private String save_user;
 
-    /* Singleton class */
+    /**
+     *  Singleton class
+     */
     private Session() {
         userHandler = new UserHandler();
         projectHandler = new ProjectHandler();
@@ -71,8 +73,6 @@ public class Session {
             throw new SessionOpeningException(e);
         }
     }
-
-
 
     /**
      * Accesses the projects that the current logged in user has access to
@@ -135,66 +135,6 @@ public class Session {
         }
         return false;
     }
-/*    public void loadProjectRequest(String path) throws ProjectLoadException,ProjectNotAllowException{
-        Project loadedProject = projectHandler.loadProject(path);
-        if(currentUser.getUsername().equals(loadedProject.getCreatorUsername()) || loadedProject.getCollaboratorsUsernames().contains(currentUser.getUsername())){
-            currentProject = loadedProject;
-        }
-        else{
-            throw new ProjectNotAllowException();
-        }
-
-    }
-
-    public void copyProjectRequest(Project projectToCopy, User user, String new_path) throws ProjectCopyException, DirectoryCreationException, ProjectAlreadyExistsException{
-        Project copyProject = projectHandler.createCopy(projectToCopy,user,new_path);
-        try {
-            String code = projectHandler.getProjectCode();
-            currentProject = copyProject;
-            projectHandler.makeTexFile(code);
-            user.getProjectPaths().add(new_path);
-            userHandler.saveUser(user);
-        }catch (IOException | LatexWritingException | SaveUserException e){
-            throw new ProjectCopyException(e);
-        }
-    }
-
-    public void deleteProjectRequest(Project projectToDelete) throws ProjectDeletionException{
-        ArrayList<String> users = projectToDelete.getCollaboratorsUsernames();
-        users.add(projectToDelete.getCreatorUsername());
-        String path = projectToDelete.getPath();
-        projectHandler.deleteProject(projectToDelete);
-
-        try {
-            for (String user : users) {
-                User u = userHandler.getUserFromSave(user);
-                u.getProjectPaths().remove(path);
-                userHandler.saveUser(u);
-            }
-        }catch (UserFromSaveCreationException | SaveUserException e){
-            throw new ProjectDeletionException();
-        }
-    }
-
-    public void shareProjectRequest(Project project,User user) throws SaveUserException, ProjectSaveException{
-        project.addCollaborator(user.getUsername());
-        user.getProjectPaths().add(project.getPath());
-        userHandler.saveUser(user);
-        projectHandler.saveProjectInfo(project);
-    }
-
-    public void renameProject(Project project, String newTitle) throws ProjectRenameException {
-        try {
-            String code = projectHandler.getProjectCode();
-
-            project.setTitle(newTitle);
-            projectHandler.saveProjectInfo(project);
-
-            projectHandler.makeTexFile(code);
-        } catch (IOException | LatexWritingException | ProjectSaveException e){
-            throw new ProjectRenameException();
-        }
-    }*/
 
     public User getUser() {
         return currentUser;
