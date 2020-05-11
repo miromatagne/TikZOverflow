@@ -29,6 +29,7 @@ public class MainPageViewController implements Initializable {
 
     public static final int SHAPES_ONLY = 0;
     public static final int FULL_CODE = 1;
+    public static final int ERRORS = 2;
 
     private int currentCodeDisplay;
 
@@ -122,6 +123,7 @@ public class MainPageViewController implements Initializable {
      */
     @FXML
     public void hideErrors(int errorsCount) {
+        currentCodeDisplay = SHAPES_ONLY;
         compileButton.setDisable(false);
         compileButton.setVisible(true);
         fullCodeButton.setDisable(false);
@@ -138,6 +140,7 @@ public class MainPageViewController implements Initializable {
      */
     @FXML
     public void showErrors() {
+        currentCodeDisplay = ERRORS;
         int errorsCount = codeInterfaceListener.getErrorsCounter();
         if (errorsButton.getText().equals("Hide errors")) {
             hideErrors(errorsCount);
@@ -462,6 +465,9 @@ public class MainPageViewController implements Initializable {
         Button buttonQuit = new Button("No");
         buttonSave.setOnMouseClicked(e -> {
             popupStage.close();
+            if(currentCodeDisplay != SHAPES_ONLY) {
+                displayShapesOnly();
+            }
             listener.saveProject(codeInterface.getText());
             if(backToProject){
                 listener.goBackToProjectScreen();

@@ -33,7 +33,7 @@ public class ProjectHandler extends FileHandler {
      * @return project created
      * @throws ProjectCreationException if creation failed
      */
-    public Project createProject(User user, String path, String title) throws ProjectCreationException, DirectoryCreationException, ProjectAlreadyExistsException, LatexWritingException {
+    public Project createProject(User user, String path, String title) throws ProjectCreationException, DirectoryCreationException, ProjectAlreadyExistsException {
         try {
             Project project = new Project(user.getUsername(), path, title);
             setupProjectDirectory(project);
@@ -110,7 +110,7 @@ public class ProjectHandler extends FileHandler {
             super.writeInFile(texFile,super.readInFile(projectToCopy.getPath() + File.separator + projectToCopy.getTitle() + ".tex"));
 
             return p;
-        } catch (ProjectCreationException | LatexWritingException | DirectoryCreationException | ProjectAlreadyExistsException | IOException e) {
+        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException | IOException e) {
             throw new ProjectCopyException(e);
         }
     }
@@ -148,7 +148,6 @@ public class ProjectHandler extends FileHandler {
         try {
             super.deleteDirectory(file);
         } catch (IOException e) {
-            System.out.println(e);
             throw new ProjectDeletionException();
         }
         deleteFromUser(project, creatorUsername, userHandler);
@@ -198,11 +197,20 @@ public class ProjectHandler extends FileHandler {
         User user = Session.getInstance().getUser();
         user.removeProject(previousPath);
         user.addProject(rootProjectPath + File.separator+newTitle);
+        UserHandler userHandler = new UserHandler();
         try {
+            User creator = userHandler.getUserFromSave(project.getCreatorUsername());
+            creator.removeProject(previousPath);
+            creator.addProject(rootProjectPath + File.separator + newTitle);
+            userHandler.saveUser(creator);
+            for(String collaboratorUsername : project.getCollaboratorsUsernames()) {
+                User collaborator = userHandler.getUserFromSave(collaboratorUsername);
+                collaborator.removeProject(previousPath);
+                collaborator.addProject(rootProjectPath + File.separator + newTitle);
+                userHandler.saveUser(collaborator);
+            }
             saveProjectInfo(project);
-            UserHandler userHandler = new UserHandler();
-            userHandler.saveUser(user);
-        } catch (ProjectSaveException | SaveUserException e) {
+        } catch (ProjectSaveException | SaveUserException | UserFromSaveCreationException e) {
             project.setTitle(previousTitle);
             project.setPath(previousPath);
             user.removeProject(previousPath);

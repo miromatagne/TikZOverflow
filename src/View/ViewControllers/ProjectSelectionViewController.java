@@ -12,6 +12,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -73,6 +75,9 @@ public class ProjectSelectionViewController implements Initializable {
         renameColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(2.0/20.0));
         shareColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(2.0 /20.0));
 
+        Text emptyMessage = new Text("No projects to display");
+        emptyMessage.setFill(Color.WHITE);
+        tableView.setPlaceholder(emptyMessage);
         listProjects();
         tableView.setOnMousePressed(event -> {
             ProjectDisplay projectDisplay = tableView.getSelectionModel().getSelectedItem();

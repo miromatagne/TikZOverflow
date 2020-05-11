@@ -60,7 +60,7 @@ public class ProjectPopUpViewController {
      * Executes when the "Create" button in the popup is pressed.
      */
     @FXML
-    public void onPressCreateInPopUp() throws ProjectCreationException {
+    public void onPressCreateInPopUp() {
         boolean correct = listener.createProject(projectNameField.getText(), pathField.getText());
         if (correct) {
             stage.close();
@@ -72,7 +72,7 @@ public class ProjectPopUpViewController {
      * The user wants to select a path to create his project.
      */
     @FXML
-    void onPressBrowseInPopUp() throws FileNotFoundException {
+    void onPressBrowseInPopUp() {
         String path = listener.browseFilesToGetPath(stage);
         pathField.setText(path);
     }
@@ -87,11 +87,11 @@ public class ProjectPopUpViewController {
 
     public interface ProjectPopUpViewControllerListener {
 
-        boolean createProject(String text, String path) throws ProjectCreationException;
+        boolean createProject(String text, String path);
 
         void renameProject(String text);
 
-        String browseFilesToGetPath(Stage popUpStage) throws FileNotFoundException;
+        String browseFilesToGetPath(Stage popUpStage);
 
         void shareProject(String collaboratorUsername);
     }

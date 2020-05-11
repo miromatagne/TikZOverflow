@@ -13,10 +13,15 @@ import java.util.Arrays;
 public class UserHandler extends FileHandler{
 
     public static final String DEFAULT_DIRECTORY = "save user";
+    private String saveUserDirectory;
     private final String saveUserFormat = ".txt";
 
-    public UserHandler(){
-
+    /**
+     * Create a new instance of file handler
+     *
+     */
+    public UserHandler() {
+        this.saveUserDirectory = DEFAULT_DIRECTORY;
     }
     /**
      * Create a new instance of file handler
@@ -93,7 +98,7 @@ public class UserHandler extends FileHandler{
      */
     public void createUserSave(User user) throws SaveUserCreationException {
         try {
-            File saveFile = new File(DEFAULT_DIRECTORY + File.separator + user.getUsername() + saveUserFormat);
+            File saveFile = new File(saveUserDirectory + File.separator + user.getUsername() + saveUserFormat);
             if (saveFile.exists()) {
                 //Error, the file does already exist
                 // TODO : inform user that username is taken
@@ -130,7 +135,7 @@ public class UserHandler extends FileHandler{
      */
     public void saveUser(User user) throws SaveUserException {
         try {
-            File file = new File(DEFAULT_DIRECTORY + File.separator + user.getUsername() + saveUserFormat);
+            File file = new File(saveUserDirectory + File.separator + user.getUsername() + saveUserFormat);
             if (file.exists()) {
                 writeSave(user, file);
             }
@@ -148,7 +153,7 @@ public class UserHandler extends FileHandler{
      */
     public User getUserFromSave(String username) throws UserFromSaveCreationException {
         try {
-            File file = new File(DEFAULT_DIRECTORY + File.separator + username + saveUserFormat);
+            File file = new File(saveUserDirectory + File.separator + username + saveUserFormat);
             User user = new User();
             user.setUsername(username);
             setUserLastName(file, user);
@@ -169,7 +174,7 @@ public class UserHandler extends FileHandler{
      * @return TRUE if file exists, FALSE otherwise
      */
     public boolean saveUserExists(String username) {
-        File file = new File(DEFAULT_DIRECTORY + File.separator + username + saveUserFormat);
+        File file = new File(saveUserDirectory + File.separator + username + saveUserFormat);
         return file.exists();
     }
 
@@ -273,4 +278,8 @@ public class UserHandler extends FileHandler{
         }
     }
 
+
+    public void setSaveUserDirectory(String saveUserDirectory) {
+        this.saveUserDirectory = saveUserDirectory;
+    }
 }

@@ -24,8 +24,8 @@ public class Session {
     private static final int IMPOSSIBLE_TO_CREATE_PROJECT = -3;
     private User currentUser = null;
     private Project currentProject = null;
-    private UserHandler userHandler;
-    private ProjectHandler projectHandler;
+    private final UserHandler userHandler;
+    private final ProjectHandler projectHandler;
     private static final Session session;
 
     static {

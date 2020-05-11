@@ -1,15 +1,11 @@
 package Controller;
 
-import Model.Exceptions.ProjectSaveException;
 import Model.Project;
-import Model.ProjectHandler;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -107,9 +103,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
             popupStage.close();
             onModificationDone();
         });
-        popupStage.setOnCloseRequest(e -> {
-            onModificationDone();
-        });
+        popupStage.setOnCloseRequest(e -> onModificationDone());
         vBox.getChildren().add(button);
         Scene scene = new Scene(vBox, width, 75);
         popupStage.setScene(scene);
@@ -131,7 +125,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
 
     /**
      * Change the scene to the main page (PDF and code creation page)
-     * @param project
+     * @param project project the user will be working on
      */
     @Override
     public void goToMainPage(Project project) {

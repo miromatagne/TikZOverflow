@@ -2,7 +2,6 @@ package Controller;
 
 import Controller.Exceptions.AddSceneException;
 import Controller.Exceptions.ShapeMenuControllerConstructorException;
-import Model.FieldChecker;
 import Model.Shapes.ShapeFactory;
 import Model.Shapes.Shape;
 import Model.TextTypeChecker;

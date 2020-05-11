@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -19,7 +20,10 @@
                         <Insets right="40.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="popUpShareButton" mnemonicParsing="false" onAction="#onPressShareInPopUp" text="Share" />
+                  <Button fx:id="popUpShareButton" mnemonicParsing="false" onAction="#onPressShareInPopUp" text="Share">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
                </children>
                <opaqueInsets>
                   <Insets />

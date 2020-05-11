@@ -13,7 +13,7 @@ public class User {
     private String firstName = "";
     private String password = "";
     private String mail = "";
-    private ArrayList<String> projectPaths = new ArrayList<String >();
+    private ArrayList<String> projectPaths = new ArrayList<>();
 
     public String getUsername() {
         return username;
