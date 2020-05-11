@@ -130,7 +130,7 @@ public class AccountCreationController extends AccountController implements Acco
     }
 
     /**
-     * Interface used to communicate with ScreenHandler.
+     * Interface used to communicate with ScreenHandler, which is this controller's listener.
      */
     public interface AccountCreationControllerListener {
         void backToLoginScreenRequest();

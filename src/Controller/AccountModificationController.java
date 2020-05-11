@@ -121,11 +121,10 @@ public class AccountModificationController extends AccountController implements 
 
 
     /**
-     * Interface used to communicate with ScreenHandler.
+     * Interface used to communicate with ScreenHandler, which is this controller's listener.
      */
     public interface AccountModificationControllerListener {
         void createAccountModificationPopup();
-
         void onModificationDone();
     }
 }
