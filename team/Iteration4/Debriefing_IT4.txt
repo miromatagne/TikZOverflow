@@ -3,8 +3,7 @@ Toutes les fonctionnalités demandées par le client ont été correctement impl
 De plus, le code a été amélioré afin de corriger les remarques reçues du professeurs et des assistants.
 Les modifiactions faites dans le code sont détaillées ci-dessous.
 
-De nombreux tests ont été améliorés, entre autres, ils permettent à présent de tester les cas d'exceptions. 
-Certains tests ont egalement été ajoutés afin de couvrir la plus grande partie du code possible.
+De nombreux tests ont été améliorés et certains ont egalement été ajoutés afin de couvrir la plus grande partie du code possible.
 
 Les exceptions ont également été revues; alors qu'avant elles étaient attrapées au niveau des contrôleurs, elles
 remontent à présent jusqu'à la vue afin de pouvoir notifier l'utilisateur. Ensuite, en fonction de l'importance 
@@ -16,5 +15,3 @@ Ensuite, un important refactoring des classes FileHandler et FieldChecker a ét�
 concept de séparation des responsabilités. Ces classes étaient beaucoup trop générales.
 
 Le README et les conventions de nommage ont également été revus.
-
-parler des expressions régulières ?
