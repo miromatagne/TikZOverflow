@@ -1,5 +1,5 @@
-last:Losfeld
-first:Armand
+last:Franck
+first:Trouillez
 username:ftrouill
 mail:armand.losfeld@ulb.ac.be
 password:123456789

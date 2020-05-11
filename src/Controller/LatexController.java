@@ -67,7 +67,6 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             LatexHandler.getInstance().runProcess(filePath, Session.getInstance().getCurrentProject().getPath());
             latexErrorsHandler.errorLogs(Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".log");
             int errorsCount = latexErrorsHandler.getErrorsCounter();
-            System.out.println(errorsCount);
             if(errorsCount==0){
                 createImageFromPDF(pdfPath);
             }

@@ -35,10 +35,7 @@ public class MainPageViewController implements Initializable {
 
     @FXML
     private TextArea codeInterface;
-    @FXML
-    private VBox shapeList;
-    @FXML
-    private ScrollPane scroll;
+
     @FXML
     private ImageView renderedImageView;
 
@@ -83,8 +80,6 @@ public class MainPageViewController implements Initializable {
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        shapeList.prefWidthProperty().bind(scroll.prefWidthProperty());
-        shapeList.prefHeightProperty().bind(scroll.prefHeightProperty());
         initializeImageButton();
         imageScrollPane.widthProperty().addListener((observable, oldValue, newValue) -> compile());
     }

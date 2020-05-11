@@ -39,6 +39,8 @@ Afin de déterminer le nombre de points de cette histoire, le groupe l'a scindé
 
 TOTAL : 26 points
 
+Cette histoire a effectivement été complétée au terme de 26 points.
+
 ### Notes :
 Il a été convenu avec le client que chaque projet correspondrait à un unique fichier.
 

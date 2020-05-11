@@ -37,11 +37,11 @@
         </VBox>
     </HBox>
     <HBox alignment="CENTER" layoutX="-1.0" layoutY="381.0" prefHeight="72.0" prefWidth="600.0" spacing="20.0">
-        <Button mnemonicParsing="false" onAction="#returnButtonAction" text="Return">
+        <Button mnemonicParsing="false" onAction="#returnButtonAction" styleClass="menuButton" stylesheets="@../CSS/topMenuButton.css" text="Return">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#validateButtonAction" text="Validate">
+        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#validateButtonAction" styleClass="menuButton" stylesheets="@../CSS/topMenuButton.css" text="Validate">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
