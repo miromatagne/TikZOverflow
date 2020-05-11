@@ -1,8 +1,15 @@
 package Model;
 
 import Controller.Session;
-import Model.Exceptions.*;
+import Model.Exceptions.DirectoryCreationException;
 import Model.Exceptions.ProjectHandler.*;
+import Model.Exceptions.ProjectHandler.LatexWritingException;
+import Model.Exceptions.ProjectHandler.ProjectCopyException;
+import Model.Exceptions.ProjectHandler.ProjectCreationException;
+import Model.Exceptions.ProjectHandler.ProjectDeletionException;
+import Model.Exceptions.ProjectHandler.ProjectFromSaveGenerationException;
+import Model.Exceptions.ProjectHandler.ProjectLoadException;
+import Model.Exceptions.ProjectHandler.ProjectSaveException;
 import Model.Exceptions.UserHandler.SaveUserException;
 import Model.Exceptions.UserHandler.UserFromSaveCreationException;
 
@@ -141,20 +148,20 @@ public class ProjectHandler extends FileHandler {
      * @param project project to delete
      * @throws ProjectDeletionException if deletion failed
      */
-    public void deleteProject(Project project) throws ProjectDeletionException, SaveUserException, UserFromSaveCreationException {
-        String pathProperties = project.getPath();
-        ArrayList<String> collaboratorsUsernames = project.getCollaboratorsUsernames();
-        String creatorUsername = project.getCreatorUsername();
-        UserHandler userHandler = UserHandler.getInstance();
-        File file = new File(pathProperties);
+    public void deleteProject(Project project) throws ProjectDeletionException {
         try {
+            String pathProperties = project.getPath();
+            ArrayList<String> collaboratorsUsernames = project.getCollaboratorsUsernames();
+            String creatorUsername = project.getCreatorUsername();
+            UserHandler userHandler = UserHandler.getInstance();
+            File file = new File(pathProperties);
             super.deleteDirectory(file);
-        } catch (IOException e) {
+            deleteFromUser(project, creatorUsername, userHandler);
+            for(String collaboratorUsername : collaboratorsUsernames){
+                deleteFromUser(project, collaboratorUsername, userHandler);
+            }
+        } catch (IOException | SaveUserException | UserFromSaveCreationException e) {
             throw new ProjectDeletionException();
-        }
-        deleteFromUser(project, creatorUsername, userHandler);
-        for(String collaboratorUsername : collaboratorsUsernames){
-            deleteFromUser(project, collaboratorUsername, userHandler);
         }
     }
 
@@ -212,7 +219,7 @@ public class ProjectHandler extends FileHandler {
                 userHandler.saveUser(collaborator);
             }
             saveProjectInfo(project);
-        } catch (ProjectSaveException | SaveUserException | UserFromSaveCreationException e) {
+        } catch (ProjectSaveException | UserFromSaveCreationException | SaveUserException e) {
             project.setTitle(previousTitle);
             project.setPath(previousPath);
             user.removeProject(previousPath);
@@ -322,12 +329,11 @@ public class ProjectHandler extends FileHandler {
      * @throws LatexWritingException when the text has not be written successfully in the tex file
      */
     public void makeTexFile(String sourceCode) throws LatexWritingException {
-        try {
+        try (InputStream inputStream = getClass().getResourceAsStream("/template.txt")){
             File texFile = new File(Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex");
             if (texFile.exists()) {
                 writeInFile(texFile, sourceCode);
             } else {
-                InputStream inputStream = getClass().getResourceAsStream("/template.txt");
                 String temp, text = "";
                 BufferedReader br;
                 br = new BufferedReader(new InputStreamReader(inputStream));

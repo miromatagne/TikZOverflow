@@ -40,8 +40,6 @@ public class AccountCreationController extends AccountController implements Acco
             controller.setListener(this);
             stage.getScene().setRoot(loader.getRoot());
         } catch (IOException e) {
-            System.err.println("Error loading /View/FXML/accountCreationScreen.fxml");
-            e.printStackTrace();
             AlertController.showStageError("Error while loading the account creation fxml file.", "Process aborted", true);
         }
     }
@@ -104,13 +102,12 @@ public class AccountCreationController extends AccountController implements Acco
      */
     @Override
     public void showTermsAndConditions() {
-        try {
+        try (InputStream inputStream = getClass().getResourceAsStream("/tcu.txt")) {
             Parent tcuRoot = FXMLLoader.load(getClass().getResource("/View/FXML/termsAndConditions.fxml"));
             Scene tcuScene = new Scene(tcuRoot);
             Stage tcuStage = new Stage();
             tcuStage.initModality(Modality.APPLICATION_MODAL);
             tcuStage.setTitle("Terms and conditions");
-            InputStream inputStream = getClass().getResourceAsStream("/tcu.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             String tmp, text = "";
             while ((tmp = br.readLine()) != null) {
@@ -122,8 +119,6 @@ public class AccountCreationController extends AccountController implements Acco
             tcuFullText.setText(text);
             tcuFullText.wrappingWidthProperty().bind(tcuScene.widthProperty().subtract(20));
         } catch (IOException e) {
-            System.err.println("Could not open TCU");
-            e.printStackTrace();
             AlertController.showStageError("Error while loading the terms and conditions file.", "File not readable");
         }
 

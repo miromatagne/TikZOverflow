@@ -1,9 +1,30 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.3.18)  11 MAY 2020 22:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 2.9.7300 64-bit) (preloaded format=pdflatex 2020.3.18)  11 MAY 2020 19:44
 entering extended mode
-**./test/Model/TestLatexHandler/CompileDirectory/test.tex
-(test/Model/TestLatexHandler/CompileDirectory/test.tex
+**C:/Users/Andre/OneDrive/Documents/a/test3/test3.tex
+(C:/Users/Andre/OneDrive/Documents/a/test3/test3.tex
 LaTeX2e <2020-02-02> patch level 2
 L3 programming layer <2020-02-14>
+
+./test/Model/TestLatexErrorsHandler/test3.tex:1: LaTeX Error: Missing \be
+gin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 P
+     reamble
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no P in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no e in font nullfont!
 ("C:\Users\Andre\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\article.cls"
 Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
 ("C:\Users\Andre\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\size10.clo"
@@ -15,12 +36,17 @@ File: size10.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
 \c@subsubsection=\count170
 \c@paragraph=\count171
 \c@subparagraph=\count172
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 1--274
+[]
+ []
+
 \c@figure=\count173
 \c@table=\count174
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
 \bibindent=\dimen134
-)
+[1{C:/Users/Andre/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}])
 ("C:\Users\Andre\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/frontendlayer\
 tikz.sty"
 ("C:\Users\Andre\AppData\Local\Programs\MiKTeX 2.9\tex/latex/pgf/basiclayer\pgf
@@ -394,10 +420,8 @@ d-pdfmode.def"
 File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count196
 \l__pdf_internal_box=\box56
-)
-(C:\Users\Andre\IdeaProjects\TikzOverflow8\test\Model\TestLatexHandler\CompileD
-irectory\test.aux)
-\openout1 = `test.aux'.
+) (C:\Users\Andre\OneDrive\Documents\a\test3\test3.aux)
+\openout1 = `test3.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
@@ -413,7 +437,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
- ABD: EveryShipout initializing macros
+
+ABD: EveryShipout initializing macros
 ("C:\Users\Andre\AppData\Local\Programs\MiKTeX 2.9\tex/context/base/mkii\supp-p
 df.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -436,23 +461,21 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
 ) [1
 
-{C:/Users/Andre/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-(C:\Users\Andre\IdeaProjects\TikzOverflow8\test\Model\TestLatexHandler\CompileD
-irectory\test.aux) ) 
+] (C:\Users\Andre\OneDrive\Documents\a\test3\test3.aux) ) 
 Here is how much of TeX's memory you used:
- 11759 strings out of 481556
- 248977 string characters out of 2913869
- 452940 words of memory out of 3000000
+ 11760 strings out of 481556
+ 248662 string characters out of 2913869
+ 452933 words of memory out of 3000000
  26833 multiletter control sequences out of 15000+200000
  532338 words of font info for 24 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,6n,67p,461b,565s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/Andre/AppData/Local/Programs/MiKTeX 2.9/fonts/typ
-e1/public/amsfonts/cm/cmr10.pfb>
-Output written on C:\Users\Andre\IdeaProjects\TikzOverflow8\test\Model\TestLate
-xHandler\CompileDirectory\test.pdf (1 page, 12080 bytes).
+ 60i,6n,67p,457b,565s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Users/Andre/AppDat
+a/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on C:\Users\Andre\OneDrive\Documents\a\test3\test3.pdf (2 pages,
+ 12734 bytes).
 PDF statistics:
- 13 PDF objects out of 1000 (max. 8388607)
+ 16 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -13,6 +13,10 @@ import java.io.IOException;
 public class LatexErrorsHandler extends FileHandler{
     private static int ERRORS_COUNTER = 0;
     private static String ERRORS = "";
+    private String[] linesLogFile;
+    private String syntaxErrorPrefix;
+    private String moduleErrorPrefix = "! LaTeX Error";
+    private String documentError= "*** (job aborted, no legal \\end found)";
 
     /**
      * Get the errors in the compiler
@@ -33,6 +37,26 @@ public class LatexErrorsHandler extends FileHandler{
     }
 
     /**
+     * build a String that allows to identify the errors in the .log file
+     * @return          the global prefix of an error message in the .log file
+     */
+    public String generalErrorsPrefix(){
+        String allDirectories[];
+        String path = Controller.Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex";
+        allDirectories = path.split("\\\\");
+        String errorsLogPath = "";
+        for(int i = 0; i < allDirectories.length; i++){
+            errorsLogPath+=allDirectories[i];
+            if(i<allDirectories.length-1){
+                errorsLogPath+="/";
+            }else {
+                errorsLogPath+=":";
+            }
+        }
+        return errorsLogPath;
+    }
+
+    /**
      * Find the errors that the user has written in the compiler
      *
      * @param path     the path to the log file which contains all information about the last compilation
@@ -43,34 +67,85 @@ public class LatexErrorsHandler extends FileHandler{
         try {
             ERRORS = "";
             ERRORS_COUNTER = 0;
-            String[] linesLogFile = super.readInFile(path).split("\n");
-            String[] words;
-            String errorPrefix = Controller.Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex";
-
-            for (String s : linesLogFile) {
-                words = s.split(":");
-                for (String word : words) {
-                    if (word.equals(errorPrefix)) {
-                        ERRORS_COUNTER++;
-                        for (int j = 1; j < words.length; j++) {
-                            if (j == 1) {
-                                ERRORS += "line ";
-                            }
-                            ERRORS += words[j];
-                            if (j < words.length - 1) {
-                                ERRORS += ":";
-                            } else {
-                                ERRORS += "\n";
-                            }
-                        }
-                    } else if (word.equals("*** (job aborted, no legal \\end found)")) {
-                        ERRORS_COUNTER++;
-                        ERRORS += "*** Missing '\\begin{document}' and/or '\\end{document}'";
-                    }
-                }
-            }
+            linesLogFile = super.readInFile(path).split("\n");
+            syntaxErrorPrefix = generalErrorsPrefix();
+            addErrors();
         } catch (IOException e) {
             throw new LogErrorException(e);
         }
+    }
+
+    /**
+     * An error in the log file can be written on multiple lines and this method manage to catch errors and add if the
+     * error is on multiple lines
+     */
+    private void addErrors(){
+        boolean lineIsError = false;
+        for(int i=0; i<linesLogFile.length; i++) {
+            if(lineIsError){
+                lineIsError = addErrorLine(linesLogFile[i]);
+
+            }
+            else{
+                if (linesLogFile[i].equals(documentError)) {
+                    ERRORS_COUNTER++;
+                    ERRORS += documentError;
+                }else {
+                    lineIsError = catchError(linesLogFile[i]);
+                }
+            }
+        }
+    }
+
+    /**
+     * this method looks for errors in the .log file
+     * @param line          line to check if it is an error message
+     * @return
+     */
+    private boolean catchError(String line) {
+        String[] words = line.split(":");
+        String[] toAddError;
+        String catchFile = "";
+        boolean lineIsError = false;
+        int i=0;
+        while (i<words.length-1) {
+            catchFile += words[i];
+            catchFile += ":";
+            if (catchFile.equals(syntaxErrorPrefix) || words[i].equals(moduleErrorPrefix)) {
+                lineIsError = true;
+                ERRORS_COUNTER++;
+                if(catchFile.equals(syntaxErrorPrefix)){
+                    ERRORS += "line ";
+                    toAddError = line.split(syntaxErrorPrefix);
+                }
+                else{
+                    toAddError = line.split(moduleErrorPrefix);
+                    toAddError = toAddError[1].split(":");
+                }
+                ERRORS += toAddError[1];
+                if(toAddError[1].charAt(toAddError[1].length()-1) == '.'){
+                    lineIsError = false;
+                    ERRORS+="\n";
+                }
+                i=words.length;
+            }
+            i++;
+        }
+        return lineIsError;
+    }
+
+    /**
+     * add to error a full line from log file
+     * @param line         the line to add
+     * @return
+     */
+    private boolean addErrorLine(String line) {
+        boolean lineIsError = true;
+        ERRORS += line;
+        if(line.charAt(line.length()-1) == '.'){
+            ERRORS += "\n";
+            lineIsError=false;
+        }
+        return lineIsError;
     }
 }

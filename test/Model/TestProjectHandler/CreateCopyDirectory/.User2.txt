@@ -3,4 +3,4 @@ first:none
 username:.User2
 mail:none@none.com
 password:mdp
-projects:
+projects:./test/Model/TestProjectHandler\CreateCopyDirectory\TestCopy3,./test/Model/TestProjectHandler\CreateCopyDirectory\TestCopy2
