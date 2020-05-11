@@ -38,7 +38,7 @@ public class TestProjectHandler {
     }
 
     @Test
-    public void createProjectTest(){
+    public void createProject(){
         Project projectToCreate = null;
         try{
             projectToCreate = projectHandler.createProject(user,path,"test");
@@ -90,12 +90,12 @@ public class TestProjectHandler {
         try{
             projectHandler.deleteProject(projectToCreate);
         }catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
-            fail("Impossible to delete project. Check deleteProjectTest.");
+            fail("Impossible to delete project. Check deleteProject test.");
         }
     }
 
     @Test
-    public void saveProjectInfoTest(){
+    public void saveProjectInfo(){
         Project projectToSave = new Project(user.getUsername(),path,"test");
         user.getProjectPaths().add(projectToSave.getPath());
         try {
@@ -127,17 +127,17 @@ public class TestProjectHandler {
         try{
             projectHandler.deleteProject(projectToSave);
         }catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
-            fail("Impossible to delete project. Check deleteProjectTest.");
+            fail("Impossible to delete project. Check deleteProject test.");
         }
     }
 
     @Test
-    public void renameProjectTest(){
+    public void renameProject(){
         Project projectToRename = null;
         try{
             projectToRename = projectHandler.createProject(user,path,"test");
         } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException | LatexWritingException e){
-            fail("Impossible to create project.");
+            fail("Impossible to create project. Check createProject test");
         }
 
         user.getProjectPaths().add(projectToRename.getPath());
@@ -169,17 +169,17 @@ public class TestProjectHandler {
         try{
             projectHandler.deleteProject(projectToRename);
         }catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
-            fail("Impossible to delete project. Check deleteProjectTest.");
+            fail("Impossible to delete project. Check deleteProject test.");
         }
     }
 
     @Test
-    public void loadProjectTest(){
+    public void loadProject(){
         Project project = null;
         try {
             project = projectHandler.createProject(user, path, "test");
         }catch(ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException | LatexWritingException e){
-            fail("Impossible to create project. Check createProjectTest.");
+            fail("Impossible to create project. Check createProject test.");
         }
 
         user.getProjectPaths().add(project.getPath());
@@ -205,17 +205,17 @@ public class TestProjectHandler {
         try{
             projectHandler.deleteProject(project);
         }catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
-            fail("Impossible to delete project.Check deleteProjectTest.");
+            fail("Impossible to delete project.Check deleteProject test.");
         }
     }
 
     @Test
-    public void createCopyTest() {
+    public void createCopy() {
         Project project1 = null;
         try {
             project1 = projectHandler.createProject(user, path, "TestCopy");
         } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException | LatexWritingException e) {
-            fail("Impossible to create project. Check createProjectTest.");
+            fail("Impossible to create project. Check createProject test.");
         }
 
         user.getProjectPaths().add(project1.getPath());
@@ -286,17 +286,17 @@ public class TestProjectHandler {
             projectHandler.deleteProject(project1);
             projectHandler.deleteProject(project2);
         }catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
-            fail("Impossible to delete project. Check deleteProjectTest.");
+            fail("Impossible to delete project. Check deleteProject test.");
         }
     }
 
     @Test
-    void deleteProjectTest(){
+    void deleteProject(){
         Project projectToDelete = null;
         try {
             projectToDelete = projectHandler.createProject(user, path, "TestDelete");
         } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException | LatexWritingException e) {
-            fail("Impossible to create project. Check createProjectTest.");
+            fail("Impossible to create project. Check createProject test.");
         }
 
         user.getProjectPaths().add(projectToDelete.getPath());
@@ -340,12 +340,12 @@ public class TestProjectHandler {
     }
 
     @Test
-    public void makeTexFileTest(){
+    public void makeTexFile(){
         Project project = null;
         try {
             project = projectHandler.createProject(user, path, "TestMakeTexFile");
         } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException | LatexWritingException e) {
-            fail("Impossible to create project. Check createProjectTest.");
+            fail("Impossible to create project. Check createProject test.");
         }
 
         user.getProjectPaths().add(project.getPath());
@@ -371,18 +371,18 @@ public class TestProjectHandler {
         try {
             assertEquals(latexTest, projectHandler.readInFile(pathFileTex));
         }catch(IOException e){
-            fail("Impossible to read in tex file. Check readInFileTest in FileHandlerTest.");
+            fail("Impossible to read in tex file. Check readInFile test.");
         }
 
         try{
             projectHandler.deleteProject(project);
         }catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
-            fail("Impossible to delete project.");
+            fail("Impossible to delete project. Check deleteProject test.");
         }
     }
 
     @Test
-    public void shareProjectTest(){
+    public void shareProject(){
         Project projectToShare = null;
         try{
             projectToShare = projectHandler.createProject(user,path,"test");
@@ -439,7 +439,7 @@ public class TestProjectHandler {
         try{
             projectHandler.deleteProject(projectToShare);
         }catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
-            fail("Impossible to delete project. Check deleteProjectTest.");
+            fail("Impossible to delete project. Check deleteProject test.");
         }
     }
 
