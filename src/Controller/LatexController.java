@@ -185,11 +185,21 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
         }
     }
 
+    /**
+     * Get the text error
+     *
+     * @return text error
+     */
     @Override
     public String getErrorsText() {
         return latexErrorsHandler.getErrors();
     }
 
+    /**
+     * Get the errors counter
+     *
+     * @return errors counter
+     */
     @Override
     public int getErrorsCounter() {
         return latexErrorsHandler.getErrorsCounter();

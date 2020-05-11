@@ -19,10 +19,11 @@ import java.util.ArrayList;
  */
 
 public class Session {
+
     public static final int CONNECTION_ESTABLISHED = 0;
     public static final int USER_NOT_REGISTERED = -1;
     public static final int INVALID_PASSWORD = -2;
-    private static final int IMPOSSIBLE_TO_CREATE_PROJECT = -3;
+
     private User currentUser = null;
     private Project currentProject = null;
     private final UserHandler userHandler;

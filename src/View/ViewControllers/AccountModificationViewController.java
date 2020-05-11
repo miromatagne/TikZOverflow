@@ -32,7 +32,11 @@ public class AccountModificationViewController extends AccountViewController imp
 
     private AccountModificationViewControllerListener listener;
 
-    //Method
+    /**
+     * Initialize the controller
+     * @param url               URL (not used)
+     * @param resourceBundle    resourceBundle (not used)
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         User userCurrent = Session.getInstance().getUser();

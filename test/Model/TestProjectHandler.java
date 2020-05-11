@@ -223,7 +223,6 @@ public class TestProjectHandler {
         }
 
         Project loadProject = null;
-        System.out.println(user.getProjectPaths().get(0));
         try{
             loadProject = projectHandler.loadProject(user.getProjectPaths().get(0));
         }catch(ProjectLoadException e){

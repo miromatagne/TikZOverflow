@@ -113,9 +113,6 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
             popupStage.setScene(scene);
             popupStage.show();
         } catch (IOException e) {
-            System.err.println(String.format("Unable to load %s pop-up path", FXMLPath));
-            e.printStackTrace();
-            e.getCause().printStackTrace();
             AlertController.showStageError("Error while loading the fxml file : "+FXMLPath, "Process aborted", true);
         }
     }

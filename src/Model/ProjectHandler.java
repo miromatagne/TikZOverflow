@@ -3,13 +3,6 @@ package Model;
 import Controller.Session;
 import Model.Exceptions.DirectoryCreationException;
 import Model.Exceptions.ProjectHandler.*;
-import Model.Exceptions.ProjectHandler.LatexWritingException;
-import Model.Exceptions.ProjectHandler.ProjectCopyException;
-import Model.Exceptions.ProjectHandler.ProjectCreationException;
-import Model.Exceptions.ProjectHandler.ProjectDeletionException;
-import Model.Exceptions.ProjectHandler.ProjectFromSaveGenerationException;
-import Model.Exceptions.ProjectHandler.ProjectLoadException;
-import Model.Exceptions.ProjectHandler.ProjectSaveException;
 import Model.Exceptions.UserHandler.SaveUserException;
 import Model.Exceptions.UserHandler.UserFromSaveCreationException;
 
@@ -74,6 +67,13 @@ public class ProjectHandler extends FileHandler {
 
     }
 
+    /**
+     * Setup the project directory
+     *
+     * @param project                           project which has to get a directory
+     * @throws DirectoryCreationException       If the directory creation failed
+     * @throws ProjectAlreadyExistsException    if the project already exists
+     */
     private void setupProjectDirectory(Project project) throws DirectoryCreationException, ProjectAlreadyExistsException {
         String projectDirectoryPath = project.getPath() + File.separator + project.getTitle();
         File file = new File(projectDirectoryPath);
@@ -295,9 +295,9 @@ public class ProjectHandler extends FileHandler {
             String title = allLines[0].split("title:")[1];
             String creatorUsername = allLines[1].split("creator:")[1];
             ArrayList<String> collaboratorsUsernames = new ArrayList<>();
-            try {
-                collaboratorsUsernames = new ArrayList<>(Arrays.asList(allLines[2].split("collaborators:")[1].split(",")));
-            } catch (ArrayIndexOutOfBoundsException e) {
+            ArrayList<String> tempCollaborators = new ArrayList<>(Arrays.asList(allLines[2].split("collaborators:")));
+            if (tempCollaborators.size() > 1){
+                collaboratorsUsernames = new ArrayList<>(Arrays.asList(tempCollaborators.get(1).split(",")));
             }
             String creationDateString = allLines[3].split("creation_date:")[1];
             SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);

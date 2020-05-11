@@ -2,7 +2,6 @@ package Controller;
 
 import Model.Project;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;

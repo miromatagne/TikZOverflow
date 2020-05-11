@@ -23,18 +23,18 @@ public class UserHandler extends FileHandler{
     private String saveUserDirectory;
     private final String saveUserFormat = ".txt";
 
+    static {
+        instance = new UserHandler();
+    }
+
     /**
-     * Create a new instance of file handler
-     *
+     * Singleton
      */
     private UserHandler() {
         this.saveUserDirectory = DEFAULT_DIRECTORY;
     }
 
     public static UserHandler getInstance(){
-        if (instance == null){
-            instance = new UserHandler();
-        }
         return instance;
     }
 
