@@ -69,11 +69,6 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
             e.printStackTrace();
             e.getCause().printStackTrace();
             AlertController.showStageError("Error while loading the main page fxml file.", "Process aborted", true);
-        } catch (LatexControllerConstructorException e) {
-            System.err.println("Error while creating the latex controller");
-            e.printStackTrace();
-            e.getCause().printStackTrace();
-            AlertController.showStageError("Error while creating the latex controller.", "Process aborted", true);
         }
     }
 

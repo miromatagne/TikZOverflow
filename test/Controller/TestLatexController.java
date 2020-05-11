@@ -85,7 +85,7 @@ class TestLatexController {
                             "    \\end{tikzpicture}\n"+
                             "\\end{document}\n",
                     stringTest);
-        } catch (GetTextInFileException | LatexControllerConstructorException | DirectoryCreationException | IOException | ProjectCreationException | ProjectSaveException | LatexWritingException | ProjectAlreadyExistsException e) {
+        } catch (GetTextInFileException | DirectoryCreationException | IOException | ProjectCreationException | ProjectSaveException | LatexWritingException | ProjectAlreadyExistsException e) {
             e.printStackTrace();
             fail();
         }
@@ -127,7 +127,7 @@ class TestLatexController {
                     "\\end{document}\n";
             latexController.saveTikz(sourceCode);
             assertEquals(latexController.getTextInFile(), sourceCode);
-        } catch (GetTextInFileException | LatexControllerConstructorException | DirectoryCreationException | ProjectCreationException | ProjectAlreadyExistsException | LatexWritingException | IOException e) {
+        } catch (GetTextInFileException | DirectoryCreationException | ProjectCreationException | ProjectAlreadyExistsException | LatexWritingException | IOException e) {
             e.printStackTrace();
             fail();
         }
