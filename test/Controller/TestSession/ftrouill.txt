@@ -1,0 +1,6 @@
+last:Losfeld
+first:Armand
+username:ftrouill
+mail:armand.losfeld@ulb.ac.be
+password:123456789
+projects:
