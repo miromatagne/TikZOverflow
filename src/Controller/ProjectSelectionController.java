@@ -152,6 +152,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
             ProjectHandler projectHandler = new ProjectHandler();
             Project project = projectDisplay.getProject();
             try {
+                Session.getInstance().getUser().removeProject(project.getPath());
                 projectHandler.deleteProject(project);
                 controller.removeProjectFromDisplay(projectDisplay);
             } catch (ProjectDeletionException | SaveUserException | UserFromSaveCreationException e) {

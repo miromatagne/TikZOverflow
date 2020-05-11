@@ -197,11 +197,20 @@ public class ProjectHandler extends FileHandler {
         User user = Session.getInstance().getUser();
         user.removeProject(previousPath);
         user.addProject(rootProjectPath + File.separator+newTitle);
+        UserHandler userHandler = new UserHandler();
         try {
+            User creator = userHandler.getUserFromSave(project.getCreatorUsername());
+            creator.removeProject(previousPath);
+            creator.addProject(rootProjectPath + File.separator + newTitle);
+            userHandler.saveUser(creator);
+            for(String collaboratorUsername : project.getCollaboratorsUsernames()) {
+                User collaborator = userHandler.getUserFromSave(collaboratorUsername);
+                collaborator.removeProject(previousPath);
+                collaborator.addProject(rootProjectPath + File.separator + newTitle);
+                userHandler.saveUser(collaborator);
+            }
             saveProjectInfo(project);
-            UserHandler userHandler = new UserHandler();
-            userHandler.saveUser(user);
-        } catch (ProjectSaveException | SaveUserException e) {
+        } catch (ProjectSaveException | SaveUserException | UserFromSaveCreationException e) {
             project.setTitle(previousTitle);
             project.setPath(previousPath);
             user.removeProject(previousPath);
