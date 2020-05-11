@@ -2,8 +2,10 @@ package Controller;
 
 import Model.Project;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 
 /**
  * Object used to display the projects on the TableView in the Project Selection Screen.
@@ -18,7 +20,7 @@ public class ProjectDisplay {
     private final Project project;
     private final Button renameButton;
     private final Button shareButton;
-    private final SimpleStringProperty title;
+    private final Label title;
 
     /**
      * Constructor of ProjectDisplay based on a project.
@@ -26,7 +28,7 @@ public class ProjectDisplay {
      *                to a ProjectDisplay
      */
     public ProjectDisplay(Project project) {
-        this.title = new SimpleStringProperty(project.getTitle());
+        this.title = new Label(project.getTitle());
         this.owner = new SimpleStringProperty(project.getCreatorUsername());
         this.date = new SimpleStringProperty(project.getLastModificationDate().toString());
         this.project = project;
@@ -55,11 +57,7 @@ public class ProjectDisplay {
         return checkBox;
     }
 
-    public String getTitle() {
-        return title.get();
-    }
-
-    public SimpleStringProperty titleProperty() {
+    public Label getTitle() {
         return title;
     }
 
@@ -76,10 +74,7 @@ public class ProjectDisplay {
     }
 
     public void setTitle(String title) {
-        this.title.set(title);
+        this.title.setText(title);
     }
 
-    public SimpleStringProperty getSimpleStringPropertyTitle() {
-        return title;
-    }
 }
