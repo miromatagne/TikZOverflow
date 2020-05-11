@@ -93,11 +93,11 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
             projectHandler.saveProjectInfo(Session.getInstance().getCurrentProject());
         }
         catch(GetTextInFileException e){
-            Alert.AlertType.valueOf("Error on opening Tex file for save");
+            AlertController.showStageError("Save error", "Error on opening Tex file for save");
         }catch (LatexWritingException ex) {
-            Alert.AlertType.valueOf("Error on save Tex file");
+            AlertController.showStageError("Save error", "Error on save Tex file");
         }catch(ProjectSaveException pe){
-            Alert.AlertType.valueOf("Error on save properties file");
+            AlertController.showStageError("Save error", "Error on save properties file");
         }
     }
 

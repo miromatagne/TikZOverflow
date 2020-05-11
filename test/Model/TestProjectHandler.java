@@ -174,7 +174,6 @@ public class TestProjectHandler {
         File tex = new File(projectToRename.getPath() + File.separator +projectToRename.getTitle() +".tex");
         assertTrue(tex.exists());
 
-        System.out.println(projectToRename.getPath());
         try{
             projectHandler.renameProject(projectToRename,"testRename");
         }catch(ProjectRenameException e){
@@ -223,7 +222,6 @@ public class TestProjectHandler {
         }
 
         Project loadProject = null;
-        System.out.println(user.getProjectPaths().get(0));
         try{
             loadProject = projectHandler.loadProject(user.getProjectPaths().get(0));
         }catch(ProjectLoadException e){
@@ -377,7 +375,6 @@ public class TestProjectHandler {
         } catch(UserFromSaveCreationException e){
             fail("Impossible to create user from save. Check UserFromSave test.");
         }
-        System.out.println(projectToDelete.getPath());
         assertFalse(userAfterDelete.getProjectPaths().contains(projectToDelete.getPath()));
 
         assertFalse(properties.exists());
