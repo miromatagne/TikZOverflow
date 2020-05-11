@@ -2,6 +2,7 @@ package Controller;
 
 import Controller.Exceptions.Session.SessionOpeningException;
 import Model.Exceptions.ProjectHandler.ProjectLoadException;
+import Model.Exceptions.UserAlreadyExistsException;
 import Model.Exceptions.UserHandler.SaveUserCreationException;
 import Model.Exceptions.UserHandler.SetupDirectoryException;
 import Model.Exceptions.UserHandler.UserFromSaveCreationException;
@@ -132,6 +133,9 @@ public class Session {
             e.printStackTrace();
             e.getCause().printStackTrace();
             AlertController.showStageError("Error while creating an account.", "Account creation failed");
+        } catch (UserAlreadyExistsException e) {
+            e.printStackTrace();
+            AlertController.showStageError("Error while creating an account.", "Username is already taken, choose another one.");
         }
         return false;
     }

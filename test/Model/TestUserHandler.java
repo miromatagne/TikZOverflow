@@ -1,6 +1,7 @@
 package Model;
 
 import Model.Exceptions.LatexErrorsHandler.LogErrorException;
+import Model.Exceptions.UserAlreadyExistsException;
 import Model.Exceptions.UserHandler.SaveUserCreationException;
 import Model.Exceptions.UserHandler.SaveUserException;
 import Model.Exceptions.UserHandler.UserFromSaveCreationException;
@@ -34,7 +35,7 @@ class TestUserHandler {
                     "mail:ftrouill@ulb.ac.be\n" +
                     "password:123456789\n" +
                     "projects:\n", readerTest);
-        } catch (SaveUserCreationException | IOException | SaveUserException e) {
+        } catch (SaveUserCreationException | IOException | SaveUserException | UserAlreadyExistsException e) {
             e.printStackTrace();
             fail();
         }

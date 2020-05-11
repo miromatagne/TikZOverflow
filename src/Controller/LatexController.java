@@ -62,7 +62,6 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
         try {
             saveTikz(sourceCode);
             String filePath = Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex";
-            System.out.println(filePath);
             String pdfPath = Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".pdf";
             LatexHandler.getInstance().runProcess(filePath, Session.getInstance().getCurrentProject().getPath());
             createImageFromPDF(pdfPath);

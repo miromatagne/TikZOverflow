@@ -34,7 +34,7 @@ public class TestProjectHandler {
         user.setUsername("alosfeld");
         try {
             userHandler.createUserSave(user);
-        }catch(SaveUserCreationException e){
+        }catch(SaveUserCreationException | UserAlreadyExistsException e){
             fail("Impossible to create save of the user. Check saveCreatorUser test.");
         }
 
@@ -114,7 +114,7 @@ public class TestProjectHandler {
             fail("Impossible to save project.");
         }
         SimpleDateFormat dateFormatter = new SimpleDateFormat(ProjectHandler.DATE_FORMAT, Locale.ENGLISH);
-        String dateString = dateFormatter.format(projectToSave.getDate());
+        String dateString = dateFormatter.format(projectToSave.getCreationDate());
         String contentExpected = "title:test\n"+
                 "creator:alosfeld\n"+
                 "collaborators:\n"+
@@ -203,7 +203,7 @@ public class TestProjectHandler {
         assertEquals(project.getPath(),loadProject.getPath());
         assertEquals(project.getTitle(), loadProject.getTitle());
         assertEquals(project.getCreatorUsername(),loadProject.getCreatorUsername());
-        assertEquals(new SimpleDateFormat(ProjectHandler.DATE_FORMAT,Locale.ENGLISH).format(project.getDate()),new SimpleDateFormat(ProjectHandler.DATE_FORMAT,Locale.ENGLISH).format(loadProject.getDate()));
+        assertEquals(new SimpleDateFormat(ProjectHandler.DATE_FORMAT,Locale.ENGLISH).format(project.getCreationDate()),new SimpleDateFormat(ProjectHandler.DATE_FORMAT,Locale.ENGLISH).format(loadProject.getCreationDate()));
         assertEquals(project.getCollaboratorsUsernames(),loadProject.getCollaboratorsUsernames());
 
         try{
@@ -240,7 +240,7 @@ public class TestProjectHandler {
                 user2.setMail("none@none.com");
                 user2.setPassword("mdp");
                 userHandler.createUserSave(user2);
-            }catch(SaveUserCreationException e){
+            }catch(SaveUserCreationException | UserAlreadyExistsException e){
                 fail("Impossible to create save of the user. Check createSaveUser test.");
             }
         }else {
@@ -277,7 +277,7 @@ public class TestProjectHandler {
         assertEquals(path+File.separator+"TestCopy2", project2.getPath());
         assertEquals("TestCopy2", project2.getTitle());
         assertEquals(".User2", project2.getCreatorUsername());
-        assertEquals(new SimpleDateFormat(ProjectHandler.DATE_FORMAT, Locale.ENGLISH).format(project1.getDate()), new SimpleDateFormat(ProjectHandler.DATE_FORMAT, Locale.ENGLISH).format(project2.getDate()));
+        assertEquals(new SimpleDateFormat(ProjectHandler.DATE_FORMAT, Locale.ENGLISH).format(project1.getCreationDate()), new SimpleDateFormat(ProjectHandler.DATE_FORMAT, Locale.ENGLISH).format(project2.getCreationDate()));
         assertEquals(project1.getCollaboratorsUsernames(), project2.getCollaboratorsUsernames());
 
         try{
@@ -412,7 +412,7 @@ public class TestProjectHandler {
                 user2.setMail("none@none.com");
                 user2.setPassword("mdp");
                 userHandler.createUserSave(user2);
-            }catch(SaveUserCreationException e){
+            }catch(SaveUserCreationException | UserAlreadyExistsException e){
                 fail("Impossible to create save of the user. Check createSaveUser test.");
             }
         }else{

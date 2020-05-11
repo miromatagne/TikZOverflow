@@ -25,7 +25,6 @@ public class UserHandler extends FileHandler{
         this.saveUserDirectory = DEFAULT_DIRECTORY;
     }
 
-
     /**
      * Setups the directory for users' saves.
      *
@@ -74,7 +73,6 @@ public class UserHandler extends FileHandler{
         text += "password:" + user.getPassword() + "\n";
         ArrayList<String> projectPaths = user.getProjectPaths();
         text += "projects:" + String.join(",", projectPaths) + "\n";
-        System.out.println(text);
         return text;
     }
 
@@ -84,13 +82,12 @@ public class UserHandler extends FileHandler{
      * @param user User to be saved in a text file
      * @throws SaveUserCreationException when the creation of the user save fails
      */
-    public void createUserSave(User user) throws SaveUserCreationException {
+    public void createUserSave(User user) throws SaveUserCreationException, UserAlreadyExistsException {
         try {
             File saveFile = new File(saveUserDirectory + File.separator + user.getUsername() + saveUserFormat);
             if (saveFile.exists()) {
                 //Error, the file does already exist
-                // TODO : inform user that username is taken
-                return;
+                throw new UserAlreadyExistsException();
             }
             writeSave(user, saveFile);
         } catch (SaveWritingException e) {
@@ -108,7 +105,6 @@ public class UserHandler extends FileHandler{
     private void writeSave(User user, File file) throws SaveWritingException {
         try {
             String text = getSaveTextFromUser(user);
-            System.out.println(text);
             writeInFile(file, text);
         } catch (IOException e) {
             throw new SaveWritingException(e);
@@ -190,7 +186,6 @@ public class UserHandler extends FileHandler{
             }
         }
         br.close();
-        System.out.println("No information for the flag : " + flag + ", in file " + file.getPath());
         return "";
     }
 

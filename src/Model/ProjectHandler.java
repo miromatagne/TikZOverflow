@@ -260,7 +260,7 @@ public class ProjectHandler extends FileHandler {
         toWrite += "collaborators:";
         String collaborators = String.join(", ", project.getCollaboratorsUsernames());
         toWrite += collaborators + ENDLINE;
-        toWrite += "creation_date:" + new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH).format(project.getDate()) + ENDLINE;
+        toWrite += "creation_date:" + new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH).format(project.getCreationDate()) + ENDLINE;
         toWrite += "modification_date:" + new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH).format(new Date()) + ENDLINE;
 
         return toWrite;
@@ -291,13 +291,14 @@ public class ProjectHandler extends FileHandler {
             try {
                 collaboratorsUsernames = new ArrayList<>(Arrays.asList(allLines[2].split("collaborators:")[1].split(",")));
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Project has no collaborators");
             }
-            String dateString = allLines[3].split("creation_date:")[1];
+            String creationDateString = allLines[3].split("creation_date:")[1];
             SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
-            Date date = dateFormatter.parse(dateString);
+            Date creationDate = dateFormatter.parse(creationDateString);
+            String lastModificationDateString = allLines[4].split("modification_date:")[1];
+            Date lastModificationDate = dateFormatter.parse(lastModificationDateString);
             return new Project(creatorUsername,
-                    title, date, collaboratorsUsernames, path);
+                    title, creationDate, lastModificationDate, collaboratorsUsernames, path);
         } catch (ParseException e) {
             throw new ProjectFromSaveGenerationException(e);
         }

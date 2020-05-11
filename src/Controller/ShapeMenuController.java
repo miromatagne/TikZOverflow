@@ -68,6 +68,7 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
     public void addShape(int idCurrent, ArrayList<Float> allData, Color color, String label) {
         Shape shape = ShapeFactory.getInstance(idCurrent, allData, color, label);
         mainPageViewController.addShape(shape);
+        mainPageViewController.compile();
         closePopup();
     }
 

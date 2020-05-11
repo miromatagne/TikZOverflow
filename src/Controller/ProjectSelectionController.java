@@ -159,7 +159,6 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
                 projectHandler.deleteProject(project);
                 controller.removeProjectFromDisplay(projectDisplay);
             } catch (ProjectDeletionException | SaveUserException | UserFromSaveCreationException e) {
-                System.out.println(project.getPath());
                 AlertController.showStageError("Failed to delete", String.format("Could not delete %s", project.getTitle()));
             }
         }

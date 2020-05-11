@@ -28,7 +28,7 @@ public class ProjectDisplay {
     public ProjectDisplay(Project project) {
         this.title = new SimpleStringProperty(project.getTitle());
         this.owner = new SimpleStringProperty(project.getCreatorUsername());
-        this.date = new SimpleStringProperty(project.getDate().toString());
+        this.date = new SimpleStringProperty(project.getLastModificationDate().toString());
         this.project = project;
         this.checkBox = new CheckBox();
         this.renameButton = new Button("Rename");

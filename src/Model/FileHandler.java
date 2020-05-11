@@ -49,7 +49,6 @@ public class FileHandler {
             File[] entries = file.listFiles();
             if (entries != null) {
                 for (File entry : entries) {
-                    System.out.println(entry.getPath());
                     deleteDirectory(entry);
                 }
             }
