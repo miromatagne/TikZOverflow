@@ -63,5 +63,7 @@ L’utilisateur clique sur un élément graphique avec le bouton principal de la
 
 TOTAL : 2 points
 
+Cette histoire a en fait réalisée au terme de 1 point.
+
 ----------------------
 
