@@ -34,7 +34,7 @@ public class ProjectSelectionViewController implements Initializable {
     private TableColumn<ProjectDisplay, CheckBox> checkBoxColumn;
 
     @FXML
-    private TableColumn<ProjectDisplay, String> titleColumn;
+    private TableColumn<ProjectDisplay, Button> titleColumn;
 
     @FXML
     private TableColumn<ProjectDisplay, String> ownerColumn;
@@ -79,14 +79,6 @@ public class ProjectSelectionViewController implements Initializable {
         emptyMessage.setFill(Color.WHITE);
         tableView.setPlaceholder(emptyMessage);
         listProjects();
-        tableView.setOnMousePressed(event -> {
-            ProjectDisplay projectDisplay = tableView.getSelectionModel().getSelectedItem();
-            if(projectDisplay != null) {
-                System.out.println(projectDisplay.getProject().getTitle());
-                Project project = projectDisplay.getProject();
-                listener.goToMainPage(project);
-            }
-        });
     }
 
     /**
@@ -168,6 +160,7 @@ public class ProjectSelectionViewController implements Initializable {
         data.add(projectDisplay);
         projectDisplay.getRenameButton().setOnAction(e -> listener.showRenamePopUp(projectDisplay.getProject()));
         projectDisplay.getShareButton().setOnAction(e -> listener.showSharePopUp(projectDisplay.getProject()));
+        //projectDisplay.getTitleButton().setOnAction(e -> listener.goToMainPage(projectDisplay.getProject()));
     }
 
     /**
