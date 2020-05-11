@@ -13,70 +13,85 @@ import static org.junit.jupiter.api.Assertions.*;
 class TestUserHandler {
 
     @Test
-    public void test() throws UserFromSaveCreationException, FileHandlerConstructorException, SaveUserCreationException, SaveUserException, IOException {
-        /* After execution, a folder should be made containing
-         * a save file of "ftrouill" user
-         */
-        UserHandler fh = new UserHandler();
-        User user1 = new User();
-        user1.setUsername("ftrouill");
-        user1.setLastName("Trouillez");
-        user1.setFirstName("Franck");
-        user1.setMail("ftrouill@ulb.ac.be");
-        user1.setPassword("123456789");
-        fh.createUserSave(user1);
-        fh.saveUser(user1);
-        User user2 = fh.getUserFromSave("ftrouill");
-        assertEquals("ftrouill", user2.getUsername());
-        assertEquals("Franck", user2.getFirstName());
-        assertEquals("Trouillez", user2.getLastName());
-        assertEquals("ftrouill@ulb.ac.be", user2.getMail());
-        assertEquals("123456789", user2.getPassword());
-
-        //String readerTest = fh.readInFile("./save user/ftrouill.txt");
-        //assertEquals("last:Trouillez" + "\n" + "first:Franck" + "\n" + "username:ftrouill" + "\n" +"mail:ftrouill@ulb.ac.be" + "\n" + "password:123456789" + "\n", readerTest);
-
-    }
-    @Test
-    public void makeTexFile() throws SaveUserCreationException, IOException, LatexWritingException, FileHandlerConstructorException {
-        User user = new User();
-        user.setUsername("test1");
-        UserHandler fh = new UserHandler();
-        ProjectHandler ph = new ProjectHandler();
-        fh.createUserSave(user);
-        File texFile = new File("./Latex/" + user.getUsername() + ".tex");
-        fh.writeInFile(texFile, "");
-        ph.makeTexFile("testing");
-        assertTrue(texFile.exists());
-        String temp, text = "";
-        BufferedReader br;
+    public void saveUser() {
         try {
-            br = new BufferedReader(new FileReader(texFile));
-            while ((temp = br.readLine()) != null) {
-                text = text.concat(temp);
-            }
-        } catch (IOException e) {
-            System.err.println("There was an error while reading the sample file\n");
+            UserHandler userHandler = new UserHandler();
+            userHandler.setSaveUserDirectory("./test/Model/TestUserHandler/SaveUserDirectory");
+            User user1 = new User();
+            user1.setUsername("ftrouill");
+            user1.setLastName("Trouillez");
+            user1.setFirstName("Franck");
+            user1.setMail("ftrouill@ulb.ac.be");
+            user1.setPassword("123456789");
+            userHandler.createUserSave(user1);
+            userHandler.saveUser(user1);
+
+            String readerTest = userHandler.readInFile("./test/Model/TestUserHandler/SaveUserDirectory/ftrouill.txt");
+            assertEquals("last:Trouillez\n" +
+                    "first:Franck\n" +
+                    "username:ftrouill\n" +
+                    "mail:ftrouill@ulb.ac.be\n" +
+                    "password:123456789\n" +
+                    "projects:\n", readerTest);
+        } catch (SaveUserCreationException | IOException | SaveUserException e) {
             e.printStackTrace();
+            fail();
         }
-        assertEquals(text, "testing");
     }
 
     @Test
-    void errorLogs() throws LogErrorException, FileHandlerConstructorException {
-        User user = new User();
-        user.setUsername("logFileTest");
-        LatexErrorsHandler latexErrorsHandler = new LatexErrorsHandler();
-        latexErrorsHandler.errorLogs("./test/Model/" + user.getUsername() + ".log");
-        int errorsCounterTest = 7;
-        String errors = "line 1: LaTeX Error: Missing \\begin{document}.\n" +
-                "line 6: Paragraph ended before \\@fileswith@ptions was complete\n" +
-                "line 9: LaTeX Error: Environment tikzpicture undefined.\n" +
-                "line 10: Undefined control sequence.\n" +
-                "line 11: Undefined control sequence.\n" +
-                "line 12: Undefined control sequence.\n" +
-                "line 13: LaTeX Error: \\begin{document} ended by \\end{tikzpictu\n";
-        assertEquals(errorsCounterTest, latexErrorsHandler.getErrorsCounter());//check if we have the same number of errors
-        assertEquals(errors, latexErrorsHandler.getErrors());//check if we have the same errors
+    public void getUserFromSave(){
+        try {
+            /* We first create a save */
+            FileHandler fileHandler = new FileHandler();
+            String content = "last:Trouillez\n" +
+                    "first:Franck\n" +
+                    "username:ftrouill\n" +
+                    "mail:ftrouill@ulb.ac.be\n" +
+                    "password:123456789\n" +
+                    "projects:\n";
+            fileHandler.writeInFile(new File("./test/Model/TestUserHandler/GetUserFromSaveDirectory/ftrouill.txt"), content);
+
+            /* Now, we check if the getUserFromSave method works */
+
+            UserHandler userHandler = new UserHandler();
+            userHandler.setSaveUserDirectory("./test/Model/TestUserHandler/GetUserFromSaveDirectory");
+
+            User user = userHandler.getUserFromSave("ftrouill");
+            assertEquals("ftrouill", user.getUsername());
+            assertEquals("Franck", user.getFirstName());
+            assertEquals("Trouillez", user.getLastName());
+            assertEquals("ftrouill@ulb.ac.be", user.getMail());
+            assertEquals("123456789", user.getPassword());
+        } catch (UserFromSaveCreationException | IOException e) {
+            e.printStackTrace();
+            fail();
+        }
+
+    }
+
+
+
+    @Test
+    void errorLogs() {
+        try {
+            User user = new User();
+            user.setUsername("logFileTest");
+            LatexErrorsHandler latexErrorsHandler = new LatexErrorsHandler();
+            latexErrorsHandler.errorLogs("./test/Model/" + user.getUsername() + ".log");
+            int errorsCounterTest = 7;
+            String errors = "line 1: LaTeX Error: Missing \\begin{document}.\n" +
+                    "line 6: Paragraph ended before \\@fileswith@ptions was complete\n" +
+                    "line 9: LaTeX Error: Environment tikzpicture undefined.\n" +
+                    "line 10: Undefined control sequence.\n" +
+                    "line 11: Undefined control sequence.\n" +
+                    "line 12: Undefined control sequence.\n" +
+                    "line 13: LaTeX Error: \\begin{document} ended by \\end{tikzpictu\n";
+            assertEquals(errorsCounterTest, latexErrorsHandler.getErrorsCounter());//check if we have the same number of errors
+            assertEquals(errors, latexErrorsHandler.getErrors());//check if we have the same errors
+        } catch (LogErrorException e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 }
