@@ -1,9 +1,9 @@
 package Controller;
 
-import Controller.Exceptions.GetTextInFileException;
-import Controller.Exceptions.ShapeMenuControllerConstructorException;
-import Model.Exceptions.LatexWritingException;
-import Model.Exceptions.ProjectSaveException;
+import Controller.Exceptions.LatexController.GetTextInFileException;
+import Controller.Exceptions.ShapeMenuController.ShapeMenuControllerConstructorException;
+import Model.Exceptions.ProjectHandler.LatexWritingException;
+import Model.Exceptions.ProjectHandler.ProjectSaveException;
 import Model.LatexHandler;
 import Model.ProjectHandler;
 import Model.Shapes.Shape;
@@ -64,12 +64,10 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
                 }
             });
         } catch (ShapeMenuControllerConstructorException e) {
-            System.err.println("Error while creating the shape menu controller");
             e.printStackTrace();
             e.getCause().printStackTrace();
             AlertController.showStageError("Error while creating the shape menu controller.", "Process aborted", true);
         } catch (IOException e) {
-            System.err.println("Error while loading the fxml file");
             e.printStackTrace();
             e.getCause().printStackTrace();
             AlertController.showStageError("Error while loading the main page fxml file.", "Process aborted", true);

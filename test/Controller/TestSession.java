@@ -1,6 +1,6 @@
 package Controller;
 
-import Controller.Exceptions.SessionOpeningException;
+import Controller.Exceptions.Session.SessionOpeningException;
 import Model.User;
 import org.junit.jupiter.api.Test;
 

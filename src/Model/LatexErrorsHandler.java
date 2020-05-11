@@ -1,7 +1,7 @@
 package Model;
 
 import Controller.Session;
-import Model.Exceptions.LogErrorException;
+import Model.Exceptions.LatexErrorsHandler.LogErrorException;
 
 import java.io.File;
 import java.io.IOException;

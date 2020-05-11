@@ -1,7 +1,10 @@
 package Controller;
 
-import Controller.Exceptions.GetTextInFileException;
+import Controller.Exceptions.LatexController.GetTextInFileException;
 import Model.Exceptions.*;
+import Model.Exceptions.ProjectHandler.ProjectAlreadyExistsException;
+import Model.Exceptions.ProjectHandler.ProjectCreationException;
+import Model.Exceptions.ProjectHandler.ProjectSaveException;
 import Model.FileHandler;
 import Model.Project;
 import Model.ProjectHandler;

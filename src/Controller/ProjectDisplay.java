@@ -30,7 +30,7 @@ public class ProjectDisplay {
     public ProjectDisplay(Project project) {
         this.title = new Label(project.getTitle());
         this.owner = new SimpleStringProperty(project.getCreatorUsername());
-        this.date = new SimpleStringProperty(project.getDate().toString());
+        this.date = new SimpleStringProperty(project.getLastModificationDate().toString());
         this.project = project;
         this.checkBox = new CheckBox();
         this.renameButton = new Button("Rename");
@@ -75,5 +75,9 @@ public class ProjectDisplay {
 
     public void setTitle(String title) {
         this.title.setText(title);
+    }
+
+    public SimpleStringProperty getSimpleStringPropertyTitle() {
+        return title;
     }
 }

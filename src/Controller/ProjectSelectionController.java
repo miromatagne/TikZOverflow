@@ -1,6 +1,9 @@
 package Controller;
 
 import Model.Exceptions.*;
+import Model.Exceptions.ProjectHandler.*;
+import Model.Exceptions.UserHandler.SaveUserException;
+import Model.Exceptions.UserHandler.UserFromSaveCreationException;
 import Model.Project;
 import Model.ProjectHandler;
 import Model.User;
@@ -156,7 +159,6 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
                 projectHandler.deleteProject(project);
                 controller.removeProjectFromDisplay(projectDisplay);
             } catch (ProjectDeletionException | SaveUserException | UserFromSaveCreationException e) {
-                System.out.println(project.getPath());
                 AlertController.showStageError("Failed to delete", String.format("Could not delete %s", project.getTitle()));
             }
         }

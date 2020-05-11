@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.Exceptions.SaveUserException;
+import Model.Exceptions.UserHandler.SaveUserException;
 import Model.User;
 import Model.UserHandler;
 import View.ViewControllers.AccountModificationViewController;
@@ -40,7 +40,6 @@ public class AccountModificationController extends AccountController implements 
             controller.setListener(this);
             stage.getScene().setRoot(loader.getRoot());
         } catch (IOException e) {
-            System.out.println("Error loading /View/FXML/accountModificationScreen.fxml");
             e.printStackTrace();
             AlertController.showStageError("Error while loading the account modification fxml file.", "Process aborted", true);
         }
@@ -86,7 +85,6 @@ public class AccountModificationController extends AccountController implements 
                 UserHandler handler = new UserHandler();
                 handler.saveUser(userCurrent);
             } catch (SaveUserException e) {
-                System.err.println("Error in saving the user");
                 e.printStackTrace();
                 e.getCause().printStackTrace();
                 AlertController.showStageError("Error while saving the user account.", "User could not be saved");
@@ -123,11 +121,10 @@ public class AccountModificationController extends AccountController implements 
 
 
     /**
-     * Interface used to communicate with ScreenHandler.
+     * Interface used to communicate with ScreenHandler, which is this controller's listener.
      */
     public interface AccountModificationControllerListener {
         void createAccountModificationPopup();
-
         void onModificationDone();
     }
 }
