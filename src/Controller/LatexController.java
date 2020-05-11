@@ -1,15 +1,14 @@
 package Controller;
 
 import Controller.Exceptions.GetTextInFileException;
-import Controller.Exceptions.LatexControllerConstructorException;
 import Controller.Exceptions.TikzCompilationException;
+import Model.Exceptions.LatexCompilationException;
+import Model.Exceptions.LatexWritingException;
+import Model.Exceptions.LogErrorException;
+import Model.Exceptions.ProjectSaveException;
 import Model.*;
-import Model.Exceptions.*;
-import Model.LatexHandler;
-import Model.PDFHandler;
 import View.ViewControllers.MainPageViewController;
 import javafx.scene.image.Image;
-
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,9 +28,8 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      * Constructor.
      *
      * @param mainPageViewController MainPageViewController we interact with
-     * @throws LatexControllerConstructorException if FileHandler could not be constructed
      */
-    public LatexController(MainPageViewController mainPageViewController) throws LatexControllerConstructorException {
+    public LatexController(MainPageViewController mainPageViewController) {
         this.userHandler = new UserHandler();
         this.projectHandler = new ProjectHandler();
         this.latexErrorsHandler = new LatexErrorsHandler();
