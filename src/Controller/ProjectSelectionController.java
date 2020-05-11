@@ -206,9 +206,13 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
      */
     @Override
     public boolean createProject(String title, String path) {
-        if(path.equals("") || !title.matches("^[-_.A-Za-z0-9]+$")){
-            AlertController.showStageError("Invalid information", "Please enter valid information");
+        if(path.equals("")){
+            AlertController.showStageError("Invalid path", "Please enter a valid path");
             return false; // return false if given path was invalid
+        }
+        if(!title.matches("^[-_.A-Za-z0-9]+$")) {
+            AlertController.showStageError("Invalid project name", "Please enter a valid project name.\nProject names can not contain spaces, or illegal file characters.");
+            return false;
         }
         try {
             ProjectHandler projectHandler = new ProjectHandler();
