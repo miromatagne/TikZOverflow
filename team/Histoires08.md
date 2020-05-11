@@ -231,9 +231,9 @@ Dans le premier cas, quand un élément (noeud/lien) est défini à partir du pa
 
 ### Risque Développeurs : 1
 
-### Introduit dans l'itération : 
+### Introduit dans l'itération : 3
 
-### Etat : 
+### Etat : Complétée
 
 ### Points :
 - Point-and-click : 5 points
