@@ -97,7 +97,7 @@ public class LatexHandler {
     public void runProcess(String filePath, String outputDirectoryPath) throws LatexCompilationException {
         try {
             String command = "pdflatex -file-line-error -interaction=nonstopmode -synctex=1 " +
-                    "-output-format=pdf -output-directory " + '"' + outputDirectoryPath + '"' + " " + '"' + filePath + '"';
+                    "-output-format=pdf -output-directory " + outputDirectoryPath + " " + filePath;
             Process pro = Runtime.getRuntime().exec(command);
             clearStream(pro.getInputStream());
             clearStream(pro.getErrorStream());
