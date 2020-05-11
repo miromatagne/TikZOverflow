@@ -215,7 +215,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
             userHandler.saveUser(Session.getInstance().getUser());
             ProjectDisplay projectDisplay = new ProjectDisplay(project);
             controller.addProjectToDisplay(projectDisplay);
-        } catch (ProjectCreationException | LatexWritingException | SaveUserException e) {
+        } catch (ProjectCreationException | SaveUserException e) {
             e.printStackTrace();
             e.getCause().printStackTrace();
             AlertController.showStageError("Error while creating project : "+title, "Creating failed");

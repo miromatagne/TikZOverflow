@@ -47,8 +47,8 @@ public class LatexErrorsHandler extends FileHandler{
             String[] words;
             String errorPrefix = Controller.Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex";
 
-            for(int i=0; i<linesLogFile.length; i++) {
-                words = linesLogFile[i].split(":");
+            for (String s : linesLogFile) {
+                words = s.split(":");
                 for (String word : words) {
                     if (word.equals(errorPrefix)) {
                         ERRORS_COUNTER++;

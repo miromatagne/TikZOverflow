@@ -19,7 +19,7 @@ public class ProjectDisplay {
     private final Project project;
     private final Button renameButton;
     private final Button shareButton;
-    private SimpleStringProperty title;
+    private final SimpleStringProperty title;
 
     /**
      * Constructor of ProjectDisplay based on a project.

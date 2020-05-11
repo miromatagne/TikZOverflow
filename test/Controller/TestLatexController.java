@@ -1,7 +1,6 @@
 package Controller;
 
 import Controller.Exceptions.GetTextInFileException;
-import Controller.Exceptions.LatexControllerConstructorException;
 import Model.Exceptions.*;
 import Model.FileHandler;
 import Model.Project;
@@ -85,7 +84,7 @@ class TestLatexController {
                             "    \\end{tikzpicture}\n"+
                             "\\end{document}\n",
                     stringTest);
-        } catch (GetTextInFileException | DirectoryCreationException | IOException | ProjectCreationException | ProjectSaveException | LatexWritingException | ProjectAlreadyExistsException e) {
+        } catch (GetTextInFileException | DirectoryCreationException | IOException | ProjectCreationException | ProjectSaveException | ProjectAlreadyExistsException e) {
             e.printStackTrace();
             fail();
         }
@@ -127,7 +126,7 @@ class TestLatexController {
                     "\\end{document}\n";
             latexController.saveTikz(sourceCode);
             assertEquals(latexController.getTextInFile(), sourceCode);
-        } catch (GetTextInFileException | DirectoryCreationException | ProjectCreationException | ProjectAlreadyExistsException | LatexWritingException | IOException e) {
+        } catch (GetTextInFileException | DirectoryCreationException | ProjectCreationException | ProjectAlreadyExistsException | IOException e) {
             e.printStackTrace();
             fail();
         }

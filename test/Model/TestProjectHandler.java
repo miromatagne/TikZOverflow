@@ -13,9 +13,9 @@ import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.*;
 public class TestProjectHandler {
 
-    private UserHandler userHandler;
-    private ProjectHandler projectHandler;
-    private User user;
+    private final UserHandler userHandler;
+    private final ProjectHandler projectHandler;
+    private final User user;
     private final String path = "./test/projecthandler/";
 
 
@@ -42,7 +42,7 @@ public class TestProjectHandler {
         Project projectToCreate = null;
         try{
             projectToCreate = projectHandler.createProject(user,path,"test");
-        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException | LatexWritingException e){
+        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException e){
             fail("Impossible to create project.");
         }
 
@@ -136,7 +136,7 @@ public class TestProjectHandler {
         Project projectToRename = null;
         try{
             projectToRename = projectHandler.createProject(user,path,"test");
-        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException | LatexWritingException e){
+        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException e){
             fail("Impossible to create project. Check createProject test");
         }
 
@@ -178,7 +178,7 @@ public class TestProjectHandler {
         Project project = null;
         try {
             project = projectHandler.createProject(user, path, "test");
-        }catch(ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException | LatexWritingException e){
+        }catch(ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException e){
             fail("Impossible to create project. Check createProject test.");
         }
 
@@ -214,7 +214,7 @@ public class TestProjectHandler {
         Project project1 = null;
         try {
             project1 = projectHandler.createProject(user, path, "TestCopy");
-        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException | LatexWritingException e) {
+        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException e) {
             fail("Impossible to create project. Check createProject test.");
         }
 
@@ -295,7 +295,7 @@ public class TestProjectHandler {
         Project projectToDelete = null;
         try {
             projectToDelete = projectHandler.createProject(user, path, "TestDelete");
-        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException | LatexWritingException e) {
+        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException e) {
             fail("Impossible to create project. Check createProject test.");
         }
 
@@ -344,7 +344,7 @@ public class TestProjectHandler {
         Project project = null;
         try {
             project = projectHandler.createProject(user, path, "TestMakeTexFile");
-        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException | LatexWritingException e) {
+        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException e) {
             fail("Impossible to create project. Check createProject test.");
         }
 
@@ -386,7 +386,7 @@ public class TestProjectHandler {
         Project projectToShare = null;
         try{
             projectToShare = projectHandler.createProject(user,path,"test");
-        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException | LatexWritingException e){
+        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException e){
             fail("Impossible to create project. Check createProject test.");
         }
 

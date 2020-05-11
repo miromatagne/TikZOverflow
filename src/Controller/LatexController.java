@@ -19,9 +19,9 @@ import java.io.IOException;
  */
 public class LatexController implements MainPageViewController.CodeInterfaceListener {
 
-    UserHandler userHandler;
-    ProjectHandler projectHandler;
-    LatexErrorsHandler latexErrorsHandler;
+    final UserHandler userHandler;
+    final ProjectHandler projectHandler;
+    final LatexErrorsHandler latexErrorsHandler;
     private final MainPageViewController mainPageViewController;
 
     /**

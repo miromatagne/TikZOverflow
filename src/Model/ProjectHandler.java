@@ -33,7 +33,7 @@ public class ProjectHandler extends FileHandler {
      * @return project created
      * @throws ProjectCreationException if creation failed
      */
-    public Project createProject(User user, String path, String title) throws ProjectCreationException, DirectoryCreationException, ProjectAlreadyExistsException, LatexWritingException {
+    public Project createProject(User user, String path, String title) throws ProjectCreationException, DirectoryCreationException, ProjectAlreadyExistsException {
         try {
             Project project = new Project(user.getUsername(), path, title);
             setupProjectDirectory(project);
@@ -110,7 +110,7 @@ public class ProjectHandler extends FileHandler {
             super.writeInFile(texFile,super.readInFile(projectToCopy.getPath() + File.separator + projectToCopy.getTitle() + ".tex"));
 
             return p;
-        } catch (ProjectCreationException | LatexWritingException | DirectoryCreationException | ProjectAlreadyExistsException | IOException e) {
+        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException | IOException e) {
             throw new ProjectCopyException(e);
         }
     }
@@ -148,7 +148,6 @@ public class ProjectHandler extends FileHandler {
         try {
             super.deleteDirectory(file);
         } catch (IOException e) {
-            System.out.println(e);
             throw new ProjectDeletionException();
         }
         deleteFromUser(project, creatorUsername, userHandler);

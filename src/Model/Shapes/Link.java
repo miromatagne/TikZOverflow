@@ -31,9 +31,8 @@ public abstract class Link extends Shape {
 
     public String getColorTikzCode(){
         //Color
-        String code = " ,color={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() + ";blue," + getColor().getBlue() + "}]";
 
-        return code;
+        return " ,color={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() + ";blue," + getColor().getBlue() + "}]";
     }
 
     public float getxOrigin() {
