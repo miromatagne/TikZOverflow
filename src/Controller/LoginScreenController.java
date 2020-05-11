@@ -36,7 +36,6 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
             stage.setScene(new Scene(loader.getRoot()));
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
             AlertController.showStageError("Error while loading the login screen fxml file.", "Process aborted", true);
         }
     }
@@ -50,7 +49,6 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
             FXMLLoader loader = getLoader();
             stage.getScene().setRoot(loader.getRoot());
         } catch (IOException e) {
-            e.printStackTrace();
             AlertController.showStageError("Error while loading the login screen fxml file.", "Process aborted", true);
         }
     }
@@ -88,9 +86,6 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
                 controller.setTextFieldStyle("username", "default");
             }
         } catch (SessionOpeningException e) {
-            System.err.println("Error while opening a session");
-            e.printStackTrace();
-            e.getCause().printStackTrace();
             AlertController.showStageError("Error while opening the session.", "Process aborted", true);
         }
     }

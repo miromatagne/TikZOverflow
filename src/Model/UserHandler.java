@@ -1,9 +1,13 @@
 package Model;
 
-import Model.Exceptions.*;
+import Model.Exceptions.DirectoryCreationException;
+import Model.Exceptions.UserAlreadyExistsException;
 import Model.Exceptions.UserHandler.*;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -47,6 +51,7 @@ public class UserHandler extends FileHandler{
             }
             File file = new File(saveUserDirectory);
             checkAndCreateSaveDirectory(file);
+            setSaveUserDirectory(saveUserDirectory);
         } catch (DirectoryCreationException e) {
             throw new SetupDirectoryException(e);
         }

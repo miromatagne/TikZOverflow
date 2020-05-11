@@ -2,6 +2,10 @@ package Controller;
 
 import Model.Exceptions.*;
 import Model.Exceptions.ProjectHandler.*;
+import Model.Exceptions.ProjectHandler.ProjectCopyException;
+import Model.Exceptions.ProjectHandler.ProjectCreationException;
+import Model.Exceptions.ProjectHandler.ProjectDeletionException;
+import Model.Exceptions.ProjectHandler.ProjectSaveException;
 import Model.Exceptions.UserHandler.SaveUserException;
 import Model.Exceptions.UserHandler.UserFromSaveCreationException;
 import Model.Project;
@@ -158,7 +162,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
                 Session.getInstance().getUser().removeProject(project.getPath());
                 projectHandler.deleteProject(project);
                 controller.removeProjectFromDisplay(projectDisplay);
-            } catch (ProjectDeletionException | SaveUserException | UserFromSaveCreationException e) {
+            } catch (ProjectDeletionException e) {
                 AlertController.showStageError("Failed to delete", String.format("Could not delete %s", project.getTitle()));
             }
         }
@@ -223,11 +227,9 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
             ProjectDisplay projectDisplay = new ProjectDisplay(project);
             controller.addProjectToDisplay(projectDisplay);
         } catch (ProjectCreationException | SaveUserException e) {
-            e.printStackTrace();
-            e.getCause().printStackTrace();
             AlertController.showStageError("Error while creating project : "+title, "Creating failed");
         } catch (ProjectAlreadyExistsException | DirectoryCreationException e) {
-            AlertController.showStageError("Error while creating project : "+title, "A project with this name already exists. Please chose another name.");
+            AlertController.showStageError("Error while creating project : "+title, "A project with this name already exists. Please choose another name.");
         }
         return true;
     }
@@ -243,7 +245,6 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
         try {
             projectHandler.renameProject(currentTreatedProject, title);
         } catch (ProjectRenameException e) {
-            e.printStackTrace();
             AlertController.showStageError("Save error", "Error renaming project");
         }
         controller.refreshProjectTitle(currentTreatedProject, title);
@@ -277,13 +278,13 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
      */
     @Override
     public void shareProject(String collaboratorUsername) {
-        ProjectHandler projectHandler = new ProjectHandler();
         try {
+            ProjectHandler projectHandler = new ProjectHandler();
             projectHandler.shareProject(collaboratorUsername, currentTreatedProject);
             AlertController.showStageInfo("Successful sharing", String.format("Project successfully shared with %s !", collaboratorUsername));
         } catch (UserFromSaveCreationException e) {
             AlertController.showStageError("User not found", String.format("User %s does not exist", collaboratorUsername));
-        } catch (ProjectSaveException | SaveUserException e) {
+        } catch (SaveUserException | ProjectSaveException e) {
             AlertController.showStageError("Error sharing project", "There was an error sharing this project.");
         }
     }
