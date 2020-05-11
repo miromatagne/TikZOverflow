@@ -3,6 +3,13 @@ package Model;
 import Controller.Session;
 import Model.Exceptions.*;
 import Model.Exceptions.ProjectHandler.*;
+import Model.Exceptions.ProjectHandler.LatexWritingException;
+import Model.Exceptions.ProjectHandler.ProjectCopyException;
+import Model.Exceptions.ProjectHandler.ProjectCreationException;
+import Model.Exceptions.ProjectHandler.ProjectDeletionException;
+import Model.Exceptions.ProjectHandler.ProjectFromSaveGenerationException;
+import Model.Exceptions.ProjectHandler.ProjectLoadException;
+import Model.Exceptions.ProjectHandler.ProjectSaveException;
 import Model.Exceptions.UserHandler.SaveUserException;
 import Model.Exceptions.UserHandler.UserFromSaveCreationException;
 
@@ -212,7 +219,7 @@ public class ProjectHandler extends FileHandler {
                 userHandler.saveUser(collaborator);
             }
             saveProjectInfo(project);
-        } catch (ProjectSaveException | SaveUserException | UserFromSaveCreationException e) {
+        } catch (ProjectSaveException | UserFromSaveCreationException | SaveUserException e) {
             project.setTitle(previousTitle);
             project.setPath(previousPath);
             user.removeProject(previousPath);

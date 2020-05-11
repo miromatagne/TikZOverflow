@@ -64,9 +64,12 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             String filePath = Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex";
             String pdfPath = Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".pdf";
             LatexHandler.getInstance().runProcess(filePath, Session.getInstance().getCurrentProject().getPath());
-            createImageFromPDF(pdfPath);
             latexErrorsHandler.errorLogs(Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".log");
             int errorsCount = latexErrorsHandler.getErrorsCounter();
+            System.out.println(errorsCount);
+            if(errorsCount==0){
+                createImageFromPDF(pdfPath);
+            }
             return "Errors (" + errorsCount + ")";
         } catch (LatexCompilationException | LogErrorException | CreationImageFromPDFException e) {
             throw new TikzCompilationException(e);

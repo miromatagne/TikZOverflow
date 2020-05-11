@@ -2,6 +2,11 @@ package Model;
 
 import Model.Exceptions.*;
 import Model.Exceptions.UserHandler.*;
+import Model.Exceptions.UserHandler.SaveUserCreationException;
+import Model.Exceptions.UserHandler.SaveUserException;
+import Model.Exceptions.UserHandler.SaveWritingException;
+import Model.Exceptions.UserHandler.SetupDirectoryException;
+import Model.Exceptions.UserHandler.UserFromSaveCreationException;
 
 import java.io.*;
 import java.util.ArrayList;
