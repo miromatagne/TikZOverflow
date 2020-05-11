@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Project;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 
@@ -23,7 +24,9 @@ public class ProjectDisplay {
         this.project = project;
         this.checkBox = new CheckBox();
         this.renameButton = new Button("Rename");
+        this.renameButton.setAlignment(Pos.CENTER);
         this.shareButton = new Button("Share");
+        this.shareButton.setAlignment(Pos.CENTER);
     }
 
     public String getOwner() {
