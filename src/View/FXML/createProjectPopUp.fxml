@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -19,7 +20,13 @@
       <TextField fx:id="projectNameField" onAction="#onPressBrowseInPopUp" GridPane.columnIndex="1" />
       <Label text="Path" GridPane.rowIndex="1" />
       <TextField fx:id="pathField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Button fx:id="browseButton" mnemonicParsing="false" onAction="#onPressBrowseInPopUp" text="Browse" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <Button fx:id="createButton" mnemonicParsing="false" onAction="#onPressCreateInPopUp" text="Create" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Button fx:id="browseButton" mnemonicParsing="false" onAction="#onPressBrowseInPopUp" text="Browse" GridPane.columnIndex="2" GridPane.rowIndex="1">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="createButton" mnemonicParsing="false" onAction="#onPressCreateInPopUp" text="Create" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
    </children>
 </GridPane>
