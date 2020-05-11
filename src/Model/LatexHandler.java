@@ -19,7 +19,9 @@ public class LatexHandler {
         compiler = new LatexHandler();
     }
 
-    /* Singleton class */
+    /**
+     * Singleton class
+     */
     private LatexHandler() {
 
     }

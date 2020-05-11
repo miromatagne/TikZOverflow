@@ -63,6 +63,7 @@ public class LoginScreenViewController {
      */
     public interface LoginScreenViewControllerListener{
         void onLoginAttempt(String username, String password);
+
         void onAccountCreation();
     }
 }
