@@ -14,8 +14,6 @@ class TestLatexHandler {
         } catch (LatexCompilationException e) {
             /* Exception have to be thrown */
         }
-
-
         filePath = "./test/Model/TestLatexHandler/CompileDirectory/test.tex";
         try {
             LatexHandler.getInstance().runProcess(filePath, "./test/Model/TestLatexHandler/CompileDirectory");
