@@ -2,6 +2,9 @@ package Model;
 
 import Controller.Session;
 import Model.Exceptions.*;
+import Model.Exceptions.ProjectHandler.*;
+import Model.Exceptions.UserHandler.SaveUserException;
+import Model.Exceptions.UserHandler.UserFromSaveCreationException;
 
 import java.io.*;
 import java.text.ParseException;
@@ -105,11 +108,10 @@ public class ProjectHandler extends FileHandler {
             int lastSeparatorPosition = projectToCopy.getPath().lastIndexOf(File.separator);
             String rootProjectPath = projectToCopy.getPath().substring(0,lastSeparatorPosition);
 
-            Project p = createProject(user, rootProjectPath, projectToCopy.getTitle()+firstAvailableIndex);
-            File texFile = new File(p.getPath() + File.separator + p.getTitle() + ".tex");
-            super.writeInFile(texFile,super.readInFile(projectToCopy.getPath() + File.separator + projectToCopy.getTitle() + ".tex"));
-
-            return p;
+            Project project = createProject(user, rootProjectPath, projectToCopy.getTitle()+firstAvailableIndex);
+            File texFile = new File(project.getPath() + File.separator + project.getTitle() + ".tex");
+            writeInFile(texFile,super.readInFile(projectToCopy.getPath() + File.separator + projectToCopy.getTitle() + ".tex"));
+            return project;
         } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException | IOException e) {
             throw new ProjectCopyException(e);
         }

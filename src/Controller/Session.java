@@ -1,10 +1,10 @@
 package Controller;
 
 import Controller.Exceptions.Session.SessionOpeningException;
-import Model.Exceptions.ProjectLoadException;
-import Model.Exceptions.SaveUserCreationException;
-import Model.Exceptions.SetupDirectoryException;
-import Model.Exceptions.UserFromSaveCreationException;
+import Model.Exceptions.ProjectHandler.ProjectLoadException;
+import Model.Exceptions.UserHandler.SaveUserCreationException;
+import Model.Exceptions.UserHandler.SetupDirectoryException;
+import Model.Exceptions.UserHandler.UserFromSaveCreationException;
 import Model.Project;
 import Model.ProjectHandler;
 import Model.User;

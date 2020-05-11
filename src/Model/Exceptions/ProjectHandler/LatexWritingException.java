@@ -1,4 +1,4 @@
-package Model.Exceptions;
+package Model.Exceptions.ProjectHandler;
 
 /**
  * Exception of writing in a .tex file

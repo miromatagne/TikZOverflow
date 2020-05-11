@@ -1,4 +1,4 @@
-package Model.Exceptions;
+package Model.Exceptions.UserHandler;
 
 /**
  * Exception which can happen during a save writing

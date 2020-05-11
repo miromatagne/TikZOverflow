@@ -1,6 +1,7 @@
 package Model;
 
 import Model.Exceptions.*;
+import Model.Exceptions.UserHandler.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -22,19 +23,6 @@ public class UserHandler extends FileHandler{
      */
     public UserHandler() {
         this.saveUserDirectory = DEFAULT_DIRECTORY;
-    }
-    /**
-     * Create a new instance of file handler
-     *
-     * @param saveUserDirectory path of the directory where users will be saved
-     * @throws FileHandlerConstructorException if construction failed
-     */
-    public UserHandler(String saveUserDirectory) throws FileHandlerConstructorException {
-        try {
-            setupSaveUserDirectory(saveUserDirectory);
-        } catch (SetupDirectoryException e) {
-            throw new FileHandlerConstructorException(e);
-        }
     }
 
 

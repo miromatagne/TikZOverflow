@@ -1,4 +1,4 @@
-package Model.Exceptions;
+package Model.Exceptions.UserHandler;
 
 /**
  * Exception which occurs when we try to save a user

@@ -1,6 +1,6 @@
 package Model;
 
-import Model.Exceptions.LatexCompilationException;
+import Model.Exceptions.LatexHandler.LatexCompilationException;
 
 import java.io.*;
 import java.util.Objects;

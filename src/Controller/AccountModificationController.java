@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.Exceptions.SaveUserException;
+import Model.Exceptions.UserHandler.SaveUserException;
 import Model.User;
 import Model.UserHandler;
 import View.ViewControllers.AccountModificationViewController;

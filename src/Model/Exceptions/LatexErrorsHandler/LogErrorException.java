@@ -1,4 +1,4 @@
-package Model.Exceptions;
+package Model.Exceptions.LatexErrorsHandler;
 
 /**
  * Exception of writing the log error of a tex file compilation

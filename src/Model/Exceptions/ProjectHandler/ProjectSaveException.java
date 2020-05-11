@@ -1,4 +1,4 @@
-package Model.Exceptions;
+package Model.Exceptions.ProjectHandler;
 
 
 public class ProjectSaveException extends Exception {

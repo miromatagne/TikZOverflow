@@ -1,4 +1,4 @@
-package Model.Exceptions;
+package Model.Exceptions.UserHandler;
 /**
  * Exception occurs when there is a problem while setting up a directory
  */

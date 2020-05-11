@@ -1,6 +1,9 @@
 package Model;
 
-import Model.Exceptions.*;
+import Model.Exceptions.LatexErrorsHandler.LogErrorException;
+import Model.Exceptions.UserHandler.SaveUserCreationException;
+import Model.Exceptions.UserHandler.SaveUserException;
+import Model.Exceptions.UserHandler.UserFromSaveCreationException;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

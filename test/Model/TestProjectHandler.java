@@ -2,6 +2,10 @@ package Model;
 
 import Controller.Session;
 import Model.Exceptions.*;
+import Model.Exceptions.ProjectHandler.*;
+import Model.Exceptions.UserHandler.SaveUserCreationException;
+import Model.Exceptions.UserHandler.SaveUserException;
+import Model.Exceptions.UserHandler.UserFromSaveCreationException;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;

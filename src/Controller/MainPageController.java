@@ -2,8 +2,8 @@ package Controller;
 
 import Controller.Exceptions.LatexController.GetTextInFileException;
 import Controller.Exceptions.ShapeMenuController.ShapeMenuControllerConstructorException;
-import Model.Exceptions.LatexWritingException;
-import Model.Exceptions.ProjectSaveException;
+import Model.Exceptions.ProjectHandler.LatexWritingException;
+import Model.Exceptions.ProjectHandler.ProjectSaveException;
 import Model.LatexHandler;
 import Model.ProjectHandler;
 import Model.Shapes.Shape;
