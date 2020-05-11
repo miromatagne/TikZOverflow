@@ -83,9 +83,9 @@ système garde trace de toutes les modifications effectuées et les enregistre a
 
 ### Risque Développeurs : 1
 
-### Introduit dans l'itération : 
+### Introduit dans l'itération : 4
 
-### Etat :
+### Etat : Complétée
 
 ### Points :
 Afin de déterminer le nombre de points de cette histoire, le groupe l'a scindée en les tâches suivantes :
@@ -355,9 +355,9 @@ L’utilisateur clique sur un élément graphique avec le bouton principal de la
 
 ### Risque Développeurs : 3
 
-### Introduit dans l'itération : 
+### Introduit dans l'itération : 4
 
-### Etat : 
+### Etat : Complétée
 
 ### Points :
 
