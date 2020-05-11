@@ -25,6 +25,7 @@ public class Project {
      *
      * @param creatorUsername   creator username
      * @param path              path to the project save directory
+     * @param title             title of the project
      */
     public Project( String creatorUsername, String path,String title){
         this(creatorUsername, title, new Date(), new Date(), new ArrayList<>(), path);
@@ -33,10 +34,12 @@ public class Project {
     /**
      * Existing projects constructor (made from a save)
      *
-     * @param creatorUsername   creator username
-     * @param title             project title
-     * @param creationDate              last date of modification
-     * @param collaborators     list of collaborators
+     * @param creatorUsername      creator username
+     * @param title                project title
+     * @param creationDate         last date of modification
+     * @param lastModificationDate date of the last modification
+     * @param collaborators        list of collaborators
+     * @param path                 project path
      */
     public Project(String creatorUsername, String title, Date creationDate, Date lastModificationDate, ArrayList<String> collaborators, String path){
         setCreatorUsername(creatorUsername);

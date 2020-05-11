@@ -1,8 +1,14 @@
 unnamed package
 Controller
-Controller.Exceptions
+Controller.Exceptions.LatexController
+Controller.Exceptions.Session
+Controller.Exceptions.ShapeMenuController
 Model
 Model.Exceptions
+Model.Exceptions.LatexErrorsHandler
+Model.Exceptions.LatexHandler
+Model.Exceptions.ProjectHandler
+Model.Exceptions.UserHandler
 Model.Shapes
 View.ShapeMenu
 View.ShapeMenu.AllShapeMenus

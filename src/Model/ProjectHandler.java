@@ -32,9 +32,13 @@ public class ProjectHandler extends FileHandler {
     /**
      * Create a new project for the user
      *
-     * @param user creator
+     * @param user  creator
+     * @param path  project path
+     * @param title project title
      * @return project created
      * @throws ProjectCreationException if creation failed
+     * @throws DirectoryCreationException if could not create project directory
+     * @throws ProjectAlreadyExistsException if there already is a project with that name
      */
     public Project createProject(User user, String path, String title) throws ProjectCreationException, DirectoryCreationException, ProjectAlreadyExistsException {
         try {
@@ -88,7 +92,7 @@ public class ProjectHandler extends FileHandler {
 
     /**
      * Load a project based on its path
-     *
+     * @param path project path
      * @return corresponding project
      * @throws ProjectLoadException if the load failed
      */

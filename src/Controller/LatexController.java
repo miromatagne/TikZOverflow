@@ -80,6 +80,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      * Creates image from compilation result (PDF).
      *
      * @param pdfPath path to Latex compilation output (PDF format)
+     * @throws CreationImageFromPDFException if there is an error while creating the file
      */
     public void createImageFromPDF(String pdfPath) throws CreationImageFromPDFException {
         try {
@@ -109,6 +110,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      * Save current source code in .tex file
      *
      * @param sourceCode Source code to be saved
+     * @throws SaveTikzException if there is an error when writing to the .tex file
      */
     public void saveTikz(String sourceCode) throws SaveTikzException {
         try {

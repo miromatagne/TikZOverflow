@@ -95,6 +95,7 @@ public class UserHandler extends FileHandler{
      *
      * @param user User to be saved in a text file
      * @throws SaveUserCreationException when the creation of the user save fails
+     * @throws UserAlreadyExistsException if there already is a user with that username
      */
     public void createUserSave(User user) throws SaveUserCreationException, UserAlreadyExistsException {
         try {

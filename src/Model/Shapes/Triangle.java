@@ -13,6 +13,10 @@ public class Triangle extends Node {
         this.y3 = y3;
     }
 
+    /**
+     * Generate TikZ code that creates the shape using the properties
+     * @return generated code
+     */
     @Override
     public String generateAndGetTikzCode() {
         float labelPosX = (Math.min(Math.min(getX1(),getX2()),getX3())+Math.max(Math.max(getX1(),getX2()),getX3()))/2;

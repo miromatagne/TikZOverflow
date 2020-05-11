@@ -16,9 +16,8 @@ import java.util.ResourceBundle;
  */
 public class AccountModificationViewController extends AccountViewController implements Initializable {
 
-    //Attribut
     @FXML
-    private TextField usernameField; // Attribut @FXML link directly to the .fxml corresponding to this controller class
+    private TextField usernameField;
     @FXML
     private TextField firstNameField;
     @FXML

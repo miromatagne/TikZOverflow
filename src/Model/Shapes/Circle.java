@@ -11,6 +11,10 @@ public class Circle extends Node {
         super(xCenter, yCenter);
     }
 
+    /**
+     * Generate TikZ code that creates the shape using the properties
+     * @return generated code
+     */
     @Override
     public String generateAndGetTikzCode() {
         String code = super.generateAndGetTikzCode();

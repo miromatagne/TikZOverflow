@@ -34,10 +34,10 @@ public abstract class Shape {
         this.posY = posY;
     }
 
+
     /**
-     * Generate the TikZCode for the shape needs to be overwritten for each shape
-     *
-     * @return Tikz code
+     * Generate TikZ code that creates the shape using the properties. Has to be overwritten by child classes.
+     * @return generated code
      */
     public abstract String generateAndGetTikzCode();
 

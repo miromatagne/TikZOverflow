@@ -74,6 +74,7 @@ public class LatexHandler {
      * Builds full LaTeX code from shapes-only code.
      *
      * @param shapesOnlyCode shapes-only TikZ code
+     * @param codeToReplace  old save where the shapesOnlyCode is replaced by the new one
      * @return full LaTeX code
      */
     public String buildFullCodeFromShapesOnlyCode(String shapesOnlyCode, String codeToReplace) {

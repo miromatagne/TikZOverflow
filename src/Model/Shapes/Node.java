@@ -16,6 +16,10 @@ public abstract class Node extends Shape {
         this.yCenter = yCenter;
     }
 
+    /**
+     * Generate TikZ code that creates the node using the properties
+     * @return generated code
+     */
     public String generateAndGetTikzCode(){
         //filled form
         String code = "\\filldraw";

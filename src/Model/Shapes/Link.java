@@ -29,6 +29,10 @@ public abstract class Link extends Shape {
         this.yDestination = destination.getPosY();
     }
 
+    /**
+     * Generate TikZ code for the color using the properties
+     * @return generated code
+     */
     public String getColorTikzCode(){
         //Color
 

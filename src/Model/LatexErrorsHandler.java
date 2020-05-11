@@ -81,17 +81,16 @@ public class LatexErrorsHandler extends FileHandler{
      */
     private void addErrors(){
         boolean lineIsError = false;
-        for(int i=0; i<linesLogFile.length; i++) {
-            if(lineIsError){
-                lineIsError = addErrorLine(linesLogFile[i]);
+        for (String s : linesLogFile) {
+            if (lineIsError) {
+                lineIsError = addErrorLine(s);
 
-            }
-            else{
-                if (linesLogFile[i].equals(documentError)) {
+            } else {
+                if (s.equals(documentError)) {
                     ERRORS_COUNTER++;
                     ERRORS += documentError;
-                }else {
-                    lineIsError = catchError(linesLogFile[i]);
+                } else {
+                    lineIsError = catchError(s);
                 }
             }
         }
@@ -100,7 +99,8 @@ public class LatexErrorsHandler extends FileHandler{
     /**
      * this method looks for errors in the .log file
      * @param line          line to check if it is an error message
-     * @return
+     * @return TRUE if the line is an error message
+     *         FALSE otherwise
      */
     private boolean catchError(String line) {
         String[] words = line.split(":");
@@ -135,9 +135,10 @@ public class LatexErrorsHandler extends FileHandler{
     }
 
     /**
-     * add to error a full line from log file
+     * Add a full line from log file to error
      * @param line         the line to add
-     * @return
+     * @return TRUE if the line is an error message
+     *         FALSE otherwise
      */
     private boolean addErrorLine(String line) {
         boolean lineIsError = true;

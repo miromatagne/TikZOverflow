@@ -60,6 +60,17 @@ public class Session {
         return openSessionWithDirectory(username, password, UserHandler.DEFAULT_DIRECTORY);
     }
 
+    /**
+     * Tries to open a new session (log in) with given directory
+     *
+     * @param username      Username of the user
+     * @param password      Password of the user
+     * @param userDirectory directory where the user is saved
+     * @return 0 if successful
+     * -1 if wrong username
+     * -2 if wrong password
+     * @throws SessionOpeningException when there is a problem while getting a user to open his session
+     */
     public int openSessionWithDirectory(String username, String password, String userDirectory ) throws SessionOpeningException {
         try {
             userHandler.setupSaveUserDirectory(userDirectory);
