@@ -133,7 +133,6 @@ public class AccountCreationController extends AccountController implements Acco
      * Interface used to communicate with ScreenHandler.
      */
     public interface AccountCreationControllerListener {
-
         void backToLoginScreenRequest();
 
         void createAccountCreationPopup(String s, boolean b);

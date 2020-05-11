@@ -2,6 +2,7 @@ package View.ViewControllers;
 
 import Controller.*;
 import Model.Shapes.Shape;
+import Model.Shapes.ShapeFactory;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -69,14 +70,6 @@ public class MainPageViewController implements Initializable {
     private int movingShapeID;
     private Shape movingShape;
 
-    final static int RECTANGLE = 0;
-    final static int CIRCLE = 1;
-    final static int LINE = 2;
-    final static int CURVED_LINE = 3;
-    final static int ARROW = 4;
-    final static int TRIANGLE = 5;
-    final static int SQUARE = 6;
-
     PredefinedShapesPanelController predefinedShapesPanelController;
     private boolean rightHandMode = true;
 
@@ -99,7 +92,6 @@ public class MainPageViewController implements Initializable {
      * Updates the text of the code interface area
      */
     public void updateText() {
-        //update of codeInterface a textArea
         if (textSaved == null) {
             textSaved = codeInterfaceListener.getShapesOnlyText();
             currentCodeDisplay = SHAPES_ONLY;
@@ -261,8 +253,9 @@ public class MainPageViewController implements Initializable {
      */
     private void bindImageButton(ImageView imageButton, Button button) {
         //0.6 is an empirical value
-        imageButton.fitWidthProperty().bind(button.widthProperty().multiply(0.6));
-        imageButton.fitHeightProperty().bind(button.heightProperty().multiply(0.6));
+        double scaleFactor = 0.6;
+        imageButton.fitWidthProperty().bind(button.widthProperty().multiply(scaleFactor));
+        imageButton.fitHeightProperty().bind(button.heightProperty().multiply(scaleFactor));
     }
 
     /**
@@ -289,8 +282,8 @@ public class MainPageViewController implements Initializable {
      * @param mouseEvent mouse event  for the drag motion
      */
     public void circleDragged(MouseEvent mouseEvent) {
-        movingShape = predefinedShapesPanelController.createShape(CIRCLE);
-        movingShapeID = CIRCLE;
+        movingShape = predefinedShapesPanelController.createShape(ShapeFactory.CIRCLE);
+        movingShapeID = ShapeFactory.CIRCLE;
         createDragAndDrop(mouseEvent, buttonCircle);
     }
 
@@ -301,8 +294,8 @@ public class MainPageViewController implements Initializable {
      * @param mouseEvent mouse event  for the drag motion
      */
     public void rectangleDragged(MouseEvent mouseEvent) {
-        movingShape = predefinedShapesPanelController.createShape(RECTANGLE);
-        movingShapeID = RECTANGLE;
+        movingShape = predefinedShapesPanelController.createShape(ShapeFactory.RECTANGLE);
+        movingShapeID = ShapeFactory.RECTANGLE;
         createDragAndDrop(mouseEvent, buttonRectangle);
     }
 
@@ -313,8 +306,8 @@ public class MainPageViewController implements Initializable {
      * @param mouseEvent mouse event  for the drag motion
      */
     public void lineDragged(MouseEvent mouseEvent) {
-        movingShape = predefinedShapesPanelController.createShape(LINE);
-        movingShapeID = LINE;
+        movingShape = predefinedShapesPanelController.createShape(ShapeFactory.LINE);
+        movingShapeID = ShapeFactory.LINE;
         createDragAndDrop(mouseEvent, buttonLine);
     }
 
@@ -325,8 +318,8 @@ public class MainPageViewController implements Initializable {
      * @param mouseEvent mouse event  for the drag motion
      */
     public void curvedLineDragged(MouseEvent mouseEvent) {
-        movingShape = predefinedShapesPanelController.createShape(CURVED_LINE);
-        movingShapeID = CURVED_LINE;
+        movingShape = predefinedShapesPanelController.createShape(ShapeFactory.CURVED_LINE);
+        movingShapeID = ShapeFactory.CURVED_LINE;
         createDragAndDrop(mouseEvent, buttonCurvedLine);
     }
 
@@ -337,8 +330,8 @@ public class MainPageViewController implements Initializable {
      * @param mouseEvent mouse event  for the drag motion
      */
     public void arrowDragged(MouseEvent mouseEvent) {
-        movingShape = predefinedShapesPanelController.createShape(ARROW);
-        movingShapeID = ARROW;
+        movingShape = predefinedShapesPanelController.createShape(ShapeFactory.ARROW);
+        movingShapeID = ShapeFactory.ARROW;
         createDragAndDrop(mouseEvent, buttonArrow);
     }
 
@@ -349,8 +342,8 @@ public class MainPageViewController implements Initializable {
      * @param mouseEvent mouse event  for the drag motion
      */
     public void squareDragged(MouseEvent mouseEvent) {
-        movingShape = predefinedShapesPanelController.createShape(SQUARE);
-        movingShapeID = SQUARE;
+        movingShape = predefinedShapesPanelController.createShape(ShapeFactory.SQUARE);
+        movingShapeID = ShapeFactory.SQUARE;
         createDragAndDrop(mouseEvent, buttonSquare);
     }
 
@@ -361,8 +354,8 @@ public class MainPageViewController implements Initializable {
      * @param mouseEvent mouse event  for the drag motion
      */
     public void triangleDragged(MouseEvent mouseEvent) {
-        movingShape = predefinedShapesPanelController.createShape(TRIANGLE);
-        movingShapeID = TRIANGLE;
+        movingShape = predefinedShapesPanelController.createShape(ShapeFactory.TRIANGLE);
+        movingShapeID = ShapeFactory.TRIANGLE;
         createDragAndDrop(mouseEvent, buttonTriangle);
     }
 
@@ -398,7 +391,7 @@ public class MainPageViewController implements Initializable {
         if (movingShape != null) {
             listener.onReleaseShape(x, y, movingShape);
         }
-        compile();
+        compile(); //compile direct after a drop
 
     }
 
@@ -406,19 +399,19 @@ public class MainPageViewController implements Initializable {
      * This method create an image of the dragged shape if the mouse enters the PDF area
      */
     public void handleDragEntered() {
-        if (movingShapeID == CIRCLE) {
+        if (movingShapeID == ShapeFactory.CIRCLE) {
             createMovingImage("defaultCircle.png");
-        } else if (movingShapeID == RECTANGLE) {
+        } else if (movingShapeID == ShapeFactory.RECTANGLE) {
             createMovingImage("defaultRectangle.png");
-        } else if (movingShapeID == LINE) {
+        } else if (movingShapeID == ShapeFactory.LINE) {
             createMovingImage("defaultLine.png");
-        } else if (movingShapeID == CURVED_LINE) {
+        } else if (movingShapeID == ShapeFactory.CURVED_LINE) {
             createMovingImage("defaultCurvedLine.png");
-        } else if (movingShapeID == ARROW) {
+        } else if (movingShapeID == ShapeFactory.ARROW) {
             createMovingImage("defaultArrow.png");
-        } else if (movingShapeID == SQUARE) {
+        } else if (movingShapeID == ShapeFactory.SQUARE) {
             createMovingImage("defaultSquare.png");
-        } else if (movingShapeID == TRIANGLE) {
+        } else if (movingShapeID == ShapeFactory.TRIANGLE) {
             createMovingImage("defaultTriangle.png");
         }
     }
@@ -436,7 +429,7 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * This method shows the accessible zone for the drop
+     * This method shows to the user the accessible zone for the drop
      *
      * @param event drag event
      */
@@ -450,8 +443,8 @@ public class MainPageViewController implements Initializable {
 
     /**
      * Open a pop-up asking if the user wants to the save the project before quiting
-     * @param backToProject if TRUE, goes back to project selection screen
-     *                      if False, quits the application
+     * @param backToProject if true: goes back to project selection screen
+     *                      if false: quits the application
      */
     public void saveSuggestionPopup(boolean backToProject) {
         Stage popupStage = new Stage();
@@ -535,7 +528,7 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * change mode to left-handed or right-handed with the corresponding button
+     * change mode to left-handed or right-handed when clicking the button
      */
     public void changeMode() {
         if(rightHandMode){

@@ -11,13 +11,13 @@ import java.util.ArrayList;
 public class ShapeFactory {
 
 
-    final static int RECTANGLE = 0;
-    final static int CIRCLE = 1;
-    final static int LINE = 2;
-    final static int CURVED_LINE = 3;
-    final static int ARROW = 4;
-    final static int TRIANGLE = 5;
-    final static int SQUARE = 6;
+    public final static int RECTANGLE = 0;
+    public final static int CIRCLE = 1;
+    public final static int LINE = 2;
+    public final static int CURVED_LINE = 3;
+    public final static int ARROW = 4;
+    public final static int TRIANGLE = 5;
+    public final static int SQUARE = 6;
 
     /**
      * Get an instance of a shape based on information given in parameters
@@ -32,46 +32,46 @@ public class ShapeFactory {
         Shape instance = null;
         switch (id) {
             case RECTANGLE:
-                Rectangle r = new Rectangle(data.get(0), data.get(1));
-                r.setHeight(data.get(2));
-                r.setWidth(data.get(3));
-                r.setOutlineThickness(data.get(4));
-                r.setColor(color);
-                r.setLabel(label);
-                instance = r;
+                Rectangle rectangle = new Rectangle(data.get(0), data.get(1));
+                rectangle.setHeight(data.get(2));
+                rectangle.setWidth(data.get(3));
+                rectangle.setOutlineThickness(data.get(4));
+                rectangle.setColor(color);
+                rectangle.setLabel(label);
+                instance = rectangle;
                 break;
             case CIRCLE:
-                Circle c = new Circle(data.get(0), data.get(1));
-                c.setRadius(data.get(2));
-                c.setOutlineThickness(data.get(3));
-                c.setColor(color);
-                c.setLabel(label);
-                instance = c;
+                Circle circle = new Circle(data.get(0), data.get(1));
+                circle.setRadius(data.get(2));
+                circle.setOutlineThickness(data.get(3));
+                circle.setColor(color);
+                circle.setLabel(label);
+                instance = circle;
                 break;
             case LINE:
-                Line l = new Line(data.get(0), data.get(1), data.get(2), data.get(3));
-                l.setStrokeWidth(data.get(4));
-                l.setColor(color);
-                l.setLabel(label);
-                instance = l;
+                Line line = new Line(data.get(0), data.get(1), data.get(2), data.get(3));
+                line.setStrokeWidth(data.get(4));
+                line.setColor(color);
+                line.setLabel(label);
+                instance = line;
                 break;
             case CURVED_LINE:
-                CurvedLine cl = new CurvedLine(data.get(0), data.get(1), data.get(2), data.get(3));
-                cl.setStrokeWidth(data.get(4));
-                cl.setCurveOutAngle(data.get(5));
-                cl.setCurveInAngle(data.get(6));
-                cl.setColor(color);
-                cl.setLabel(label);
-                instance = cl;
+                CurvedLine curvedLine = new CurvedLine(data.get(0), data.get(1), data.get(2), data.get(3));
+                curvedLine.setStrokeWidth(data.get(4));
+                curvedLine.setCurveOutAngle(data.get(5));
+                curvedLine.setCurveInAngle(data.get(6));
+                curvedLine.setColor(color);
+                curvedLine.setLabel(label);
+                instance = curvedLine;
                 break;
             case ARROW:
-                Arrow a = new Arrow(data.get(0), data.get(1), data.get(2), data.get(3));
-                a.setStrokeWidth(data.get(4));
-                a.setArrowHeadLength(data.get(5));
-                a.setArrowHeadWidth(data.get(6));
-                a.setColor(color);
-                a.setLabel(label);
-                instance = a;
+                Arrow arrow = new Arrow(data.get(0), data.get(1), data.get(2), data.get(3));
+                arrow.setStrokeWidth(data.get(4));
+                arrow.setArrowHeadLength(data.get(5));
+                arrow.setArrowHeadWidth(data.get(6));
+                arrow.setColor(color);
+                arrow.setLabel(label);
+                instance = arrow;
                 break;
             case SQUARE:
                 Rectangle square = new Rectangle(data.get(0), data.get(1));
@@ -83,11 +83,11 @@ public class ShapeFactory {
                 instance = square;
                 break;
             case TRIANGLE:
-                Triangle t = new Triangle(data.get(0), data.get(1), data.get(2), data.get(3), data.get(4), data.get(5));
-                t.setOutlineThickness(data.get(6));
-                t.setColor(color);
-                t.setLabel(label);
-                instance = t;
+                Triangle triangle = new Triangle(data.get(0), data.get(1), data.get(2), data.get(3), data.get(4), data.get(5));
+                triangle.setOutlineThickness(data.get(6));
+                triangle.setColor(color);
+                triangle.setLabel(label);
+                instance = triangle;
         }
         return instance;
     }

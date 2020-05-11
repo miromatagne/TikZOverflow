@@ -61,7 +61,6 @@ public class ScreenHandler extends Application implements LoginScreenController.
      * @param message message to display to user
      * @param success defines if account creation was successful or not
      */
-
     @Override
     public void createAccountCreationPopup(String message, boolean success) {
         Stage popupStage = new Stage();
@@ -83,6 +82,33 @@ public class ScreenHandler extends Application implements LoginScreenController.
             if (success) {
                 showLoginScreen();
             }
+        });
+        vBox.getChildren().add(button);
+        Scene scene = new Scene(vBox, width, 75);
+        popupStage.setScene(scene);
+        popupStage.show();
+    }
+
+    /**
+     * Creates a popup stage when a successful account modification has been made to inform user.
+     */
+    @Override
+    public void createAccountModificationPopup() {
+        Stage popupStage = new Stage();
+        popupStage.setTitle("Account modification");
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(10);
+        vBox.getChildren().add(new Label("Account successfully modified !"));
+        int width = 300;
+        Button button = new Button("OK");
+        button.setOnMouseClicked(e -> {
+            popupStage.close();
+            onModificationDone();
+        });
+        popupStage.setOnCloseRequest(e -> {
+            onModificationDone();
         });
         vBox.getChildren().add(button);
         Scene scene = new Scene(vBox, width, 75);
@@ -149,17 +175,12 @@ public class ScreenHandler extends Application implements LoginScreenController.
         accountModificationController.show();
     }
 
-
     /**
      * Notification from the main page modification button
      */
     @Override
-    public void onModificationDone() {
-        goToProjectScreen();
-    }
+    public void onModificationDone() { goToProjectScreen(); }
 
     @Override
-    public void goBackToProjectScreen() {
-        goToProjectScreen();
-    }
+    public void goBackToProjectScreen() { goToProjectScreen(); }
 }
