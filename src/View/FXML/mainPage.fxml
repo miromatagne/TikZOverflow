@@ -6,6 +6,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -17,175 +18,251 @@
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="30.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="NEVER" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="34.0" minHeight="3.0" prefHeight="32.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" valignment="TOP" vgrow="NEVER" />
+        <RowConstraints minHeight="10.0" percentHeight="90.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="34.0" minHeight="3.0" percentHeight="5.0" prefHeight="32.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <HBox prefHeight="200.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-        <children>
-            <Button fx:id="compileButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#compile" style="-fx-background-color: white; -fx-focus-traversable: false; -fx-border-insets: 0;" text="Compile" textAlignment="CENTER">
-                <font>
-                    <Font name="System Bold" size="12.0" />
-                </font>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor>
-            </Button>
-            <Button fx:id="errorsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#showErrors" style="-fx-background-color: white; -fx-focus-traversable: false; -fx-border-insets: 0;" text="Errors (0)" textAlignment="CENTER">
-                <font>
-                    <Font name="System Bold" size="12.0" />
-                </font>
-                <HBox.margin>
-                    <Insets />
-                </HBox.margin>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor>
-            </Button>
-            <Button fx:id="fullCodeButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchCodeDisplay" style="-fx-background-color: white; -fx-focus-traversable: false; -fx-border-insets: 0;" text="Display full code" textAlignment="CENTER">
-                <font>
-                    <Font name="System Bold" size="12.0" />
-                </font>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor>
-            </Button>
-        </children>
+        <Button fx:id="compileButton" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false"
+                maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                onAction="#compile" style="-fx-background-color: #b4b4b4; -fx-text-fill: white; -fx-border-radius: 3;"
+                text="Compile" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        <HBox.margin>
+            <Insets bottom="5.0" left="1.0" right="1.0" top="5.0"/>
+        </HBox.margin>
+        </Button>
+        <Button fx:id="errorsButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
+                maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showErrors"
+                style="-fx-background-color: #b4b4b4; -fx-text-fill: white; -fx-border-radius: 3;" text="Errors (0)"
+                textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+            <HBox.margin>
+                <Insets bottom="5.0" left="1.0" right="1.0" top="5.0"/>
+            </HBox.margin>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        </Button>
+        <Button fx:id="fullCodeButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
+                maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#switchCodeDisplay"
+                style="-fx-background-color: #b4b4b4; -fx-text-fill: white; -fx-border-radius: 3;"
+                text="Display full code" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        <HBox.margin>
+            <Insets bottom="5.0" left="1.0" right="1.0" top="5.0"/>
+        </HBox.margin>
+        </Button>
     </HBox>
     <TextArea fx:id="codeInterface" prefHeight="397.0" prefWidth="200.0" style="-fx-border-color: #3A3A3A; -fx-border-insets: 0,0,0,0; -fx-focus-traversable: false; -fx-border-width: 2; -fx-background-color: transparent; -fx-text-fill: white; -fx-highlight-fill: blue; -fx-highlight-text-fill: white; -fx-control-inner-background: #404040; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;" GridPane.columnIndex="2" GridPane.rowIndex="1">
         <font>
             <Font name="Consolas" size="18.0" />
         </font>
     </TextArea>
-    <HBox prefHeight="200.0" prefWidth="200.0">
-        <Button mnemonicParsing="false" onAction="#backToProjectsButtonAction" style="-fx-background-color: white; -fx-border-insets: 0; -fx-focus-traversable: false;" text="Back to projects">
+    <GridPane alignment="TOP_CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+        </rowConstraints>
+        <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                mnemonicParsing="false" onAction="#backToProjectsButtonAction"
+                style="-fx-background-color: #b4b4b4; -fx-text-fill: white; -fx-border-radius: 3;" text="My Projects"
+                GridPane.halignment="CENTER" GridPane.valignment="CENTER">
             <font>
-                <Font name="System Bold" size="12.0" />
+                <Font name="System Bold" size="12.0"/>
             </font>
          <cursor>
-            <Cursor fx:constant="HAND" />
+             <Cursor fx:constant="HAND"/>
          </cursor>
+         <GridPane.margin>
+             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+         </GridPane.margin>
         </Button>
-      <Button fx:id="changeModeButton" alignment="CENTER" mnemonicParsing="false" onAction="#changeMode" style="-fx-background-color: white; -fx-border-insets: 0; -fx-focus-traversable: false;" text="Right-handed">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-    </HBox>
-    <Button fx:id="addShapeButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="250.0" mnemonicParsing="false" onAction="#addShapeMenu" prefWidth="200.0" style="-fx-background-color: white; -fx-focus-traversable: false; -fx-border-insets: 0;" text="+" GridPane.columnIndex="0" GridPane.rowIndex="2">
+        <Button fx:id="changeModeButton" alignment="CENTER" maxHeight="1.7976931348623157E308"
+                maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeMode"
+                style="-fx-background-color: #b4b4b4; -fx-text-fill: white; -fx-border-radius: 3;" text="Right-handed"
+                GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+           <font>
+               <Font name="System Bold" size="12.0"/>
+           </font>
+           <cursor>
+               <Cursor fx:constant="HAND"/>
+           </cursor>
+           <GridPane.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+           </GridPane.margin>
+        </Button>
+    </GridPane>
+    <Button fx:id="addShapeButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addShapeMenu" style="-fx-background-color: #b4b4b4; -fx-text-fill: white; -fx-border-radius: 3;" text="New custom shape" GridPane.columnIndex="0" GridPane.rowIndex="2">
         <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="System Bold" size="18.0" />
         </font>
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
+      <GridPane.margin>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </GridPane.margin>
     </Button>
     <ScrollPane fx:id="imageScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutX="10.0" layoutY="40.0" maxWidth="1.7976931348623157E308" onDragDropped="#handleDragDropped" onDragEntered="#handleDragEntered" onDragExited="#handleDragExited" onDragOver="#handleDragOver" style="-fx-control-inner-background: transparent; -fx-background: #404040; -fx-border-color: #3A3A3A; -fx-focus-traversable: false; -fx-background-color: transparent; -fx-border-width: 2;" vbarPolicy="NEVER" GridPane.columnIndex="1" GridPane.hgrow="NEVER" GridPane.rowSpan="3">
         <content>
             <ImageView fx:id="renderedImageView" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" />
         </content>
     </ScrollPane>
-    <GridPane fx:id="buttonsContainer" focusTraversable="true" hgap="2.0" maxWidth="250.0" minWidth="10.0" prefWidth="218.0" vgap="2.0" GridPane.rowIndex="1">
+    <GridPane fx:id="buttonsContainer" focusTraversable="true" hgap="2.0" maxWidth="250.0" minWidth="10.0"
+              prefHeight="332.0" prefWidth="135.0" vgap="2.0" GridPane.rowIndex="1">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0"/>
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" percentHeight="25.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" percentHeight="25.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES"/>
         </rowConstraints>
-        <children>
-            <Button fx:id="buttonCircle" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#circleDragged" prefHeight="51.0" prefWidth="47.0">
-                <graphic>
-                    <ImageView fx:id="imageCircle" fitHeight="62.0" fitWidth="57.0" preserveRatio="true" smooth="true">
-                        <image>
-                            <Image url="@/defaultCircle.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor></Button>
-            <Button fx:id="buttonRectangle" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#rectangleDragged" prefHeight="42.0" prefWidth="64.0" GridPane.rowIndex="1">
-                <graphic>
-                    <ImageView fx:id="imageRectangle" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
-                        <image>
-                            <Image url="@/defaultRectangle.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor>
-            </Button>
-            <Button fx:id="buttonTriangle" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#triangleDragged" prefHeight="43.0" prefWidth="57.0" GridPane.rowIndex="2">
-                <graphic>
-                    <ImageView fx:id="imageTriangle" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
-                        <image>
-                            <Image url="@/defaultTriangle.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor>
-            </Button>
-            <Button fx:id="buttonLine" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#lineDragged" prefHeight="44.0" prefWidth="58.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                <graphic>
-                    <ImageView fx:id="imageLine" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
-                        <image>
-                            <Image url="@/defaultLine.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor>
-            </Button>
-            <Button fx:id="buttonArrow" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#arrowDragged" prefHeight="45.0" prefWidth="54.0" GridPane.columnIndex="1">
-                <graphic>
-                    <ImageView fx:id="imageArrow" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
-                        <image>
-                            <Image url="@/defaultArrow.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor>
-            </Button>
-            <Button fx:id="buttonCurvedLine" layoutX="78.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#curvedLineDragged" prefHeight="45.0" prefWidth="54.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                <graphic>
-                    <ImageView fx:id="imageCurvedLine" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
-                        <image>
-                            <Image url="@/defaultCurvedLine.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor>
-            </Button>
-            <Button fx:id="buttonSquare" layoutX="78.0" layoutY="128.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#squareDragged" prefHeight="45.0" prefWidth="54.0" GridPane.rowIndex="3">
-                <graphic>
-                    <ImageView fx:id="imageSquare" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
-                        <image>
-                            <Image url="@/defaultSquare.png" />
-                        </image></ImageView>
-                </graphic>
-                <cursor>
-                    <Cursor fx:constant="HAND" />
-                </cursor>
-            </Button>
-        </children>
         <GridPane.margin>
-            <Insets />
+            <Insets/>
         </GridPane.margin>
+        <Button fx:id="buttonCircle" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308"
+                maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
+                onDragDetected="#circleDragged" prefHeight="51.0" prefWidth="47.0">
+            <graphic>
+                <ImageView fx:id="imageCircle" fitHeight="62.0" fitWidth="57.0" preserveRatio="true" smooth="true">
+                    <image>
+                        <Image url="@/defaultCircle.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        <effect>
+            <Glow/>
+        </effect>
+        </Button>
+        <Button fx:id="buttonRectangle" alignment="CENTER" layoutX="10.0" layoutY="10.0"
+                maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+                minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#rectangleDragged" prefHeight="42.0"
+                prefWidth="64.0" GridPane.rowIndex="1">
+            <graphic>
+                <ImageView fx:id="imageRectangle" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
+                    <image>
+                        <Image url="@/defaultRectangle.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        <effect>
+            <Glow/>
+        </effect>
+        </Button>
+        <Button fx:id="buttonTriangle" alignment="CENTER" layoutX="10.0" layoutY="10.0"
+                maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+                minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#triangleDragged" prefHeight="43.0"
+                prefWidth="57.0" GridPane.rowIndex="2">
+            <graphic>
+                <ImageView fx:id="imageTriangle" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
+                    <image>
+                        <Image url="@/defaultTriangle.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        <effect>
+            <Glow/>
+        </effect>
+        </Button>
+        <Button fx:id="buttonLine" alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308"
+                maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
+                onDragDetected="#lineDragged" prefHeight="44.0" prefWidth="58.0" GridPane.columnIndex="1"
+                GridPane.rowIndex="1">
+            <graphic>
+                <ImageView fx:id="imageLine" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
+                    <image>
+                        <Image url="@/defaultLine.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        <effect>
+            <Glow/>
+        </effect>
+        </Button>
+        <Button fx:id="buttonArrow" alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308"
+                maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false"
+                onDragDetected="#arrowDragged" prefHeight="45.0" prefWidth="54.0" GridPane.columnIndex="1">
+            <graphic>
+                <ImageView fx:id="imageArrow" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
+                    <image>
+                        <Image url="@/defaultArrow.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        <effect>
+            <Glow/>
+        </effect>
+        </Button>
+        <Button fx:id="buttonCurvedLine" alignment="CENTER" layoutX="78.0" layoutY="10.0"
+                maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+                minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#curvedLineDragged" prefHeight="45.0"
+                prefWidth="54.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <graphic>
+                <ImageView fx:id="imageCurvedLine" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
+                    <image>
+                        <Image url="@/defaultCurvedLine.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        <effect>
+            <Glow/>
+        </effect>
+        </Button>
+        <Button fx:id="buttonSquare" alignment="CENTER" layoutX="78.0" layoutY="128.0"
+                maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+                minWidth="-Infinity" mnemonicParsing="false" onDragDetected="#squareDragged" prefHeight="45.0"
+                prefWidth="54.0" GridPane.rowIndex="3">
+            <graphic>
+                <ImageView fx:id="imageSquare" fitHeight="71.0" fitWidth="51.0" preserveRatio="true" smooth="true">
+                    <image>
+                        <Image url="@/defaultSquare.png"/>
+                    </image>
+                </ImageView>
+            </graphic>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor>
+        <effect>
+            <Glow/>
+        </effect>
+        </Button>
     </GridPane>
     <Text fx:id="codeTitle" fill="white" strokeWidth="0.0" text="Shapes-only code" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
         <font>
