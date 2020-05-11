@@ -1,5 +1,6 @@
 package Controller;
 
+import Controller.Exceptions.CreationImageFromPDFException;
 import Controller.Exceptions.GetTextInFileException;
 import Controller.Exceptions.TikzCompilationException;
 import Model.Exceptions.LatexCompilationException;
@@ -69,7 +70,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             latexErrorsHandler.errorLogs(Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".log");
             int errorsCount = latexErrorsHandler.getErrorsCounter();
             return "Errors (" + errorsCount + ")";
-        } catch (LatexCompilationException | LogErrorException e) {
+        } catch (LatexCompilationException | LogErrorException | CreationImageFromPDFException e) {
             throw new TikzCompilationException(e);
         }
     }
@@ -79,15 +80,14 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      *
      * @param pdfPath path to Latex compilation output (PDF format)
      */
-    public void createImageFromPDF(String pdfPath) {
+    public void createImageFromPDF(String pdfPath) throws CreationImageFromPDFException {
         try {
             PDFHandler pdfHandler = new PDFHandler(pdfPath);
             pdfHandler.convertPdfToImageOnDisk();
             String imagePath = pdfPath.replace(".pdf", ".jpg");
             createImage(imagePath);
         } catch (IOException e) {
-            System.err.println("Error converting " + pdfPath + " to image");
-            e.printStackTrace();
+            throw new CreationImageFromPDFException(e);
         }
     }
 
