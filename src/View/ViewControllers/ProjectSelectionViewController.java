@@ -3,10 +3,12 @@ package View.ViewControllers;
 import Controller.ProjectDisplay;
 import Controller.Session;
 import Model.Project;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
@@ -78,6 +80,7 @@ public class ProjectSelectionViewController implements Initializable {
                 listener.goToMainPage(project);
             }
         });
+
     }
 
     /**

@@ -35,8 +35,7 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
             FXMLLoader loader = getLoader();
             stage.setScene(new Scene(loader.getRoot()));
             stage.show();
-        } catch (Exception e) {
-            System.out.println("Error loading /View/FXML/loginScreen.fxml");
+        } catch (IOException e) {
             e.printStackTrace();
             AlertController.showStageError("Error while loading the login screen fxml file.", "Process aborted", true);
         }
@@ -51,7 +50,6 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
             FXMLLoader loader = getLoader();
             stage.getScene().setRoot(loader.getRoot());
         } catch (IOException e) {
-            System.err.println("Error loading /View/FXML/loginScreen.fxml");
             e.printStackTrace();
             AlertController.showStageError("Error while loading the login screen fxml file.", "Process aborted", true);
         }

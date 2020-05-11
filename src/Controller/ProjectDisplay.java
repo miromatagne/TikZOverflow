@@ -79,4 +79,8 @@ public class ProjectDisplay {
     public void setTitle(String title) {
         this.title.set(title);
     }
+
+    public SimpleStringProperty getSimpleStringPropertyTitle() {
+        return title;
+    }
 }

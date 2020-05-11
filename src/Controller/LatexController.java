@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -64,7 +65,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
             System.out.println(filePath);
             String pdfPath = Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".pdf";
             LatexHandler.getInstance().runProcess(filePath, Session.getInstance().getCurrentProject().getPath());
-            createImage(pdfPath);
+            createImageFromPDF(pdfPath);
             latexErrorsHandler.errorLogs(Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".log");
             int errorsCount = latexErrorsHandler.getErrorsCounter();
             return "Errors (" + errorsCount + ")";
@@ -78,21 +79,28 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      *
      * @param pdfPath path to Latex compilation output (PDF format)
      */
-    public void createImage(String pdfPath) {
-        PDFHandler pdfHandler = new PDFHandler(pdfPath);
+    public void createImageFromPDF(String pdfPath) {
         try {
+            PDFHandler pdfHandler = new PDFHandler(pdfPath);
             pdfHandler.convertPdfToImageOnDisk();
-        } catch (Exception e) {
+            String imagePath = pdfPath.replace(".pdf", ".jpg");
+            createImage(imagePath);
+        } catch (IOException e) {
             System.err.println("Error converting " + pdfPath + " to image");
             e.printStackTrace();
         }
-        String imagePath = pdfPath.replace(".pdf", ".jpg");
+    }
+
+    /**
+     * Create a image and set it in the main page
+     *
+     * @param imagePath     Path to image
+     * @throws IOException  If IO error occurs
+     */
+    private void createImage(String imagePath) throws IOException {
         try (FileInputStream fileInputStream = new FileInputStream(imagePath)){
             Image renderedImage = new Image(fileInputStream);
             mainPageViewController.renderImage(renderedImage);
-        } catch (IOException e) {
-            System.err.println("Image file not found");
-            e.printStackTrace();
         }
     }
 
