@@ -1,4 +1,5 @@
 package Model;
+import Model.Exceptions.LatexCompilationException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,19 +8,23 @@ class TestLatexHandler {
     @Test
     void compile() {
         //Send to the compilerLatex the latex file
-        String filePath = "./Latex/test_latex.t"; // Test typo
+        String filePath = "./test/Model/TestLatexHandler/CompileDirectory/test.t"; // Test typo
         try {
-            LatexHandler.getInstance().runProcess(filePath, "./Latex/out");
+            LatexHandler.getInstance().runProcess(filePath, "./test/Model/TestLatexHandler/CompileDirectory");
             fail("Exception not thrown"); // Error
+        } catch (LatexCompilationException e) {
+            /* Exception have to be thrown */
         }
-        catch (Exception e){/*Where it needs to be*/}
 
 
-        filePath = "./Latex/test_latex.tex";
+        filePath = "./test/Model/TestLatexHandler/CompileDirectory/test.tex";
         try {
-            LatexHandler.getInstance().runProcess(filePath, "./Latex/out");
+            LatexHandler.getInstance().runProcess(filePath, "./test/Model/TestLatexHandler/CompileDirectory");
+        } catch (LatexCompilationException e){
+            System.err.println("Error in compilation");
+            e.printStackTrace();
+            fail("Exception thrown");
         }
-        catch(Exception e){System.err.println("Error in compilation"); e.printStackTrace(); fail("Exception thrown");}
     }
 
     @Test
