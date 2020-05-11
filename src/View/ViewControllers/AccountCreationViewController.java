@@ -46,35 +46,12 @@ public class AccountCreationViewController extends AccountViewController {
         listener.showTermsAndConditions();
     }
 
-    /**
-     * Changes cursor to hand when users hovers over terms and conditions text.
-     */
-    public void termsAndConditionsHand() {
-        changeCursorToHand(termsAndConditionsText);
-    }
-
 
     /**
      * Brings the user back to login screen.
      */
     public void backToLoginScreen() {
         listener.backToLoginScreen();
-    }
-
-    /**
-     * Changes cursor to hand when user hovers over back to login text.
-     */
-    public void backToLoginTextHand() {
-        changeCursorToHand(backToLoginText);
-    }
-
-    /**
-     * Changes cursor to hand.
-     *
-     * @param text when given text is hovered, cursor changes to hand.
-     */
-    private void changeCursorToHand(Text text) {
-        text.setCursor(Cursor.HAND);
     }
 
     public void setListener(AccountCreationViewControllerListener listener) {
