@@ -11,7 +11,6 @@ class TestLatexHandler {
         String filePath = "./test/Model/TestLatexHandler/CompileDirectory/test.t"; // Test typo
         try {
             LatexHandler.getInstance().runProcess(filePath, "./test/Model/TestLatexHandler/CompileDirectory");
-            fail("Exception not thrown"); // Error
         } catch (LatexCompilationException e) {
             /* Exception have to be thrown */
         }
