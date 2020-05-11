@@ -27,7 +27,12 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     private LatexController latexController;
     private Parent root;
 
-
+    /**
+     * Constructor.
+     *
+     * @param stage    stage this screen needs to be in.
+     * @param listener listener used to communicate with ScreenHandler
+     */
     public MainPageController(Stage stage, MainPageControllerListener listener) {
         this.stage = stage;
         this.listener = listener;
@@ -73,7 +78,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     }
 
     /**
-     * return on the screen with all the user's project
+     * Return on the screen with all the user's project
      */
     @Override
     public void goBackToProjectScreen() {
@@ -83,7 +88,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     }
 
     /**
-     * save the project without compiling it
+     * Save the project without compiling it
      * @param code  the text from code interface to save
      */
     @Override
@@ -104,7 +109,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     }
 
     /**
-     * close the program
+     * Close the program
      */
     @Override
     public void closeStage() {
@@ -175,7 +180,6 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         return posYTikz;
     }
 
-
     /**
      * Adds shape code to the coding interface according to the shape received as a parameter
      *
@@ -192,12 +196,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         return root;
     }
 
-
-
-
-
     public interface MainPageControllerListener {
         void goBackToProjectScreen();
-
     }
 }

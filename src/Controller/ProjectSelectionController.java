@@ -42,6 +42,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
         this.stage = stage;
         this.listener = listener;
     }
+
     /**
      * Opens this scene coming from another one.
      */

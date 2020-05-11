@@ -17,8 +17,6 @@ public class FileHandler {
     public void writeInFile(File file, String text) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))){
             bw.write(text);
-        } catch (IOException e){
-            throw e;
         }
     }
 
@@ -38,12 +36,14 @@ public class FileHandler {
             }
 
             return builder.toString();
-        } catch (IOException e){
-            throw e;
         }
-
     }
 
+    /**
+     * Deletes a directory recursively (deletes all its content and then the directory itself)
+     * @param file directory to be deleted
+     * @throws IOException exception in the process of deletion
+     */
     public void deleteDirectory(File file) throws IOException {
         if (file.isDirectory()) {
             File[] entries = file.listFiles();

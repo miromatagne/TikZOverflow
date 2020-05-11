@@ -127,6 +127,7 @@ public class AccountModificationController extends AccountController implements 
      */
     public interface AccountModificationControllerListener {
         void createAccountModificationPopup();
+
         void onModificationDone();
     }
 }

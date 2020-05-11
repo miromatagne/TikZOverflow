@@ -31,7 +31,6 @@ public class UserHandler extends FileHandler{
      */
     public UserHandler(String saveUserDirectory) throws FileHandlerConstructorException {
         try {
-            setSaveUserDirectory(saveUserDirectory);
             setupSaveUserDirectory(saveUserDirectory);
         } catch (SetupDirectoryException e) {
             throw new FileHandlerConstructorException(e);
