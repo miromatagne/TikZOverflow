@@ -3,15 +3,19 @@ package View.ViewControllers;
 import Controller.ProjectDisplay;
 import Controller.Session;
 import Model.Project;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -65,6 +69,17 @@ public class ProjectSelectionViewController implements Initializable {
         renameColumn.setCellValueFactory(new PropertyValueFactory<>("renameButton"));
         shareColumn.setCellValueFactory(new PropertyValueFactory<>("shareButton"));
         tableView.setItems(data);
+
+        checkBoxColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(1.0/20.0));
+        titleColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(6.0/20.0));
+        ownerColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(4.0/20.0));
+        dateColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(5.0/20.0));
+        renameColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(2.0/20.0));
+        shareColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(2.0 /20.0));
+
+        Text emptyMessage = new Text("No projects to display");
+        emptyMessage.setFill(Color.WHITE);
+        tableView.setPlaceholder(emptyMessage);
         listProjects();
         tableView.setOnMousePressed(event -> {
             ProjectDisplay projectDisplay = tableView.getSelectionModel().getSelectedItem();
@@ -74,6 +89,7 @@ public class ProjectSelectionViewController implements Initializable {
                 listener.goToMainPage(project);
             }
         });
+
     }
 
     /**

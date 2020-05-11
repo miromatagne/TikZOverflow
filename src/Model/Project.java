@@ -15,14 +15,10 @@ public class Project {
     private String creatorUsername;
 
     private ArrayList<String> collaboratorsUsernames;
-    private Date date;
+    private Date creationDate;
+    private Date lastModificationDate;
     private String code;
     private String path;
-
-    private final static String DEFAULT_TITLE = "Unnamed";
-    private final static String DEFAULT_CODE =    "\\node (h) at (0,0) {Hello};\n" +
-                                            "\\node (w) at (2,3) {World};\n" +
-                                            "\\draw (h) edge (w);";
 
     /**
      * New project constructor
@@ -31,7 +27,7 @@ public class Project {
      * @param path              path to the project save directory
      */
     public Project( String creatorUsername, String path,String title){
-        this( creatorUsername, title, new Date(), new ArrayList<>(), path);
+        this( creatorUsername, title, new Date(), new Date(), new ArrayList<>(), path);
     }
 
     /**
@@ -39,13 +35,14 @@ public class Project {
      *
      * @param creatorUsername   creator username
      * @param title             project title
-     * @param date              last date of modification
+     * @param creationDate              last date of modification
      * @param collaborators     list of collaborators
      */
-    public Project(String creatorUsername, String title, Date date, ArrayList<String> collaborators, String path){
+    public Project(String creatorUsername, String title, Date creationDate, Date lastModificationDate, ArrayList<String> collaborators, String path){
         setCreatorUsername(creatorUsername);
         setTitle(title);
-        setDate(date);
+        setCreationDate(creationDate);
+        setLastModificationDate(lastModificationDate);
         this.collaboratorsUsernames = collaborators;
         setCode(code);
         this.path=path;
@@ -59,8 +56,12 @@ public class Project {
         this.creatorUsername = creator;
     }
 
-    public void setDate(Date date){
-        this.date = date;
+    public void setCreationDate(Date creationDate){
+        this.creationDate = creationDate;
+    }
+
+    public void setLastModificationDate(Date lastModificationDate){
+        this.lastModificationDate = lastModificationDate;
     }
 
     public void addCollaborator(String newCollaboratorUsername){
@@ -89,8 +90,12 @@ public class Project {
         return code;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public Date getLastModificationDate() {
+        return lastModificationDate;
     }
 
     public String getPath() {

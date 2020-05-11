@@ -1,6 +1,9 @@
 package Controller;
 
 import Model.Exceptions.*;
+import Model.Exceptions.ProjectHandler.*;
+import Model.Exceptions.UserHandler.SaveUserException;
+import Model.Exceptions.UserHandler.UserFromSaveCreationException;
 import Model.Project;
 import Model.ProjectHandler;
 import Model.User;
@@ -152,10 +155,10 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
             ProjectHandler projectHandler = new ProjectHandler();
             Project project = projectDisplay.getProject();
             try {
+                Session.getInstance().getUser().removeProject(project.getPath());
                 projectHandler.deleteProject(project);
                 controller.removeProjectFromDisplay(projectDisplay);
             } catch (ProjectDeletionException | SaveUserException | UserFromSaveCreationException e) {
-                System.out.println(project.getPath());
                 AlertController.showStageError("Failed to delete", String.format("Could not delete %s", project.getTitle()));
             }
         }
@@ -203,7 +206,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
      */
     @Override
     public boolean createProject(String title, String path) {
-        if(path.equals("") || title.equals("")){
+        if(path.equals("") || !title.matches("^[-_.A-Za-z0-9]+$")){
             AlertController.showStageError("Invalid information", "Please enter valid information");
             return false; // return false if given path was invalid
         }

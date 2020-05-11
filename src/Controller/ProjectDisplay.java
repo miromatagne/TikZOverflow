@@ -2,7 +2,6 @@ package Controller;
 
 import Model.Project;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 
@@ -29,25 +28,27 @@ public class ProjectDisplay {
     public ProjectDisplay(Project project) {
         this.title = new SimpleStringProperty(project.getTitle());
         this.owner = new SimpleStringProperty(project.getCreatorUsername());
-        this.date = new SimpleStringProperty(project.getDate().toString());
+        this.date = new SimpleStringProperty(project.getLastModificationDate().toString());
         this.project = project;
         this.checkBox = new CheckBox();
         this.renameButton = new Button("Rename");
         this.shareButton = new Button("Share");
-        setupButtonCursor();
-    }
-
-    private void setupButtonCursor() {
-        renameButton.setCursor(Cursor.HAND);
-        shareButton.setCursor(Cursor.HAND);
     }
 
     public String getOwner() {
         return owner.get();
     }
 
+    public SimpleStringProperty ownerProperty() {
+        return owner;
+    }
+
     public String getDate() {
         return date.get();
+    }
+
+    public SimpleStringProperty dateProperty() {
+        return date;
     }
 
     public CheckBox getCheckBox() {
@@ -56,6 +57,10 @@ public class ProjectDisplay {
 
     public String getTitle() {
         return title.get();
+    }
+
+    public SimpleStringProperty titleProperty() {
+        return title;
     }
 
     public Button getRenameButton() {
@@ -72,5 +77,9 @@ public class ProjectDisplay {
 
     public void setTitle(String title) {
         this.title.set(title);
+    }
+
+    public SimpleStringProperty getSimpleStringPropertyTitle() {
+        return title;
     }
 }

@@ -1,11 +1,12 @@
 package Controller;
 
-import Controller.Exceptions.GetTextInFileException;
-import Controller.Exceptions.TikzCompilationException;
-import Model.Exceptions.LatexCompilationException;
-import Model.Exceptions.LatexWritingException;
-import Model.Exceptions.LogErrorException;
-import Model.Exceptions.ProjectSaveException;
+import Controller.Exceptions.LatexController.CreationImageFromPDFException;
+import Controller.Exceptions.LatexController.GetTextInFileException;
+import Controller.Exceptions.LatexController.TikzCompilationException;
+import Model.Exceptions.LatexHandler.LatexCompilationException;
+import Model.Exceptions.ProjectHandler.LatexWritingException;
+import Model.Exceptions.LatexErrorsHandler.LogErrorException;
+import Model.Exceptions.ProjectHandler.ProjectSaveException;
 import Model.*;
 import View.ViewControllers.MainPageViewController;
 import javafx.scene.image.Image;
@@ -61,14 +62,13 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
         try {
             saveTikz(sourceCode);
             String filePath = Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex";
-            System.out.println(filePath);
             String pdfPath = Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".pdf";
             LatexHandler.getInstance().runProcess(filePath, Session.getInstance().getCurrentProject().getPath());
-            createImage(pdfPath);
+            createImageFromPDF(pdfPath);
             latexErrorsHandler.errorLogs(Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".log");
             int errorsCount = latexErrorsHandler.getErrorsCounter();
             return "Errors (" + errorsCount + ")";
-        } catch (LatexCompilationException | LogErrorException e) {
+        } catch (LatexCompilationException | LogErrorException | CreationImageFromPDFException e) {
             throw new TikzCompilationException(e);
         }
     }
@@ -78,21 +78,27 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      *
      * @param pdfPath path to Latex compilation output (PDF format)
      */
-    public void createImage(String pdfPath) {
-        PDFHandler pdfHandler = new PDFHandler(pdfPath);
+    public void createImageFromPDF(String pdfPath) throws CreationImageFromPDFException {
         try {
+            PDFHandler pdfHandler = new PDFHandler(pdfPath);
             pdfHandler.convertPdfToImageOnDisk();
-        } catch (Exception e) {
-            System.err.println("Error converting " + pdfPath + " to image");
-            e.printStackTrace();
+            String imagePath = pdfPath.replace(".pdf", ".jpg");
+            createImage(imagePath);
+        } catch (IOException e) {
+            throw new CreationImageFromPDFException(e);
         }
-        String imagePath = pdfPath.replace(".pdf", ".jpg");
+    }
+
+    /**
+     * Create a image and set it in the main page
+     *
+     * @param imagePath     Path to image
+     * @throws IOException  If IO error occurs
+     */
+    private void createImage(String imagePath) throws IOException {
         try (FileInputStream fileInputStream = new FileInputStream(imagePath)){
             Image renderedImage = new Image(fileInputStream);
             mainPageViewController.renderImage(renderedImage);
-        } catch (IOException e) {
-            System.err.println("Image file not found");
-            e.printStackTrace();
         }
     }
 

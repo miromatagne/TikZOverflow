@@ -2,6 +2,9 @@ package Model;
 
 import Controller.Session;
 import Model.Exceptions.*;
+import Model.Exceptions.ProjectHandler.*;
+import Model.Exceptions.UserHandler.SaveUserException;
+import Model.Exceptions.UserHandler.UserFromSaveCreationException;
 
 import java.io.*;
 import java.text.ParseException;
@@ -105,11 +108,10 @@ public class ProjectHandler extends FileHandler {
             int lastSeparatorPosition = projectToCopy.getPath().lastIndexOf(File.separator);
             String rootProjectPath = projectToCopy.getPath().substring(0,lastSeparatorPosition);
 
-            Project p = createProject(user, rootProjectPath, projectToCopy.getTitle()+firstAvailableIndex);
-            File texFile = new File(p.getPath() + File.separator + p.getTitle() + ".tex");
-            super.writeInFile(texFile,super.readInFile(projectToCopy.getPath() + File.separator + projectToCopy.getTitle() + ".tex"));
-
-            return p;
+            Project project = createProject(user, rootProjectPath, projectToCopy.getTitle()+firstAvailableIndex);
+            File texFile = new File(project.getPath() + File.separator + project.getTitle() + ".tex");
+            writeInFile(texFile,super.readInFile(projectToCopy.getPath() + File.separator + projectToCopy.getTitle() + ".tex"));
+            return project;
         } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException | IOException e) {
             throw new ProjectCopyException(e);
         }
@@ -197,11 +199,20 @@ public class ProjectHandler extends FileHandler {
         User user = Session.getInstance().getUser();
         user.removeProject(previousPath);
         user.addProject(rootProjectPath + File.separator+newTitle);
+        UserHandler userHandler = new UserHandler();
         try {
+            User creator = userHandler.getUserFromSave(project.getCreatorUsername());
+            creator.removeProject(previousPath);
+            creator.addProject(rootProjectPath + File.separator + newTitle);
+            userHandler.saveUser(creator);
+            for(String collaboratorUsername : project.getCollaboratorsUsernames()) {
+                User collaborator = userHandler.getUserFromSave(collaboratorUsername);
+                collaborator.removeProject(previousPath);
+                collaborator.addProject(rootProjectPath + File.separator + newTitle);
+                userHandler.saveUser(collaborator);
+            }
             saveProjectInfo(project);
-            UserHandler userHandler = new UserHandler();
-            userHandler.saveUser(user);
-        } catch (ProjectSaveException | SaveUserException e) {
+        } catch (ProjectSaveException | SaveUserException | UserFromSaveCreationException e) {
             project.setTitle(previousTitle);
             project.setPath(previousPath);
             user.removeProject(previousPath);
@@ -249,7 +260,7 @@ public class ProjectHandler extends FileHandler {
         toWrite += "collaborators:";
         String collaborators = String.join(", ", project.getCollaboratorsUsernames());
         toWrite += collaborators + ENDLINE;
-        toWrite += "creation_date:" + new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH).format(project.getDate()) + ENDLINE;
+        toWrite += "creation_date:" + new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH).format(project.getCreationDate()) + ENDLINE;
         toWrite += "modification_date:" + new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH).format(new Date()) + ENDLINE;
 
         return toWrite;
@@ -280,13 +291,14 @@ public class ProjectHandler extends FileHandler {
             try {
                 collaboratorsUsernames = new ArrayList<>(Arrays.asList(allLines[2].split("collaborators:")[1].split(",")));
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Project has no collaborators");
             }
-            String dateString = allLines[3].split("creation_date:")[1];
+            String creationDateString = allLines[3].split("creation_date:")[1];
             SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
-            Date date = dateFormatter.parse(dateString);
+            Date creationDate = dateFormatter.parse(creationDateString);
+            String lastModificationDateString = allLines[4].split("modification_date:")[1];
+            Date lastModificationDate = dateFormatter.parse(lastModificationDateString);
             return new Project(creatorUsername,
-                    title, date, collaboratorsUsernames, path);
+                    title, creationDate, lastModificationDate, collaboratorsUsernames, path);
         } catch (ParseException e) {
             throw new ProjectFromSaveGenerationException(e);
         }

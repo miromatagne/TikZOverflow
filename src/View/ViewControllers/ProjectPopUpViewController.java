@@ -1,11 +1,8 @@
 package View.ViewControllers;
 
-import Model.Exceptions.ProjectCreationException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.FileNotFoundException;
 
 /**
  * This class manages the View of the popups that appear when the user wants
