@@ -329,12 +329,11 @@ public class ProjectHandler extends FileHandler {
      * @throws LatexWritingException when the text has not be written successfully in the tex file
      */
     public void makeTexFile(String sourceCode) throws LatexWritingException {
-        try {
+        try (InputStream inputStream = getClass().getResourceAsStream("/template.txt")){
             File texFile = new File(Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex");
             if (texFile.exists()) {
                 writeInFile(texFile, sourceCode);
             } else {
-                InputStream inputStream = getClass().getResourceAsStream("/template.txt");
                 String temp, text = "";
                 BufferedReader br;
                 br = new BufferedReader(new InputStreamReader(inputStream));

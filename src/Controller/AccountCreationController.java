@@ -104,13 +104,12 @@ public class AccountCreationController extends AccountController implements Acco
      */
     @Override
     public void showTermsAndConditions() {
-        try {
+        try (InputStream inputStream = getClass().getResourceAsStream("/tcu.txt")) {
             Parent tcuRoot = FXMLLoader.load(getClass().getResource("/View/FXML/termsAndConditions.fxml"));
             Scene tcuScene = new Scene(tcuRoot);
             Stage tcuStage = new Stage();
             tcuStage.initModality(Modality.APPLICATION_MODAL);
             tcuStage.setTitle("Terms and conditions");
-            InputStream inputStream = getClass().getResourceAsStream("/tcu.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             String tmp, text = "";
             while ((tmp = br.readLine()) != null) {
