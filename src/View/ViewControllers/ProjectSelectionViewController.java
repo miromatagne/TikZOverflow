@@ -65,6 +65,14 @@ public class ProjectSelectionViewController implements Initializable {
         renameColumn.setCellValueFactory(new PropertyValueFactory<>("renameButton"));
         shareColumn.setCellValueFactory(new PropertyValueFactory<>("shareButton"));
         tableView.setItems(data);
+
+        checkBoxColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(1.0/20.0));
+        titleColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(6.0/20.0));
+        ownerColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(4.0/20.0));
+        dateColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(5.0/20.0));
+        renameColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(2.0/20.0));
+        shareColumn.prefWidthProperty().bind(tableView.widthProperty().multiply(2.0 /20.0));
+
         listProjects();
         tableView.setOnMousePressed(event -> {
             ProjectDisplay projectDisplay = tableView.getSelectionModel().getSelectedItem();
