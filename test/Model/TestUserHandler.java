@@ -12,12 +12,12 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TestUserHandler {
+public class TestUserHandler {
 
     @Test
     public void saveUser() {
         try {
-            UserHandler userHandler = new UserHandler();
+            UserHandler userHandler = UserHandler.getInstance();
             userHandler.setSaveUserDirectory("./test/Model/TestUserHandler/SaveUserDirectory");
             User user1 = new User();
             user1.setUsername("ftrouill");
@@ -56,7 +56,7 @@ class TestUserHandler {
 
             /* Now, we check if the getUserFromSave method works */
 
-            UserHandler userHandler = new UserHandler();
+            UserHandler userHandler = UserHandler.getInstance();
             userHandler.setSaveUserDirectory("./test/Model/TestUserHandler/GetUserFromSaveDirectory");
 
             User user = userHandler.getUserFromSave("ftrouill");

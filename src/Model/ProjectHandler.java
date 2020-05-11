@@ -145,7 +145,7 @@ public class ProjectHandler extends FileHandler {
         String pathProperties = project.getPath();
         ArrayList<String> collaboratorsUsernames = project.getCollaboratorsUsernames();
         String creatorUsername = project.getCreatorUsername();
-        UserHandler userHandler = new UserHandler();
+        UserHandler userHandler = UserHandler.getInstance();
         File file = new File(pathProperties);
         try {
             super.deleteDirectory(file);
@@ -199,7 +199,7 @@ public class ProjectHandler extends FileHandler {
         User user = Session.getInstance().getUser();
         user.removeProject(previousPath);
         user.addProject(rootProjectPath + File.separator+newTitle);
-        UserHandler userHandler = new UserHandler();
+        UserHandler userHandler = UserHandler.getInstance();
         try {
             User creator = userHandler.getUserFromSave(project.getCreatorUsername());
             creator.removeProject(previousPath);
@@ -229,7 +229,7 @@ public class ProjectHandler extends FileHandler {
      * @throws SaveUserException if collaborator file couldn't be saved
      */
     public void shareProject(String collaboratorUsername, Project project) throws UserFromSaveCreationException, ProjectSaveException, SaveUserException {
-        UserHandler userHandler = new UserHandler();
+        UserHandler userHandler = UserHandler.getInstance();
         User collaborator = userHandler.getUserFromSave(collaboratorUsername);
         project.addCollaborator(collaboratorUsername);
         collaborator.addProject(project.getPath());

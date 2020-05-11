@@ -39,7 +39,7 @@ public class Session {
      *  Singleton class
      */
     private Session() {
-        userHandler = new UserHandler();
+        userHandler = UserHandler.getInstance();
         projectHandler = new ProjectHandler();
     }
 

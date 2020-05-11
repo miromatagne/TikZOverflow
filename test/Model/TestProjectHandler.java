@@ -1,8 +1,9 @@
 package Model;
 
 import Controller.Session;
-import Model.Exceptions.*;
+import Model.Exceptions.DirectoryCreationException;
 import Model.Exceptions.ProjectHandler.*;
+import Model.Exceptions.UserAlreadyExistsException;
 import Model.Exceptions.UserHandler.SaveUserCreationException;
 import Model.Exceptions.UserHandler.SaveUserException;
 import Model.Exceptions.UserHandler.UserFromSaveCreationException;
@@ -17,14 +18,15 @@ import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.*;
 public class TestProjectHandler {
 
-    private final UserHandler userHandler;
-    private final ProjectHandler projectHandler;
-    private final User user;
-    private final String path = "./test/projecthandler/";
+    private UserHandler userHandler;
+    private ProjectHandler projectHandler;
+    private User user;
+    private final String TEST_DIRECTORY = "./test/Model/TestProjectHandler";
 
 
-    public TestProjectHandler(){
-        userHandler = new UserHandler();
+    public void testProjectHandlerSetup(String path){
+        userHandler = UserHandler.getInstance();
+        userHandler.setSaveUserDirectory(path);
         projectHandler = new ProjectHandler();
         user = new User();
         user.setFirstName("Armand");
@@ -33,16 +35,21 @@ public class TestProjectHandler {
         user.setPassword("mdp");
         user.setUsername("alosfeld");
         try {
-            userHandler.createUserSave(user);
-        }catch(SaveUserCreationException | UserAlreadyExistsException e){
+            if (userHandler.saveUserExists(user.getUsername())){
+                userHandler.saveUser(user);
+            } else {
+                userHandler.createUserSave(user);
+            }
+        }catch(SaveUserCreationException | SaveUserException | UserAlreadyExistsException e){
             fail("Impossible to create save of the user. Check saveCreatorUser test.");
         }
-
         Session.getInstance().setUser(user);
     }
 
     @Test
     public void createProject(){
+        String path = TEST_DIRECTORY+File.separator+"CreateProjectDirectory";
+        testProjectHandlerSetup(path);
         Project projectToCreate = null;
         try{
             projectToCreate = projectHandler.createProject(user,path,"test");
@@ -100,6 +107,8 @@ public class TestProjectHandler {
 
     @Test
     public void saveProjectInfo(){
+        String path = TEST_DIRECTORY+File.separator+"SaveProjectInfoDirectory";
+        testProjectHandlerSetup(path);
         Project projectToSave = new Project(user.getUsername(),path,"test");
         user.getProjectPaths().add(projectToSave.getPath());
         try {
@@ -128,16 +137,25 @@ public class TestProjectHandler {
             fail("Impossible to read in the project.properties.");
         }
         assertEquals(contentExpected, fileContent);
-        try{
-            projectHandler.deleteProject(projectToSave);
-        }catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
-            fail("Impossible to delete project. Check deleteProject test.");
-        }
+
     }
 
     @Test
     public void renameProject(){
+        String path = TEST_DIRECTORY+File.separator+"RenameProjectDirectory";
+        testProjectHandlerSetup(path);
         Project projectToRename = null;
+        try{
+            projectHandler.deleteProject(new Project(user.getUsername(), path+File.separator+"test", "test"));
+        } catch (ProjectDeletionException | SaveUserException | UserFromSaveCreationException e) {
+            /* Project already deleted or still does not exist */
+        }
+        try{
+            projectHandler.deleteProject(new Project(user.getUsername(), path+File.separator+"testRename", "testRename"));
+        } catch (ProjectDeletionException | SaveUserException | UserFromSaveCreationException e) {
+            /* Project already deleted or still does not exist */
+        }
+
         try{
             projectToRename = projectHandler.createProject(user,path,"test");
         } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException e){
@@ -156,9 +174,11 @@ public class TestProjectHandler {
         File tex = new File(projectToRename.getPath() + File.separator +projectToRename.getTitle() +".tex");
         assertTrue(tex.exists());
 
+        System.out.println(projectToRename.getPath());
         try{
             projectHandler.renameProject(projectToRename,"testRename");
         }catch(ProjectRenameException e){
+            e.printStackTrace();
             fail("impossible to rename project.");
         }
 
@@ -179,7 +199,16 @@ public class TestProjectHandler {
 
     @Test
     public void loadProject(){
+        String path = TEST_DIRECTORY+File.separator+"LoadProjectDirectory";
+        testProjectHandlerSetup(path);
         Project project = null;
+
+        try{
+            projectHandler.deleteProject(new Project(user.getUsername(), path+File.separator+"test", "test"));
+        } catch (ProjectDeletionException | SaveUserException | UserFromSaveCreationException e) {
+            /* Project is already deleted or does not exists */
+        }
+
         try {
             project = projectHandler.createProject(user, path, "test");
         }catch(ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException e){
@@ -194,6 +223,7 @@ public class TestProjectHandler {
         }
 
         Project loadProject = null;
+        System.out.println(user.getProjectPaths().get(0));
         try{
             loadProject = projectHandler.loadProject(user.getProjectPaths().get(0));
         }catch(ProjectLoadException e){
@@ -206,20 +236,26 @@ public class TestProjectHandler {
         assertEquals(new SimpleDateFormat(ProjectHandler.DATE_FORMAT,Locale.ENGLISH).format(project.getCreationDate()),new SimpleDateFormat(ProjectHandler.DATE_FORMAT,Locale.ENGLISH).format(loadProject.getCreationDate()));
         assertEquals(project.getCollaboratorsUsernames(),loadProject.getCollaboratorsUsernames());
 
-        try{
-            projectHandler.deleteProject(project);
-        }catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
-            fail("Impossible to delete project.Check deleteProject test.");
-        }
     }
 
     @Test
     public void createCopy() {
+        String path = TEST_DIRECTORY+File.separator+"CreateCopyDirectory";
+        testProjectHandlerSetup(path);
         Project project1 = null;
         try {
             project1 = projectHandler.createProject(user, path, "TestCopy");
-        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException e) {
+        } catch (ProjectCreationException | DirectoryCreationException e) {
             fail("Impossible to create project. Check createProject test.");
+        } catch (ProjectAlreadyExistsException e){
+            /* Project already exists but this is not a problem */
+            try {
+                project1 = projectHandler.loadProject(path+File.separator+"TestCopy");
+                project1.setCreationDate(new Date());
+            } catch (ProjectLoadException ex) {
+                ex.printStackTrace();
+                fail("Impossible to load project");
+            }
         }
 
         user.getProjectPaths().add(project1.getPath());
@@ -230,7 +266,7 @@ public class TestProjectHandler {
         }
 
         User user2 = null;
-        File fileUser = new File("./save user/.User2.txt");
+        File fileUser = new File(path+File.separator+".User2.txt");
         if(!fileUser.exists()){
             try{
                 user2 = new User();
@@ -289,18 +325,23 @@ public class TestProjectHandler {
         try {
             projectHandler.deleteProject(project1);
             projectHandler.deleteProject(project2);
-        }catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
+        } catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
             fail("Impossible to delete project. Check deleteProject test.");
         }
     }
 
     @Test
     void deleteProject(){
+        String path = TEST_DIRECTORY+File.separator+"DeleteProjectDirectory";
+        testProjectHandlerSetup(path);
         Project projectToDelete = null;
         try {
             projectToDelete = projectHandler.createProject(user, path, "TestDelete");
-        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException e) {
+        } catch (ProjectCreationException | DirectoryCreationException e) {
             fail("Impossible to create project. Check createProject test.");
+        } catch (ProjectAlreadyExistsException e) {
+            /* Project already exists */
+            projectToDelete = new Project(user.getUsername(), path+File.separator+"TestDelete", "TestDelete");
         }
 
         user.getProjectPaths().add(projectToDelete.getPath());
@@ -336,7 +377,7 @@ public class TestProjectHandler {
         } catch(UserFromSaveCreationException e){
             fail("Impossible to create user from save. Check UserFromSave test.");
         }
-
+        System.out.println(projectToDelete.getPath());
         assertFalse(userAfterDelete.getProjectPaths().contains(projectToDelete.getPath()));
 
         assertFalse(properties.exists());
@@ -345,11 +386,16 @@ public class TestProjectHandler {
 
     @Test
     public void makeTexFile(){
+        String path = TEST_DIRECTORY+File.separator+"MakeTexFileDirectory";
+        testProjectHandlerSetup(path);
         Project project = null;
         try {
             project = projectHandler.createProject(user, path, "TestMakeTexFile");
-        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException e) {
+        } catch (ProjectCreationException | DirectoryCreationException e) {
             fail("Impossible to create project. Check createProject test.");
+        } catch (ProjectAlreadyExistsException e){
+            /* Project already exists */
+            project = new Project(user.getUsername(), path+File.separator+"TestMakeTexFile", "TestMakeTexFile");
         }
 
         user.getProjectPaths().add(project.getPath());
@@ -378,20 +424,25 @@ public class TestProjectHandler {
             fail("Impossible to read in tex file. Check readInFile test.");
         }
 
-        try{
-            projectHandler.deleteProject(project);
-        }catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
-            fail("Impossible to delete project. Check deleteProject test.");
-        }
     }
 
     @Test
     public void shareProject(){
+        String path = TEST_DIRECTORY+File.separator+"ShareProjectDirectory";
+        testProjectHandlerSetup(path);
         Project projectToShare = null;
         try{
             projectToShare = projectHandler.createProject(user,path,"test");
-        } catch (ProjectCreationException | DirectoryCreationException | ProjectAlreadyExistsException e){
+        } catch (ProjectCreationException | DirectoryCreationException  e){
+            e.printStackTrace();
             fail("Impossible to create project. Check createProject test.");
+        } catch (ProjectAlreadyExistsException e){
+            /* Project Already Exists but this is not a problem */
+            try {
+                projectToShare = projectHandler.loadProject(path+File.separator+"test");
+            } catch (ProjectLoadException ex) {
+                fail("Impossible to load project");
+            }
         }
 
         user.getProjectPaths().add(projectToShare.getPath());
@@ -401,26 +452,22 @@ public class TestProjectHandler {
             fail("Impossible to save user. Check saveUser test.");
         }
 
-        User user2 = null;
-        File fileUser = new File("./save user/.User2.txt");
-        if(!fileUser.exists()){
-            try{
-                user2 = new User();
-                user2.setUsername(".User2");
-                user2.setFirstName("none");
-                user2.setLastName("none");
-                user2.setMail("none@none.com");
-                user2.setPassword("mdp");
+        File fileUser = new File(path+File.separator+".User2.txt");
+        User user2 = new User();
+        user2.setUsername(".User2");
+        user2.setFirstName("none");
+        user2.setLastName("none");
+        user2.setMail("none@none.com");
+        user2.setPassword("mdp");
+
+        try {
+            if (!fileUser.exists()) {
                 userHandler.createUserSave(user2);
-            }catch(SaveUserCreationException | UserAlreadyExistsException e){
-                fail("Impossible to create save of the user. Check createSaveUser test.");
+            } else {
+                userHandler.saveUser(user2);
             }
-        }else{
-            try{
-                user2 = userHandler.getUserFromSave(".User2");
-            }catch(UserFromSaveCreationException e){
-                fail("Impossible to get user from save. Check getUserFromSave test.");
-            }
+        } catch (SaveUserCreationException | SaveUserException | UserAlreadyExistsException e) {
+            fail();
         }
 
         assertFalse(user2.getProjectPaths().contains(projectToShare.getPath()));
@@ -440,11 +487,12 @@ public class TestProjectHandler {
         assertTrue(user2.getProjectPaths().contains(projectToShare.getPath()));
         assertTrue(projectToShare.getCollaboratorsUsernames().contains(user2.getUsername()));
 
-        try{
+        try {
             projectHandler.deleteProject(projectToShare);
         }catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
             fail("Impossible to delete project. Check deleteProject test.");
         }
+
     }
 
 }

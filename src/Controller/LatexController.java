@@ -31,7 +31,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      * @param mainPageViewController MainPageViewController we interact with
      */
     public LatexController(MainPageViewController mainPageViewController) {
-        this.userHandler = new UserHandler();
+        this.userHandler = UserHandler.getInstance();
         this.projectHandler = new ProjectHandler();
         this.latexErrorsHandler = new LatexErrorsHandler();
         this.mainPageViewController = mainPageViewController;
