@@ -1,4 +1,4 @@
-package Controller.Exceptions;
+package Controller.Exceptions.ShapeMenuController;
 
 /**
  * Exception corresponding to an error while adding a scene in a stage

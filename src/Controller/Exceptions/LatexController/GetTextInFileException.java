@@ -1,4 +1,4 @@
-package Controller.Exceptions;
+package Controller.Exceptions.LatexController;
 
 /**
  * Exception which occurs when the code source can not be get from the save file

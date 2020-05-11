@@ -1,6 +1,6 @@
 package Controller;
 
-import Controller.Exceptions.GetTextInFileException;
+import Controller.Exceptions.LatexController.GetTextInFileException;
 import Model.Exceptions.*;
 import Model.FileHandler;
 import Model.Project;

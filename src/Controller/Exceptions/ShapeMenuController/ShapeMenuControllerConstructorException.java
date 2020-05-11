@@ -1,4 +1,4 @@
-package Controller.Exceptions;
+package Controller.Exceptions.ShapeMenuController;
 
 /**
  * Exception corresponding to an error while instancing a new Shape Menu Controller object

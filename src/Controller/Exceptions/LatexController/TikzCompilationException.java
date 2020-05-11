@@ -1,4 +1,4 @@
-package Controller.Exceptions;
+package Controller.Exceptions.LatexController;
 
 /**
  * Exception which occurs if there is a problem while the Tikz compilation

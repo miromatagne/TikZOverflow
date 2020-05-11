@@ -1,4 +1,4 @@
-package Controller.Exceptions;
+package Controller.Exceptions.Session;
 
 /**
  * Exception while opening a session

@@ -1,8 +1,8 @@
 package Controller;
 
-import Controller.Exceptions.CreationImageFromPDFException;
-import Controller.Exceptions.GetTextInFileException;
-import Controller.Exceptions.TikzCompilationException;
+import Controller.Exceptions.LatexController.CreationImageFromPDFException;
+import Controller.Exceptions.LatexController.GetTextInFileException;
+import Controller.Exceptions.LatexController.TikzCompilationException;
 import Model.Exceptions.LatexCompilationException;
 import Model.Exceptions.LatexWritingException;
 import Model.Exceptions.LogErrorException;
@@ -13,7 +13,6 @@ import javafx.scene.image.Image;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
