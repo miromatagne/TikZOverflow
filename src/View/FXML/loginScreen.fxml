@@ -31,7 +31,7 @@
         <PasswordField fx:id="passwordField" layoutY="40.0" maxWidth="200.0" prefHeight="25.0" prefWidth="200.0" promptText="Password" />
         <Label layoutY="14.0" text="Password" textFill="WHITE" />
     </Pane>
-    <Button mnemonicParsing="false" onAction="#login" text="Log In" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+    <Button mnemonicParsing="false" onAction="#login" styleClass="menuButton" stylesheets="@../CSS/topMenuButton.css" text="Log In" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></Button>

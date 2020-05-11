@@ -51,7 +51,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Text>
-        <Button fx:id="createAccountButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#createAccount" text="Create account">
+        <Button fx:id="createAccountButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#createAccount" styleClass="menuButton" stylesheets="@../CSS/topMenuButton.css" text="Create account">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
