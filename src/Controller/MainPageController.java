@@ -64,12 +64,8 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
                 }
             });
         } catch (ShapeMenuControllerConstructorException e) {
-            e.printStackTrace();
-            e.getCause().printStackTrace();
             AlertController.showStageError("Error while creating the shape menu controller.", "Process aborted", true);
         } catch (IOException e) {
-            e.printStackTrace();
-            e.getCause().printStackTrace();
             AlertController.showStageError("Error while loading the main page fxml file.", "Process aborted", true);
         }
     }

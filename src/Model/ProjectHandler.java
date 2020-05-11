@@ -148,20 +148,20 @@ public class ProjectHandler extends FileHandler {
      * @param project project to delete
      * @throws ProjectDeletionException if deletion failed
      */
-    public void deleteProject(Project project) throws ProjectDeletionException, SaveUserException, UserFromSaveCreationException {
-        String pathProperties = project.getPath();
-        ArrayList<String> collaboratorsUsernames = project.getCollaboratorsUsernames();
-        String creatorUsername = project.getCreatorUsername();
-        UserHandler userHandler = UserHandler.getInstance();
-        File file = new File(pathProperties);
+    public void deleteProject(Project project) throws ProjectDeletionException {
         try {
+            String pathProperties = project.getPath();
+            ArrayList<String> collaboratorsUsernames = project.getCollaboratorsUsernames();
+            String creatorUsername = project.getCreatorUsername();
+            UserHandler userHandler = UserHandler.getInstance();
+            File file = new File(pathProperties);
             super.deleteDirectory(file);
-        } catch (IOException e) {
+            deleteFromUser(project, creatorUsername, userHandler);
+            for(String collaboratorUsername : collaboratorsUsernames){
+                deleteFromUser(project, collaboratorUsername, userHandler);
+            }
+        } catch (IOException | SaveUserException | UserFromSaveCreationException e) {
             throw new ProjectDeletionException();
-        }
-        deleteFromUser(project, creatorUsername, userHandler);
-        for(String collaboratorUsername : collaboratorsUsernames){
-            deleteFromUser(project, collaboratorUsername, userHandler);
         }
     }
 

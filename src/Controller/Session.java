@@ -33,8 +33,6 @@ public class Session {
         session = new Session();
     }
 
-    private String save_user;
-
     /**
      *  Singleton class
      */
@@ -91,9 +89,8 @@ public class Session {
                 Project project = projectHandler.loadProject(projectPath);
                 userProjects.add(project);
             } catch (ProjectLoadException e) {
-                e.printStackTrace(); // TODO
+                AlertController.showStageError("Error while loading a project", projectPath+" could not be loaded");
             }
-
         }
         return userProjects;
     }
@@ -133,12 +130,8 @@ public class Session {
             userHandler.createUserSave(newUser);
             return true;
         } catch (SaveUserCreationException | SetupDirectoryException e) {
-            System.err.println("Error while creating an account");
-            e.printStackTrace();
-            e.getCause().printStackTrace();
             AlertController.showStageError("Error while creating an account.", "Account creation failed");
         } catch (UserAlreadyExistsException e) {
-            e.printStackTrace();
             AlertController.showStageError("Error while creating an account.", "Username is already taken, choose another one.");
         }
         return false;

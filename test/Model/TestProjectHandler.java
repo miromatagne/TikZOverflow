@@ -100,7 +100,7 @@ public class TestProjectHandler {
 
         try{
             projectHandler.deleteProject(projectToCreate);
-        }catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
+        }catch(ProjectDeletionException e){
             fail("Impossible to delete project. Check deleteProject test.");
         }
     }
@@ -147,12 +147,12 @@ public class TestProjectHandler {
         Project projectToRename = null;
         try{
             projectHandler.deleteProject(new Project(user.getUsername(), path+File.separator+"test", "test"));
-        } catch (ProjectDeletionException | SaveUserException | UserFromSaveCreationException e) {
+        } catch (ProjectDeletionException e) {
             /* Project already deleted or still does not exist */
         }
         try{
             projectHandler.deleteProject(new Project(user.getUsername(), path+File.separator+"testRename", "testRename"));
-        } catch (ProjectDeletionException | SaveUserException | UserFromSaveCreationException e) {
+        } catch (ProjectDeletionException e) {
             /* Project already deleted or still does not exist */
         }
 
@@ -192,7 +192,7 @@ public class TestProjectHandler {
 
         try{
             projectHandler.deleteProject(projectToRename);
-        }catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
+        }catch(ProjectDeletionException e){
             fail("Impossible to delete project. Check deleteProject test.");
         }
     }
@@ -205,7 +205,7 @@ public class TestProjectHandler {
 
         try{
             projectHandler.deleteProject(new Project(user.getUsername(), path+File.separator+"test", "test"));
-        } catch (ProjectDeletionException | SaveUserException | UserFromSaveCreationException e) {
+        } catch (ProjectDeletionException e) {
             /* Project is already deleted or does not exists */
         }
 
@@ -325,7 +325,7 @@ public class TestProjectHandler {
         try {
             projectHandler.deleteProject(project1);
             projectHandler.deleteProject(project2);
-        } catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
+        } catch(ProjectDeletionException e){
             fail("Impossible to delete project. Check deleteProject test.");
         }
     }
@@ -367,7 +367,7 @@ public class TestProjectHandler {
 
         try{
             projectHandler.deleteProject(projectToDelete);
-        }catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
+        }catch(ProjectDeletionException e){
             fail("Impossible to delete project.");
         }
 
@@ -489,7 +489,7 @@ public class TestProjectHandler {
 
         try {
             projectHandler.deleteProject(projectToShare);
-        }catch(ProjectDeletionException | SaveUserException | UserFromSaveCreationException e){
+        }catch(ProjectDeletionException e){
             fail("Impossible to delete project. Check deleteProject test.");
         }
 

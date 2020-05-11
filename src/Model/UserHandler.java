@@ -1,14 +1,13 @@
 package Model;
 
-import Model.Exceptions.*;
+import Model.Exceptions.DirectoryCreationException;
+import Model.Exceptions.UserAlreadyExistsException;
 import Model.Exceptions.UserHandler.*;
-import Model.Exceptions.UserHandler.SaveUserCreationException;
-import Model.Exceptions.UserHandler.SaveUserException;
-import Model.Exceptions.UserHandler.SaveWritingException;
-import Model.Exceptions.UserHandler.SetupDirectoryException;
-import Model.Exceptions.UserHandler.UserFromSaveCreationException;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 

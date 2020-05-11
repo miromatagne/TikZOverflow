@@ -162,7 +162,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
                 Session.getInstance().getUser().removeProject(project.getPath());
                 projectHandler.deleteProject(project);
                 controller.removeProjectFromDisplay(projectDisplay);
-            } catch (SaveUserException | UserFromSaveCreationException | ProjectDeletionException e) {
+            } catch (ProjectDeletionException e) {
                 AlertController.showStageError("Failed to delete", String.format("Could not delete %s", project.getTitle()));
             }
         }
@@ -227,11 +227,9 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
             ProjectDisplay projectDisplay = new ProjectDisplay(project);
             controller.addProjectToDisplay(projectDisplay);
         } catch (ProjectCreationException | SaveUserException e) {
-            e.printStackTrace();
-            e.getCause().printStackTrace();
             AlertController.showStageError("Error while creating project : "+title, "Creating failed");
         } catch (ProjectAlreadyExistsException | DirectoryCreationException e) {
-            AlertController.showStageError("Error while creating project : "+title, "A project with this name already exists. Please chose another name.");
+            AlertController.showStageError("Error while creating project : "+title, "A project with this name already exists. Please choose another name.");
         }
         return true;
     }
@@ -247,7 +245,6 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
         try {
             projectHandler.renameProject(currentTreatedProject, title);
         } catch (ProjectRenameException e) {
-            e.printStackTrace();
             AlertController.showStageError("Save error", "Error renaming project");
         }
         controller.refreshProjectTitle(currentTreatedProject, title);
@@ -281,8 +278,8 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
      */
     @Override
     public void shareProject(String collaboratorUsername) {
-        ProjectHandler projectHandler = new ProjectHandler();
         try {
+            ProjectHandler projectHandler = new ProjectHandler();
             projectHandler.shareProject(collaboratorUsername, currentTreatedProject);
             AlertController.showStageInfo("Successful sharing", String.format("Project successfully shared with %s !", collaboratorUsername));
         } catch (UserFromSaveCreationException e) {

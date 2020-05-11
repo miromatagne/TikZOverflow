@@ -40,8 +40,6 @@ public class AccountCreationController extends AccountController implements Acco
             controller.setListener(this);
             stage.getScene().setRoot(loader.getRoot());
         } catch (IOException e) {
-            System.err.println("Error loading /View/FXML/accountCreationScreen.fxml");
-            e.printStackTrace();
             AlertController.showStageError("Error while loading the account creation fxml file.", "Process aborted", true);
         }
     }
@@ -121,8 +119,6 @@ public class AccountCreationController extends AccountController implements Acco
             tcuFullText.setText(text);
             tcuFullText.wrappingWidthProperty().bind(tcuScene.widthProperty().subtract(20));
         } catch (IOException e) {
-            System.err.println("Could not open TCU");
-            e.printStackTrace();
             AlertController.showStageError("Error while loading the terms and conditions file.", "File not readable");
         }
 

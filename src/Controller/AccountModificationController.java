@@ -40,7 +40,6 @@ public class AccountModificationController extends AccountController implements 
             controller.setListener(this);
             stage.getScene().setRoot(loader.getRoot());
         } catch (IOException e) {
-            e.printStackTrace();
             AlertController.showStageError("Error while loading the account modification fxml file.", "Process aborted", true);
         }
     }
@@ -85,8 +84,6 @@ public class AccountModificationController extends AccountController implements 
                 UserHandler handler = UserHandler.getInstance();
                 handler.saveUser(userCurrent);
             } catch (SaveUserException e) {
-                e.printStackTrace();
-                e.getCause().printStackTrace();
                 AlertController.showStageError("Error while saving the user account.", "User could not be saved");
             }
             return true;

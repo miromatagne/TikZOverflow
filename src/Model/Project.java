@@ -27,7 +27,7 @@ public class Project {
      * @param path              path to the project save directory
      */
     public Project( String creatorUsername, String path,String title){
-        this( creatorUsername, title, new Date(), new Date(), new ArrayList<>(), path);
+        this(creatorUsername, title, new Date(), new Date(), new ArrayList<>(), path);
     }
 
     /**
