@@ -10,14 +10,14 @@ class TestPDFHandler {
 
     @Test
     void convertPdfToImage() {
-        PDFHandler pdfHandler = new PDFHandler("./Latex/out/test_latex.pdf");
+        PDFHandler pdfHandler = new PDFHandler("./test/Controller/TestPDFHandler/test_latex.pdf");
         try {
             pdfHandler.convertPdfToImageOnDisk();
         } catch (Exception e) {
             System.err.println("Error converting pdf file");
             e.printStackTrace();
         }
-        File imageFile = new File("./Latex/out/test_latex.jpg");
+        File imageFile = new File("./test/Controller/TestPDFHandler/test_latex.jpg");
         assertTrue(imageFile.exists());
     }
 }

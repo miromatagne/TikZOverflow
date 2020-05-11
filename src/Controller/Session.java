@@ -1,11 +1,15 @@
 package Controller;
 
 import Controller.Exceptions.SessionOpeningException;
-import Model.*;
-import Model.Exceptions.*;
+import Model.Exceptions.ProjectLoadException;
+import Model.Exceptions.SaveUserCreationException;
+import Model.Exceptions.SetupDirectoryException;
+import Model.Exceptions.UserFromSaveCreationException;
+import Model.Project;
+import Model.ProjectHandler;
+import Model.User;
+import Model.UserHandler;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
