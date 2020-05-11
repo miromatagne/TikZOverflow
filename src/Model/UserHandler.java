@@ -52,6 +52,7 @@ public class UserHandler extends FileHandler{
             }
             File file = new File(saveUserDirectory);
             checkAndCreateSaveDirectory(file);
+            setSaveUserDirectory(saveUserDirectory);
         } catch (DirectoryCreationException e) {
             throw new SetupDirectoryException(e);
         }
