@@ -40,8 +40,8 @@ public class ShapeMenuViewController implements Initializable {
 
     private final ArrayList<Text> allTexts = new ArrayList<>();
 
-    public final static int ARROW = 4;
-    final static int NUMBER_OF_MENUS = 6;
+    public static final int ARROW = 4;
+    static final int NUMBER_OF_MENUS = 6;
 
 
     /**

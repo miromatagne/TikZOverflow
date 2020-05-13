@@ -20,7 +20,7 @@ import java.util.Locale;
  * actions on projects such as copy, deletion, save, share or renaming.
  */
 public class ProjectHandler extends FileHandler {
-    public final static String DATE_FORMAT = "E dd-MM-yyyy HH:mm:ss";
+    public static final String DATE_FORMAT = "E dd-MM-yyyy HH:mm:ss";
 
     /**
      * Constructor
@@ -50,7 +50,7 @@ public class ProjectHandler extends FileHandler {
         } catch (ProjectSaveException | IOException e) {
             throw new ProjectCreationException(e);
         } catch (DirectoryCreationException e) {
-            throw new DirectoryCreationException();
+            throw new DirectoryCreationException(e);
         }
     }
 
@@ -165,7 +165,7 @@ public class ProjectHandler extends FileHandler {
                 deleteFromUser(project, collaboratorUsername, userHandler);
             }
         } catch (IOException | SaveUserException | UserFromSaveCreationException e) {
-            throw new ProjectDeletionException();
+            throw new ProjectDeletionException(e);
         }
     }
 
@@ -227,7 +227,7 @@ public class ProjectHandler extends FileHandler {
             project.setTitle(previousTitle);
             project.setPath(previousPath);
             user.removeProject(previousPath);
-            throw new ProjectRenameException();
+            throw new ProjectRenameException(e);
         }
     }
 
@@ -344,6 +344,7 @@ public class ProjectHandler extends FileHandler {
                 while ((temp = br.readLine()) != null) {
                     text = text.concat(temp + '\n');
                 }
+                br.close();
                 writeInFile(texFile, text);
             }
         } catch (IOException e) {

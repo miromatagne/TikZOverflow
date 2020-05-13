@@ -6,7 +6,9 @@ import javafx.scene.control.Alert;
 /**
  * Class used to show alerts to the user and sometimes exit the application if necessary.
  */
-public class AlertController {
+public final class AlertController {
+
+    private AlertController(){}
 
     /**
      * Shows an error alert to the user without quitting the application.

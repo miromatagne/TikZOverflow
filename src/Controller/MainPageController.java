@@ -10,7 +10,6 @@ import Model.Shapes.Shape;
 import View.ViewControllers.MainPageViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
@@ -87,9 +86,9 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     @Override
     public void saveProject(String code){
         try{
-            code = LatexHandler.getInstance().buildFullCodeFromShapesOnlyCode(code, latexController.getTextInFile());
+            String codeTex = LatexHandler.getInstance().buildFullCodeFromShapesOnlyCode(code, latexController.getTextInFile());
             ProjectHandler projectHandler = new ProjectHandler();
-            projectHandler.makeTexFile(code);
+            projectHandler.makeTexFile(codeTex);
             projectHandler.saveProjectInfo(Session.getInstance().getCurrentProject());
         }
         catch(GetTextInFileException e){

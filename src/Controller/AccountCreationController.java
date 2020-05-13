@@ -113,6 +113,7 @@ public class AccountCreationController extends AccountController implements Acco
             while ((tmp = br.readLine()) != null) {
                 text = text.concat(tmp + '\n');
             }
+            br.close();
             tcuStage.setScene(tcuScene);
             tcuStage.show();
             Text tcuFullText = (Text) tcuRoot.lookup("#tcuFullText");

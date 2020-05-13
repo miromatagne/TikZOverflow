@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Abstract class which allows to group all the shape menus controller into one type of instance
  */
 
-abstract public class MenuController {
+public abstract class MenuController {
     public abstract void update();
 
     public abstract Color getColor();

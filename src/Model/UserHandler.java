@@ -21,7 +21,7 @@ public class UserHandler extends FileHandler{
 
     public static final String DEFAULT_DIRECTORY = "save user";
     private String saveUserDirectory;
-    private final String saveUserFormat = ".txt";
+    private static final String SAVE_USER_FORMAT = ".txt";
 
     static {
         instance = new UserHandler();
@@ -99,7 +99,7 @@ public class UserHandler extends FileHandler{
      */
     public void createUserSave(User user) throws SaveUserCreationException, UserAlreadyExistsException {
         try {
-            File saveFile = new File(saveUserDirectory + File.separator + user.getUsername() + saveUserFormat);
+            File saveFile = new File(saveUserDirectory + File.separator + user.getUsername() + SAVE_USER_FORMAT);
             if (saveFile.exists()) {
                 //Error, the file does already exist
                 throw new UserAlreadyExistsException();
@@ -134,7 +134,7 @@ public class UserHandler extends FileHandler{
      */
     public void saveUser(User user) throws SaveUserException {
         try {
-            File file = new File(saveUserDirectory + File.separator + user.getUsername() + saveUserFormat);
+            File file = new File(saveUserDirectory + File.separator + user.getUsername() + SAVE_USER_FORMAT);
             if (file.exists()) {
                 writeSave(user, file);
             }
@@ -152,7 +152,7 @@ public class UserHandler extends FileHandler{
      */
     public User getUserFromSave(String username) throws UserFromSaveCreationException {
         try {
-            File file = new File(saveUserDirectory + File.separator + username + saveUserFormat);
+            File file = new File(saveUserDirectory + File.separator + username + SAVE_USER_FORMAT);
             User user = new User();
             user.setUsername(username);
             setUserLastName(file, user);
@@ -173,7 +173,7 @@ public class UserHandler extends FileHandler{
      * @return TRUE if file exists, FALSE otherwise
      */
     public boolean saveUserExists(String username) {
-        File file = new File(saveUserDirectory + File.separator + username + saveUserFormat);
+        File file = new File(saveUserDirectory + File.separator + username + SAVE_USER_FORMAT);
         return file.exists();
     }
 
@@ -193,11 +193,9 @@ public class UserHandler extends FileHandler{
         String line;
         while ((line = br.readLine()) != null) {
             String[] lineArray = line.split(":", 2);
-            if (lineArray[0].equals(flag)) {
-                if (lineArray.length>1 &&!lineArray[1].equals("")) {
-                    br.close();
-                    return lineArray[1];
-                }
+            if (lineArray[0].equals(flag) && lineArray.length>1 && !lineArray[1].equals("")) {
+                br.close();
+                return lineArray[1];
             }
         }
         br.close();

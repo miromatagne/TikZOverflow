@@ -58,8 +58,6 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
             FXMLLoader loader = getLoader();
             stage.getScene().setRoot(loader.getRoot());
         } catch (IOException e) {
-            System.err.println("Error loading /View/FXML/projectSelectionScreen.fxml");
-            e.printStackTrace();
             AlertController.showStageError("Error while loading the project selection fxml file.", "Process aborted", true);
         }
     }
