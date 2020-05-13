@@ -41,7 +41,7 @@ public class LatexErrorsHandler extends FileHandler{
      * @return          the global prefix of an error message in the .log file
      */
     public String generalErrorsPrefix(){
-        String allDirectories[];
+        String[] allDirectories;
         String path = Controller.Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex";
         allDirectories = path.split("\\\\");
         String errorsLogPath = "";

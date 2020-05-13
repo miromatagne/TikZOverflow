@@ -49,17 +49,17 @@
                 </padding>
             </HBox>
             <HBox alignment="BOTTOM_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                <Button fx:id="createButton" mnemonicParsing="false" onAction="#onCreateButton" style="-fx-background-color: #00CC66;" styleClass="menuButton" stylesheets="@../CSS/topMenuButton.css" text="Create">
+                <Button mnemonicParsing="false" onAction="#onCreateButton" style="-fx-background-color: #00CC66;" styleClass="menuButton" stylesheets="@../CSS/topMenuButton.css" text="Create">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="copyButton" mnemonicParsing="false" onAction="#onPressCopy" style="-fx-background-color: #3366bb;" styleClass="menuButton" stylesheets="@../CSS/topMenuButton.css" text="Copy">
+                <Button mnemonicParsing="false" onAction="#onPressCopy" style="-fx-background-color: #3366bb;" styleClass="menuButton" stylesheets="@../CSS/topMenuButton.css" text="Copy">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
                 </Button>
-                <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onPressDelete" style="-fx-background-color: #DD2222;" styleClass="menuButton" stylesheets="@../CSS/topMenuButton.css" text="Delete">
+                <Button mnemonicParsing="false" onAction="#onPressDelete" style="-fx-background-color: #DD2222;" styleClass="menuButton" stylesheets="@../CSS/topMenuButton.css" text="Delete">
                     <HBox.margin>
                         <Insets right="30.0" />
                     </HBox.margin>

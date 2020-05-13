@@ -23,13 +23,12 @@ public class Rectangle extends Node {
         float x2 = getPosX() + width;
         float y2 = getPosY() + height;
         float labelPosX = (x1+x2)/2;
-        float labelPosY = y1;
 
         String code = super.generateAndGetTikzCode();
         //position of the bottom left corner
         code += "(" + x1 + "," + y1 + ") ";
         //position of the label and his content
-        code += "node[color=black, below] at (" + labelPosX + "," + labelPosY + "){" + getLabel() +"} ";
+        code += "node[color=black, below] at (" + labelPosX + "," + y1 + "){" + getLabel() +"} ";
         //position of the top right corner
         code += "rectangle (" + x2 + "," + y2 + ");\n";
         return code;
