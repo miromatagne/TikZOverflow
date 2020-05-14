@@ -4,7 +4,7 @@ import Controller.Exceptions.LatexController.GetTextInFileException;
 import Controller.Exceptions.ShapeMenuController.ShapeMenuControllerConstructorException;
 import Model.Exceptions.ProjectHandler.LatexWritingException;
 import Model.Exceptions.ProjectHandler.ProjectSaveException;
-import Model.LatexHandler;
+import Model.Latex.LatexHandler;
 import Model.ProjectHandler;
 import Model.Shapes.Shape;
 import View.ViewControllers.MainPageViewController;

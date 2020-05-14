@@ -1,5 +1,6 @@
 package Model;
 import Model.Exceptions.LatexHandler.LatexCompilationException;
+import Model.Latex.LatexHandler;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

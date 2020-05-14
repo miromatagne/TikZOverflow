@@ -9,6 +9,9 @@ import Model.Exceptions.ProjectHandler.LatexWritingException;
 import Model.Exceptions.LatexErrorsHandler.LogErrorException;
 import Model.Exceptions.ProjectHandler.ProjectSaveException;
 import Model.*;
+import Model.Latex.LatexErrorsHandler;
+import Model.Latex.LatexHandler;
+import Model.Latex.PDFHandler;
 import View.ViewControllers.MainPageViewController;
 import javafx.scene.image.Image;
 

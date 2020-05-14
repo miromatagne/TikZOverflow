@@ -1,7 +1,8 @@
-package Model;
+package Model.Latex;
 
 import Controller.Session;
 import Model.Exceptions.LatexErrorsHandler.LogErrorException;
+import Model.FileHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +11,7 @@ import java.io.IOException;
  * Handle the .Log file generated after a Latex compilation in order to extract the errors log
  */
 
-public class LatexErrorsHandler extends FileHandler{
+public class LatexErrorsHandler extends FileHandler {
     private static int ERRORS_COUNTER = 0;
     private static String ERRORS = "";
     private String[] linesLogFile;

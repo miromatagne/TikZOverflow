@@ -2,9 +2,8 @@ package Model;
 
 import Controller.Session;
 import Model.Exceptions.LatexErrorsHandler.LogErrorException;
+import Model.Latex.LatexErrorsHandler;
 import org.junit.jupiter.api.Test;
-
-import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 
