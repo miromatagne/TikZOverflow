@@ -73,7 +73,7 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
     }
 
     /**
-     * Clear the shape menus by calling the update function of the controllers
+     * Clear the shape menus by calling the update function of the controllers.
      */
     public void clearShapeMenus() {
         for (MenuController menuController : allControllers) {
@@ -97,7 +97,7 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
 
 
     /**
-     * Change the menu to the menu indicated by the value given in parameter
+     * Change the menu to the menu indicated by the value given in parameter.
      *
      * @param idNew Corresponds to the id of the menu which is going to be set
      */
@@ -111,7 +111,7 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
     }
 
     /**
-     * Add a scene to the array list containing all the menus and add its controller to an array too
+     * Add a scene to the array list containing all the menus and add its controller to an array too.
      *
      * @param scenePath Path to the corresponding fxml file
      * @throws AddSceneException when the fxml file is not loaded successfully
@@ -180,7 +180,6 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
     public void onButtonPressed() {
         showPopUp();
     }
-
 
     @Override
     public void onConfirmButtonPressed() {

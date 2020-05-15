@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * This class test the session class with some of its methods
+ * This class test the session class with some of its methods.
  */
 class TestSession {
     User testUser;

@@ -85,7 +85,7 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * Updates the text of the code interface area
+     * Updates the text of the code interface area.
      */
     public void updateText() {
         if (textSaved == null) {
@@ -96,7 +96,7 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * Fill the code interface with the text saved
+     * Fill the code interface with the text saved.
      */
     private void fillWithTextSaved() {
         codeInterface.setText(this.textSaved);
@@ -104,7 +104,7 @@ public class MainPageViewController implements Initializable {
 
 
     /**
-     * Relays action of the compile button (sends code interface text needed for compilation)
+     * Relays action of the compile button (sends code interface text needed for compilation).
      */
     @FXML
     public void compile() {
@@ -112,7 +112,7 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * When clicking on 'Hide errors' button, the user is sent back on the code interface
+     * When clicking on 'Hide errors' button, the user is sent back on the code interface.
      *
      * @param errorsCount number of errors
      */
@@ -131,7 +131,7 @@ public class MainPageViewController implements Initializable {
 
     /**
      * when clicking on "errors (..)" button, the user is sent on a screen which shows him the errors after the last
-     * compilation
+     * compilation.
      */
     @FXML
     public void showErrors() {
@@ -202,12 +202,8 @@ public class MainPageViewController implements Initializable {
         codeTitle.setText("Shapes-only code");
     }
 
-
-
-
-
     /**
-     * Create a pop-up which allows to create a new shape
+     * Create a pop-up which allows to create a new shape.
      */
     @FXML
     public void addShapeMenu() {
@@ -229,7 +225,7 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * Initialize the image buttons for the predefined shapes
+     * Initialize the image buttons for the predefined shapes.
      */
     private void initializeImageButton() {
         bindImageButton(imageCircle, buttonCircle);
@@ -241,7 +237,6 @@ public class MainPageViewController implements Initializable {
         bindImageButton(imageSquare, buttonSquare);
 
     }
-
 
     /**
      * Bind the image and the button to keep a scale between them.
@@ -257,7 +252,7 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * This method creates the drag of the mouse
+     * This method creates the drag of the mouse.
      *
      * @param event  Mouse event
      * @param button The source of the drag
@@ -275,7 +270,7 @@ public class MainPageViewController implements Initializable {
 
     /**
      *  Called when a drag motion is detected on the circle button. Decides that a circle shape is
-     *  going to move
+     *  going to move.
      *
      * @param mouseEvent mouse event  for the drag motion
      */
@@ -287,7 +282,7 @@ public class MainPageViewController implements Initializable {
 
     /**
      *  Called when a drag motion is detected on the rectangle button. Decides that a rectangle shape is
-     *  going to move
+     *  going to move.
      *
      * @param mouseEvent mouse event  for the drag motion
      */
@@ -299,7 +294,7 @@ public class MainPageViewController implements Initializable {
 
     /**
      *  Called when a drag motion is detected on the line button. Decides that a line shape is
-     *  going to move
+     *  going to move.
      *
      * @param mouseEvent mouse event  for the drag motion
      */
@@ -311,7 +306,7 @@ public class MainPageViewController implements Initializable {
 
     /**
      *  Called when a drag motion is detected on the curved line button. Decides that a curved line shape is
-     *  going to move
+     *  going to move.
      *
      * @param mouseEvent mouse event  for the drag motion
      */
@@ -323,7 +318,7 @@ public class MainPageViewController implements Initializable {
 
     /**
      *  Called when a drag motion is detected on the arrow button. Decides that an arrow shape is
-     *  going to move
+     *  going to move.
      *
      * @param mouseEvent mouse event  for the drag motion
      */
@@ -335,7 +330,7 @@ public class MainPageViewController implements Initializable {
 
     /**
      *  Called when a drag motion is detected on the square button. Decides that a square shape is
-     *  going to move
+     *  going to move.
      *
      * @param mouseEvent mouse event  for the drag motion
      */
@@ -347,7 +342,7 @@ public class MainPageViewController implements Initializable {
 
     /**
      *  Called when a drag motion is detected on the triangle button. Decides that a triangle shape is
-     *  going to move
+     *  going to move.
      *
      * @param mouseEvent mouse event  for the drag motion
      */
@@ -358,7 +353,7 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * This method generates the image that follows the mouse during the drag and drop gesture
+     * This method generates the image that follows the mouse during the drag and drop gesture.
      *
      * @param path path of the image to create
      */
@@ -372,7 +367,7 @@ public class MainPageViewController implements Initializable {
 
 
     /**
-     * This method drop the shape at the position of the mouse
+     * This method drop the shape at the position of the mouse.
      *
      * @param event drag event
      */
@@ -394,7 +389,7 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * This method create an image of the dragged shape if the mouse enters the PDF area
+     * This method create an image of the dragged shape if the mouse enters the PDF area.
      */
     public void handleDragEntered() {
         if (movingShapeID == ShapeFactory.CIRCLE) {
@@ -414,10 +409,8 @@ public class MainPageViewController implements Initializable {
         }
     }
 
-
-
     /**
-     * This method remove the image of the dragged shape if the mouse exits the PDF area
+     * This method remove the image of the dragged shape if the mouse exits the PDF area.
      */
     public void handleDragExited() {
         if (movingImage != null) {
@@ -427,7 +420,7 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * This method shows to the user the accessible zone for the drop
+     * This method shows to the user the accessible zone for the drop.
      *
      * @param event drag event
      */
@@ -440,7 +433,8 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * Open a pop-up asking if the user wants to the save the project before quiting
+     * Open a pop-up asking if the user wants to the save the project before quiting.
+     *
      * @param backToProject if true: goes back to project selection screen
      *                      if false: quits the application
      */
@@ -520,7 +514,7 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * Send a request to the listener to create a shape
+     * Send a request to the listener to create a shape.
      *
      * @param shape shape to be created
      */
@@ -529,7 +523,7 @@ public class MainPageViewController implements Initializable {
     }
 
     /**
-     * change mode to left-handed or right-handed when clicking the button
+     * Change mode to left-handed or right-handed when clicking the button.
      */
     public void changeMode() {
         if(rightHandMode){
@@ -546,6 +540,9 @@ public class MainPageViewController implements Initializable {
         saveSuggestionPopup(true);
     }
 
+    /**
+     * Interface used to relay information to MainPageController.
+     */
     public interface MainPageViewControllerListener {
         void goBackToProjectScreen();
 
@@ -560,10 +557,16 @@ public class MainPageViewController implements Initializable {
         Parent getRoot();
     }
 
+    /**
+     * Interface used to relay information to ShapeMenuController.
+     */
     public interface AddNewShapeButtonListener {
         void onButtonPressed();
     }
 
+    /**
+     * Interface used to relay information to LatexController.
+     */
     public interface CodeInterfaceListener {
         void onCompilationAttempt(String code);
 

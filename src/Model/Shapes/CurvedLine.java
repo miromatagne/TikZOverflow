@@ -12,24 +12,9 @@ public class CurvedLine extends Link {
         super(xOrigin, yOrigin, xDestination, yDestination);
     }
 
-    public void setCurveOutAngle(float curveOutAngle) {
-        this.curveOutAngle = curveOutAngle;
-    }
-
-    public void setCurveInAngle(float curveInAngle) {
-        this.curveInAngle = curveInAngle;
-    }
-
-    public float getCurvedOutAngle() {
-        return curveOutAngle;
-    }
-
-    public float getCurvedInAngle() {
-        return curveInAngle;
-    }
-
     /**
-     * Generate TikZ code that creates the shape using the properties
+     * Generate TikZ code that creates the shape using the properties.
+     *
      * @return generated code
      */
     @Override
@@ -59,5 +44,21 @@ public class CurvedLine extends Link {
         code += "node[color=black, below] at (" + labelPosX + "," + labelPosY + "){" + getLabel() +"}; \n" ;
 
         return code;
+    }
+
+    public void setCurveOutAngle(float curveOutAngle) {
+        this.curveOutAngle = curveOutAngle;
+    }
+
+    public void setCurveInAngle(float curveInAngle) {
+        this.curveInAngle = curveInAngle;
+    }
+
+    public float getCurvedOutAngle() {
+        return curveOutAngle;
+    }
+
+    public float getCurvedInAngle() {
+        return curveInAngle;
     }
 }

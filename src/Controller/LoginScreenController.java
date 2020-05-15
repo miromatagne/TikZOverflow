@@ -55,6 +55,7 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
 
     /**
      * Gets parent root from FXML file.
+     *
      * @return root
      * @throws IOException if FXML file was not found
      */
@@ -92,6 +93,7 @@ public class LoginScreenController implements LoginScreenViewController.LoginScr
 
     /**
      * Checks login information and eventually requests the ScreenHandler to go to main page.
+     *
      * @param username username
      * @param password password
      */

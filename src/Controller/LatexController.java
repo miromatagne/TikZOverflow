@@ -97,7 +97,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     }
 
     /**
-     * Create a image and set it in the main page
+     * Create a image and set it in the main page.
      *
      * @param imagePath     Path to image
      * @throws IOException  If IO error occurs
@@ -110,7 +110,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     }
 
     /**
-     * Save current source code in .tex file
+     * Save current source code in .tex file.
      *
      * @param sourceCode Source code to be saved
      * @throws SaveTikzException if there is an error when writing to the .tex file
@@ -190,7 +190,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     }
 
     /**
-     * Get the text error
+     * Get the text error.
      *
      * @return text error
      */
@@ -200,7 +200,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     }
 
     /**
-     * Get the errors counter
+     * Get the errors counter.
      *
      * @return errors counter
      */

@@ -64,6 +64,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
 
     /**
      * Gets parent root from FXML file.
+     *
      * @return root
      * @throws IOException if FXML file was not found
      */
@@ -94,6 +95,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
     /**
      * This method is called to show a popup corresponding to the button
      * the user has pressed on the Project Selection Screen.
+     *
      * @param FXMLPath  path of the FXML file corresponding to the popup
      * @param title     title of the popup
      */
@@ -117,6 +119,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
 
     /**
      * Shows a popup when the user presses the Share button.
+     *
      * @param project   project that the user wants to share.
      */
     @Override
@@ -127,6 +130,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
 
     /**
      * Shows a popup when the user presses the Rename button.
+     *
      * @param project   project that the user wants to rename.
      */
     @Override
@@ -146,6 +150,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
     /**
      * Deletes the projects that are selected (checkbox ticked) when the user
      * presses the Delete button.
+     *
      * @param checkedBoxes  list of all the selected ProjectDisplays
      */
     @Override
@@ -166,6 +171,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
     /**
      *  Copies the projects that are selected (checkbox ticked) when the user
      *  presses the Copy button.
+     *
      * @param checkedBoxes  list of all the selected ProjectDisplays
      */
     @Override
@@ -188,6 +194,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
 
     /**
      * Alerts the ScreenHandler that the user wishes to go to the Main Page.
+     *
      * @param project project the user wants to open in the Main Page, the one
      *                he clicked on
      */
@@ -198,6 +205,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
 
     /**
      * Creates a project, when the user presses the Create button.
+     *
      * @param title title of the project
      * @param path  path where the project should be saved (chosen
      *              by the user)
@@ -232,6 +240,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
     /**
      * Renames a project, when the user confirms the new title he wishes to
      * give to a project.
+     *
      * @param title new title to be given to the project
      */
     @Override
@@ -248,6 +257,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
     /**
      * Opens a DirectoryChooser when the user wants to browse a path where
      * he wants to create his project.
+     *
      * @param popUpStage stage where the DirectoryChooser will appear
      * @return  returns the selected path
      */
@@ -269,6 +279,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
 
     /**
      * Shares a project with a different user.
+     *
      * @param collaboratorUsername  username of the user we wish to share the project with
      */
     @Override
@@ -289,6 +300,7 @@ public class ProjectSelectionController implements ProjectSelectionViewControlle
      */
     public interface ProjectSelectionControllerListener {
         void accountModificationRequest();
+
         void logout();
 
         void goToMainPage(Project project);

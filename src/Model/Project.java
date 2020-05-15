@@ -21,7 +21,7 @@ public class Project {
     private String path;
 
     /**
-     * New project constructor
+     * New project constructor.
      *
      * @param creatorUsername   creator username
      * @param path              path to the project save directory
@@ -32,7 +32,7 @@ public class Project {
     }
 
     /**
-     * Existing projects constructor (made from a save)
+     * Existing projects constructor (made from a save).
      *
      * @param creatorUsername      creator username
      * @param title                project title

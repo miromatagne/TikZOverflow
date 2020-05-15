@@ -30,12 +30,12 @@ public abstract class Link extends Shape {
     }
 
     /**
-     * Generate TikZ code for the color using the properties
+     * Generate TikZ code for the color using the properties.
+     *
      * @return generated code
      */
     public String getColorTikzCode(){
         //Color
-
         return " ,color={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() + ";blue," + getColor().getBlue() + "}]";
     }
 

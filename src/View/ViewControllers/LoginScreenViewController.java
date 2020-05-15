@@ -29,6 +29,7 @@ public class LoginScreenViewController {
 
     /**
      * Change TextField style. Used when a field is not correct.
+     *
      * @param field Name of the field that must change
      * @param style New style to be applied. If different from "red",  it's
      *              considered to be "default".
@@ -54,8 +55,9 @@ public class LoginScreenViewController {
     public void setListener(LoginScreenViewControllerListener listener){
         this.listener = listener;
     }
+
     /**
-     * Interface used to relay information to corresponding controller
+     * Interface used to relay information to corresponding controller.
      */
     public interface LoginScreenViewControllerListener{
         void onLoginAttempt(String username, String password);

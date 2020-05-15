@@ -1,6 +1,5 @@
 package Controller.Exceptions.LatexController;
 
-
 /**
  * Exception when the creation of the image from the PDF failed
  */

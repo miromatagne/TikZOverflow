@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Handle the .Log file generated after a Latex compilation in order to extract the errors log
+ * Handle the .Log file generated after a Latex compilation in order to extract the errors log.
  */
 
 public class LatexErrorsHandler extends FileHandler {
@@ -20,7 +20,7 @@ public class LatexErrorsHandler extends FileHandler {
     private String documentError= "*** (job aborted, no legal \\end found)";
 
     /**
-     * Get the errors in the compiler
+     * Get the errors in the compiler.
      *
      * @return string with all the errors that the user let in the compiler
      */
@@ -29,7 +29,7 @@ public class LatexErrorsHandler extends FileHandler {
     }
 
     /**
-     * Get the counter of errors in the compiler
+     * Get the counter of errors in the compiler.
      *
      * @return quantity of errors that occur in the compiler
      */
@@ -38,8 +38,9 @@ public class LatexErrorsHandler extends FileHandler {
     }
 
     /**
-     * build a String that allows to identify the errors in the .log file
-     * @return          the global prefix of an error message in the .log file
+     * Build a String that allows to identify the errors in the .log file.
+     *
+     * @return the global prefix of an error message in the .log file
      */
     public String generalErrorsPrefix(){
         String[] allDirectories;
@@ -58,7 +59,7 @@ public class LatexErrorsHandler extends FileHandler {
     }
 
     /**
-     * Find the errors that the user has written in the compiler
+     * Find the errors that the user has written in the compiler.
      *
      * @param path     the path to the log file which contains all information about the last compilation
      *                 that we made
@@ -78,7 +79,7 @@ public class LatexErrorsHandler extends FileHandler {
 
     /**
      * An error in the log file can be written on multiple lines and this method manage to catch errors and add if the
-     * error is on multiple lines
+     * error is on multiple lines.
      */
     private void addErrors(){
         boolean lineIsError = false;
@@ -98,7 +99,8 @@ public class LatexErrorsHandler extends FileHandler {
     }
 
     /**
-     * this method looks for errors in the .log file
+     * Looks for errors in the .log file.
+     *
      * @param line          line to check if it is an error message
      * @return TRUE if the line is an error message
      *         FALSE otherwise
@@ -136,7 +138,8 @@ public class LatexErrorsHandler extends FileHandler {
     }
 
     /**
-     * Add a full line from log file to error
+     * Add a full line from log file to error.
+     *
      * @param line         the line to add
      * @return TRUE if the line is an error message
      *         FALSE otherwise

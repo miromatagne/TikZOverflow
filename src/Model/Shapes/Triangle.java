@@ -1,5 +1,9 @@
 package Model.Shapes;
 
+/**
+ * Class for the Triangle shape (node-type).
+ */
+
 public class Triangle extends Node {
     private float x1, y1, x2, y2, x3, y3;
 
@@ -14,7 +18,8 @@ public class Triangle extends Node {
     }
 
     /**
-     * Generate TikZ code that creates the shape using the properties
+     * Generate TikZ code that creates the shape using the properties.
+     *
      * @return generated code
      */
     @Override

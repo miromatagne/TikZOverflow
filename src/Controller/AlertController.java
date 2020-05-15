@@ -12,6 +12,7 @@ public final class AlertController {
 
     /**
      * Shows an error alert to the user without quitting the application.
+     *
      * @param header Header of the alert
      * @param content Content of the alert message
      */
@@ -21,6 +22,7 @@ public final class AlertController {
 
     /**
      * Shows an error alert to the user and quits the application in certain cases.
+     *
      * @param header Header of the alert
      * @param content Content of the alert message
      * @param hasToQuit If true, quits the application after showing the alert.
@@ -35,6 +37,7 @@ public final class AlertController {
 
     /**
      * Shows an information alert to the user.
+     *
      * @param header Header of the alert
      * @param content Content of the alert message
      */
@@ -45,6 +48,7 @@ public final class AlertController {
 
     /**
      * Creates and shows an alert.
+     *
      * @param header Header of the alert
      * @param content Content of the alert message
      * @param alert Alert to create and show

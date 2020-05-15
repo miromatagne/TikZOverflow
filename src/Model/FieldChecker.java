@@ -1,14 +1,14 @@
 package Model;
 
 /**
- * This class allows to check different inputs from the user of the application
+ * This class allows to check different inputs from the user of the application.
  */
 
 public class FieldChecker {
     private final TextTypeChecker textTypeChecker = new TextTypeChecker();
 
     /**
-     * Check if the username is valid
+     * Check if the username is valid.
      *
      * @param username String mail to be tested
      * @return TRUE if valid
@@ -22,7 +22,7 @@ public class FieldChecker {
     }
 
     /**
-     * Check if the name is valid
+     * Check if the name is valid.
      *
      * @param name String mail to be tested
      * @return TRUE if valid
@@ -36,7 +36,7 @@ public class FieldChecker {
     }
 
     /**
-     * Check if the mail is valid
+     * Check if the mail is valid.
      *
      * @param mail String mail to be tested
      * @return TRUE if valid
@@ -51,7 +51,7 @@ public class FieldChecker {
     }
 
     /**
-     * Check if all the fields are ok to create a new account
+     * Check if all the fields are ok to create a new account.
      *
      * @param username             username
      * @param firstName            first name

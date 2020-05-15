@@ -47,7 +47,7 @@ public class Session {
     }
 
     /**
-     * Tries to open a new session (log in)
+     * Tries to open a new session (log in).
      *
      * @param username Username of the user
      * @param password Password of the user
@@ -61,7 +61,7 @@ public class Session {
     }
 
     /**
-     * Tries to open a new session (log in) with given directory
+     * Tries to open a new session (log in) with given directory.
      *
      * @param username      Username of the user
      * @param password      Password of the user
@@ -90,7 +90,7 @@ public class Session {
     }
 
     /**
-     * Accesses the projects that the current logged in user has access to
+     * Accesses the projects that the current logged in user has access to.
      *
      * @return ArrayList containing the user's projects
      */
@@ -116,7 +116,7 @@ public class Session {
     }
 
     /**
-     * Create an account (a user save) if all the fields are ok
+     * Create an account (a user save) if all the fields are ok.
      *
      * @param username  username
      * @param firstName first name

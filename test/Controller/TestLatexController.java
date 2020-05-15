@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * Test the latex controller methods
+ * Test the latex controller methods.
  */
 class TestLatexController {
 

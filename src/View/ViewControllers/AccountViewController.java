@@ -5,7 +5,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 /**
- * This abstract class is used for account view controllers (create and modification) because they have similarities
+ * This abstract class is used for account view controllers (create and modification) because they have similarities.
  */
 public abstract class AccountViewController {
     @FXML
@@ -15,6 +15,7 @@ public abstract class AccountViewController {
 
     /**
      * Change TextField style. Used when a field is not correct.
+     *
      * @param field Name of the field that must change
      * @param style New style to be applied. If different from "red",  it's
      *              considered to be "default".

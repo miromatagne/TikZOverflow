@@ -12,6 +12,9 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test the user handler methods.
+ */
 public class TestUserHandler {
 
     @Test

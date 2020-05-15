@@ -64,7 +64,7 @@ public class AccountCreationViewController extends AccountViewController {
         }
     }
     /**
-     * Interface used to relay view information to a controller
+     * Interface used to relay view information to a controller.
      */
     public interface AccountCreationViewControllerListener{
 

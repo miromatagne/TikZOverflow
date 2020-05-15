@@ -5,7 +5,7 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 
 /**
- * Factory to create instance of shape
+ * Factory to create instance of shape.
  */
 
 public final class ShapeFactory {
@@ -22,7 +22,7 @@ public final class ShapeFactory {
     private ShapeFactory(){}
 
     /**
-     * Get an instance of a shape based on information given in parameters
+     * Get an instance of a shape based on information given in parameters.
      *
      * @param id    Identify the type of shape
      * @param data  Data needed to create the shape
@@ -95,7 +95,7 @@ public final class ShapeFactory {
     }
 
     /**
-     * Get a default instance of a shape
+     * Get a default instance of a shape.
      *
      * @param id Identify the type of shape
      * @return default instance of shape

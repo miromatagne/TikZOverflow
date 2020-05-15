@@ -32,7 +32,8 @@ public class AccountModificationViewController extends AccountViewController imp
     private AccountModificationViewControllerListener listener;
 
     /**
-     * Initialize the controller
+     * Initialize the controller.
+     *
      * @param url               URL (not used)
      * @param resourceBundle    resourceBundle (not used)
      */
@@ -55,7 +56,7 @@ public class AccountModificationViewController extends AccountViewController imp
 
     /**
      * Action of the validate button : - Check if all the information in the field are correct
-     * - Save the information of the user in the file username.txt
+     *                                 - Save the information of the user in the file username.txt.
      */
     @FXML
     public void validateButtonAction() {
@@ -68,7 +69,7 @@ public class AccountModificationViewController extends AccountViewController imp
     }
 
     /**
-     * Action of the return Button : Change screen to the main page
+     * Action of the return Button : Change screen to the main page.
      */
     @FXML
     public void returnButtonAction() {
@@ -80,7 +81,7 @@ public class AccountModificationViewController extends AccountViewController imp
     }
 
     /**
-     * Interface used to relay information to corresponding controller
+     * Interface used to relay information to corresponding controller.
      */
     public interface AccountModificationViewControllerListener {
         void onValidation(String username, String firstName, String lastName, String email, String password, String passwordConfirmation);

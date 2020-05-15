@@ -30,7 +30,7 @@ public class LatexHandler {
     }
 
     /**
-     * Clear the stream
+     * Clear the stream.
      *
      * @param input The inputstream to clear
      * @throws IOException If the readLine throw an exception, getLines will throw it to an upper function

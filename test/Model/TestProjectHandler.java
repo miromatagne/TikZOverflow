@@ -16,6 +16,9 @@ import java.util.Date;
 import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.*;
+/**
+ * Test the project handler methods.
+ */
 public class TestProjectHandler {
 
     private UserHandler userHandler;

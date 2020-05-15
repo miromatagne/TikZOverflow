@@ -14,7 +14,8 @@ public class Line extends Link {
     }
 
     /**
-     * Generate TikZ code that creates the shape using the properties
+     * Generate TikZ code that creates the shape using the properties.
+     *
      * @return generated code
      */
     @Override

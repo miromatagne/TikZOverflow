@@ -3,7 +3,7 @@ package Model;
 import java.util.ArrayList;
 
 /**
- * Class to model a user
+ * Class to model a user.
  */
 
 public class User {

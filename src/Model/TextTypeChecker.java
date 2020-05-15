@@ -1,12 +1,12 @@
 package Model;
 
 /**
- * This class allows to check if the content of a String is number, alphanumeric or alpha
+ * This class allows to check if the content of a String is number, alphanumeric or alpha.
  */
 
 public class TextTypeChecker {
     /**
-     * Check if the text given in parameter is a number (float)
+     * Check if the text given in parameter is a number (float).
      *
      * @param text text to be checked
      * @return TRUE if valid

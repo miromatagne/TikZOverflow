@@ -29,6 +29,7 @@ public class ProjectPopUpViewController {
 
     /**
      * Sets the listener for ths class as it is a view controller.
+     *
      * @param  listener ProjectSelectionController instance
      */
     public void setListener(ProjectPopUpViewControllerListener listener) {
@@ -76,6 +77,7 @@ public class ProjectPopUpViewController {
 
     /**
      * Sets the stage corresponding to the popup.
+     *
      * @param stage popup stage
      */
     public void setStage(Stage stage) {

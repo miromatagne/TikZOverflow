@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 
 /**
- * Abstract class which allows to group all the shape menus controller into one type of instance
+ * Abstract class which allows to group all the shape menus controller into one type of instance.
  */
 
 public abstract class MenuController {

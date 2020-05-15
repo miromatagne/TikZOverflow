@@ -1,9 +1,9 @@
 package Model.Shapes;
 
 /**
- * Superclass for node-type shapes figuring in a diagram
- * Nodes can be connected using links (Link class)
- * In addition to the general attributes from the Shape class, nodes have an outlineThickness attribute
+ * Superclass for node-type shapes figuring in a diagram.
+ * Nodes can be connected using links (Link class).
+ * In addition to the general attributes from the Shape class, nodes have an outlineThickness attribute.
  */
 
 public abstract class Node extends Shape {
@@ -17,7 +17,8 @@ public abstract class Node extends Shape {
     }
 
     /**
-     * Generate TikZ code that creates the node using the properties
+     * Generate TikZ code that creates the node using the properties.
+     *
      * @return generated code
      */
     public String generateAndGetTikzCode(){

@@ -6,6 +6,9 @@ import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test the file handler methods.
+ */
 class TestFileHandler {
 
     @Test

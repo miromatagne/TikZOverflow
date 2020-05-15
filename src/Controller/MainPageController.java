@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Controller of the main page which handles interactions on the main page
+ * Controller of the main page which handles interactions on the main page.
  */
 public class MainPageController implements MainPageViewController.MainPageViewControllerListener {
     private final Stage stage;
@@ -37,7 +37,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     }
 
     /**
-     * Show the main page scene by loading and creating all the controllers this instance need to handle
+     * Show the main page scene by loading and creating all the controllers this instance need to handle.
      */
     public void show() {
         try {
@@ -70,7 +70,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     }
 
     /**
-     * Return on the screen with all the user's project
+     * Return on the screen with all the user's project.
      */
     @Override
     public void goBackToProjectScreen() {
@@ -80,7 +80,8 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     }
 
     /**
-     * Save the project without compiling it
+     * Save the project without compiling it.
+     *
      * @param code  the text from code interface to save
      */
     @Override
@@ -101,7 +102,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     }
 
     /**
-     * Close the program
+     * Close the program.
      */
     @Override
     public void closeStage() {
@@ -109,7 +110,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     }
 
     /**
-     * Create a shape when the shape is released (drag and drop)
+     * Create a shape when the shape is released (drag and drop).
      *
      * @param x           x-position
      * @param y           y-position
@@ -125,7 +126,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     }
 
     /**
-     * Convert the position x of the mouse to the position x of the PDF
+     * Convert the position x of the mouse to the position x of the PDF.
      *
      * @param x x position to convert
      * @return posXTikz         a float number for Tikz Language
@@ -139,7 +140,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     }
 
     /**
-     * Convert the position y of the mouse to the position y of the PDF
+     * Convert the position y of the mouse to the position y of the PDF.
      *
      * @param y y position to convert
      * @return posYTikz         a float number for Tikz language
@@ -173,7 +174,7 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
     }
 
     /**
-     * Adds shape code to the coding interface according to the shape received as a parameter
+     * Adds shape code to the coding interface according to the shape received as a parameter.
      *
      * @param shape Shape whose code has to be generated in the coding interface
      */
@@ -188,6 +189,9 @@ public class MainPageController implements MainPageViewController.MainPageViewCo
         return root;
     }
 
+    /**
+     * Interface used to communicate with ScreenHandler.
+     */
     public interface MainPageControllerListener {
         void goBackToProjectScreen();
     }

@@ -23,14 +23,14 @@ public class ProjectHandler extends FileHandler {
     public static final String DATE_FORMAT = "E dd-MM-yyyy HH:mm:ss";
 
     /**
-     * Constructor
+     * Constructor.
      */
     public ProjectHandler() {
 
     }
 
     /**
-     * Create a new project for the user
+     * Create a new project for the user.
      *
      * @param user  creator
      * @param path  project path
@@ -55,7 +55,7 @@ public class ProjectHandler extends FileHandler {
     }
 
     /**
-     * Save a project
+     * Save a project.
      *
      * @param project project to save
      * @throws ProjectSaveException if save failed
@@ -72,7 +72,7 @@ public class ProjectHandler extends FileHandler {
     }
 
     /**
-     * Setup the project directory
+     * Setup the project directory.
      *
      * @param project                           project which has to get a directory
      * @throws DirectoryCreationException       If the directory creation failed
@@ -91,7 +91,8 @@ public class ProjectHandler extends FileHandler {
     }
 
     /**
-     * Load a project based on its path
+     * Load a project based on its path.
+     *
      * @param path project path
      * @return corresponding project
      * @throws ProjectLoadException if the load failed
@@ -106,7 +107,7 @@ public class ProjectHandler extends FileHandler {
     }
 
     /**
-     * Create a copy of a project for a user
+     * Create a copy of a project for a user.
      *
      * @param projectToCopy project to copy
      * @param user          creator of the new project
@@ -130,6 +131,7 @@ public class ProjectHandler extends FileHandler {
 
     /**
      * Find next available name to copy a project.
+     *
      * @param projectToCopy project to copy
      * @return first available index that will be appended to project to copy title
      */
@@ -147,7 +149,7 @@ public class ProjectHandler extends FileHandler {
 
 
     /**
-     * Delete a project and its save
+     * Delete a project and its save.
      *
      * @param project project to delete
      * @throws ProjectDeletionException if deletion failed
@@ -171,6 +173,7 @@ public class ProjectHandler extends FileHandler {
 
     /**
      * Removes a project from a user file.
+     *
      * @param project project to be removed
      * @param creatorUsername project creator username
      * @param userHandler UserHandler
@@ -185,6 +188,7 @@ public class ProjectHandler extends FileHandler {
 
     /**
      * Renames a project title.
+     *
      * Changes the name of the LaTeX file but not of the project directory.
      * @param project project to be renamed
      * @param newTitle new project title
@@ -232,7 +236,8 @@ public class ProjectHandler extends FileHandler {
     }
 
     /**
-     * Shares a project with given collaborator
+     * Shares a project with given collaborator.
+     *
      * @param collaboratorUsername username of the collaborator the project is shared with
      * @param project project to be shared
      * @throws UserFromSaveCreationException if collaborator file couldn't be read
@@ -249,7 +254,7 @@ public class ProjectHandler extends FileHandler {
     }
 
     /**
-     * Generate a save text based on a project
+     * Generate a save text based on a project.
      *
      * @param project project to be saved
      * @return save content
@@ -278,7 +283,7 @@ public class ProjectHandler extends FileHandler {
     }
 
     /**
-     * Generate the project from a text save
+     * Generate the project from a text save.
      *
      * @param saveText content of the save
      * @param path     path to the project directory
@@ -317,6 +322,7 @@ public class ProjectHandler extends FileHandler {
 
     /**
      * Reads project code in LaTeX file.
+     *
      * @return source code
      * @throws IOException if project LaTeX file could not be read
      */
@@ -354,6 +360,7 @@ public class ProjectHandler extends FileHandler {
 
     /**
      * Writes template code in project LaTeX file.
+     *
      * @param project project to be saved
      * @throws IOException if project file couldn't be read/written
      */

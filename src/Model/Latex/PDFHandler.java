@@ -16,7 +16,7 @@ public class PDFHandler {
     private final String pdfPath;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param pdfPath path to the pdf file to be treated
      */
@@ -25,7 +25,7 @@ public class PDFHandler {
     }
 
     /**
-     * Converts pdf file to jpeg image file in the same directory
+     * Converts pdf file to jpeg image file in the same directory.
      *
      * @throws IOException if pdf file doesn't exist
      */

@@ -27,9 +27,9 @@ public class ScreenHandler extends Application implements LoginScreenController.
     private ProjectSelectionController projectSelectionController;
 
     /**
-     * At first, start() loads the login screen
+     * At first, start() loads the login screen.
      *
-     * @param stage Stage for the application.
+     * @param stage Stage for the application
      */
     @Override
     public void start(Stage stage) {
@@ -43,7 +43,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
     }
 
     /**
-     * Change the scene for the login screen
+     * Change the scene for the login screen.
      */
     private void showLoginScreen() {
         loginScreenController = new LoginScreenController(stage, this);
@@ -111,7 +111,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
     }
 
     /**
-     * Call when the identification is correct and change the scene
+     * Call when the identification is correct and change the scene.
      */
     @Override
     public void onSuccessfulLoginRequest() {
@@ -124,7 +124,8 @@ public class ScreenHandler extends Application implements LoginScreenController.
     }
 
     /**
-     * Change the scene to the main page (PDF and code creation page)
+     * Change the scene to the main page (PDF and code creation page).
+     *
      * @param project project the user will be working on
      */
     @Override
@@ -135,7 +136,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
     }
 
     /**
-     * Change the scene when user wants to create an account
+     * Change the scene when user wants to create an account.
      */
     @Override
     public void onAccountCreationRequest() {
@@ -144,7 +145,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
     }
 
     /**
-     * Change the scene to login screen when request is received
+     * Change the scene to login screen when request is received.
      */
     @Override
     public void backToLoginScreenRequest() {
@@ -152,7 +153,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
     }
 
     /**
-     * Disconnect the user and the login screen is loaded
+     * Disconnect the user and the login screen is loaded.
      */
     @Override
     public void logout() {
@@ -161,7 +162,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
     }
 
     /**
-     * Change the scene for account modification screen when request is received
+     * Change the scene for account modification screen when request is received.
      */
     @Override
     public void accountModificationRequest() {
@@ -170,7 +171,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
     }
 
     /**
-     * Notification from the main page modification button
+     * Notification from the main page modification button.
      */
     @Override
     public void onModificationDone() { goToProjectScreen(); }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * This class is used to handle interactions with user files
+ * This class is used to handle interactions with user files.
  */
 
 public class UserHandler extends FileHandler{
@@ -73,7 +73,7 @@ public class UserHandler extends FileHandler{
     }
 
     /**
-     * Get the save text from the user
+     * Get the save text from the user.
      *
      * @param user User to be handle
      * @return The user save in a string
@@ -127,7 +127,7 @@ public class UserHandler extends FileHandler{
     }
 
     /**
-     * Save the user in the user directory
+     * Save the user in the user directory.
      *
      * @param user user contain all the new data to be saved
      * @throws SaveUserException when the user save could not be written
@@ -167,7 +167,7 @@ public class UserHandler extends FileHandler{
     }
 
     /**
-     * Check if the save user file exists
+     * Check if the save user file exists.
      *
      * @param username username of the user
      * @return TRUE if file exists, FALSE otherwise

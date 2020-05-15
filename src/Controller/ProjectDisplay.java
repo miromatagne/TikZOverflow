@@ -23,6 +23,7 @@ public class ProjectDisplay {
 
     /**
      * Constructor of ProjectDisplay based on a project.
+     *
      * @param project project that needs to be viewed in the TableView and therefore converted
      *                to a ProjectDisplay
      */

@@ -3,7 +3,7 @@ package Model;
 import java.io.*;
 
 /**
- * This class is used to handle interactions with files
+ * This class is used to handle interactions with files.
  */
 
 public class FileHandler {
@@ -21,9 +21,9 @@ public class FileHandler {
     }
 
     /**
-     * Read the text in a File
+     * Read the text in a file.
      *
-     * @param path file.
+     * @param path file
      * @return text in the file
      * @throws IOException if error in IO interactions
      */
@@ -40,7 +40,8 @@ public class FileHandler {
     }
 
     /**
-     * Deletes a directory recursively (deletes all its content and then the directory itself)
+     * Deletes a directory recursively (deletes all its content and then the directory itself).
+     *
      * @param file directory to be deleted
      * @throws IOException exception in the process of deletion
      */

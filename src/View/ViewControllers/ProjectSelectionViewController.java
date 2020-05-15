@@ -91,6 +91,7 @@ public class ProjectSelectionViewController implements Initializable {
 
     /**
      * Sets a listener referring to the ProjectSelectionController.
+     *
      * @param listener ProjectSelectionController instance
      */
     public void setListener(ProjectSelectionViewControllerListener listener) {
@@ -151,6 +152,7 @@ public class ProjectSelectionViewController implements Initializable {
 
     /**
      * Adds a project to the TableView on the screen.
+     *
      * @param projectDisplay ProjectDisplay to add
      */
     public void addProjectToDisplay(ProjectDisplay projectDisplay) {
@@ -162,6 +164,7 @@ public class ProjectSelectionViewController implements Initializable {
 
     /**
      * Refreshes the title of a project when the user has decided to change its name.
+     *
      * @param currentTreatedProject project that the user has decided to rename
      * @param title new title the user wishes to give to that project
      */
@@ -176,6 +179,7 @@ public class ProjectSelectionViewController implements Initializable {
     /**
      * Remove a certain project from the TableView. This happens
      * when the user decides to delete a project.
+     *
      * @param projectDisplay ProjectDisplay to remove
      */
     public void removeProjectFromDisplay(ProjectDisplay projectDisplay) {
