@@ -1,5 +1,8 @@
-package Controller;
+package Controller.ViewControllerListener;
 
+import Controller.AlertController;
+import Controller.ProjectDisplay;
+import Controller.Session;
 import Model.Exceptions.*;
 import Model.Exceptions.ProjectHandler.*;
 import Model.Exceptions.ProjectHandler.ProjectCopyException;

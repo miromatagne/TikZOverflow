@@ -1,7 +1,11 @@
-package Controller;
+package Controller.ViewControllerListener;
 
+import Controller.AlertController;
 import Controller.Exceptions.LatexController.GetTextInFileException;
 import Controller.Exceptions.ShapeMenuController.ShapeMenuControllerConstructorException;
+import Controller.LatexController;
+import Controller.PredefinedShapesPanelController;
+import Controller.Session;
 import Model.Exceptions.ProjectHandler.LatexWritingException;
 import Model.Exceptions.ProjectHandler.ProjectSaveException;
 import Model.Latex.LatexHandler;

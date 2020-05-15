@@ -1,4 +1,4 @@
-package Controller;
+package Controller.ViewControllerListener;
 
 import Controller.Exceptions.ShapeMenuController.AddSceneException;
 import Controller.Exceptions.ShapeMenuController.ShapeMenuControllerConstructorException;

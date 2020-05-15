@@ -1,6 +1,8 @@
-package Controller;
+package Controller.ViewControllerListener;
 
+import Controller.AlertController;
 import Controller.Exceptions.Session.SessionOpeningException;
+import Controller.Session;
 import View.ViewControllers.LoginScreenViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
