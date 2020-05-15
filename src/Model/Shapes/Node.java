@@ -1,9 +1,9 @@
 package Model.Shapes;
 
 /**
- * Superclass for node-type shapes figuring in a diagram
- * Nodes can be connected using links (Link class)
- * In addition to the general attributes from the Shape class, nodes have an outlineThickness attribute
+ * Superclass for node-type shapes figuring in a diagram.
+ * Nodes can be connected using links (Link class).
+ * In addition to the general attributes from the Shape class, nodes have an outlineThickness attribute.
  */
 
 public abstract class Node extends Shape {
@@ -14,6 +14,20 @@ public abstract class Node extends Shape {
         super(xCenter, yCenter);
         this.xCenter = xCenter;
         this.yCenter = yCenter;
+    }
+
+    /**
+     * Generate TikZ code that creates the node using the properties.
+     *
+     * @return generated code
+     */
+    public String generateAndGetTikzCode(){
+        //filled form
+        String code = "\\filldraw";
+        //color and border width
+        code += "[fill={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() + ";blue," + getColor().getBlue() + "}," +
+                "line width=" + getOutlineThickness() / 20 + "] ";
+        return code;
     }
 
 

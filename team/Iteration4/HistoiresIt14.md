@@ -23,7 +23,7 @@ système garde trace de toutes les modifications effectuées et les enregistre a
 
 ### Introduit dans l'itération : 4
 
-### Etat : En cours
+### Etat : Complétée
 
 ### Points :
 Afin de déterminer le nombre de points de cette histoire, le groupe l'a scindée en les tâches suivantes :
@@ -38,6 +38,8 @@ Afin de déterminer le nombre de points de cette histoire, le groupe l'a scindé
 - Travail d'équipe : 1 point
 
 TOTAL : 26 points
+
+Cette histoire a effectivement été complétée au terme de 26 points.
 
 ### Notes :
 Il a été convenu avec le client que chaque projet correspondrait à un unique fichier.
@@ -57,11 +59,13 @@ L’utilisateur clique sur un élément graphique avec le bouton principal de la
 
 ### Introduit dans l'itération : 4 
 
-### Etat : En cours
+### Etat : Complétée
 
 ### Points :
 
 TOTAL : 2 points
+
+Cette histoire a en fait réalisée au terme de 1 point.
 
 ----------------------
 

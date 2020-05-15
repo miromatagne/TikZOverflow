@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" minHeight="200" minWidth="500.0" prefWidth="600.0" style="-fx-background-color: #4D4D4D;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ViewControllers.AccountCreationViewController">
+    <HBox alignment="TOP_CENTER" prefHeight="370.0" prefWidth="600.0">
+        <VBox alignment="CENTER_LEFT" prefHeight="239.0" prefWidth="170.0">
+            <Pane prefHeight="72.0" prefWidth="161.0">
+                <Text fill="WHITE" layoutX="6.0" layoutY="27.0" text="Username" />
+                <TextField fx:id="usernameField" layoutX="6.0" layoutY="36.0" />
+            </Pane>
+            <Pane prefHeight="72.0" prefWidth="147.0">
+                <Text fill="WHITE" layoutX="6.0" layoutY="27.0" text="First name" />
+                <TextField fx:id="firstNameField" layoutX="6.0" layoutY="36.0" />
+            </Pane>
+            <Pane prefHeight="72.0" prefWidth="161.0">
+                <Text fill="WHITE" layoutX="6.0" layoutY="27.0" text="Last name" />
+                <TextField fx:id="lastNameField" layoutX="6.0" layoutY="36.0" />
+            </Pane>
+        </VBox>
+        <VBox alignment="CENTER_RIGHT" prefHeight="370.0" prefWidth="180.0">
+            <Pane prefHeight="72.0" prefWidth="161.0">
+                <Text fill="WHITE" layoutX="6.0" layoutY="27.0" text="Email" />
+                <TextField fx:id="emailField" layoutX="6.0" layoutY="36.0" />
+            </Pane>
+            <Pane prefHeight="72.0" prefWidth="161.0">
+                <Text fill="WHITE" layoutX="6.0" layoutY="27.0" text="Password" />
+                <PasswordField fx:id="passwordField" layoutX="6.0" layoutY="36.0" />
+            </Pane>
+            <Pane prefHeight="72.0" prefWidth="161.0">
+                <Text fill="WHITE" layoutX="6.0" layoutY="27.0" text="Password confirmation" />
+                <PasswordField fx:id="passwordConfirmationField" layoutX="6.0" layoutY="36.0" />
+            </Pane>
+        </VBox>
+    </HBox>
+    <HBox alignment="CENTER" layoutX="-1.0" layoutY="381.0" prefHeight="72.0" prefWidth="600.0" spacing="5.0">
+        <Text fx:id="backToLoginText" fill="WHITE" onMouseClicked="#backToLoginScreen" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt; Back to login ">
+            <HBox.margin>
+                <Insets right="30.0" />
+            </HBox.margin>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+        </Text>
+        <CheckBox fx:id="termsCheckBox" layoutX="90.0" layoutY="4.0" mnemonicParsing="false" />
+        <Text fx:id="termsAndConditionsText" fill="#0077cc" onMouseClicked="#termsAndConditionsWindow" strokeType="OUTSIDE" strokeWidth="0.0" text="I accept terms and conditions of use.">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Text>
+        <Button fx:id="createAccountButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#createAccount" styleClass="menuButton" stylesheets="@../CSS/topMenuButton.css" text="Create account">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+        <VBox.margin>
+            <Insets />
+        </VBox.margin>
+    </HBox>
+</VBox>

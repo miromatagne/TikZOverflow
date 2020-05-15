@@ -14,8 +14,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * Controller of the menu to add a new shape. It is linked to the "AddShapeMenuController.fxml" file
- * It handles the behavior of the pop-up window
+ * Controller of the menu to add a new shape. It is linked to the "AddShapeMenuController.fxml" file.
+ * It handles the behavior of the pop-up window.
  */
 public class ShapeMenuViewController implements Initializable {
 
@@ -40,14 +40,14 @@ public class ShapeMenuViewController implements Initializable {
 
     private final ArrayList<Text> allTexts = new ArrayList<>();
 
-    public final static int ARROW = 4;
-    final static int NUMBER_OF_MENUS = 6;
+    public static final int ARROW = 4;
+    static final int NUMBER_OF_MENUS = 6;
 
 
     /**
-     * Initialize the controller, load and add the different menus to an array list
+     * Initialize the controller, load and add the different menus to an array list.
      * The parameters are not needed in this case but because it overrides an abstract function,
-     * they have to stay here
+     * they have to stay here.
      *
      * @param url            URL (not used)
      * @param resourceBundle ResourceBundle(not used)
@@ -61,7 +61,7 @@ public class ShapeMenuViewController implements Initializable {
     }
 
     /**
-     * Setup the texts and add them to an array list
+     * Setup the texts and add them to an array list.
      */
     public void setupTexts() {
         allTexts.add(rectangleText);
@@ -73,7 +73,7 @@ public class ShapeMenuViewController implements Initializable {
     }
 
     /**
-     * Change the text color once the menu is selected
+     * Change the text color once the menu is selected.
      *
      * @param id Id of the menu
      */
@@ -92,7 +92,7 @@ public class ShapeMenuViewController implements Initializable {
 
     /**
      * Mehtod called from the button "Confirm" in the pop-up window which
-     * is used to create a new shape
+     * is used to create a new shape.
      */
     public void confirmShape() {
         listener.onConfirmButtonPressed();

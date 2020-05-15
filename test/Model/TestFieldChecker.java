@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test the field checker methods.
+ */
 class TestFieldChecker {
 
     @Test
@@ -41,15 +44,15 @@ class TestFieldChecker {
 
     @Test
     void isValidNumber() {
-        FieldChecker fieldChecker = new FieldChecker();
-        assertTrue(fieldChecker.isValidNumber("321.7"));
-        assertTrue(fieldChecker.isValidNumber("0.3217"));
-        assertTrue(fieldChecker.isValidNumber("3217"));
-        assertFalse(fieldChecker.isValidNumber("12."));
-        assertFalse(fieldChecker.isValidNumber("a"));
-        assertFalse(fieldChecker.isValidNumber(".56"));
-        assertFalse(fieldChecker.isValidNumber("0.5.6"));
-        assertFalse(fieldChecker.isValidNumber("5.6a"));
+        TextTypeChecker textTypeChecker = new TextTypeChecker();
+        assertTrue(textTypeChecker.isValidNumber("321.7"));
+        assertTrue(textTypeChecker.isValidNumber("0.3217"));
+        assertTrue(textTypeChecker.isValidNumber("3217"));
+        assertFalse(textTypeChecker.isValidNumber("12."));
+        assertFalse(textTypeChecker.isValidNumber("a"));
+        assertFalse(textTypeChecker.isValidNumber(".56"));
+        assertFalse(textTypeChecker.isValidNumber("0.5.6"));
+        assertFalse(textTypeChecker.isValidNumber("5.6a"));
     }
 
     @Test

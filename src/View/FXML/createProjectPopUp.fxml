@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+          prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="View.ViewControllers.ProjectPopUpViewController">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="161.0"/>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="520.0000076293945" minWidth="10.0"
+                           prefWidth="214.2"/>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="520.0000076293945" minWidth="10.0"
+                           prefWidth="243.39999999999998"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <Label text="Name"/>
+    <TextField fx:id="projectNameField" onAction="#onPressBrowseInPopUp" GridPane.columnIndex="1"/>
+    <Label text="Path" GridPane.rowIndex="1"/>
+    <TextField fx:id="pathField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <Button mnemonicParsing="false" onAction="#onPressBrowseInPopUp" text="Browse"
+            GridPane.columnIndex="2" GridPane.rowIndex="1">
+        <cursor>
+          <Cursor fx:constant="HAND"/>
+        </cursor>
+    </Button>
+    <Button mnemonicParsing="false" onAction="#onPressCreateInPopUp" text="Create"
+            GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <cursor>
+          <Cursor fx:constant="HAND"/>
+        </cursor>
+    </Button>
+</GridPane>

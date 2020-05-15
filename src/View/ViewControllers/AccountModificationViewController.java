@@ -16,9 +16,8 @@ import java.util.ResourceBundle;
  */
 public class AccountModificationViewController extends AccountViewController implements Initializable {
 
-    //Attribut
     @FXML
-    private TextField usernameField; // Attribut @FXML link directly to the .fxml corresponding to this controller class
+    private TextField usernameField;
     @FXML
     private TextField firstNameField;
     @FXML
@@ -32,7 +31,12 @@ public class AccountModificationViewController extends AccountViewController imp
 
     private AccountModificationViewControllerListener listener;
 
-    //Method
+    /**
+     * Initialize the controller.
+     *
+     * @param url               URL (not used)
+     * @param resourceBundle    resourceBundle (not used)
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         User userCurrent = Session.getInstance().getUser();
@@ -52,7 +56,7 @@ public class AccountModificationViewController extends AccountViewController imp
 
     /**
      * Action of the validate button : - Check if all the information in the field are correct
-     * - Save the information of the user in the file username.txt
+     *                                 - Save the information of the user in the file username.txt.
      */
     @FXML
     public void validateButtonAction() {
@@ -64,11 +68,8 @@ public class AccountModificationViewController extends AccountViewController imp
                 passwordConfirmationField.getText());
     }
 
-
-
-
     /**
-     * Action of the return Button : Change screen to the main page
+     * Action of the return Button : Change screen to the main page.
      */
     @FXML
     public void returnButtonAction() {
@@ -78,8 +79,9 @@ public class AccountModificationViewController extends AccountViewController imp
     public void setListener(AccountModificationViewControllerListener listener){
         this.listener = listener;
     }
+
     /**
-     * Interface used to relay information to corresponding controller
+     * Interface used to relay information to corresponding controller.
      */
     public interface AccountModificationViewControllerListener {
         void onValidation(String username, String firstName, String lastName, String email, String password, String passwordConfirmation);

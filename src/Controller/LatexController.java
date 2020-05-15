@@ -1,50 +1,44 @@
 package Controller;
 
-import Controller.Exceptions.BuildFullCodeFromShapesOnlyException;
-import Controller.Exceptions.GetTextInFileException;
-import Controller.Exceptions.LatexControllerConstructorException;
-import Controller.Exceptions.TikzCompilationException;
-import Model.Exceptions.*;
-import Model.FileHandler;
-import Model.LatexCompiler;
-import Model.PDFHandler;
+import Controller.Exceptions.LatexController.CreationImageFromPDFException;
+import Controller.Exceptions.LatexController.GetTextInFileException;
+import Controller.Exceptions.LatexController.SaveTikzException;
+import Controller.Exceptions.LatexController.TikzCompilationException;
+import Model.Exceptions.LatexHandler.LatexCompilationException;
+import Model.Exceptions.ProjectHandler.LatexWritingException;
+import Model.Exceptions.LatexErrorsHandler.LogErrorException;
+import Model.Exceptions.ProjectHandler.ProjectSaveException;
+import Model.*;
+import Model.Latex.LatexErrorsHandler;
+import Model.Latex.LatexHandler;
+import Model.Latex.PDFHandler;
 import View.ViewControllers.MainPageViewController;
 import javafx.scene.image.Image;
 
-
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Handles all requests regarding the TikZ source code coming from View.
  */
-//@FPL : grande classe. Trop de responsabilités ?
 public class LatexController implements MainPageViewController.CodeInterfaceListener {
 
-    FileHandler fileHandler;
+    final UserHandler userHandler;
+    final ProjectHandler projectHandler;
+    final LatexErrorsHandler latexErrorsHandler;
     private final MainPageViewController mainPageViewController;
-
-    private final String username = Session.getInstance().getUser().getUsername();
-    private final String latexFilePath = "./Latex/" + username + ".tex";
-    private final String pdfFilePath = "./Latex/out/" + username + ".pdf";
-    private final String logFilePath = "./Latex/out/" + username + ".log";
 
     /**
      * Constructor.
      *
      * @param mainPageViewController MainPageViewController we interact with
-     * @throws LatexControllerConstructorException if FileHandler could not be constructed
      */
-    public LatexController(MainPageViewController mainPageViewController) throws LatexControllerConstructorException {
-        try {
-            this.fileHandler = new FileHandler();
-            this.mainPageViewController = mainPageViewController;
-        } catch (FileHandlerConstructorException e) {
-            throw new LatexControllerConstructorException(e);
-        }
+    public LatexController(MainPageViewController mainPageViewController) {
+        this.userHandler = UserHandler.getInstance();
+        this.projectHandler = new ProjectHandler();
+        this.latexErrorsHandler = new LatexErrorsHandler();
+        this.mainPageViewController = mainPageViewController;
     }
 
     /**
@@ -55,7 +49,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      */
     public String getTextInFile() throws GetTextInFileException {
         try {
-            return fileHandler.readInFile(latexFilePath);
+            return projectHandler.getProjectCode();
         } catch (IOException e) {
             throw new GetTextInFileException(e);
         }
@@ -71,12 +65,16 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     public String compileTikz(String sourceCode) throws TikzCompilationException {
         try {
             saveTikz(sourceCode);
-            LatexCompiler.getInstance().runProcess(latexFilePath);
-            createImage(pdfFilePath);
-            fileHandler.errorLogs(logFilePath, username);
-            int errorsCount = fileHandler.getErrorsCounter();
+            String filePath = Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex";
+            String pdfPath = Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".pdf";
+            LatexHandler.getInstance().runProcess(filePath, Session.getInstance().getCurrentProject().getPath());
+            latexErrorsHandler.errorLogs(Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".log");
+            int errorsCount = latexErrorsHandler.getErrorsCounter();
+            if(errorsCount==0){
+                createImageFromPDF(pdfPath);
+            }
             return "Errors (" + errorsCount + ")";
-        } catch (LatexCompilationException | LogErrorException e) {
+        } catch (LatexCompilationException | LogErrorException | CreationImageFromPDFException | SaveTikzException e) {
             throw new TikzCompilationException(e);
         }
     }
@@ -85,84 +83,45 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
      * Creates image from compilation result (PDF).
      *
      * @param pdfPath path to Latex compilation output (PDF format)
+     * @throws CreationImageFromPDFException if there is an error while creating the file
      */
-    public void createImage(String pdfPath) {
-        PDFHandler pdfHandler = new PDFHandler(pdfPath);
+    public void createImageFromPDF(String pdfPath) throws CreationImageFromPDFException {
         try {
+            PDFHandler pdfHandler = new PDFHandler(pdfPath);
             pdfHandler.convertPdfToImageOnDisk();
-        } catch (Exception e) {
-            System.err.println("Error converting " + pdfPath + " to image");
-            e.printStackTrace();
-        }
-        String imagePath = pdfPath.replace(".pdf", ".jpg");
-        try {
-            Image renderedImage = new Image(new FileInputStream(imagePath));
-            mainPageViewController.renderImage(renderedImage);
+            String imagePath = pdfPath.replace(".pdf", ".jpg");
+            createImage(imagePath);
         } catch (IOException e) {
-            System.err.println("Image file not found");
-            e.printStackTrace();
+            throw new CreationImageFromPDFException(e);
         }
     }
 
     /**
-     * Save current source code in .tex file
+     * Create a image and set it in the main page.
+     *
+     * @param imagePath     Path to image
+     * @throws IOException  If IO error occurs
+     */
+    private void createImage(String imagePath) throws IOException {
+        try (FileInputStream fileInputStream = new FileInputStream(imagePath)){
+            Image renderedImage = new Image(fileInputStream);
+            mainPageViewController.renderImage(renderedImage);
+        }
+    }
+
+    /**
+     * Save current source code in .tex file.
      *
      * @param sourceCode Source code to be saved
+     * @throws SaveTikzException if there is an error when writing to the .tex file
      */
-    public void saveTikz(String sourceCode) {
+    public void saveTikz(String sourceCode) throws SaveTikzException {
         try {
-            fileHandler.makeTexFile(Session.getInstance().getUser(), sourceCode);
-        } catch (LatexWritingException e) {
-            System.err.println("Error while writing in tex file");
-            e.printStackTrace();
-            e.getCause().printStackTrace();
+            projectHandler.makeTexFile(sourceCode);
+            projectHandler.saveProjectInfo(Session.getInstance().getCurrentProject());
+        } catch (LatexWritingException | ProjectSaveException e) {
+            throw new SaveTikzException(e);
         }
-    }
-
-    /**
-     * Extracts shapes-only code from full LaTeX code.
-     *
-     * @param fullCode full LaTeX source code.
-     * @param trim     option to trim lines or not
-     * @return TikZ shapes-only code
-     */
-    public String extractShapesSubCode(String fullCode, boolean trim) {
-        Pattern pattern = Pattern.compile("\\\\begin\\{tikzpicture}.*\\\\end\\{tikzpicture}", Pattern.DOTALL);
-        Matcher matcher = pattern.matcher(fullCode);
-        if (matcher.find()) {
-            int index = 1;
-            String totalString = "";
-            String[] strings = matcher.group(0).split("\n");
-            while (index < strings.length - 1) {
-                if (trim) {
-                    totalString = totalString.concat(strings[index++].trim() + "\n");
-                } else {
-                    totalString = totalString.concat(strings[index++] + "\n");
-                }
-            }
-            return totalString;
-        }
-        return null;
-    }
-
-    /**
-     * Builds full LaTeX code from shapes-only code.
-     *
-     * @param shapesOnlyCode shapes-only TikZ code
-     * @return full LaTeX code
-     * @throws BuildFullCodeFromShapesOnlyException if an IOException occurs while reading the text from the file
-     */
-    public String buildFullCodeFromShapesOnlyCode(String shapesOnlyCode) throws BuildFullCodeFromShapesOnlyException {
-        try {
-            StringBuilder shapesOnlyCodeBuilder = new StringBuilder();
-            for (String line : shapesOnlyCode.split("\n")) {
-                shapesOnlyCodeBuilder.append("\t").append(line.trim()).append("\n");
-            }
-            return getTextInFile().replace(Objects.requireNonNull(extractShapesSubCode(getTextInFile(), false)), shapesOnlyCodeBuilder.toString());
-        } catch (GetTextInFileException e) {
-            throw new BuildFullCodeFromShapesOnlyException(e);
-        }
-
     }
 
     /**
@@ -173,18 +132,14 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     @Override
     public void onCompilationAttempt(String code) {
         try {
-            String sourceCode = buildFullCodeFromShapesOnlyCode(code);
+            String sourceCode = LatexHandler.getInstance().buildFullCodeFromShapesOnlyCode(code, getTextInFile());
             String errorsButtonText;
             errorsButtonText = compileTikz(sourceCode);
             mainPageViewController.setErrorButtonText(errorsButtonText);
         } catch (TikzCompilationException e) {
-            System.err.println("TikZ/LaTeX compilation failed");
-            e.printStackTrace();
-            e.getCause().printStackTrace();
-        } catch (BuildFullCodeFromShapesOnlyException e) {
-            System.err.println("Building code from shapes only failed");
-            e.printStackTrace();
-            e.getCause().printStackTrace();
+            AlertController.showStageError("Error while TikZ compilation.", "TikZ compilation failed");
+        } catch (GetTextInFileException e) {
+            AlertController.showStageError("Error while TikZ compilation.", "Getting text in file failed");
         }
     }
 
@@ -197,11 +152,9 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     public String getShapesOnlyText() {
         try {
             String textInLatexFile = getTextInFile();
-            return extractShapesSubCode(textInLatexFile, true);
+            return LatexHandler.getInstance().extractShapesSubCode(textInLatexFile, true);
         } catch (GetTextInFileException e) {
-            System.err.println("Error while getting the source code");
-            e.printStackTrace();
-            e.getCause().printStackTrace();
+            AlertController.showStageError("Error while getting the source code", "Getting source code failed");
         }
         return "";
     }
@@ -216,9 +169,7 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
         try {
             return getTextInFile();
         } catch (GetTextInFileException e) {
-            System.err.println("Error while getting the full text");
-            e.printStackTrace();
-            e.getCause().printStackTrace();
+            AlertController.showStageError("Error while getting the full text", "Getting full text code failed");
         }
         return "";
     }
@@ -231,21 +182,30 @@ public class LatexController implements MainPageViewController.CodeInterfaceList
     @Override
     public void saveCodeInterfaceCode(String tikzCode) {
         try {
-            saveTikz(buildFullCodeFromShapesOnlyCode(tikzCode));
-        } catch (BuildFullCodeFromShapesOnlyException e) {
-            System.err.println("Error while getting the full code");
-            e.printStackTrace();
-            e.getCause().printStackTrace();
+            String fullCode = LatexHandler.getInstance().buildFullCodeFromShapesOnlyCode(tikzCode, getTextInFile());
+            saveTikz(fullCode);
+        } catch (GetTextInFileException | SaveTikzException e){
+            AlertController.showStageError("Error reading file before saving", "Error while reading file");
         }
     }
 
+    /**
+     * Get the text error.
+     *
+     * @return text error
+     */
     @Override
     public String getErrorsText() {
-        return fileHandler.getErrors();
+        return latexErrorsHandler.getErrors();
     }
 
+    /**
+     * Get the errors counter.
+     *
+     * @return errors counter
+     */
     @Override
     public int getErrorsCounter() {
-        return fileHandler.getErrorsCounter();
+        return latexErrorsHandler.getErrorsCounter();
     }
 }

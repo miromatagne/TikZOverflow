@@ -1,5 +1,0 @@
-last:logFileTest
-first:logFileTest
-username:logFileTest
-mail:logFileTest@
-password:l

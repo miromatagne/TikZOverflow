@@ -1,116 +1,138 @@
 package Controller;
 
-import Controller.Exceptions.BuildFullCodeFromShapesOnlyException;
-import Controller.Exceptions.GetTextInFileException;
-import Controller.Exceptions.LatexControllerConstructorException;
+import Controller.Exceptions.LatexController.GetTextInFileException;
+import Controller.Exceptions.LatexController.SaveTikzException;
+import Model.Exceptions.*;
+import Model.Exceptions.ProjectHandler.ProjectAlreadyExistsException;
+import Model.Exceptions.ProjectHandler.ProjectCreationException;
+import Model.Exceptions.ProjectHandler.ProjectSaveException;
+import Model.FileHandler;
+import Model.Project;
+import Model.ProjectHandler;
 import Model.User;
 import View.ViewControllers.MainPageViewController;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Test the latex controller methods.
+ */
 class TestLatexController {
 
     @Test
-    void getTextInFile() throws LatexControllerConstructorException, GetTextInFileException {
-        LatexController latexControl = new LatexController(null);
-        User user = new User();
-        user.setUsername("test");
-        Session.getInstance().setUser(user);
-        String stringTest = latexControl.getTextInFile();
-
-        assertEquals("\\documentclass{standalone}\n" +
-                "\n" +
-                "\\usepackage{tikz}\n" +
-                "\n" +
-                "\\begin{document}\n" +
-                "    \\begin{tikzpicture}\n" +
-                "        \\node (h) at (0,0) {Hello};\n" +
-                "        \\node (w) at (2,3) {World};\n" +
-                "        \\draw (h) edge (w);\n" +
-                "    \\end{tikzpicture}\n" +
-                "\\end{document}\n",
-                stringTest);
-    }
-
-    @Test
-    void createImage() throws LatexControllerConstructorException {
-        LatexController latexController = new LatexController(new MainPageViewController());
+    void getTextInFile() {
         try {
-            latexController.createImage("./Latex/out/test.pdf");
-        } catch (NullPointerException e) {
-            System.out.println("Image file could not be rendered in display");
+            String path = "./test/Controller/TestLatexController/GetTextInFileDirectory/";
+            String title = "Project";
+
+            /* We have to delete the test project if it already exists */
+            File directory = new File(path+File.separator+title);
+            if (directory.exists()){
+                FileHandler fileHandler = new FileHandler();
+                fileHandler.deleteDirectory(directory);
+            }
+
+            LatexController latexControl = new LatexController(null);
+
+            /* User creation */
+            User user = new User();
+            user.setUsername("test");
+            Session.getInstance().setUser(user);
+
+            /* Project creation */
+            ProjectHandler projectHandler = new ProjectHandler();
+
+            Project project = projectHandler.createProject(user, path, title);
+            project.setCode("% Preamble\n" +
+                    "\\documentclass{article}\n" +
+                    "\\pagenumbering{gobble}\n" +
+                    "\n"+
+                    "% Packages\n" +
+                    "\\usepackage{tikz}\n"+
+                    "\\usetikzlibrary{arrows.meta}\n" +
+                    "\n" +
+                    "% Document\n"+
+                    "\\begin{document}\n"+
+                    "  \\begin{tikzpicture}[remember picture, overlay, shift={(-4,-15)}]\n"+
+                    "      \\node (h) at (0,0) {Hello};\n"+
+                    "      \\node (w) at (2,3) {World};\n"+
+                    "      \\draw (h) edge (w);\n"+
+                    "  \\end{tikzpicture}\n"+
+                    "\\end{document}");
+            projectHandler.saveProjectInfo(project);
+
+            Session.getInstance().setCurrentProject(project);
+
+            /* Get the text in file */
+            String stringTest = latexControl.getTextInFile();
+
+            assertEquals("% Preamble\n" +
+                            "\\documentclass{article}\n" +
+                            "\\pagenumbering{gobble}\n" +
+                            "\n"+
+                            "% Packages\n" +
+                            "\\usepackage{tikz}\n"+
+                            "\\usetikzlibrary{arrows.meta}\n" +
+                            "\n" +
+                            "% Document\n"+
+                            "\\begin{document}\n"+
+                            "    \\begin{tikzpicture}[remember picture, overlay, shift={(-4,-15)}]\n"+
+                            "        \\node (h) at (0,0) {Hello};\n"+
+                            "        \\node (w) at (2,3) {World};\n"+
+                            "        \\draw (h) edge (w);\n"+
+                            "    \\end{tikzpicture}\n"+
+                            "\\end{document}\n",
+                    stringTest);
+        } catch (GetTextInFileException | DirectoryCreationException | IOException | ProjectCreationException | ProjectSaveException | ProjectAlreadyExistsException e) {
+            e.printStackTrace();
+            fail();
         }
-        assertTrue(new File("./Latex/out/test.jpg").exists());
     }
 
     @Test
-    void saveTikz() throws GetTextInFileException, LatexControllerConstructorException {
-        LatexController latexController = new LatexController(new MainPageViewController());
-        User user = new User();
-        user.setUsername("test");
-        Session.getInstance().setUser(user);
-        String sourceCode = "\\documentclass{standalone}\n" +
-                "\n" +
-                "\\usepackage{tikz}\n" +
-                "\n" +
-                "\\begin{document}\n" +
-                "    \\begin{tikzpicture}\n" +
-                "        \\node (h) at (0,0) {Hello};\n" +
-                "        \\node (w) at (2,3) {World};\n" +
-                "        \\draw (h) edge (w);\n" +
-                "    \\end{tikzpicture}\n" +
-                "\\end{document}\n";
-        latexController.saveTikz(sourceCode);
-        assertEquals(latexController.getTextInFile(), sourceCode);
-    }
+    void saveTikz() {
+        try {
+            String path = "./test/Controller/TestLatexController/SaveTikzDirectory/";
+            String title = "Project";
 
-    @Test
-    void extractShapesSubCode() throws LatexControllerConstructorException {
-        LatexController latexController = new LatexController(new MainPageViewController());
-        User user = new User();
-        user.setUsername("test");
-        Session.getInstance().setUser(user);
-        String sourceCode = "\\documentclass{standalone}\n" +
-                "\n" +
-                "\\usepackage{tikz}\n" +
-                "\n" +
-                "\\begin{document}\n" +
-                "    \\begin{tikzpicture}\n" +
-                "        \\node (h) at (0,0) {Hello};\n" +
-                "        \\node (w) at (2,3) {World};\n" +
-                "        \\draw (h) edge (w);\n" +
-                "    \\end{tikzpicture}\n" +
-                "\\end{document}\n";
-        String shapesOnlyCode = "\\node (h) at (0,0) {Hello};\n" +
-                "\\node (w) at (2,3) {World};\n" +
-                "\\draw (h) edge (w);\n";
-        assertEquals(latexController.extractShapesSubCode(sourceCode, true), shapesOnlyCode);
-    }
+            /* We have to delete the test project if it already exists */
+            File directory = new File(path+File.separator+title);
+            if (directory.exists()){
+                FileHandler fileHandler = new FileHandler();
+                fileHandler.deleteDirectory(directory);
+            }
 
-    @Test
-    void buildFullCodeFromShapesOnlyCode() throws BuildFullCodeFromShapesOnlyException, LatexControllerConstructorException {
-        LatexController latexController = new LatexController(new MainPageViewController());
-        User user = new User();
-        user.setUsername("test");
-        Session.getInstance().setUser(user);
-        String sourceCode = "\\documentclass{standalone}\n" +
-                "\n" +
-                "\\usepackage{tikz}\n" +
-                "\n" +
-                "\\begin{document}\n" +
-                "    \\begin{tikzpicture}\n" +
-                "\t\\node (h) at (0,0) {Hello};\n" +
-                "\t\\node (w) at (2,3) {World};\n" +
-                "\t\\draw (h) edge (w);\n" +
-                "    \\end{tikzpicture}\n" +
-                "\\end{document}\n";
-        String shapesOnlyCode = "   \\node (h) at (0,0) {Hello};\n" +
-                "   \\node (w) at (2,3) {World};\n" +
-                "   \\draw (h) edge (w);\n";
-        assertEquals(latexController.buildFullCodeFromShapesOnlyCode(shapesOnlyCode), sourceCode);
+            LatexController latexController = new LatexController(new MainPageViewController());
+            User user = new User();
+            user.setUsername("test");
+            Session.getInstance().setUser(user);
+
+
+
+            ProjectHandler projectHandler = new ProjectHandler();
+            Project project = projectHandler.createProject(user, path, title);
+            Session.getInstance().setCurrentProject(project);
+            String sourceCode = "\\documentclass{standalone}\n" +
+                    "\n" +
+                    "\\usepackage{tikz}\n" +
+                    "\n" +
+                    "\\begin{document}\n" +
+                    "    \\begin{tikzpicture}\n" +
+                    "        \\node (h) at (0,0) {Hello};\n" +
+                    "        \\node (w) at (2,3) {World};\n" +
+                    "        \\draw (h) edge (w);\n" +
+                    "    \\end{tikzpicture}\n" +
+                    "\\end{document}\n";
+            latexController.saveTikz(sourceCode);
+            assertEquals(latexController.getTextInFile(), sourceCode);
+        } catch (GetTextInFileException | DirectoryCreationException | ProjectCreationException | ProjectAlreadyExistsException | IOException | SaveTikzException e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 }

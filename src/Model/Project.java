@@ -1,5 +1,6 @@
 package Model;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -10,56 +11,45 @@ import java.util.Date;
 
 public class Project {
 
-    private int id;
     private String title;
     private String creatorUsername;
-    private ArrayList<String> collaboratorsUsernames;
-    private Date date;
-    private String code;
 
-    private final static String DEFAULT_TITLE = "Unnamed";
-    private final static String DEFAULT_CODE =    "\\node (h) at (0,0) {Hello};\n" +
-                                            "\\node (w) at (2,3) {World};\n" +
-                                            "\\draw (h) edge (w);";
+    private ArrayList<String> collaboratorsUsernames;
+    private Date creationDate;
+    private Date lastModificationDate;
+    private String code;
+    private String path;
 
     /**
-     * New project constructor
+     * New project constructor.
      *
-     * @param id                id of the project
      * @param creatorUsername   creator username
+     * @param path              path to the project save directory
+     * @param title             title of the project
      */
-    public Project(int id, String creatorUsername){
-        this(id, creatorUsername, DEFAULT_TITLE, new Date(), new ArrayList<>(), DEFAULT_CODE);
+    public Project( String creatorUsername, String path,String title){
+        this(creatorUsername, title, new Date(), new Date(), new ArrayList<>(), path);
     }
 
     /**
-     * Existing projects constructor (made from a save)
+     * Existing projects constructor (made from a save).
      *
-     * @param id                project id
-     * @param creatorUsername   creator username
-     * @param title             project title
-     * @param date              last date of modification
-     * @param collaborators     list of collaborators
-     * @param code              code of the project
+     * @param creatorUsername      creator username
+     * @param title                project title
+     * @param creationDate         last date of modification
+     * @param lastModificationDate date of the last modification
+     * @param collaborators        list of collaborators
+     * @param path                 project path
      */
-    public Project(int id, String creatorUsername, String title, Date date, ArrayList<String> collaborators, String code){
-        setID(id);
+    public Project(String creatorUsername, String title, Date creationDate, Date lastModificationDate, ArrayList<String> collaborators, String path){
         setCreatorUsername(creatorUsername);
         setTitle(title);
-        setDate(date);
+        setCreationDate(creationDate);
+        setLastModificationDate(lastModificationDate);
         this.collaboratorsUsernames = collaborators;
         setCode(code);
+        this.path=path;
     }
-
-
-    public void setID(int id) {
-        this.id = id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
 
     public void setTitle(String title) {
         this.title = title;
@@ -69,17 +59,18 @@ public class Project {
         this.creatorUsername = creator;
     }
 
-    public void setDate(Date date){
-        this.date = date;
+    public void setCreationDate(Date creationDate){
+        this.creationDate = creationDate;
+    }
+
+    public void setLastModificationDate(Date lastModificationDate){
+        this.lastModificationDate = lastModificationDate;
     }
 
     public void addCollaborator(String newCollaboratorUsername){
-        collaboratorsUsernames.add(newCollaboratorUsername);
-    }
-
-
-    public int getID() {
-        return id;
+        if(!collaboratorsUsernames.contains(newCollaboratorUsername)) {
+            collaboratorsUsernames.add(newCollaboratorUsername);
+        }
     }
 
     public String getTitle() {
@@ -102,7 +93,19 @@ public class Project {
         return code;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public Date getLastModificationDate() {
+        return lastModificationDate;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path=path;
     }
 }

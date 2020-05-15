@@ -1,23 +1,29 @@
 package Model;
 
+import Model.Latex.PDFHandler;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test the PDF handler method.
+ */
 class TestPDFHandler {
 
     @Test
     void convertPdfToImage() {
-        PDFHandler pdfHandler = new PDFHandler("./Latex/out/test_latex.pdf");
         try {
+            PDFHandler pdfHandler = new PDFHandler("./test/Model/TestPDFHandler/test_latex.pdf");
             pdfHandler.convertPdfToImageOnDisk();
-        } catch (Exception e) {
+            File imageFile = new File("./test/Model/TestPDFHandler/test_latex.jpg");
+            assertTrue(imageFile.exists());
+        } catch (IOException e) {
             System.err.println("Error converting pdf file");
             e.printStackTrace();
+            fail();
         }
-        File imageFile = new File("./Latex/out/test_latex.jpg");
-        assertTrue(imageFile.exists());
     }
 }

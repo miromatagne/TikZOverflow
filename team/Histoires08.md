@@ -12,10 +12,10 @@ Un point correspond à une heure de travail par binôme (approximatif).  Par it�
 | ------ | ------ | ------ | ------ | ------ | ------ |
 | 1 | [1](#Histoire-A) | Histoire 1| 2 | 24.5 | 24 |
 |   | 4 | Histoires 4.1, 4.2 et 4.3 | 1 | 41.5 | 51 |
-| 2 | 2 | Histoire 2 | 1 | | 26 |
+| 2 | 2 | Histoire 2 | 1 | 26 | 26 |
 |   | 3 | Histoire 3 | 2 | | 14 |
 |   | 6 | Histoire 6 | 2 | | 4 |
-|   | 7 | Histoires 7.1 et 7.2 | 3 | 24 | 11 |
+|   | 7 | Histoires 7.1 et 7.2 | 3 | 25 | 11 |
 |   | 10 | Histoire 10 | 2 | | 35 |
 | 3 | 5 | Histoire 5 | 2 | | 24 |
 |   | 8 | Histoire 8 | 1 | | 19 |
@@ -83,9 +83,9 @@ système garde trace de toutes les modifications effectuées et les enregistre a
 
 ### Risque Développeurs : 1
 
-### Introduit dans l'itération : 
+### Introduit dans l'itération : 4
 
-### Etat :
+### Etat : Complétée
 
 ### Points :
 Afin de déterminer le nombre de points de cette histoire, le groupe l'a scindée en les tâches suivantes :
@@ -231,9 +231,9 @@ Dans le premier cas, quand un élément (noeud/lien) est défini à partir du pa
 
 ### Risque Développeurs : 1
 
-### Introduit dans l'itération : 
+### Introduit dans l'itération : 3
 
-### Etat : 
+### Etat : Complétée
 
 ### Points :
 - Point-and-click : 5 points
@@ -355,9 +355,9 @@ L’utilisateur clique sur un élément graphique avec le bouton principal de la
 
 ### Risque Développeurs : 3
 
-### Introduit dans l'itération : 
+### Introduit dans l'itération : 4
 
-### Etat : 
+### Etat : Complétée
 
 ### Points :
 

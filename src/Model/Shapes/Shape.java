@@ -3,8 +3,8 @@ package Model.Shapes;
 import javafx.scene.paint.Color;
 
 /**
- * Superclass for the different shapes that can be added to a diagram
- * Shapes have a position (x, y) and a color by default
+ * Superclass for the different shapes that can be added to a diagram.
+ * Shapes have a position (x, y) and a color by default.
  */
 
 public abstract class Shape {
@@ -34,10 +34,11 @@ public abstract class Shape {
         this.posY = posY;
     }
 
+
     /**
-     * Generate the TikZCode for the shape
+     * Generate TikZ code that creates the shape using the properties. Has to be overwritten by child classes.
      *
-     * @return Tikz code
+     * @return generated code
      */
     public abstract String generateAndGetTikzCode();
 

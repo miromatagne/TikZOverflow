@@ -123,37 +123,34 @@
       </ColorPicker>
    </GridPane>
    <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
-     <columnConstraints>
-       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-     </columnConstraints>
-     <rowConstraints>
-       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-     </rowConstraints>
-      <children>
-         <TextField fx:id="curveInAngleTextField" GridPane.columnIndex="1">
-            <GridPane.margin>
-               <Insets left="5.0" right="20.0" />
-            </GridPane.margin>
-         </TextField>
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Curve in angle" GridPane.halignment="CENTER" />
-      </children>
+      <columnConstraints>
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+      </rowConstraints>
+      <TextField fx:id="curveInAngleTextField" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets left="5.0" right="20.0"/>
+         </GridPane.margin>
+      </TextField>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Curve in angle" GridPane.halignment="CENTER"/>
    </GridPane>
    <GridPane GridPane.rowIndex="4">
-     <columnConstraints>
-       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-     </columnConstraints>
-     <rowConstraints>
-       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-     </rowConstraints>
-      <children>
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Label" textAlignment="CENTER" wrappingWidth="77.91015625" GridPane.halignment="CENTER" />
-         <TextField fx:id="labelTextField" prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="1">
-            <GridPane.margin>
-               <Insets left="5.0" right="20.0" />
-            </GridPane.margin>
-         </TextField>
-      </children>
+      <columnConstraints>
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+      </rowConstraints>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Label" textAlignment="CENTER" wrappingWidth="77.91015625"
+            GridPane.halignment="CENTER"/>
+      <TextField fx:id="labelTextField" prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets left="5.0" right="20.0"/>
+         </GridPane.margin>
+      </TextField>
    </GridPane>
 </GridPane>

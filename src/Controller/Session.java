@@ -1,12 +1,17 @@
 package Controller;
 
-import Controller.Exceptions.SessionOpeningException;
-import Model.Exceptions.FileHandlerConstructorException;
-import Model.Exceptions.SaveUserCreationException;
-import Model.Exceptions.SetupDirectoryException;
-import Model.Exceptions.UserFromSaveCreationException;
-import Model.FileHandler;
+import Controller.Exceptions.Session.SessionOpeningException;
+import Model.Exceptions.ProjectHandler.ProjectLoadException;
+import Model.Exceptions.UserAlreadyExistsException;
+import Model.Exceptions.UserHandler.SaveUserCreationException;
+import Model.Exceptions.UserHandler.SetupDirectoryException;
+import Model.Exceptions.UserHandler.UserFromSaveCreationException;
+import Model.Project;
+import Model.ProjectHandler;
 import Model.User;
+import Model.UserHandler;
+
+import java.util.ArrayList;
 
 /**
  * Class that controls the current session, including the logging in, the logging out
@@ -14,42 +19,35 @@ import Model.User;
  */
 
 public class Session {
+
     public static final int CONNECTION_ESTABLISHED = 0;
     public static final int USER_NOT_REGISTERED = -1;
     public static final int INVALID_PASSWORD = -2;
+
     private User currentUser = null;
-    private FileHandler fileHandler;
+    private Project currentProject = null;
+    private final UserHandler userHandler;
+    private final ProjectHandler projectHandler;
     private static final Session session;
 
     static {
         session = new Session();
     }
 
-    /* Singleton class */
+    /**
+     *  Singleton class
+     */
     private Session() {
-        try {
-            fileHandler = new FileHandler();
-        } catch (FileHandlerConstructorException e) {
-            System.err.println("Error while creating the session");
-            e.printStackTrace();
-            e.getCause().printStackTrace();
-        }
+        userHandler = UserHandler.getInstance();
+        projectHandler = new ProjectHandler();
     }
 
     public static Session getInstance() {
         return session;
     }
 
-    public User getUser() {
-        return currentUser;
-    }
-
-    public void setUser(User newUser) {
-        currentUser = newUser;
-    }
-
     /**
-     * Tries to open a new session (log in)
+     * Tries to open a new session (log in).
      *
      * @param username Username of the user
      * @param password Password of the user
@@ -59,12 +57,27 @@ public class Session {
      * @throws SessionOpeningException when there is a problem while getting a user to open his session
      */
     public int openSession(String username, String password) throws SessionOpeningException {
+        return openSessionWithDirectory(username, password, UserHandler.DEFAULT_DIRECTORY);
+    }
+
+    /**
+     * Tries to open a new session (log in) with given directory.
+     *
+     * @param username      Username of the user
+     * @param password      Password of the user
+     * @param userDirectory directory where the user is saved
+     * @return 0 if successful
+     * -1 if wrong username
+     * -2 if wrong password
+     * @throws SessionOpeningException when there is a problem while getting a user to open his session
+     */
+    public int openSessionWithDirectory(String username, String password, String userDirectory ) throws SessionOpeningException {
         try {
-            fileHandler.setupSaveUserDirectory("save user");
-            if (!fileHandler.saveUserExists(username)) {
+            userHandler.setupSaveUserDirectory(userDirectory);
+            if (!userHandler.saveUserExists(username)) {
                 return USER_NOT_REGISTERED; //User is not registered
             } else {
-                currentUser = fileHandler.getUserFromSave(username);
+                currentUser = userHandler.getUserFromSave(username);
                 if (password.equals(currentUser.getPassword())) {
                     return CONNECTION_ESTABLISHED;
                 } else {
@@ -75,6 +88,25 @@ public class Session {
             throw new SessionOpeningException(e);
         }
     }
+
+    /**
+     * Accesses the projects that the current logged in user has access to.
+     *
+     * @return ArrayList containing the user's projects
+     */
+    public ArrayList<Project> getUserProjects(){
+        ArrayList<Project> userProjects = new ArrayList<>();
+        for(String projectPath:currentUser.getProjectPaths()){
+            try {
+                Project project = projectHandler.loadProject(projectPath);
+                userProjects.add(project);
+            } catch (ProjectLoadException e) {
+                AlertController.showStageError("Error while loading a project", projectPath+" could not be loaded");
+            }
+        }
+        return userProjects;
+    }
+
 
     /**
      * Logs the user out of the session.

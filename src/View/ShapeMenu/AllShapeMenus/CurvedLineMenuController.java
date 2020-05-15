@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * This controller is used to handle the arrow menu, get the inputs from the texts fields and clear them when it has to
+ * This controller is used to handle the curved line menu, get the inputs from the texts fields and clear them when it
+ * has to.
  */
 
 public class CurvedLineMenuController extends MenuController implements Initializable {
@@ -39,7 +40,7 @@ public class CurvedLineMenuController extends MenuController implements Initiali
 
 
     /**
-     * Function called when a new menu is selected. It clears the different fields
+     * Function called when a new menu is selected. It clears the different fields.
      */
     @Override
     public void update() {
@@ -54,7 +55,7 @@ public class CurvedLineMenuController extends MenuController implements Initiali
 
 
     /**
-     * Initialization by adding the different textfield to an array list
+     * Initialization by adding the different textfield to an array list.
      *
      * @param url            URL (not used)
      * @param resourceBundle ResourceBundle(not used)
@@ -68,11 +69,10 @@ public class CurvedLineMenuController extends MenuController implements Initiali
         allTextFields.add(strokeWidthTextField);
         allTextFields.add(curveOutAngleTextField);
         allTextFields.add(curveInAngleTextField);
-        allTextFields.add(labelTextField);
     }
 
     /**
-     * Get information from all fields
+     * Get information from all fields.
      *
      * @return list of all information
      */

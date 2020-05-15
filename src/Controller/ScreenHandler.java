@@ -1,5 +1,7 @@
 package Controller;
 
+import Controller.ViewControllerListener.*;
+import Model.Project;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,18 +18,19 @@ import javafx.stage.Stage;
 
 public class ScreenHandler extends Application implements LoginScreenController.LoginScreenControllerListener,
         AccountCreationController.AccountCreationControllerListener, MainPageController.MainPageControllerListener,
-        AccountModificationController.AccountModificationControllerListener {
+        AccountModificationController.AccountModificationControllerListener, ProjectSelectionController.ProjectSelectionControllerListener {
 
     private Stage stage;
     private LoginScreenController loginScreenController;
     private AccountCreationController accountCreationController;
     private AccountModificationController accountModificationController;
     private MainPageController mainPageController;
+    private ProjectSelectionController projectSelectionController;
 
     /**
-     * At first, start() loads the login screen
+     * At first, start() loads the login screen.
      *
-     * @param stage Stage for the application.
+     * @param stage Stage for the application
      */
     @Override
     public void start(Stage stage) {
@@ -41,12 +44,13 @@ public class ScreenHandler extends Application implements LoginScreenController.
     }
 
     /**
-     * Change the scene for the login screen
+     * Change the scene for the login screen.
      */
     private void showLoginScreen() {
         loginScreenController = new LoginScreenController(stage, this);
         loginScreenController.show();
     }
+
 
     /**
      * Creates a popup stage when account creation has been attempted to inform user.
@@ -54,7 +58,6 @@ public class ScreenHandler extends Application implements LoginScreenController.
      * @param message message to display to user
      * @param success defines if account creation was successful or not
      */
-
     @Override
     public void createAccountCreationPopup(String message, boolean success) {
         Stage popupStage = new Stage();
@@ -84,23 +87,57 @@ public class ScreenHandler extends Application implements LoginScreenController.
     }
 
     /**
-     * Call when the identification is correct and change the scene
+     * Creates a popup stage when a successful account modification has been made to inform user.
      */
     @Override
-    public void onSuccessfulLoginRequest() {
-        goToMainPage();
+    public void createAccountModificationPopup() {
+        Stage popupStage = new Stage();
+        popupStage.setTitle("Account modification");
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER);
+        vBox.setSpacing(10);
+        vBox.getChildren().add(new Label("Account successfully modified !"));
+        int width = 300;
+        Button button = new Button("OK");
+        button.setOnMouseClicked(e -> {
+            popupStage.close();
+            onModificationDone();
+        });
+        popupStage.setOnCloseRequest(e -> onModificationDone());
+        vBox.getChildren().add(button);
+        Scene scene = new Scene(vBox, width, 75);
+        popupStage.setScene(scene);
+        popupStage.show();
     }
 
     /**
-     * Change the scene to the main page (PDF and code creation page)
+     * Call when the identification is correct and change the scene.
      */
-    private void goToMainPage() {
+    @Override
+    public void onSuccessfulLoginRequest() {
+        goToProjectScreen();
+    }
+
+    private void goToProjectScreen() {
+        projectSelectionController = new ProjectSelectionController(stage, this);
+        projectSelectionController.show();
+    }
+
+    /**
+     * Change the scene to the main page (PDF and code creation page).
+     *
+     * @param project project the user will be working on
+     */
+    @Override
+    public void goToMainPage(Project project) {
+        Session.getInstance().setCurrentProject(project);
         mainPageController = new MainPageController(stage, this);
         mainPageController.show();
     }
 
     /**
-     * Change the scene when user wants to create an account
+     * Change the scene when user wants to create an account.
      */
     @Override
     public void onAccountCreationRequest() {
@@ -109,7 +146,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
     }
 
     /**
-     * Change the scene to login screen when request is received
+     * Change the scene to login screen when request is received.
      */
     @Override
     public void backToLoginScreenRequest() {
@@ -117,7 +154,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
     }
 
     /**
-     * Disconnect the user and the login screen is loaded
+     * Disconnect the user and the login screen is loaded.
      */
     @Override
     public void logout() {
@@ -126,7 +163,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
     }
 
     /**
-     * Change the scene for account modification screen when request is received
+     * Change the scene for account modification screen when request is received.
      */
     @Override
     public void accountModificationRequest() {
@@ -134,13 +171,12 @@ public class ScreenHandler extends Application implements LoginScreenController.
         accountModificationController.show();
     }
 
-
     /**
-     * Notification from the main page modification button
+     * Notification from the main page modification button.
      */
     @Override
-    public void onModificationDone() {
-        goToMainPage();
-    }
+    public void onModificationDone() { goToProjectScreen(); }
 
+    @Override
+    public void goBackToProjectScreen() { goToProjectScreen(); }
 }

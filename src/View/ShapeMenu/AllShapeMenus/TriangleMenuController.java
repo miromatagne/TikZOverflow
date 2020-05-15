@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * This controller is used to handle the rectangle menu, get the inputs from the texts fields and clear them when it has to
+ * This controller is used to handle the triangle menu, get the inputs from the texts fields and clear them when it
+ * has to.
  */
 
 public class TriangleMenuController extends MenuController implements Initializable {
@@ -41,7 +42,7 @@ public class TriangleMenuController extends MenuController implements Initializa
     private static final double THICKNESS_DEFAULT_VALUE = 50;
 
     /**
-     * Function called when a new menu is selected. It clears the different fields
+     * Function called when a new menu is selected. It clears the different fields.
      */
     @Override
     public void update() {
@@ -57,7 +58,7 @@ public class TriangleMenuController extends MenuController implements Initializa
 
     /**
      * Initialization by adding the different textfield to an array list and adding a listener for slider to see
-     * it value
+     * it value.
      *
      * @param url            URL (not used)
      * @param resourceBundle ResourceBundle(not used)
@@ -75,7 +76,7 @@ public class TriangleMenuController extends MenuController implements Initializa
     }
 
     /**
-     * Get information from all fields
+     * Get information from all fields.
      *
      * @return list of all information
      */

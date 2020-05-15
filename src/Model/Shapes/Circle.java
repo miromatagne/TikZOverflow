@@ -13,13 +13,20 @@ public class Circle extends Node {
         super(xCenter, yCenter);
     }
 
+    /**
+     * Generate TikZ code that creates the shape using the properties.
+     *
+     * @return generated code
+     */
     @Override
     public String generateAndGetTikzCode() {
-        String code = "\\filldraw";
-        code += "[fill={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() + ";blue," + getColor().getBlue() + "}," +
-                "line width=" + getOutlineThickness() / 20 + "] ";
-        code += "(" + getPosX() + "," + getPosY() + ") circle ";
-        code += "(" + radius + ");\n";
+        String code = super.generateAndGetTikzCode();
+        //position of the center of the circle
+        code += "(" + getPosX() + "," + getPosY() + ") ";
+        //position of the label and his content
+        code += "node[color=black, below] at (" + getPosX() + "," + (getPosY()-radius) + "){" + getLabel() +"} ";
+        //radius of the circle
+        code += "circle (" + radius + ");\n";
         return code;
     }
 

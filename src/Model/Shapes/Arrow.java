@@ -16,27 +16,38 @@ public class Arrow extends Link {
         super(origin, destination);
     }
 
+    /**
+     * Generate TikZ code that creates the shape using the properties.
+     *
+     * @return generated code
+     */
     @Override
     public String generateAndGetTikzCode() {
-
+        //Defining the position where the label will be drawn
+        double labelPosY = Math.min(getyOrigin(),getyDestination());
+        double labelPosX;
+        if(labelPosY == getyOrigin()){
+            labelPosX=getxOrigin();
+        }
+        else{
+            labelPosX=getxDestination();
+        }
         String code = "\\draw";
-
         //Arrow
         code += " [arrows={->[length=" + getArrowHeadLength() + "mm, width="
                 + getArrowHeadWidth() + "mm]}";
-
         //Width
         code += " ,line width=" + getStrokeWidth() + "mm";
-
         //Color
-        code += " ,color={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() +
-                ";blue," + getColor().getBlue() + "}]";
-
-        //Draw line Position
+        code += super.getColorTikzCode();
+        //Draw line Position + Label in the Middle
         code += " (" + getxOrigin() + "," + getyOrigin() + ")";
-        code += " --";
-        code += " (" + getxDestination() + "," + getyDestination() + ");\n";
+        code += " -- (" + (getxDestination()+getxOrigin())/2 + "," + (getyDestination()+getyOrigin())/2 + ")" ;
+        code += " -- (" + getxDestination() + "," + getyDestination() + ") ";
+        //label
+        code += "node[color=black, below] at (" + labelPosX + "," + labelPosY + "){" + getLabel() +"}; \n" ;
         return code;
+
     }
 
     public float getArrowHeadLength() {

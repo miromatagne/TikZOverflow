@@ -1,0 +1,17 @@
+Toutes les fonctionnalités demandées par le client ont été correctement implémentées. 
+
+De plus, le code a été amélioré afin de corriger les remarques reçues du professeurs et des assistants.
+Les modifiactions faites dans le code sont détaillées ci-dessous.
+
+De nombreux tests ont été améliorés et certains ont egalement été ajoutés afin de couvrir la plus grande partie du code possible.
+
+Les exceptions ont également été revues; alors qu'avant elles étaient attrapées au niveau des contrôleurs, elles
+remontent à présent jusqu'à la vue afin de pouvoir notifier l'utilisateur. Ensuite, en fonction de l'importance 
+du problème, soit l'utilisateur est simplement informé du fait que sa requête n'a pas pu aboutir, soit l'application
+se ferme. De plus, la fermeture des ressources dans le cas où une exception survient après l'ouverture de ces dernières
+est maintenant géré.
+
+Ensuite, un important refactoring des classes FileHandler et FieldChecker a été effectué afin de mieux respecter le 
+concept de séparation des responsabilités. Ces classes étaient beaucoup trop générales.
+
+Le README et les conventions de nommage ont également été revus.

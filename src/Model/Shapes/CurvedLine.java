@@ -12,6 +12,40 @@ public class CurvedLine extends Link {
         super(xOrigin, yOrigin, xDestination, yDestination);
     }
 
+    /**
+     * Generate TikZ code that creates the shape using the properties.
+     *
+     * @return generated code
+     */
+    @Override
+    public String generateAndGetTikzCode() {
+        //Defining the position where the label will be drawn
+        double labelPosY = Math.min(getyOrigin(),getyDestination());
+        double labelPosX;
+        if(labelPosY == getyOrigin()){
+            labelPosX=getxOrigin();
+        }
+        else{
+            labelPosX=getxDestination();
+        }
+
+        String code = "\\draw";
+        //Width
+        code += " [line width=" + getStrokeWidth() + "mm";
+        //Color
+        code += super.getColorTikzCode();
+        //Starting position
+        code += " (" + getxOrigin() + "," + getyOrigin() + ")";
+        //Curve
+        code += " to[out=" + getCurvedOutAngle() + ",in=" + getCurvedInAngle() + "]";
+        //Ending position
+        code += "(" + getxDestination() + "," + getyDestination() + ") ";
+        //label
+        code += "node[color=black, below] at (" + labelPosX + "," + labelPosY + "){" + getLabel() +"}; \n" ;
+
+        return code;
+    }
+
     public void setCurveOutAngle(float curveOutAngle) {
         this.curveOutAngle = curveOutAngle;
     }
@@ -26,28 +60,5 @@ public class CurvedLine extends Link {
 
     public float getCurvedInAngle() {
         return curveInAngle;
-    }
-
-    @Override
-    public String generateAndGetTikzCode() {
-        String code = "\\draw";
-
-        //Width
-        code += " [line width=" + getStrokeWidth() + "mm";
-
-        //Color
-        code += " ,color={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() + ";blue," + getColor().getBlue() + "}]";
-
-
-        //Starting position
-        code += " (" + getxOrigin() + "," + getyOrigin() + ")";
-
-        //Curve
-        code += " to[out=" + getCurvedOutAngle() + ",in=" + getCurvedInAngle() + "]";
-
-        //Ending position
-        code += "(" + getxDestination() + "," + getyDestination() + ");\n";
-
-        return code;
     }
 }

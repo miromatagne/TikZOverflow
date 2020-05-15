@@ -32,6 +32,7 @@ public class LoginScreenViewController {
 
     /**
      * Change usernameField style. Used when the field switches from valid to invalid and vice-versa.
+     *
      * @param style New style to be applied. Can be "ERROR_STYLE" (highlighted in red), or
      *              "DEFAULT_STYLE".
      */
@@ -58,11 +59,13 @@ public class LoginScreenViewController {
     public void setListener(LoginScreenViewControllerListener listener){
         this.listener = listener;
     }
+
     /**
-     * Interface used to relay information to corresponding controller
+     * Interface used to relay information to corresponding controller.
      */
     public interface LoginScreenViewControllerListener{
         void onLoginAttempt(String username, String password);
+
         void onAccountCreation();
     }
 }
