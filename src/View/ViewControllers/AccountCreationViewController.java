@@ -24,6 +24,9 @@ public class AccountCreationViewController extends AccountViewController {
 
     private AccountCreationViewControllerListener listener;
 
+    public static final String TCU_DEFAULT_STYLE = "-fx-fill: #0077cc";
+    public static final String TCU_ERROR_STYLE = "-fx-fill: red;";
+
     /**
      * Checks every input and highlights wrong ones in red when user clicks on "Create".
      */
@@ -58,10 +61,7 @@ public class AccountCreationViewController extends AccountViewController {
     }
 
     public void setTCUStyle(String style) {
-        switch (style) {
-            case "default": termsAndConditionsText.setStyle("-fx-fill: #0077cc");break;
-            case "red" : termsAndConditionsText.setStyle("-fx-fill: red;");
-        }
+        termsAndConditionsText.setStyle(style);
     }
     /**
      * Interface used to relay view information to a controller.

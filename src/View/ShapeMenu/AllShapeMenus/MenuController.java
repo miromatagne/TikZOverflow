@@ -10,6 +10,10 @@ import java.util.ArrayList;
  */
 
 public abstract class MenuController {
+
+    public static final String ERROR_STYLE =  "-fx-text-box-border: red";
+    public static final String DEFAULT_STYLE =  "";
+
     public abstract void update();
 
     public abstract Color getColor();
@@ -19,4 +23,18 @@ public abstract class MenuController {
     public abstract ArrayList<String> getAllFields();
 
     public abstract ArrayList<TextField> getAllTextFields();
+
+    /**
+     * Sets a style on a given field.
+     *
+     * @param i index of the field in the ArrayList
+     * @param style style to set to the field. Can be ERROR_STYLE or DEFAULT_STYLE
+     */
+    public void setFieldStyle(int i, String style){
+        getAllTextFields().get(i).setStyle(style);
+    }
+
+    public String getText() {
+        return getLabel().getText();
+    }
 }

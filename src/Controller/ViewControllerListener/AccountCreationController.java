@@ -1,7 +1,11 @@
 package Controller.ViewControllerListener;
 
 import Controller.AlertController;
-import Controller.Session;
+import Model.Exceptions.UserAlreadyExistsException;
+import Model.Exceptions.UserHandler.SaveUserCreationException;
+import Model.Exceptions.UserHandler.SetupDirectoryException;
+import Model.User;
+import Model.UserHandler;
 import View.ViewControllers.AccountCreationViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -62,9 +66,9 @@ public class AccountCreationController extends AccountController implements Acco
     public boolean validateInformation(String username, String firstName, String lastName, String email, String password, String passwordConfirmation, boolean isBoxChecked) {
         boolean fieldsOk = super.validateInformation(controller, username, firstName, lastName, email, password, passwordConfirmation);
         if (!isBoxChecked) {
-            controller.setTCUStyle("red");
+            controller.setTCUStyle(AccountCreationViewController.TCU_ERROR_STYLE);
         } else {
-            controller.setTCUStyle("default");
+            controller.setTCUStyle(AccountCreationViewController.TCU_DEFAULT_STYLE);
         }
         return fieldsOk && isBoxChecked;
     }
@@ -140,9 +144,9 @@ public class AccountCreationController extends AccountController implements Acco
      */
     public boolean createAccount(String username, String firstName, String lastName,
                                  String mail, String password) {
-        try  {
-            FileHandler fileHandler = new FileHandler();
-            if (fileHandler.saveUserExists(username)) {//User already exists
+        UserHandler userHandler = UserHandler.getInstance();
+        try {
+            if (userHandler.saveUserExists(username)) {//User already exists
                 return false;
             }
             User newUser = new User();
@@ -151,16 +155,13 @@ public class AccountCreationController extends AccountController implements Acco
             newUser.setLastName(lastName);
             newUser.setPassword(password);
             newUser.setMail(mail);
-            fileHandler.createUserSave(newUser);
+            userHandler.setupSaveUserDirectory(UserHandler.DEFAULT_DIRECTORY);
+            userHandler.createUserSave(newUser);
             return true;
-        } catch (SaveUserCreationException e) {
-            System.err.println("Error while creating an account");
-            e.printStackTrace();
-            e.getCause().printStackTrace();
-        } catch (FileHandlerConstructorException e) {
-            System.err.println("Error while creating the file handler");
-            e.printStackTrace();
-            e.getCause().printStackTrace();
+        } catch (SaveUserCreationException | SetupDirectoryException e) {
+            AlertController.showStageError("Error while creating an account.", "Account creation failed");
+        } catch (UserAlreadyExistsException e) {
+            AlertController.showStageError("Error while creating an account.", "Username is already taken, choose another one.");
         }
         return false;
     }

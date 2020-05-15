@@ -67,9 +67,11 @@ public class MainPageViewController implements Initializable {
     private ImageView movingImage;
     private int movingShapeID;
     private Shape movingShape;
-    private final int imageSize = 50;
-    private final int dragImageOffsetX = 246;
-    private final int dragImageOffsetY = -45;
+
+    private static final int IMAGE_SIZE = 50;
+    private static final int DRAG_IMAGE_OFFSET_X = 246;  // empirical values
+    private static final int DRAG_IMAGE_OFFSET_Y = -45;
+    private static final double SCALE_FACTOR = 0.6;
 
     PredefinedShapesPanelController predefinedShapesPanelController;
     private boolean rightHandMode = true;
@@ -252,10 +254,8 @@ public class MainPageViewController implements Initializable {
      * @param button      Button to bind
      */
     private void bindImageButton(ImageView imageButton, Button button) {
-        //0.6 is an empirical value
-        double scaleFactor = 0.6;
-        imageButton.fitWidthProperty().bind(button.widthProperty().multiply(scaleFactor));
-        imageButton.fitHeightProperty().bind(button.heightProperty().multiply(scaleFactor));
+        imageButton.fitWidthProperty().bind(button.widthProperty().multiply(SCALE_FACTOR));
+        imageButton.fitHeightProperty().bind(button.heightProperty().multiply(SCALE_FACTOR));
     }
 
     /**
@@ -367,8 +367,8 @@ public class MainPageViewController implements Initializable {
     public void createMovingImage(String path) {
         Parent root = listener.getRoot();
         movingImage = new ImageView(path);
-        movingImage.setFitHeight(imageSize);
-        movingImage.setFitWidth(imageSize);
+        movingImage.setFitHeight(IMAGE_SIZE);
+        movingImage.setFitWidth(IMAGE_SIZE);
         ((GridPane) root).getChildren().add(movingImage);
     }
 
@@ -391,7 +391,7 @@ public class MainPageViewController implements Initializable {
         if (movingShape != null) {
             listener.onReleaseShape(x, y, movingShape);
         }
-        compile(); //compile direct after a drop
+        compile(); //compile directly after a drop
 
     }
 
@@ -399,20 +399,14 @@ public class MainPageViewController implements Initializable {
      * This method create an image of the dragged shape if the mouse enters the PDF area.
      */
     public void handleDragEntered() {
-        if (movingShapeID == ShapeFactory.CIRCLE) {
-            createMovingImage("defaultCircle.png");
-        } else if (movingShapeID == ShapeFactory.RECTANGLE) {
-            createMovingImage("defaultRectangle.png");
-        } else if (movingShapeID == ShapeFactory.LINE) {
-            createMovingImage("defaultLine.png");
-        } else if (movingShapeID == ShapeFactory.CURVED_LINE) {
-            createMovingImage("defaultCurvedLine.png");
-        } else if (movingShapeID == ShapeFactory.ARROW) {
-            createMovingImage("defaultArrow.png");
-        } else if (movingShapeID == ShapeFactory.SQUARE) {
-            createMovingImage("defaultSquare.png");
-        } else if (movingShapeID == ShapeFactory.TRIANGLE) {
-            createMovingImage("defaultTriangle.png");
+        switch (movingShapeID){
+            case ShapeFactory.CIRCLE: createMovingImage("defaultCircle.png"); break;
+            case ShapeFactory.RECTANGLE: createMovingImage("defaultRectangle.png"); break;
+            case ShapeFactory.LINE: createMovingImage("defaultLine.png"); break;
+            case ShapeFactory.CURVED_LINE: createMovingImage("defaultCurvedLine.png"); break;
+            case ShapeFactory.ARROW: createMovingImage("defaultArrow.png"); break;
+            case ShapeFactory.SQUARE: createMovingImage("defaultSquare.png"); break;
+            case ShapeFactory.TRIANGLE: createMovingImage("defaultTriangle.png");
         }
     }
 
@@ -433,8 +427,8 @@ public class MainPageViewController implements Initializable {
      */
     public void handleDragOver(DragEvent event) {
         if (movingImage != null) {
-            movingImage.setTranslateX(event.getX() + dragImageOffsetX);
-            movingImage.setTranslateY(event.getY() + dragImageOffsetY);
+            movingImage.setTranslateX(event.getX() + DRAG_IMAGE_OFFSET_X);
+            movingImage.setTranslateY(event.getY() + DRAG_IMAGE_OFFSET_Y);
         }
         event.acceptTransferModes(TransferMode.ANY);
     }

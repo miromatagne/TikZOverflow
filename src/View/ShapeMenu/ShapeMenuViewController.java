@@ -43,6 +43,9 @@ public class ShapeMenuViewController implements Initializable {
     public static final int ARROW = 4;
     static final int NUMBER_OF_MENUS = 6;
 
+    private static final String BLUE = "-fx-fill: #4568d4";
+    private static final String WHITE = "-fx-fill: white";
+
 
     /**
      * Initialize the controller, load and add the different menus to an array list.
@@ -78,9 +81,6 @@ public class ShapeMenuViewController implements Initializable {
      * @param id Id of the menu
      */
     public void changeTextColor(int id) {
-        final String BLUE = "-fx-fill: #4568d4";
-        final String WHITE = "-fx-fill: white";
-
         for (int i = 0; i < NUMBER_OF_MENUS; i++) {
             if (i == id) {
                 allTexts.get(i).setStyle(BLUE);

@@ -39,35 +39,35 @@ public abstract class Link extends Shape {
         return " ,color={rgb,1:red," + getColor().getRed() + ";green," + getColor().getGreen() + ";blue," + getColor().getBlue() + "}]";
     }
 
-    public float getxOrigin() {
+    public float getXOrigin() {
         return xOrigin;
     }
 
-    public void setxOrigin(float xOrigin) {
+    public void setXOrigin(float xOrigin) {
         this.xOrigin = xOrigin;
     }
 
-    public float getyOrigin() {
+    public float getYOrigin() {
         return yOrigin;
     }
 
-    public void setyOrigin(float yOrigin) {
+    public void setYOrigin(float yOrigin) {
         this.yOrigin = yOrigin;
     }
 
-    public float getxDestination() {
+    public float getXDestination() {
         return xDestination;
     }
 
-    public void setxDestination(float xDestination) {
+    public void setXDestination(float xDestination) {
         this.xDestination = xDestination;
     }
 
-    public float getyDestination() {
+    public float getYDestination() {
         return yDestination;
     }
 
-    public void setyDestination(float yDestination) {
+    public void setYDestination(float yDestination) {
         this.yDestination = yDestination;
     }
 
@@ -80,14 +80,14 @@ public abstract class Link extends Shape {
     }
 
     public void setPosX(float x) {
-        float distanceX = getxDestination() - getxOrigin();
-        setxOrigin(x);
-        setxDestination(x + distanceX);
+        float distanceX = getXDestination() - getXOrigin();
+        setXOrigin(x);
+        setXDestination(x + distanceX);
     }
 
     public void setPosY(float y) {
-        float distanceY = getyDestination() - getyOrigin();
-        setyOrigin(y);
-        setyDestination(y + distanceY);
+        float distanceY = getYDestination() - getYOrigin();
+        setYOrigin(y);
+        setYDestination(y + distanceY);
     }
 }

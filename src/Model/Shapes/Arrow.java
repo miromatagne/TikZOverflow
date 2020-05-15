@@ -24,13 +24,13 @@ public class Arrow extends Link {
     @Override
     public String generateAndGetTikzCode() {
         //Defining the position where the label will be drawn
-        double labelPosY = Math.min(getyOrigin(),getyDestination());
+        double labelPosY = Math.min(getYOrigin(), getYDestination());
         double labelPosX;
-        if(labelPosY == getyOrigin()){
-            labelPosX=getxOrigin();
+        if(labelPosY == getYOrigin()){
+            labelPosX= getXOrigin();
         }
         else{
-            labelPosX=getxDestination();
+            labelPosX= getXDestination();
         }
         String code = "\\draw";
         //Arrow
@@ -41,9 +41,9 @@ public class Arrow extends Link {
         //Color
         code += super.getColorTikzCode();
         //Draw line Position + Label in the Middle
-        code += " (" + getxOrigin() + "," + getyOrigin() + ")";
-        code += " -- (" + (getxDestination()+getxOrigin())/2 + "," + (getyDestination()+getyOrigin())/2 + ")" ;
-        code += " -- (" + getxDestination() + "," + getyDestination() + ") ";
+        code += " (" + getXOrigin() + "," + getYOrigin() + ")";
+        code += " -- (" + (getXDestination()+ getXOrigin())/2 + "," + (getYDestination()+ getYOrigin())/2 + ")" ;
+        code += " -- (" + getXDestination() + "," + getYDestination() + ") ";
         //label
         code += "node[color=black, below] at (" + labelPosX + "," + labelPosY + "){" + getLabel() +"}; \n" ;
         return code;

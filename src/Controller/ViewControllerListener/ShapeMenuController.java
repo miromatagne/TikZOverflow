@@ -136,24 +136,22 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
         TextTypeChecker textTypeChecker = new TextTypeChecker();
         ArrayList<String> allFields = allControllers.get(idCurrent).getAllFields();
         ArrayList<Float> allDataInField = new ArrayList<>();
-        String redStyle = "-fx-text-box-border: red";
-        String normalStyle = "";
         for (int i = 0; i < allFields.size(); i++) {
             String tempStringInField = allFields.get(i);
             if (!textTypeChecker.isValidNumber(tempStringInField) || tempStringInField == null) {
                 canAddShape = false;
                 if (i < allControllers.get(idCurrent).getAllTextFields().size()) {
-                    allControllers.get(idCurrent).getAllTextFields().get(i).setStyle(redStyle);
+                    allControllers.get(idCurrent).setFieldStyle(i, MenuController.ERROR_STYLE);
                 }
             } else {
                 allDataInField.add(Float.parseFloat(tempStringInField));
                 if (i < allControllers.get(idCurrent).getAllTextFields().size()) {
-                    allControllers.get(idCurrent).getAllTextFields().get(i).setStyle(normalStyle);
+                    allControllers.get(idCurrent).setFieldStyle(i, MenuController.DEFAULT_STYLE);
                 }
             }
         }
 
-        String label = allControllers.get(idCurrent).getLabel().getText();
+        String label = allControllers.get(idCurrent).getText();
         if (canAddShape) {
             addShape(idCurrent, allDataInField, allControllers.get(idCurrent).getColor(), label);
         }

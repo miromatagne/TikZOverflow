@@ -12,12 +12,12 @@ import java.io.IOException;
  */
 
 public class LatexErrorsHandler extends FileHandler {
-    private static int ERRORS_COUNTER = 0;
-    private static String ERRORS = "";
+    private  int errorsCounter = 0;
+    private  String errors = "";
     private String[] linesLogFile;
     private String syntaxErrorPrefix;
-    private String moduleErrorPrefix = "! LaTeX Error";
-    private String documentError= "*** (job aborted, no legal \\end found)";
+    private final static String MODULE_ERROR_PREFIX = "! LaTeX Error";
+    private final static String DOCUMENT_ERROR = "*** (job aborted, no legal \\end found)";
 
     /**
      * Get the errors in the compiler.
@@ -25,7 +25,7 @@ public class LatexErrorsHandler extends FileHandler {
      * @return string with all the errors that the user let in the compiler
      */
     public String getErrors() {
-        return ERRORS;
+        return errors;
     }
 
     /**
@@ -34,7 +34,7 @@ public class LatexErrorsHandler extends FileHandler {
      * @return quantity of errors that occur in the compiler
      */
     public int getErrorsCounter() {
-        return ERRORS_COUNTER;
+        return errorsCounter;
     }
 
     /**
@@ -67,8 +67,8 @@ public class LatexErrorsHandler extends FileHandler {
      */
     public void errorLogs(String path) throws LogErrorException {
         try {
-            ERRORS = "";
-            ERRORS_COUNTER = 0;
+            errors = "";
+            errorsCounter = 0;
             linesLogFile = super.readInFile(path).split("\n");
             syntaxErrorPrefix = generalErrorsPrefix();
             addErrors();
@@ -88,9 +88,9 @@ public class LatexErrorsHandler extends FileHandler {
                 lineIsError = addErrorLine(s);
 
             } else {
-                if (s.equals(documentError)) {
-                    ERRORS_COUNTER++;
-                    ERRORS += documentError;
+                if (s.equals(DOCUMENT_ERROR)) {
+                    errorsCounter++;
+                    errors += DOCUMENT_ERROR;
                 } else {
                     lineIsError = catchError(s);
                 }
@@ -114,21 +114,21 @@ public class LatexErrorsHandler extends FileHandler {
         while (i<words.length-1) {
             catchFile += words[i];
             catchFile += ":";
-            if (catchFile.equals(syntaxErrorPrefix) || words[i].equals(moduleErrorPrefix)) {
+            if (catchFile.equals(syntaxErrorPrefix) || words[i].equals(MODULE_ERROR_PREFIX)) {
                 lineIsError = true;
-                ERRORS_COUNTER++;
+                errorsCounter++;
                 if(catchFile.equals(syntaxErrorPrefix)){
-                    ERRORS += "line ";
+                    errors += "line ";
                     toAddError = line.split(syntaxErrorPrefix);
                 }
                 else{
-                    toAddError = line.split(moduleErrorPrefix);
+                    toAddError = line.split(MODULE_ERROR_PREFIX);
                     toAddError = toAddError[1].split(":");
                 }
-                ERRORS += toAddError[1];
+                errors += toAddError[1];
                 if(toAddError[1].charAt(toAddError[1].length()-1) == '.'){
                     lineIsError = false;
-                    ERRORS+="\n";
+                    errors +="\n";
                 }
                 i=words.length;
             }
@@ -146,9 +146,9 @@ public class LatexErrorsHandler extends FileHandler {
      */
     private boolean addErrorLine(String line) {
         boolean lineIsError = true;
-        ERRORS += line;
+        errors += line;
         if(line.charAt(line.length()-1) == '.'){
-            ERRORS += "\n";
+            errors += "\n";
             lineIsError=false;
         }
         return lineIsError;

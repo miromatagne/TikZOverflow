@@ -42,6 +42,7 @@ public class LoginScreenViewController {
 
     /**
      * Change passwordField style. Used when the field switches from valid to invalid and vice-versa.
+     *
      * @param style New style to be applied. Can be "ERROR_STYLE" (highlighted in red), or
      *              "DEFAULT_STYLE".
      */

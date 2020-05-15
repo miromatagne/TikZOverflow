@@ -2,8 +2,6 @@ package Controller;
 
 import Controller.Exceptions.Session.SessionOpeningException;
 import Model.Exceptions.ProjectHandler.ProjectLoadException;
-import Model.Exceptions.UserAlreadyExistsException;
-import Model.Exceptions.UserHandler.SaveUserCreationException;
 import Model.Exceptions.UserHandler.SetupDirectoryException;
 import Model.Exceptions.UserHandler.UserFromSaveCreationException;
 import Model.Project;
@@ -115,5 +113,19 @@ public class Session {
         currentUser = null;
     }
 
+    public User getUser() {
+        return currentUser;
+    }
 
+    public void setUser(User newUser) {
+        currentUser = newUser;
+    }
+
+    public Project getCurrentProject() {
+        return currentProject;
+    }
+
+    public void setCurrentProject(Project currentProject) {
+        this.currentProject = currentProject;
+    }
 }

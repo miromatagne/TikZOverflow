@@ -18,6 +18,7 @@ public abstract class AccountViewController {
 
     /**
      * Change usernameField style. Used when the field switches from valid to invalid and vice-versa.
+     *
      * @param style New style to be applied. Can be "ERROR_STYLE" (highlighted in red), or
      *              "DEFAULT_STYLE".
      */
@@ -27,6 +28,7 @@ public abstract class AccountViewController {
 
     /**
      * Change firstNameField style. Used when the field switches from valid to invalid and vice-versa.
+     *
      * @param style New style to be applied. Can be "ERROR_STYLE" (highlighted in red), or
      *              "DEFAULT_STYLE".
      */
@@ -36,6 +38,7 @@ public abstract class AccountViewController {
 
     /**
      * Change lastNameField style. Used when the field switches from valid to invalid and vice-versa.
+     *
      * @param style New style to be applied. Can be "ERROR_STYLE" (highlighted in red), or
      *              "DEFAULT_STYLE".
      */
@@ -45,6 +48,7 @@ public abstract class AccountViewController {
 
     /**
      * Change passwordField style. Used when the field switches from valid to invalid and vice-versa.
+     *
      * @param style New style to be applied. Can be "ERROR_STYLE" (highlighted in red), or
      *              "DEFAULT_STYLE".
      */
@@ -54,6 +58,7 @@ public abstract class AccountViewController {
 
     /**
      * Change passwordConfirmationField style. Used when the field switches from valid to invalid and vice-versa.
+     *
      * @param style New style to be applied. Can be "ERROR_STYLE" (highlighted in red), or
      *              "DEFAULT_STYLE".
      */
@@ -63,6 +68,7 @@ public abstract class AccountViewController {
 
     /**
      * Change emailField style. Used when the field switches from valid to invalid and vice-versa.
+     *
      * @param style New style to be applied. Can be "ERROR_STYLE" (highlighted in red), or
      *              "DEFAULT_STYLE".
      */

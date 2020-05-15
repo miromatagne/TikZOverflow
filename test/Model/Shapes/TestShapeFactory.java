@@ -52,11 +52,11 @@ class TestShapeFactory {
 
         //ARROW
         Arrow a = (Arrow) ShapeFactory.getInstance(ARROW,data,color,label);
-        assertEquals((float) 1.2,a.getxOrigin());
-        assertEquals((float) 15.6,a.getyOrigin());
+        assertEquals((float) 1.2,a.getXOrigin());
+        assertEquals((float) 15.6,a.getYOrigin());
         assertEquals(Color.WHITE,a.getColor());
-        assertEquals((float) 102,a.getxDestination());
-        assertEquals((float) 589,a.getyDestination());
+        assertEquals((float) 102,a.getXDestination());
+        assertEquals((float) 589,a.getYDestination());
         assertEquals((float) 145,a.getStrokeWidth());
         assertEquals((float) 0.456,a.getArrowHeadLength());
         assertEquals((float) 40,a.getArrowHeadWidth());
@@ -64,22 +64,22 @@ class TestShapeFactory {
 
         //CURVED LINE
         CurvedLine cl = (CurvedLine) ShapeFactory.getInstance(CURVED_LINE,data,color,label);
-        assertEquals((float) 1.2,cl.getxOrigin());
-        assertEquals((float) 15.6,cl.getyOrigin());
+        assertEquals((float) 1.2,cl.getXOrigin());
+        assertEquals((float) 15.6,cl.getYOrigin());
         assertEquals(Color.WHITE,cl.getColor());
-        assertEquals((float) 102,cl.getxDestination());
-        assertEquals((float) 589,cl.getyDestination());
+        assertEquals((float) 102,cl.getXDestination());
+        assertEquals((float) 589,cl.getYDestination());
         assertEquals((float) 145,cl.getStrokeWidth());
         assertEquals((float) 0.456,cl.getCurvedOutAngle());
         assertEquals((float) 40,cl.getCurvedInAngle());
 
         //LINE
         Line l = (Line) ShapeFactory.getInstance(LINE,data,color,label);
-        assertEquals((float) 1.2,l.getxOrigin());
-        assertEquals((float) 15.6,l.getyOrigin());
+        assertEquals((float) 1.2,l.getXOrigin());
+        assertEquals((float) 15.6,l.getYOrigin());
         assertEquals(Color.WHITE,l.getColor());
-        assertEquals((float) 102,l.getxDestination());
-        assertEquals((float) 589,l.getyDestination());
+        assertEquals((float) 102,l.getXDestination());
+        assertEquals((float) 589,l.getYDestination());
         assertEquals((float) 145,l.getStrokeWidth());
         assertEquals("Shape", l.getLabel());
 
@@ -118,10 +118,10 @@ class TestShapeFactory {
 
         //ARROW
         Arrow a = (Arrow) ShapeFactory.getDefaultInstance(ARROW);
-        assertEquals((float) 1,a.getxOrigin());
-        assertEquals((float) 1,a.getyOrigin());
-        assertEquals((float) 4,a.getxDestination());
-        assertEquals((float) 4,a.getyDestination());
+        assertEquals((float) 1,a.getXOrigin());
+        assertEquals((float) 1,a.getYOrigin());
+        assertEquals((float) 4,a.getXDestination());
+        assertEquals((float) 4,a.getYDestination());
         assertEquals((float) 1,a.getStrokeWidth());
         assertEquals((float) 5,a.getArrowHeadLength());
         assertEquals((float) 5,a.getArrowHeadWidth());
@@ -129,10 +129,10 @@ class TestShapeFactory {
 
         //CURVED LINE
         CurvedLine cl = (CurvedLine) ShapeFactory.getDefaultInstance(CURVED_LINE);
-        assertEquals((float) 0,cl.getxOrigin());
-        assertEquals((float) 0,cl.getyOrigin());
-        assertEquals((float) 4,cl.getxDestination());
-        assertEquals((float) 4,cl.getyDestination());
+        assertEquals((float) 0,cl.getXOrigin());
+        assertEquals((float) 0,cl.getYOrigin());
+        assertEquals((float) 4,cl.getXDestination());
+        assertEquals((float) 4,cl.getYDestination());
         assertEquals((float) 1,cl.getStrokeWidth());
         assertEquals((float) 90,cl.getCurvedOutAngle());
         assertEquals((float) -90,cl.getCurvedInAngle());
@@ -140,10 +140,10 @@ class TestShapeFactory {
 
         //LINE
         Line l = (Line) ShapeFactory.getDefaultInstance(LINE);
-        assertEquals((float) 0,l.getxOrigin());
-        assertEquals((float) 0,l.getyOrigin());
-        assertEquals((float) 4,l.getxDestination());
-        assertEquals((float) 4,l.getyDestination());
+        assertEquals((float) 0,l.getXOrigin());
+        assertEquals((float) 0,l.getYOrigin());
+        assertEquals((float) 4,l.getXDestination());
+        assertEquals((float) 4,l.getYDestination());
         assertEquals((float) 1,l.getStrokeWidth());
         assertEquals(Color.GREY, l.getColor());
 

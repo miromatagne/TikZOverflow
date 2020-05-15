@@ -40,9 +40,9 @@ class TestArrow {
         Arrow a3 = new Arrow(1,1,3,4);
         a3.setPosX((float)2.1);
         a3.setPosY((float)5.1);
-        assertEquals(2.1,Math.round(a3.getxOrigin() * 100.0) / 100.0);
-        assertEquals(4.1,Math.round(a3.getxDestination() * 100.0) / 100.0);
-        assertEquals(5.1,Math.round(a3.getyOrigin() * 100.0) / 100.0);
-        assertEquals(8.1,Math.round(a3.getyDestination() * 100.0) / 100.0);
+        assertEquals(2.1,Math.round(a3.getXOrigin() * 100.0) / 100.0);
+        assertEquals(4.1,Math.round(a3.getXDestination() * 100.0) / 100.0);
+        assertEquals(5.1,Math.round(a3.getYOrigin() * 100.0) / 100.0);
+        assertEquals(8.1,Math.round(a3.getYDestination() * 100.0) / 100.0);
     }
 }

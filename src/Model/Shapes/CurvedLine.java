@@ -20,13 +20,13 @@ public class CurvedLine extends Link {
     @Override
     public String generateAndGetTikzCode() {
         //Defining the position where the label will be drawn
-        double labelPosY = Math.min(getyOrigin(),getyDestination());
+        double labelPosY = Math.min(getYOrigin(), getYDestination());
         double labelPosX;
-        if(labelPosY == getyOrigin()){
-            labelPosX=getxOrigin();
+        if(labelPosY == getYOrigin()){
+            labelPosX= getXOrigin();
         }
         else{
-            labelPosX=getxDestination();
+            labelPosX= getXDestination();
         }
 
         String code = "\\draw";
@@ -35,11 +35,11 @@ public class CurvedLine extends Link {
         //Color
         code += super.getColorTikzCode();
         //Starting position
-        code += " (" + getxOrigin() + "," + getyOrigin() + ")";
+        code += " (" + getXOrigin() + "," + getYOrigin() + ")";
         //Curve
         code += " to[out=" + getCurvedOutAngle() + ",in=" + getCurvedInAngle() + "]";
         //Ending position
-        code += "(" + getxDestination() + "," + getyDestination() + ") ";
+        code += "(" + getXDestination() + "," + getYDestination() + ") ";
         //label
         code += "node[color=black, below] at (" + labelPosX + "," + labelPosY + "){" + getLabel() +"}; \n" ;
 
