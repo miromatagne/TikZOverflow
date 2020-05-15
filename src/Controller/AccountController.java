@@ -5,7 +5,7 @@ import View.ViewControllers.AccountViewController;
 
 
 /**
- * This abstract class is used for account controllers (create and modification) because they have similarities
+ * This abstract class is used for account controllers (create and modification) because they have similarities.
  */
 public abstract class AccountController {
 
