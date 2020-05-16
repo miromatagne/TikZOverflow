@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -82,7 +82,7 @@ public class ProjectSelectionViewController implements Initializable {
      * Lists all projects of the current user in the TableView.
      */
     private void listProjects() {
-        ArrayList<Project> projects = Session.getInstance().getUserProjects();
+        List<Project> projects = Session.getInstance().getUserProjects();
         for(Project p: projects){
             ProjectDisplay projectDisplay = new ProjectDisplay(p);
             addProjectToDisplay(projectDisplay);

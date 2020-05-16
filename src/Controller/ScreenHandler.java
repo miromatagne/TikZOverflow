@@ -22,10 +22,6 @@ public class ScreenHandler extends Application implements LoginScreenController.
 
     private Stage stage;
     private LoginScreenController loginScreenController;
-    private AccountCreationController accountCreationController;
-    private AccountModificationController accountModificationController;
-    private MainPageController mainPageController;
-    private ProjectSelectionController projectSelectionController;
 
     /**
      * At first, start() loads the login screen.
@@ -120,7 +116,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
     }
 
     private void goToProjectScreen() {
-        projectSelectionController = new ProjectSelectionController(stage, this);
+        ProjectSelectionController projectSelectionController = new ProjectSelectionController(stage, this);
         projectSelectionController.show();
     }
 
@@ -132,7 +128,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
     @Override
     public void goToMainPage(Project project) {
         Session.getInstance().setCurrentProject(project);
-        mainPageController = new MainPageController(stage, this);
+        MainPageController mainPageController = new MainPageController(stage, this);
         mainPageController.show();
     }
 
@@ -141,7 +137,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
      */
     @Override
     public void onAccountCreationRequest() {
-        accountCreationController = new AccountCreationController(stage, this);
+        AccountCreationController accountCreationController = new AccountCreationController(stage, this);
         accountCreationController.show();
     }
 
@@ -167,7 +163,7 @@ public class ScreenHandler extends Application implements LoginScreenController.
      */
     @Override
     public void accountModificationRequest() {
-        accountModificationController = new AccountModificationController(stage, this);
+        AccountModificationController accountModificationController = new AccountModificationController(stage, this);
         accountModificationController.show();
     }
 

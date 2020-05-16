@@ -17,13 +17,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handles shape creation using a popup, and controls interactions with the popup
  */
 public class ShapeMenuController implements MainPageViewController.AddNewShapeButtonListener, ShapeMenuViewController.ShapeMenuViewControllerListener {
-    private final ArrayList<MenuController> allControllers;
-    private final ArrayList<Parent> allShapes;
+    private final List<MenuController> allControllers;
+    private final List<Parent> allShapes;
     private final ShapeMenuViewController shapeMenuViewController;
     private MainPageViewController mainPageViewController;
     private final Stage popUpStage;
@@ -65,7 +66,7 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
      * @param color     Color of the shape
      * @param label     Label of the shape
      */
-    public void addShape(int idCurrent, ArrayList<Float> allData, Color color, String label) {
+    public void addShape(int idCurrent, List<Float> allData, Color color, String label) {
         Shape shape = ShapeFactory.getInstance(idCurrent, allData, color, label);
         mainPageViewController.addShape(shape);
         mainPageViewController.compile();
@@ -134,8 +135,8 @@ public class ShapeMenuController implements MainPageViewController.AddNewShapeBu
     public void verifyShape() {
         boolean canAddShape = true;
         TextTypeChecker textTypeChecker = new TextTypeChecker();
-        ArrayList<String> allFields = allControllers.get(idCurrent).getAllFields();
-        ArrayList<Float> allDataInField = new ArrayList<>();
+        List<String> allFields = allControllers.get(idCurrent).getAllFields();
+        List<Float> allDataInField = new ArrayList<>();
         for (int i = 0; i < allFields.size(); i++) {
             String tempStringInField = allFields.get(i);
             if (!textTypeChecker.isValidNumber(tempStringInField) || tempStringInField == null) {

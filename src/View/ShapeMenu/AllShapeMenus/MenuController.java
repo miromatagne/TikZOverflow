@@ -3,7 +3,7 @@ package View.ShapeMenu.AllShapeMenus;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Abstract class which allows to group all the shape menus controller into one type of instance.
@@ -20,9 +20,9 @@ public abstract class MenuController {
 
     public abstract TextField getLabel();
 
-    public abstract ArrayList<String> getAllFields();
+    public abstract List<String> getAllFields();
 
-    public abstract ArrayList<TextField> getAllTextFields();
+    public abstract List<TextField> getAllTextFields();
 
     /**
      * Sets a style on a given field.

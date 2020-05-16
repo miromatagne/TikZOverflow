@@ -3,6 +3,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -14,7 +15,7 @@ public class Project {
     private String title;
     private String creatorUsername;
 
-    private ArrayList<String> collaboratorsUsernames;
+    private List<String> collaboratorsUsernames;
     private Date creationDate;
     private Date lastModificationDate;
     private String code;
@@ -41,7 +42,7 @@ public class Project {
      * @param collaborators        list of collaborators
      * @param path                 project path
      */
-    public Project(String creatorUsername, String title, Date creationDate, Date lastModificationDate, ArrayList<String> collaborators, String path){
+    public Project(String creatorUsername, String title, Date creationDate, Date lastModificationDate, List<String> collaborators, String path){
         setCreatorUsername(creatorUsername);
         setTitle(title);
         setCreationDate(creationDate);
@@ -81,7 +82,7 @@ public class Project {
         return creatorUsername;
     }
 
-    public ArrayList<String> getCollaboratorsUsernames() {
+    public List<String> getCollaboratorsUsernames() {
         return collaboratorsUsernames;
     }
 

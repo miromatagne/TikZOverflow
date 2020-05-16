@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -37,7 +38,7 @@ public class TriangleMenuController extends MenuController implements Initializa
     private ColorPicker colorPicker;
     @FXML
     private TextField labelTextField;
-    private final ArrayList<TextField> allTextFields = new ArrayList<>();
+    private final List<TextField> allTextFields = new ArrayList<>();
 
     private static final double THICKNESS_DEFAULT_VALUE = 50;
 
@@ -81,7 +82,7 @@ public class TriangleMenuController extends MenuController implements Initializa
      * @return list of all information
      */
     @Override
-    public ArrayList<String> getAllFields() {
+    public List<String> getAllFields() {
         ArrayList<String> returnValue = new ArrayList<>();
         for (TextField textField : allTextFields) {
             returnValue.add(textField.getText());
@@ -91,7 +92,7 @@ public class TriangleMenuController extends MenuController implements Initializa
     }
 
     @Override
-    public ArrayList<TextField> getAllTextFields() {
+    public List<TextField> getAllTextFields() {
         return allTextFields;
     }
 

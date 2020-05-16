@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -30,7 +31,7 @@ public class LineMenuController extends MenuController implements Initializable 
     @FXML
     private TextField labelTextField;
 
-    private final ArrayList<TextField> allTextFields = new ArrayList<>();
+    private final List<TextField> allTextFields = new ArrayList<>();
 
     /**
      * Function called when a new menu is selected. It clears the different fields.
@@ -69,7 +70,7 @@ public class LineMenuController extends MenuController implements Initializable 
      * @return list of all information
      */
     @Override
-    public ArrayList<String> getAllFields() {
+    public List<String> getAllFields() {
         ArrayList<String> returnValue = new ArrayList<>();
         for (TextField textField : allTextFields) {
             returnValue.add(textField.getText());
@@ -78,7 +79,7 @@ public class LineMenuController extends MenuController implements Initializable 
     }
 
     @Override
-    public ArrayList<TextField> getAllTextFields() {
+    public List<TextField> getAllTextFields() {
         return allTextFields;
     }
 

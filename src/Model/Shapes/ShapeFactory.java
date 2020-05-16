@@ -3,6 +3,7 @@ package Model.Shapes;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Factory to create instance of shape.
@@ -30,7 +31,7 @@ public final class ShapeFactory {
      * @param label Label of the shape
      * @return Instance of shape
      */
-    public static Shape getInstance(int id, ArrayList<Float> data, Color color, String label) {
+    public static Shape getInstance(int id, List<Float> data, Color color, String label) {
         Shape instance = null;
         switch (id) {
             case RECTANGLE:

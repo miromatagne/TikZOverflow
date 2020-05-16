@@ -7,7 +7,7 @@ package Model.Shapes;
 public class Circle extends Node {
     private float radius;
 
-    private final double positionOffsetFactor = 0.7; //factor to get the circle closer to the mouse on the drop event
+    private final static double POSITION_OFFSET_FACTOR = 0.7; //factor to get the circle closer to the mouse on the drop event
 
     public Circle(float xCenter, float yCenter) {
         super(xCenter, yCenter);
@@ -40,11 +40,11 @@ public class Circle extends Node {
 
     @Override
     public void setPosX(float x) {
-        setXCenter((float) (x + radius * positionOffsetFactor));
+        setXCenter((float) (x + radius * POSITION_OFFSET_FACTOR));
     }
 
     @Override
     public void setPosY(float y) {
-        setYCenter((float) (y + radius * positionOffsetFactor));
+        setYCenter((float) (y + radius * POSITION_OFFSET_FACTOR));
     }
 }

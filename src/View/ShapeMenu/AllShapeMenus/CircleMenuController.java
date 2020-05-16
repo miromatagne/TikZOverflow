@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -34,7 +35,7 @@ public class CircleMenuController extends MenuController implements Initializabl
 
     private static final double THICKNESS_DEFAULT_VALUE = 50;
 
-    private final ArrayList<TextField> allTextFields = new ArrayList<>();
+    private final List<TextField> allTextFields = new ArrayList<>();
 
 
     /**
@@ -74,7 +75,7 @@ public class CircleMenuController extends MenuController implements Initializabl
      *
      * @return list of all information
      */
-    public ArrayList<String> getAllFields() {
+    public List<String> getAllFields() {
         ArrayList<String> returnValue = new ArrayList<>();
         for (TextField textField : allTextFields) {
             returnValue.add(textField.getText());
@@ -84,7 +85,7 @@ public class CircleMenuController extends MenuController implements Initializabl
     }
 
     @Override
-    public ArrayList<TextField> getAllTextFields() {
+    public List<TextField> getAllTextFields() {
         return allTextFields;
     }
 
