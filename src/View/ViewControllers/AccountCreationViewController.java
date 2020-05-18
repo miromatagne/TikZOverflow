@@ -63,6 +63,7 @@ public class AccountCreationViewController extends AccountViewController {
     public void setTCUStyle(String style) {
         termsAndConditionsText.setStyle(style);
     }
+
     /**
      * Interface used to relay view information to a controller.
      */

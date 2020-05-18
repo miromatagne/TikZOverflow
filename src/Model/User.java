@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class to model a user.
@@ -13,7 +14,7 @@ public class User {
     private String firstName = "";
     private String password = "";
     private String mail = "";
-    private ArrayList<String> projectPaths = new ArrayList<>();
+    private List<String> projectPaths = new ArrayList<>();
 
     public String getUsername() {
         return username;
@@ -55,13 +56,9 @@ public class User {
         this.password = password;
     }
 
-    public ArrayList<String> getProjectPaths() {
-        return projectPaths;
-    }
+    public List<String> getProjectPaths() { return projectPaths; }
 
-    public void setProjectPaths(ArrayList<String> projectPaths) {
-        this.projectPaths = projectPaths;
-    }
+    public void setProjectPaths(List<String> projectPaths) { this.projectPaths = projectPaths; }
 
     public void addProject(String path) {
         projectPaths.add(path);

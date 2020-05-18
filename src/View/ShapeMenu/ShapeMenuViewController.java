@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -38,7 +39,7 @@ public class ShapeMenuViewController implements Initializable {
 
     private ShapeMenuViewControllerListener listener;
 
-    private final ArrayList<Text> allTexts = new ArrayList<>();
+    private final List<Text> allTexts = new ArrayList<>();
 
     public static final int ARROW = 4;
     static final int NUMBER_OF_MENUS = 6;

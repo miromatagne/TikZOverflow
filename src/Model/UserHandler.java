@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * This class is used to handle interactions with user files.
@@ -85,7 +86,7 @@ public class UserHandler extends FileHandler{
         text += "username:" + user.getUsername() + "\n";
         text += "mail:" + user.getMail() + "\n";
         text += "password:" + user.getPassword() + "\n";
-        ArrayList<String> projectPaths = user.getProjectPaths();
+        List<String> projectPaths = user.getProjectPaths();
         text += "projects:" + String.join(",", projectPaths) + "\n";
         return text;
     }

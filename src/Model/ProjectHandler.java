@@ -9,10 +9,7 @@ import Model.Exceptions.UserHandler.UserFromSaveCreationException;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 
 /**
@@ -157,7 +154,7 @@ public class ProjectHandler extends FileHandler {
     public void deleteProject(Project project) throws ProjectDeletionException {
         try {
             String pathProperties = project.getPath();
-            ArrayList<String> collaboratorsUsernames = project.getCollaboratorsUsernames();
+            List<String> collaboratorsUsernames = project.getCollaboratorsUsernames();
             String creatorUsername = project.getCreatorUsername();
             UserHandler userHandler = UserHandler.getInstance();
             File file = new File(pathProperties);

@@ -22,7 +22,7 @@ public abstract class AccountController {
      * @return TRUE if all fields are  valid
      * FALSE otherwise
      */
-    public boolean validateInformation(AccountViewController controller ,String username, String firstName, String lastName, String email, String password, String passwordConfirmation) {
+    public boolean validateInformation(AccountViewController controller, String username, String firstName, String lastName, String email, String password, String passwordConfirmation) {
         FieldChecker fieldChecker = new FieldChecker();
         if (!fieldChecker.isValidUsername(username)) {
             controller.setUsernameFieldStyle(AccountViewController.ERROR_STYLE);

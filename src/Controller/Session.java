@@ -10,6 +10,7 @@ import Model.User;
 import Model.UserHandler;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class that controls the current session, including the logging in, the logging out
@@ -92,7 +93,7 @@ public class Session {
      *
      * @return ArrayList containing the user's projects
      */
-    public ArrayList<Project> getUserProjects(){
+    public List<Project> getUserProjects(){
         ArrayList<Project> userProjects = new ArrayList<>();
         for(String projectPath:currentUser.getProjectPaths()){
             try {
