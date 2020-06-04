@@ -135,7 +135,52 @@ public class Triangle extends Node {
 
 Cette méthode permet de positionner un triangle par une position (x, y). Il faut dès lors modifier les positions des trois sommets. 
 Le problème est que les fonctions setPosX et setPosY ne respectent pas la convention “single-responsibility”.
-Le code a été corrigé, voir la classe Triangle.java (dans le commit : 20686659bc07936a83bc5721931eb732b57d36fe).
+Le code a été corrigé comme suit, voir la classe Triangle.java (dans le commit : 20686659bc07936a83bc5721931eb732b57d36fe).
+
+```java
+@Override
+    public void setPosX(float x) {
+        setPosX2(x);
+        setPosX3(x);
+        setPosX1(x);
+    }
+
+    public void setPosX1(float x){
+        x1 = x;
+    }
+
+    public void setPosX2(float x){
+        float distance12 = getX2() - getX1();
+        x2 = x + distance12;
+    }
+
+    public void setPosX3(float x){
+        float distance13 = getX3() - getX1();
+        x3 = x + distance13;
+    }
+
+
+    @Override
+    public void setPosY(float y) {
+        setPosY2(y);
+        setPosY3(y);
+        setPosY1(y);
+    }
+
+    public void setPosY1(float y){
+        y1 = y;
+    }
+
+    public void setPosY2(float y){
+        float distance12 = getY2() - getY1();
+        y2 = y + distance12;
+    }
+
+    public void setPosY3(float y){
+        float distance13 = getY3() - getY1();
+        y3 = y + distance13;
+    }
+```
 
 
 ## Question 4 : Qualité de code
