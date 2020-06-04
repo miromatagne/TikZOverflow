@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane fx:id="gridPaneAddShape" prefHeight="400.0" prefWidth="533.0" style="-fx-background: #404040;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.ShapeMenu.ShapeMenuViewController">
+   <rowConstraints>
+      <RowConstraints maxHeight="60.0" minHeight="10.0" percentHeight="181.0" prefHeight="28.0" />
+      <RowConstraints maxHeight="60.0" minHeight="10.0" percentHeight="19.0" prefHeight="30.0" />
+   </rowConstraints>
+   <columnConstraints>
+      <ColumnConstraints maxWidth="194.0" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
+      <ColumnConstraints maxWidth="107.0" minWidth="6.0" percentWidth="80.0" prefWidth="100.0" />
+   </columnConstraints>
+   <ScrollPane hbarPolicy="NEVER" prefHeight="387.0" prefWidth="107.0" style="-fx-control-inner-background: transparent;-fx-focus-traversable: false;-fx-background-color: transparent;-fx-background: #404040;" GridPane.rowSpan="2">
+      <VBox prefHeight="397.0" prefWidth="105.0" spacing="5.0" style="-fx-focus-traversable: false;">
+         <Text fx:id="arrowText" onMouseClicked="#changeMenu" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Arrow" userData="4" wrappingWidth="36.13671875">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Text>
+         <Text fx:id="circleText" onMouseClicked="#changeMenu" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Circle" userData="1" wrappingWidth="36.13671875">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Text>
+         <Text fx:id="curvedLineText" onMouseClicked="#changeMenu" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Curved line" userData="3" wrappingWidth="65.13671875">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Text>
+         <Text fx:id="lineText" onMouseClicked="#changeMenu" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Line" userData="2" wrappingWidth="31.62109375">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Text>
+         <Text fx:id="rectangleText" onMouseClicked="#changeMenu" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Rectangle" userData="0" wrappingWidth="58.13671875">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Text>
+         <Text fx:id="triangleText" onMouseClicked="#changeMenu" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: white;" text="Triangle" userData="5" wrappingWidth="58.13671875">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Text>
+      </VBox>
+   </ScrollPane>
+   <SubScene fx:id="shapeScene" fill="#c8caca" height="362.0" width="426.0" GridPane.columnIndex="1">
+      <root>
+         <Region />
+      </root>
+   </SubScene>
+   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #c8caca;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <padding>
+         <Insets right="15.0" />
+      </padding>
+      <Button mnemonicParsing="false" onMouseClicked="#confirmShape" text="Confirm" />
+   </HBox>
+</GridPane>

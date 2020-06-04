@@ -1,0 +1,19 @@
+% Preamble
+\documentclass{article}
+\pagenumbering{gobble}
+
+% Packages
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+
+% Document
+\begin{document}
+    \begin{tikzpicture}[remember picture, overlay, shift={(-4,-15)}]
+	\node (h) at (0,0) {Hllo};
+	\node (w) at (2,3) {orld};
+	\draw (h) edge (w);
+	\draw [arrows={->[length=5.0mm, width=5.0mm]} ,line width=1.0mm ,color={rgb,1:red,0.501960813999176;green,0.501960813999176;blue,0.501960813999176}] (9.1957035,13.444987) -- (12.1957035,16.444988);
+	\draw [line width=1.0mm ,color={rgb,1:red,0.501960813999176;green,0.501960813999176;blue,0.501960813999176}] (3.9337294,10.390386) -- (7.933729,14.390386);
+	\filldraw[fill={rgb,1:red,0.501960813999176;green,0.501960813999176;blue,0.501960813999176},line width=0.15] (10.995338,10.096674) --(12.995338,13.096674) --(15.995338,10.096674) -- cycle;
+    \end{tikzpicture}
+\end{document}

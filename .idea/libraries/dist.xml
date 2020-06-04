@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="dist">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/g08-iteration-3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/g08-iteration-2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/dist/g08-iteration-1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

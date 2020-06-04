@@ -1,0 +1,16 @@
+.menuButton{
+    -fx-font-weight: BOLD;
+    -fx-font-size: 14;
+    -fx-padding:1.0em 2.0em;
+    -fx-margin:0 0.3em 0.3em 0;
+    -fx-border-radius:0.05em;
+    -fx-text-fill: white;
+    -fx-background-color:#B4B4B4;
+    -fx-background-insets: 5 5 5 5;
+    -fx-text-align:center;
+    -fx-cursor: hand;
+}
+
+.menuButton:hover{
+    -fx-background-color:#949494;
+}
