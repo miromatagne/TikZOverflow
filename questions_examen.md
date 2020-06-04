@@ -338,6 +338,7 @@ public class LatexErrorsHandler extends FileHandler {
 }
 
 ```
+Le rôle de cette classe est de lire dans un fichier d’extension “.log” qui contient toutes les informations relatives à une compilation du projet Latex. Plus spécifiquement, il cherche tous les messages d’erreurs survenus lors d’une compilation. La recherche des messages d’erreur se fait en analysant le début d’une ligne car ils ont en effet des préfixes définis que l’on répertorie dans les variables globales de la classe.
 ## Question 5 : Tests et Test Driven Development
 
 Quels sont les problèmes avec cette classe de test, en relation à la méthodologie vue en cours ? Comment auriez-vous pu améliorer cette classe de test à partir de la phase de conception ? 
