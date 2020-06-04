@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class LatexErrorsHandler extends FileHandler {
     private  int errorsCounter = 0;
-    private  String errors = "";
+    private String errors = "";
     private String[] linesLogFile;
     private String syntaxErrorPrefix;
     private final static String MODULE_ERROR_PREFIX = "! LaTeX Error";
@@ -42,16 +42,16 @@ public class LatexErrorsHandler extends FileHandler {
      *
      * @return the global prefix of an error message in the .log file
      */
-    public String generalErrorsPrefix(){
+    private String formatPath() {
         String[] allDirectories;
         String path = Controller.Session.getInstance().getCurrentProject().getPath() + File.separator + Session.getInstance().getCurrentProject().getTitle() + ".tex";
         allDirectories = path.split("\\\\");
         String errorsLogPath = "";
-        for(int i = 0; i < allDirectories.length; i++){
+        for(int i = 0; i < allDirectories.length; i++) {
             errorsLogPath+=allDirectories[i];
             if(i<allDirectories.length-1){
                 errorsLogPath+="/";
-            }else {
+            } else {
                 errorsLogPath+=":";
             }
         }
@@ -70,7 +70,7 @@ public class LatexErrorsHandler extends FileHandler {
             errors = "";
             errorsCounter = 0;
             linesLogFile = super.readInFile(path).split("\n");
-            syntaxErrorPrefix = generalErrorsPrefix();
+            syntaxErrorPrefix = formatPath();
             addErrors();
         } catch (IOException e) {
             throw new LogErrorException(e);
@@ -81,7 +81,7 @@ public class LatexErrorsHandler extends FileHandler {
      * An error in the log file can be written on multiple lines and this method manage to catch errors and add if the
      * error is on multiple lines.
      */
-    private void addErrors(){
+    private void addErrors() {
         boolean lineIsError = false;
         for (String s : linesLogFile) {
             if (lineIsError) {
@@ -92,20 +92,20 @@ public class LatexErrorsHandler extends FileHandler {
                     errorsCounter++;
                     errors += DOCUMENT_ERROR;
                 } else {
-                    lineIsError = catchError(s);
+                    lineIsError = formatErrors(s);
                 }
             }
         }
     }
 
     /**
-     * Looks for errors in the .log file.
+     * Looks for errors in the .log file, and formats it to be shown to the user.
      *
      * @param line          line to check if it is an error message
      * @return TRUE if the line is an error message
      *         FALSE otherwise
      */
-    private boolean catchError(String line) {
+    private boolean formatErrors(String line) {
         String[] words = line.split(":");
         String[] toAddError;
         String catchFile = "";
@@ -126,7 +126,7 @@ public class LatexErrorsHandler extends FileHandler {
                     toAddError = toAddError[1].split(":");
                 }
                 errors += toAddError[1];
-                if(toAddError[1].charAt(toAddError[1].length()-1) == '.'){
+                if(toAddError[1].charAt(toAddError[1].length()-1) == '.') {
                     lineIsError = false;
                     errors +="\n";
                 }
@@ -147,7 +147,7 @@ public class LatexErrorsHandler extends FileHandler {
     private boolean addErrorLine(String line) {
         boolean lineIsError = true;
         errors += line;
-        if(line.charAt(line.length()-1) == '.'){
+        if(line.charAt(line.length()-1) == '.') {
             errors += "\n";
             lineIsError=false;
         }
