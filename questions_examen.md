@@ -323,9 +323,9 @@ class TestTriangle {
 
 La méthodologie vue en cours, le “test-driven development”, consiste à créer des tests lors de la conception de nouvelles classes ou méthodes et de développer le code afin que ceux-ci soient valides. De plus, chaque fonction testée doit l’être de façon unitaire.
 
-On remarque que la test “setPos()” ne teste pas une mais bien deux méthodes de la classe Triangle. En effet, la méthode “setPosX()” et “setPosY()” ne possèdent pas de tests séparés, ce qui fait que le seul endroit où elles sont testées est dans ce test commun. Ce test n’est donc pas unitaire. Nous avons fait une erreur lors de la phase de conception car nous n’avons pas divisé cette tâche en tâches atomiques. Le fait de n’avoir que des test unitaires permet d’identifier directement quelle action est erronée ou bien voir où se situe une potentielle erreur. Avoir plein de fonctions testées dans un seul test ne peut que mener à une confusion sur la responsabilité de l’erreur si le test échoue.
+On remarque que la test “setPos()” ne teste pas une mais bien deux méthodes de la classe Triangle. En effet, la méthode “setPosX()” et “setPosY()” ne possèdent pas de tests séparés, ce qui fait que le seul endroit où elles sont testées est dans ce test commun. Ce test n’est donc pas unitaire. Nous avons fait une erreur lors de la phase de conception car nous n’avons pas divisé cette tâche en tâches atomiques. Malheureusement, cette erreur est également présente chez Arrow et Rectangle. Le fait de n’avoir que des test unitaires permet d’identifier directement quelle action est erronée ou bien voir où se situe une potentielle erreur. Avoir plein de fonctions testées dans un seul test ne peut que mener à une confusion sur la responsabilité de l’erreur si le test échoue.
 
-Afin d’améliorer cela, nous aurions dû dès le début diviser de façon itérative ce test en différentes sous-tâches jusqu’à n’obtenir que des tâches atomiques. Une telle décomposition est indiquée ci-dessous.
+Afin d’améliorer cela, nous aurions dû dès le début diviser de façon itérative ce test en différentes sous-tâches jusqu’à n’obtenir que des tâches atomiques. Une telle décomposition est indiquée ci-dessous. Ces corrections ont également été apportées dans les fichiers de test correspondant, c'est-à-dire "TestArrow.java", "TestRectangle.java" et "TestTriangle.java".
 
 ```java
 /**
