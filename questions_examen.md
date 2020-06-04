@@ -348,7 +348,7 @@ Les erreurs reprérées dans cette classe sont :
 
 -certaines méthodes n'avaient pas un nom très explicite, elles ont été renommées.
 
--certaines règles de codage n'ont pas été respectées, comme les espaces avant les accolades, etc... Les modifications nécessaires ont été apportées.
+-certaines règles de codage n'ont pas été respectées, comme les espaces avant les accolades, etc. Les modifications nécessaires ont été apportées.
 
 Les modifications sont indiquées ci-dessous, mais ont également été appliquées sur la branche master.
 
