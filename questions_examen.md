@@ -133,7 +133,7 @@ public class Triangle extends Node {
 
 ```
 
-Ces méthodes, "setPosX()" et "setposY()", permettent de positionner un triangle par une position (x, y). Il faut dès lors modifier les positions des trois sommets. 
+Ces méthodes, "setPosX()" et "setPosY()", permettent de positionner un triangle par une position (x, y). Il faut dès lors modifier les positions des trois sommets. 
 Le problème est que les fonctions setPosX et setPosY ne respectent pas la convention “single-responsibility”.
 Le code a été corrigé comme suit. Les changements ont également été effectués dans le fichier "Triangle.java".
 
@@ -344,7 +344,7 @@ Cette classe a été créée suite à la remarque lors de l'itération 3 concern
 
 Les erreurs reprérées dans cette classe sont :
 
--la méthode generalErrorPrefix() était en public alors qu'elle n'était utilisée que dans cette classe, nous l'avons donc changée en private pour ne pas violer l'encapsulation.
+-la méthode generalErrorsPrefix() était en public alors qu'elle n'était utilisée que dans cette classe, nous l'avons donc changée en private pour ne pas violer l'encapsulation.
 
 -certaines méthodes n'avaient pas un nom très explicite, elles ont été renommées.
 
