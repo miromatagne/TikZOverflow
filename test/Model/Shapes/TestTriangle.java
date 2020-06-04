@@ -22,15 +22,21 @@ class TestTriangle {
     }
 
     @Test
-    void setPos() {
+    void setPosX() {
         Triangle t = new Triangle(1,1,6,5,3,2);
         t.setPosX((float)6.4);
-        t.setPosY((float)7.9);
         assertEquals(6.4,Math.round(t.getX1() * 100.0) / 100.0);
         assertEquals(11.4,Math.round(t.getX2() * 100.0) / 100.0);
         assertEquals(8.4,Math.round(t.getX3() * 100.0) / 100.0);
+    }
+
+    @Test
+    void setPosY() {
+        Triangle t = new Triangle(1,1,6,5,3,2);
+        t.setPosY((float)7.9);
         assertEquals(7.9,Math.round(t.getY1() * 100.0) / 100.0);
         assertEquals(11.9,Math.round(t.getY2() * 100.0) / 100.0);
         assertEquals(8.9,Math.round(t.getY3() * 100.0) / 100.0);
     }
+
 }
