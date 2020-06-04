@@ -343,8 +343,11 @@ Le rôle de cette classe est de lire dans un fichier d’extension “.log” qu
 Cette classe a été créée suite à la remarque lors de l'itération 3 concernant la multi-responsabilité de la classe FileHandler. Elle a donc été séparée en plusieurs classes à responsabilités uniques, dont LatexErrorsHandler, qui s'occupe exclusivement du fichier concernant les erreurs de compilation. 
 
 Les erreurs reprérées dans cette classe sont :
+
 -la méthode generalErrorPrefix() était en public alors qu'elle n'était utilisée que dans cette classe, nous l'avons donc changée en private pour ne pas violer l'encapsulation.
+
 -certaines méthodes n'avaient pas un nom très explicite, elles ont été renommées.
+
 -certaines règles de codage n'ont pas été respectées, comme les espaces avant les accolades, etc... Les modifications nécessaires ont été apportées.
 
 Les modifications sont indiquées ci-dessous, mais ont également été appliquées sur la branche master.
