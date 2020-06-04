@@ -24,11 +24,16 @@ class TestRectangle {
     }
 
     @Test
-    public void setPos() {
+    public void setPosX() {
         Rectangle r = new Rectangle(1,5);
         r.setPosX((float)4.1);
-        r.setPosY((float) 9.5);
         assertEquals(4.1,Math.round(r.getXCenter() * 100.0) / 100.0);
+    }
+
+    @Test
+    public void setPosY() {
+        Rectangle r = new Rectangle(1,5);
+        r.setPosY((float) 9.5);
         assertEquals(9.5,Math.round(r.getYCenter() * 100.0) / 100.0);
     }
 }
