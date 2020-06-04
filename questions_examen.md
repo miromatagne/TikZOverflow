@@ -135,7 +135,7 @@ public class Triangle extends Node {
 
 Ces méthodes, "setPosX()" et "setposY()", permettent de positionner un triangle par une position (x, y). Il faut dès lors modifier les positions des trois sommets. 
 Le problème est que les fonctions setPosX et setPosY ne respectent pas la convention “single-responsibility”.
-Le code a été corrigé comme suit. Les changements ont également été effectué dans le fichier "Triangle.java".
+Le code a été corrigé comme suit. Les changements ont également été effectués dans le fichier "Triangle.java".
 
 ```java
     @Override
