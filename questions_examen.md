@@ -353,7 +353,7 @@ class TestTriangle {
         assertEquals(8.4,Math.round(t.getX3() * 100.0) / 100.0);
     }
 
-@Test
+    @Test
     void setPosY() {
         Triangle t = new Triangle(1,1,6,5,3,2);
         t.setPosY((float)7.9);
